@@ -11,12 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Database.cpp" />
-    <ClCompile Include="DatabaseManager.cpp" />
     <ClCompile Include="Source\Audio\AudioPlayer.cpp" />
-    <ClCompile Include="Source\BaseDatabase.cpp" />
     <ClCompile Include="Source\CameraBase.cpp" />
     <ClCompile Include="Source\Collider\Collider.cpp" />
+    <ClCompile Include="Source\Database.cpp" />
+    <ClCompile Include="Source\DatabaseManager.cpp" />
     <ClCompile Include="Source\EntityBase.cpp" />
     <ClCompile Include="Source\GraphicsManager.cpp" />
     <ClCompile Include="Source\KeyboardController.cpp" />
@@ -48,9 +47,10 @@
     <ClInclude Include="DatabaseManager.h" />
     <ClInclude Include="Source\Audio\AudioPlayer.h" />
     <ClInclude Include="Source\Audio\sound.h" />
-    <ClInclude Include="Source\BaseDatabase.h" />
     <ClInclude Include="Source\CameraBase.h" />
     <ClInclude Include="Source\Collider\Collider.h" />
+    <ClInclude Include="Source\Database.h" />
+    <ClInclude Include="Source\DatabaseManager.h" />
     <ClInclude Include="Source\EntityBase.h" />
     <ClInclude Include="Source\GraphicsManager.h" />
     <ClInclude Include="Source\KeyboardController.h" />

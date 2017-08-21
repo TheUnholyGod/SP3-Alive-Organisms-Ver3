@@ -1,8 +1,8 @@
 #ifndef _DATABASEMANAGER_H
 #define _DATABASEMANAGER_H
 
-#include "Source\SingletonTemplate.h"
-#include "Source\BaseDatabase.h"
+#include "../Source/SingletonTemplate.h"
+#include "BaseDatabase.h"
 
 #include <map>
 #include <string>

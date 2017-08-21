@@ -1,7 +1,7 @@
 #include "BaseDatabase.h"
 #include "Loader.h"
 #include "TileMaker.h"
-#include "../DatabaseManager.h"
+#include "DatabaseManager.h"
 
 template <class Key, class Object>
 inline BaseDatabase<Key, Object>::BaseDatabase(const std::string& name, const std::string& filePath)
