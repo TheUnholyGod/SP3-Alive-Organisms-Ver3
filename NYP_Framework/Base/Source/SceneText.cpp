@@ -302,8 +302,8 @@ void SceneText::Render()
 	// Setup 3D pipeline then render 3D
 	GraphicsManager::GetInstance()->SetPerspectiveProjection(45.0f, 4.0f / 3.0f, 0.1f, 10000.0f);
 	GraphicsManager::GetInstance()->AttachCamera(Player::GetInstance()->getCamera());
-	EntityManager::GetInstance()->Render();
 	Player::GetInstance()->Render();
+	EntityManager::GetInstance()->Render();
 
 	// Setup 2D pipeline then render 2D
 	int halfWindowWidth = Application::GetInstance().GetWindowWidth() / 2;
