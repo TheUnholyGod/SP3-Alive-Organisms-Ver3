@@ -24,6 +24,7 @@ struct Coord2D
 
 	//Used to compare Coord2D
 	bool operator == (const Coord2D& coordinates_);
+	Coord2D operator - (const Coord2D& coordinates_);
 };
 
 struct Node

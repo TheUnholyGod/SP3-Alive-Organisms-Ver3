@@ -101,6 +101,9 @@ void EnemyMelee::Move()
 {
 	m_velocity.SetZero();
 
+	//Dont move when path nodes are empty
+	if (m_path.empty())	return;
+
 	//Check if enemy is already at node
 	if (!m_path.empty())
 	{
@@ -111,36 +114,36 @@ void EnemyMelee::Move()
 			if(m_path_index + 1 < m_path.size())
 				++m_path_index;
 		}
+		else
+		{
+			std::cout << "Traveling towards: (" << m_path[m_path_index].x << ", " << m_path[m_path_index].y << ")" << std::endl;
+		}
 	}	
 
-	//Dont move when path nodes are empty
-	if (m_path.empty())	return;
 
-	std::cout << "Traveling towards: (" << m_path[m_path_index].x << ", " << m_path[m_path_index].y << ")" <<std::endl;
+	//Check direction of next node
+	if (m_path.size() <= m_path_index + 1) return;
+	Coord2D dir = m_path[m_path_index] - m_path[m_path_index + 1];
 
-	//Move up
-	if (position.y < m_path[m_path_index].y) 
+	if (dir == Coord2D(0, -1)) //Up
 	{
 		this->m_velocity += Vector3(0, 1, 0);
-		//return;
+		return;
 	}
-	//Move down
-	if (position.y > m_path[m_path_index].y)
+	if (dir == Coord2D(0, 1)) //Down
 	{
 		this->m_velocity += Vector3(0, -1, 0);
-		//return;
+		return;
 	}
-	//Move left
-	if (position.x > m_path[m_path_index].x)
+	if (dir == Coord2D(1, 0)) //Left
 	{
 		this->m_velocity += Vector3(-1, 0, 0);
-		//return;
+		return;
 	}
-	//Move right
-	if (position.x < m_path[m_path_index].x)
+	if (dir == Coord2D(-1, 0)) //Right
 	{
 		this->m_velocity += Vector3(1, 0, 0);
-		//return;
+		return;
 	}
 }
 

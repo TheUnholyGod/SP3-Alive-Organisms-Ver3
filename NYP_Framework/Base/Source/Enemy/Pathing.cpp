@@ -20,6 +20,11 @@ bool Coord2D::operator == (const Coord2D& coordinates_)
 	return (x == coordinates_.x && y == coordinates_.y);
 }
 
+Coord2D Coord2D::operator-(const Coord2D & coordinates_)
+{
+	return (Coord2D(this->x - coordinates_.x, this->y - coordinates_.y));
+}
+
 Coord2D operator + (const Coord2D& left_, const Coord2D& right_)
 {
 	return{ left_.x + right_.x, left_.y + right_.y };
@@ -70,7 +75,7 @@ void PathFinder::readMap(int ** grid_)
 	{
 		for (int y = 0; y < worldSize.y; ++y)
 		{
-			if (grid_[y][x] == 1)
+			if (grid_[y][x] != 0)
 			{
 				addCollision({ x,y });
 			}
