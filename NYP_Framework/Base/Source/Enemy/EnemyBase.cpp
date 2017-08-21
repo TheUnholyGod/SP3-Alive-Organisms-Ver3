@@ -32,6 +32,10 @@ bool EnemyBase::collisionResponse(GenericEntity *)
 	return false;
 }
 
+void EnemyBase::Move()
+{
+}
+
 EnemyBase * Create::Enemy(const EnemyBase::ENEMY_TYPE enemy_type, 
 	const Vector3 & _position, 
 	const Vector3 & _scale, 

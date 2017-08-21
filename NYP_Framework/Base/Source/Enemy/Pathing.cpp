@@ -70,9 +70,9 @@ void PathFinder::readMap(int ** grid_)
 	{
 		for (int y = 0; y < worldSize.y; ++y)
 		{
-			if (grid_[y][x] != 0)
+			if (grid_[y][x] == 1)
 			{
-				addCollision({ x-1,y-1 });
+				addCollision({ x,y });
 			}
 		}
 	}
@@ -218,7 +218,9 @@ std::vector<Coord2D> PathFinder::findPath(Coord2D source_, Coord2D target_)
 		DeleteNodeSet(openSet);
 		DeleteNodeSet(closedSet);
 
-		printMap(path, source_, target_);
+		/*Debug printing of routemap*/
+		//printMap(path, source_, target_);
+
 		return path;
 	}
 	else //No path found, return empty vector
