@@ -1,6 +1,6 @@
 #include "DatabaseManager.h"
 #include "Database.h"
-#include "Source\Loader.h"
+#include "Loader.h"
 
 DataBaseManager::DataBaseManager()
 {

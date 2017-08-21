@@ -1,7 +1,7 @@
 #ifndef _BASE_DATABASE_H
 #define _BASE_DATABASE_H
 
-#include "../Database.h"
+#include "Database.h"
 
 #include <string>
 #include <map>
