@@ -1,6 +1,7 @@
 #include "Bow.h"
 #include "Projectile.h"
 #include "MeshList.h"
+#include "PlayerInfo\PlayerInfo.h"
 
 Bow::Bow() : Ranged()
 {
@@ -15,7 +16,7 @@ void Bow::Init(Player * _owner)
 	this->m_owner = _owner;
 	for (int i = 0; i < m_projectilecount; ++i)
 	{
-		this->m_projectilelist[i] = Create::CreateProjectile("sphere", Vector3(0, 0, 0), Vector3(1, 1, 1), this);
+		this->m_projectilelist[i] = Create::CreateProjectile("sphere", Vector3(0, 0, 0), Vector3(0.1, 0.1, 0.1), this);
 		this->m_projectilelist[i]->SetSize(Vector3(1, 1, 1));
 	}
 }
@@ -26,7 +27,7 @@ void Bow::Action(int _actiontype)
 	if (p)
 	{
 		p->SetActive(true);
-		p->Init();
+		p->Init(this->m_owner->GetPosition() + (this->m_owner->GetDirection().x * Vector3(1, 0, 0)),Vector3(10 * m_owner->GetDirection().x), Vector3(m_owner->GetDirection().x));
 	}
 }
 

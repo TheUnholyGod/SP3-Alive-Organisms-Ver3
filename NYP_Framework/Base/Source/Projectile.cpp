@@ -28,6 +28,7 @@ void Projectile::Init(Vector3 _pos, Vector3 _vel, Vector3 _dir)
 	this->velocity = _vel;
 	this->direction = _dir;
 	this->tile_ID = Player::GetInstance()->GetTileID();
+	this->isStatic = false;
 }
 
 void Projectile::Update(double _dt)
