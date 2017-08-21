@@ -27,15 +27,18 @@ public:
 	EnemyBase(Mesh* enemyMesh) : GenericEntity(enemyMesh)
 	{
 		this->type = GenericEntity::ENTITY_OBJ;
+		this->m_velocity = Vector3(0, 0, 0);
 	}
 	~EnemyBase() {};
 
 	virtual void Update(double _dt);
 	virtual void Render();
 	virtual bool collisionResponse(GenericEntity*);
-
+	virtual void Move();
+	
 protected:
 	double m_timeSinceLastUpdate;
+	Vector3 m_velocity;
 };
 
 namespace Create

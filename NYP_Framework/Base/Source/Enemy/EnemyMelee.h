@@ -1,10 +1,12 @@
 #pragma once
 
 #include "EnemyBase.h"
+#include "StrategyBase.h"
 
 class EnemyMelee : public EnemyBase
 {
 public:
+	friend StrategyBase;
 	EnemyMelee(
 		Mesh* mesh,
 		EnemyBase::ENEMY_TYPE enemy_type,
@@ -18,7 +20,12 @@ public:
 	void Update(double _dt);
 	void Render();
 	bool collisionResponse(GenericEntity*);
+	void Move();
+	void FindPath(Coord2D _src, Coord2D _end);
 
 private:
-	PathFinder m_pathing;
+	PathFinder m_path_finder;
+	std::vector<Coord2D> m_path;
+	int m_path_index;
+	std::future<std::vector<Coord2D>> m_result;
 };
