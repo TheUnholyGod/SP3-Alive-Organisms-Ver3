@@ -45,10 +45,10 @@ void EnemyMelee::Update(double _dt)
 
 	m_timeSinceLastUpdate += _dt;
 
-	if (m_timeSinceLastUpdate > 3 && !m_result.valid())
+	if (m_timeSinceLastUpdate > 1 && !m_result.valid())
 	{
-		FindPath({ (int)(position.x), (int)(position.y)},
-				{ (int)(playerpos.x), (int)(playerpos.y)});
+		FindPath({ (int)(position.x + 0.5), (int)(position.y + 0.5)},
+				{ (int)(playerpos.x + 0.5), (int)(playerpos.y + 0.5)});
 		m_timeSinceLastUpdate = 0;
 	}
 	//Check if worker thread is done, if done, obtain result.
@@ -76,7 +76,8 @@ void EnemyMelee::Update(double _dt)
 		std::cout << std::endl;
 		//m_path.clear();
 	}
-	this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(position);
+	this->tile_ID = Player::GetInstance()->GetTileID();/*
+	this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(position);*/
 }
 
 void EnemyMelee::Render()
@@ -103,8 +104,8 @@ void EnemyMelee::Move()
 	//Check if enemy is already at node
 	if (!m_path.empty())
 	{
-		int dist = (position - Vector3(m_path[m_path_index].x, m_path[m_path_index].y, 0)).LengthSquared();
-		if (dist <= 0.1)
+		float dist = (position - Vector3(m_path[m_path_index].x, m_path[m_path_index].y, 0)).LengthSquared();
+		if (dist <= 0.01)
 		{
 			std::cout << "Reached: (" << m_path[m_path_index].x << ", " << m_path[m_path_index].y << ")" << std::endl;
 			if(m_path_index + 1 < m_path.size())

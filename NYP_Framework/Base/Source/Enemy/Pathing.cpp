@@ -70,7 +70,7 @@ void PathFinder::readMap(int ** grid_)
 	{
 		for (int y = 0; y < worldSize.y; ++y)
 		{
-			if (grid_[y][x] != 0)
+			if (grid_[y][x] == 1)
 			{
 				addCollision({ x,y });
 			}
