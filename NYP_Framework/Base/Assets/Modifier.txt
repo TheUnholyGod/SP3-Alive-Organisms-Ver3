@@ -1,0 +1,2 @@
+ID,ModifierName,textureDirectory,descriptionID
+1,Poison,Image//rune.tga,1

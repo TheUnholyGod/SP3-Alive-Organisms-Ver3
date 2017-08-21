@@ -1,0 +1,18 @@
+///////////////////////////////////////////////////////////////////////////////
+/*!
+\file   StrategyBase.cpp
+\author Lin Xin
+\par	email: 163320B@mymail.nyp.edu.sg
+\brief
+cpp file for StrategyBase.
+*/
+///////////////////////////////////////////////////////////////////////////////
+#include "StrategyBase.h"
+
+StrategyBase::StrategyBase()
+{
+}
+
+StrategyBase::~StrategyBase()
+{
+}

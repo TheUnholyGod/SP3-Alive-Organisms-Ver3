@@ -1,0 +1,2 @@
+DescriptionID,description
+1,"A rune used to poison peasants."
