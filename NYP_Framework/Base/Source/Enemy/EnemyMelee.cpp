@@ -39,17 +39,16 @@ void EnemyMelee::Update(double _dt)
 {
 	Vector3 playerpos = Player::GetInstance()->GetPosition();
 
-	
 	//Update enemy pos
 	this->position += m_velocity * _dt;
 	Move();
 
 	m_timeSinceLastUpdate += _dt;
 
-	if (m_timeSinceLastUpdate > 5 && !m_result.valid())
+	if (m_timeSinceLastUpdate > 3 && !m_result.valid())
 	{
-		FindPath({ (int)position.x, (int)position.y }, 
-				{ (int)playerpos.x, (int)playerpos.y });
+		FindPath({ (int)(position.x), (int)(position.y)},
+				{ (int)(playerpos.x), (int)(playerpos.y)});
 		m_timeSinceLastUpdate = 0;
 	}
 	//Check if worker thread is done, if done, obtain result.
@@ -59,21 +58,21 @@ void EnemyMelee::Update(double _dt)
 		{
 			m_path.clear();
 			m_path = m_result.get();
-			m_path_index = m_path.size() - 2;
+			m_path_index = 0;
 		}
 	}
 
 	if (!m_path.empty())
 	{
 		std::cout << "Path vector is not empty" << std::endl;
-	/*	for (int i = 0; i < m_path.size(); ++i)
+		for (int i = 0; i < m_path.size(); ++i)
 		{	
 			if(i == 0)
 				std::cout << "Start";
 			std::cout << "->(" << m_path[i].x << ", " << m_path[i].y << ")";
 			if (i == m_path.size() - 1)
 				std::cout << "->End";
-		}*/
+		}
 		std::cout << std::endl;
 		//m_path.clear();
 	}
@@ -104,15 +103,19 @@ void EnemyMelee::Move()
 	//Check if enemy is already at node
 	if (!m_path.empty())
 	{
-		int dist = (position - Vector3(m_path[m_path_index].x, m_path[m_path_index].x, 0)).LengthSquared();
+		int dist = (position - Vector3(m_path[m_path_index].x, m_path[m_path_index].y, 0)).LengthSquared();
 		if (dist <= 0.1)
 		{
-			--m_path_index;
+			std::cout << "Reached: (" << m_path[m_path_index].x << ", " << m_path[m_path_index].y << ")" << std::endl;
+			if(m_path_index + 1 < m_path.size())
+				++m_path_index;
 		}
 	}	
 
 	//Dont move when path nodes are empty
 	if (m_path.empty())	return;
+
+	std::cout << "Traveling towards: (" << m_path[m_path_index].x << ", " << m_path[m_path_index].y << ")" <<std::endl;
 
 	//Move up
 	if (position.y < m_path[m_path_index].y) 

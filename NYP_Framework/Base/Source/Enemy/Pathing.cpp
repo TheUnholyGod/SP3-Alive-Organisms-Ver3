@@ -70,7 +70,7 @@ void PathFinder::readMap(int ** grid_)
 	{
 		for (int y = 0; y < worldSize.y; ++y)
 		{
-			if (grid_[y][x] == 1)
+			if (grid_[y][x] != 0)
 			{
 				addCollision({ x,y });
 			}
@@ -133,12 +133,12 @@ std::vector<Coord2D> PathFinder::findPath(Coord2D source_, Coord2D target_)
 
 	std::vector<Coord2D> path; //Vector of Coord2D to return
 
-							   //If the source and target are out of bounds
-	if (isOutOfBounds(target_)) { std::cout << "Target out of range" << std::endl; return path; }
-	if (isOutOfBounds(source_)) { std::cout << "Source out of range" << std::endl; return path; }
-	//If the source or target are blocked
-	if (detectCollision(target_)) { std::cout << "Target is blocked" << std::endl; return path; }
-	if (detectCollision(source_)) { std::cout << "Source is blocked" << std::endl; return path; }
+	////If the source and target are out of bounds
+	//if (isOutOfBounds(target_)) { std::cout << "Target out of range" << std::endl; return path; }
+	//if (isOutOfBounds(source_)) { std::cout << "Source out of range" << std::endl; return path; }
+	////If the source or target are blocked
+	//if (detectCollision(target_)) { std::cout << "Target is blocked" << std::endl; return path; }
+	//if (detectCollision(source_)) { std::cout << "Source is blocked" << std::endl; return path; }
 
 	Node *current = nullptr;
 	std::set<Node*> openSet, closedSet;
@@ -218,6 +218,8 @@ std::vector<Coord2D> PathFinder::findPath(Coord2D source_, Coord2D target_)
 		DeleteNodeSet(openSet);
 		DeleteNodeSet(closedSet);
 
+		//Reverse the results: 0 is start, Size() is destination
+		std::reverse(path.begin(), path.end());
 		/*Debug printing of routemap*/
 		//printMap(path, source_, target_);
 
