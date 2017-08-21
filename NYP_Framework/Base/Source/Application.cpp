@@ -223,6 +223,21 @@ void Application::InitAllMeshes()
 
 		MeshBuilder::GetInstance()->GenerateQuad("player", Color(1, 0, 0), 0.5f);
 
+		MeshList::GetInstance()->AddMesh("solid_block", MeshBuilder::GetInstance()->GenerateQuad("block", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("solid_block")->textureID = LoadTGA("Image//block.tga");
+
+		MeshList::GetInstance()->AddMesh("ladder_block", MeshBuilder::GetInstance()->GenerateQuad("ladder", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("ladder_block")->textureID = LoadTGA("Image//ladder.tga");
+
+		MeshList::GetInstance()->AddMesh("platform_ladder_block", MeshBuilder::GetInstance()->GenerateQuad("platform_ladder", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("platform_ladder_block")->textureID = LoadTGA("Image//platform_ladder.tga");
+
+		MeshList::GetInstance()->AddMesh("platform_block", MeshBuilder::GetInstance()->GenerateQuad("platform", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("platform_block")->textureID = LoadTGA("Image//platform.tga");
+
+		MeshList::GetInstance()->AddMesh("rune_spawner_block", MeshBuilder::GetInstance()->GenerateQuad("rune_spawner", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("rune_spawner_block")->textureID = LoadTGA("Image//rune_spawner.tga");
+
 		/*MeshBuilder::GetInstance()->GenerateQuad("GRASS_DARKGREEN", Color(1, 1, 1), 1.f);
 		MeshList::GetInstance()->GetMesh("GRASS_DARKGREEN")->textureID = LoadTGA("Image//grass_darkgreen.tga");
 		MeshBuilder::GetInstance()->GenerateQuad("GEO_GRASS_LIGHTGREEN", Color(1, 1, 1), 1.f);
