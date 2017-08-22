@@ -75,11 +75,19 @@ void PathFinder::readMap(int ** grid_)
 	{
 		for (int y = 0; y < worldSize.y; ++y)
 		{
-			if (grid_[y][x] == 0 ||
-				grid_[y][x] == 3 ||
+			if (grid_[y][x] == 0)
+			{
+				if (y - 1 < 0)
+					continue;
+				
+				if(grid_[y-1][x] == 0)
+					addCollision({ x,y });
+				
+				continue;
+			}
+			if (grid_[y][x] == 3 ||
 				grid_[y][x] == 4 ||
-				grid_[y][x] == 5 ||
-				grid_[y][x] == 6) //Walkable blocks
+				grid_[y][x] == 6) //Passable blocks
 			{
 				continue;
 			}
@@ -89,6 +97,9 @@ void PathFinder::readMap(int ** grid_)
 			}
 		}
 	}
+
+	std::vector<Coord2D> t;
+	printMap(t, { 0,0 }, { 0,0 });
 }
 
 void PathFinder::addCollision(Coord2D coordinates_)

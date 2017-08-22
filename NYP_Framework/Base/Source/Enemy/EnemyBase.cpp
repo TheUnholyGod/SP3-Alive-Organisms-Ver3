@@ -35,7 +35,7 @@ EnemyBase * Create::Enemy(const EnemyBase::ENEMY_TYPE enemy_type,
 	{
 	case EnemyBase::ENEMY_TYPE::E_MELEE:
 	{
-		Mesh* modelMesh = MeshList::GetInstance()->GetMesh("quad");
+		Mesh* modelMesh = MeshList::GetInstance()->GetMesh("enemy");
 		if (modelMesh == nullptr)
 			return nullptr;
 

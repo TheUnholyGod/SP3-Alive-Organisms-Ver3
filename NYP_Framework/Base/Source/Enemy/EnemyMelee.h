@@ -21,7 +21,7 @@ public:
 	bool CollisionResponse(GenericEntity*);
 	
 	void FindPath(Coord2D _src, Coord2D _end);
-	void Move(double _dt);
+	void Move();
 	
 private:
 

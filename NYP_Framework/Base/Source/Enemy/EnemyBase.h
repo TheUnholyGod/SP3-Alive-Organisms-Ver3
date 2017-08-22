@@ -39,6 +39,7 @@ public:
 		this->type = GenericEntity::ENEMY_OBJ;
 		this->m_velocity = Vector3(0, 0, 0);
 		m_timeSinceLastUpdate = 0;
+		m_path_finder.setHeuristic(Heuristic::manhattan);
 		m_path_finder.setDiagonalMovement(false);
 		m_path_finder.readMap(MapManager::GetInstance()->getMapArray());
 		m_path_index = 0;
