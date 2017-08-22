@@ -99,7 +99,7 @@ bool CollisionManager::CheckPlayerDirCollision(EntityBase * tile_entity)
 	//}*/
 
 	//return Player::GetInstance()->GetPlayerVelocity().Dot(N) > 0 && (abs((w0 - b1).Dot(N)) < r + h * 0.5f) && (abs((w0 - b1).Dot(NP)) < r + l * 0.5f);
-	if (Player::GetInstance()->GetPlayerVelocity().y > 0)
+	if (Player::GetInstance()->GetDirection().y > 0)
 	{
 		return false;
 	}
