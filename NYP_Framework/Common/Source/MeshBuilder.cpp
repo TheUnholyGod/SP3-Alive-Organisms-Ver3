@@ -629,5 +629,7 @@ SpriteAnimation * MeshBuilder::GenerateSpriteAnimation(const std::string & meshN
 	mesh->indexSize = index_buffer_data.size();
 	mesh->mode = Mesh::DRAW_TRIANGLES;
 
+	MeshList::GetInstance()->AddMesh(meshName, mesh);
+
 	return mesh;
 }
