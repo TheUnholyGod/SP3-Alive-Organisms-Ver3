@@ -8,14 +8,6 @@ cpp file for EnemyBase.
 */
 ///////////////////////////////////////////////////////////////////////////////
 #include "EnemyBase.h"
-#include "Mtx44.h"
-#include "MeshBuilder.h"
-#include "MatrixStack.h"
-#include "GraphicsManager.h"
-#include "../EntityManager.h"
-#include "../MapManager.h"
-#include "../PlayerInfo/PlayerInfo.h"
-#include "RenderHelper.h"
 
 #include "EnemyMelee.h"
 
@@ -30,10 +22,6 @@ void EnemyBase::Render()
 bool EnemyBase::CollisionResponse(GenericEntity *)
 {
 	return false;
-}
-
-void EnemyBase::Move()
-{
 }
 
 EnemyBase * Create::Enemy(const EnemyBase::ENEMY_TYPE enemy_type, 

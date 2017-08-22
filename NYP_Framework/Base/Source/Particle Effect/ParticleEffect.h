@@ -17,7 +17,6 @@ system.
 class ParticleEffect : public EntityBase
 {
 public:
-	/*TODO: Construsctor initialiser*/
 	ParticleEffect() {};
 	ParticleEffect(Vector3 pos, Vector3 vel, EFFECT_TYPE type, double effect_life_span, double particle_life_span);
 	virtual ~ParticleEffect() 

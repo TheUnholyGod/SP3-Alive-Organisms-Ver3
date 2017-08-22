@@ -34,18 +34,47 @@ void Equipment::setMaxRunes(int num_slot)
 
 bool Equipment::addRune(Runes * new_rune)
 {
-	/*TODO: Write code lol*/
+	if (m_runes.size() < m_max_runes)
+	{
+		bool isDuplicate = false;
+		for (size_t i = 0; i < m_runes.size(); ++i)
+		{
+			if (m_runes[i]->getType() == new_rune->getType())
+			{
+				isDuplicate = true;
+				break;
+			}
+		}
+		if (isDuplicate == false)
+		{
+			m_runes.push_back(new_rune);
+			return true;
+		}
+	}
 	return false;
 }
 
 bool Equipment::removeRune(RUNE_TYPE type)
 {
-	/*TODO: Write code lol*/
+	for (size_t i = 0; i< m_runes.size(); ++i)
+	{
+		if (m_runes[i]->getType() == type)
+			m_runes.erase(m_runes.begin() + i);
+	}
 	return false;
 }
 
-bool Equipment::replaceRune(Runes * new_rune)
+Runes* Equipment::replaceRune(Runes * new_rune)
 {
-	/*TODO: Write code lol*/
-	return false;
+	for (size_t i = 0; i < m_runes.size(); ++i)
+	{
+		if (m_runes[i]->getType() == new_rune->getType())
+		{
+			Runes* temp = m_runes[i];
+			m_runes[i] = new_rune;
+			return temp;
+		}
+	}
+	//If no rune of the same type is found, add it in
+	addRune(new_rune);
 }

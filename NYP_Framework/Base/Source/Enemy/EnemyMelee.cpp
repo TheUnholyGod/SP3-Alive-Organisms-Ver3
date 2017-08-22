@@ -1,15 +1,5 @@
 #include "EnemyMelee.h"
 
-#include "Mtx44.h"
-#include "MeshBuilder.h"
-#include "MatrixStack.h"
-#include "GraphicsManager.h"
-#include "../EntityManager.h"
-#include "../MapManager.h"
-#include "../PlayerInfo/PlayerInfo.h"
-#include "RenderHelper.h"
-
-
 EnemyMelee::EnemyMelee(Mesh * mesh, 
 	EnemyBase::ENEMY_TYPE enemy_type, 
 	Vector3 _position, 
@@ -25,12 +15,6 @@ EnemyMelee::EnemyMelee(Mesh * mesh,
 	this->SetCollider(have_collider);
 	this->SetPhysic(have_physic);
 	this->SetStatic(false);
-
-	m_timeSinceLastUpdate = 0;
-	m_path_finder.setDiagonalMovement(false);
-	m_path_finder.readMap(MapManager::GetInstance()->getMapArray());
-	m_path_index = 0;
-	isPathFound = false;
 }
 
 EnemyMelee::~EnemyMelee()
@@ -42,38 +26,15 @@ void EnemyMelee::Update(double _dt)
 	//Create AABB for collision
 	this->GenerateAABB(this->position);
 
-	//Update enemy pos
-	this->position += m_velocity * _dt;
-	
-	//Iterate through the path vector and move through the terrain
-	Move();
+	//Update tileID for spatial partition
+	this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(position);
 
 	//Increment the time since last update for regulated checks
 	m_timeSinceLastUpdate += _dt;
+	
+	//Iterate through the path vector and move through the terrain
+	Move(_dt);
 
-	//Player pos to find the player
-	Vector3 playerpos = Player::GetInstance()->GetPosition();
-
-	if (m_timeSinceLastUpdate > 1 && !m_result.valid() && !isPathFound)
-	{
-		FindPath({ (int)(position.x + 0.5), (int)(position.y + 0.5)},
-				{ (int)std::floor(playerpos.x + 0.5), (int)std::floor(playerpos.y + 0.5)});
-		m_timeSinceLastUpdate = 0;
-	}
-	//Check if worker thread is done, if done, obtain result.
-	if (m_result.valid() && !isPathFound)
-	{
-		if (m_result.wait_for(std::chrono::seconds(0)) == std::future_status::ready)
-		{
-			m_path.clear();
-			m_path = m_result.get();
-			m_path_index = 0;
-			if(!m_path.empty())
-				isPathFound = true;
-		}
-	}
-	//Update tileID for spatial partition
-	this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(position);
 }
 
 void EnemyMelee::Render()
@@ -98,8 +59,35 @@ bool EnemyMelee::CollisionResponse(GenericEntity *ThatEntity)
 	return false;
 }
 
-void EnemyMelee::Move()
+void EnemyMelee::Move(double _dt)
 {
+	//Player pos to find the player
+	Vector3 playerpos = Player::GetInstance()->GetPosition();
+
+	//If no path is currently used, start thread to find a path to player
+	if (m_timeSinceLastUpdate > 1 && !m_result.valid() && !isPathFound)
+	{
+		FindPath({ (int)(position.x + 0.5), (int)(position.y + 0.5) },
+		{ (int)std::floor(playerpos.x + 0.5), (int)std::floor(playerpos.y + 0.5) });
+		m_timeSinceLastUpdate = 0;
+	}
+	//Check if worker thread is done, if done, obtain result.
+	if (m_result.valid() && !isPathFound)
+	{
+		if (m_result.wait_for(std::chrono::seconds(0)) == std::future_status::ready)
+		{
+			m_path.clear();
+			m_path = m_result.get();
+			m_path_index = 0;
+			if (!m_path.empty())
+				isPathFound = true;
+		}
+	}
+
+	//Update enemy pos
+	this->position += m_velocity * _dt;
+
+	//Reset velocity
 	m_velocity.SetZero();
 
 	//Dont move when path nodes are empty
@@ -169,6 +157,7 @@ void EnemyMelee::Move()
 	else
 		dir = Coord2D((int)std::floor(position.x), (int)std::floor(position.y)) - m_path[m_path_index];
 
+	//Movement based on direction
 	if (dir == Coord2D(0, -1)) //Up
 	{
 		this->m_velocity += Vector3(0, 3, 0);
