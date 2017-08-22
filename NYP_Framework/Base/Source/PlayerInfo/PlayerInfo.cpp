@@ -102,7 +102,7 @@ void Player::Update(double dt)
 	this->UpdateJump(dt);
 	this->UpdateMovment(dt);
     this->m_player_equipment[EQUIPMENT_MELEE]->Update(dt);
-	this->attachedCamera->SetCameraPos(Vector3(position.x, position.y, 20));
+	this->attachedCamera->SetCameraPos(Vector3(position.x, position.y, 7));
 	this->attachedCamera->SetCameraTarget(position);
 
 	std::vector<EntityBase*> temp_blocks;
@@ -231,11 +231,11 @@ void Player::UpdateMovment(double dt)
 								break;
 							}
 
-							if (velocity.x > 0)
+							if (last_direction.x > 0)
 							{
 								temp_pusher = -0.001;
 							}
-							else if (velocity.x < 0)
+							else
 							{
 								temp_pusher = 0.001;
 							}

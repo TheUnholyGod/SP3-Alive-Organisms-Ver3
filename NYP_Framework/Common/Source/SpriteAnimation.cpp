@@ -62,7 +62,6 @@ void SpriteAnimation::Update(double dt)
 
 void SpriteAnimation::Render()
 {
-	// Insert codes. Hint: same as in Mesh.cpp.
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
@@ -71,22 +70,22 @@ void SpriteAnimation::Render()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)sizeof(Position));
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(Position) + sizeof(Color)));
-
 	glEnableVertexAttribArray(3);
 	glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(Position) + sizeof(Color) + sizeof(Vector3)));
 
+
+	//glDrawArrays(GL_TRIANGLES, 0, 3);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
 
 	if (mode == DRAW_LINES)
-		glDrawElements(GL_LINES, indexSize, GL_UNSIGNED_INT, (void*)(m_currentFrame * 6 * sizeof(GLuint)));
+		glDrawElements(GL_LINES, indexSize, GL_UNSIGNED_INT, (void*)(this->m_currentFrame * 6 * sizeof(GLint)));
 	else if (mode == DRAW_TRIANGLE_STRIP)
-		glDrawElements(GL_TRIANGLE_STRIP, indexSize, GL_UNSIGNED_INT, (void*)(m_currentFrame * 6 * sizeof(GLuint)));
+		glDrawElements(GL_TRIANGLE_STRIP, indexSize, GL_UNSIGNED_INT, (void*)(this->m_currentFrame * 6 * sizeof(GLint)));
 	else
-		glDrawElements(GL_TRIANGLES, indexSize, GL_UNSIGNED_INT, (void*)(m_currentFrame * 6 * sizeof(GLuint)));
+		glDrawElements(GL_TRIANGLES, indexSize, GL_UNSIGNED_INT, (void*)(this->m_currentFrame * 6 * sizeof(GLint)));
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
 	glDisableVertexAttribArray(3);
-
 }
