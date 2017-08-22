@@ -283,7 +283,7 @@ void SceneText::Update(double dt)
 	float fps = (float)(1.f / dt);
 	ss << "FPS: " << fps;
 	textObj[1]->SetText(ss.str());
-	//std::cout << fps << std::endl;
+	std::cout << "FPS: " << fps << std::endl;
 
 	// Update the player position into textObj[2]
 	std::ostringstream ss1;
