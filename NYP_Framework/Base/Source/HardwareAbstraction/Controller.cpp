@@ -69,7 +69,7 @@ void Controller::Update(double dt)
         m_curraction_timer += 0.15f;
 	else
 	{
-		std::cout << "Action Complete" << std::endl;
+//		std::cout << "Action Complete" << std::endl;
 		m_is_free = true;
         m_inputchecker.clear();
 	}
@@ -155,7 +155,7 @@ bool Controller::CancelPrevAction(double dt, CONTROLLER_STATES next_action)
 
 bool Controller::MoveUp(double dt)
 {
-    std::cout << "Down" << std::endl;
+  //  std::cout << "Down" << std::endl;
 
 	this->thePlayerInfo->MoveUp(dt);
 	return false;
@@ -163,7 +163,7 @@ bool Controller::MoveUp(double dt)
 
 bool Controller::MoveDown(double dt)
 {
-    std::cout << "Up" << std::endl;
+  //  std::cout << "Up" << std::endl;
 
 	this->thePlayerInfo->MoveDown(dt);
 	return false;
@@ -171,7 +171,7 @@ bool Controller::MoveDown(double dt)
 
 bool Controller::MoveLeft(double dt)
 {
-    std::cout << "Left" << std::endl;
+  //  std::cout << "Left" << std::endl;
 
 	this->thePlayerInfo->MoveLeft(dt);
 	return false;
@@ -179,7 +179,7 @@ bool Controller::MoveLeft(double dt)
 
 bool Controller::MoveRight(double dt)
 {
-    std::cout << "Right" << std::endl;
+  //  std::cout << "Right" << std::endl;
 
 	this->thePlayerInfo->MoveRight(dt);
 	return false;
@@ -188,7 +188,7 @@ bool Controller::MoveRight(double dt)
 bool Controller::Jump(double dt)
 {
 	this->thePlayerInfo->Jump(dt);
-    std::cout << "Jump" << std::endl;
+  //  std::cout << "Jump" << std::endl;
     m_is_free = false;
 
 	return false;
@@ -201,7 +201,7 @@ bool Controller::DodgeRoll(double dt)
 	this->m_curraction_animationtime = 1;
 	this->thePlayerInfo->DodgeRoll(dt);
     m_is_free = false;
-    std::cout << "Dodgeroll" << std::endl;
+ //   std::cout << "Dodgeroll" << std::endl;
 	return false;
 }
 
@@ -213,7 +213,7 @@ bool Controller::PrimaryAtt(double dt)
 	this->thePlayerInfo->PrimaryAttack(dt, Melee::COMBO_BASIC1);
     m_is_free = false;
 
-    std::cout << "Melee" << std::endl;
+  //  std::cout << "Melee" << std::endl;
 	return false;
 }
 
@@ -225,7 +225,7 @@ bool Controller::SecondaryAtt(double dt)
 	this->thePlayerInfo->SecondaryAttack(dt);
     m_is_free = false;
 
-    std::cout << "Ranged" << std::endl;
+ //   std::cout << "Ranged" << std::endl;
 	return false;
 }
 
@@ -238,7 +238,7 @@ bool Controller::PrimaryUpperAtt(double dt)
 
 	this->thePlayerInfo->PrimaryAttack(dt, Melee::COMBO_UP1);
 
-	std::cout << "Upper Melee" << std::endl;
+//	std::cout << "Upper Melee" << std::endl;
 	return false;
 }
 
@@ -251,7 +251,7 @@ bool Controller::PrimaryLowerAtt(double dt)
 
 	this->thePlayerInfo->PrimaryAttack(dt, Melee::COMBO_DOWN1);
 
-	std::cout << "Lower Melee" << std::endl;
+//	std::cout << "Lower Melee" << std::endl;
 	return false;
 }
 
@@ -264,7 +264,7 @@ bool Controller::PrimaryBackAtt(double dt)
 
 	this->thePlayerInfo->PrimaryAttack(dt, Melee::COMBO_BACK1);
 
-	std::cout << "Back Melee" << std::endl;
+//	std::cout << "Back Melee" << std::endl;
 	return false;
 }
 
@@ -277,7 +277,7 @@ bool Controller::PrimaryFrontAtt(double dt)
 
 	this->thePlayerInfo->PrimaryAttack(dt, Melee::COMBO_FRONT1);
 
-	std::cout << "Front Melee" << std::endl;
+//	std::cout << "Front Melee" << std::endl;
 	return false;
 }
 
@@ -287,8 +287,9 @@ bool Controller::SecondaryUpperAtt(double dt)
 	this->m_curraction_canceltime = 0.5f;
 	this->m_curraction_animationtime = 1;
     m_is_free = false;
+	this->thePlayerInfo->SecondaryAttack(dt);
 
-	std::cout << "Upper Ranged" << std::endl;
+	//std::cout << "Upper Ranged" << std::endl;
 	return false;
 }
 
@@ -298,8 +299,9 @@ bool Controller::SecondaryLowerAtt(double dt)
 	this->m_curraction_canceltime = 0.5f;
 	this->m_curraction_animationtime = 1;
     m_is_free = false;
+	this->thePlayerInfo->SecondaryAttack(dt);
 
-	std::cout << "Lower Ranged" << std::endl;
+	//std::cout << "Lower Ranged" << std::endl;
 	return false;
 }
 
@@ -309,8 +311,9 @@ bool Controller::SecondaryBackAtt(double dt)
 	this->m_curraction_canceltime = 0.5f;
 	this->m_curraction_animationtime = 1;
     m_is_free = false;
+	this->thePlayerInfo->SecondaryAttack(dt);
 
-	std::cout << "Back Ranged" << std::endl;
+	//std::cout << "Back Ranged" << std::endl;
 	return false;
 }
 
@@ -321,7 +324,9 @@ bool Controller::SecondaryFrontAtt(double dt)
 	this->m_curraction_animationtime = 1;
     m_is_free = false;
 
-	std::cout << "Front Ranged" << std::endl;
+	//std::cout << "Front Ranged" << std::endl;
+	this->thePlayerInfo->SecondaryAttack(dt);
+
 	return false;
 }
 

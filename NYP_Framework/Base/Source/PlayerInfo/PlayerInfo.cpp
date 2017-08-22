@@ -88,10 +88,10 @@ void Player::Update(double dt)
 		this->m_combotimer = 0;
 		this->m_attacking = false;
 	}
-	//std::cout << "<F>" << std::endl;
-	//std::cout << "Position: " << position << std::endl;
-	//std::cout << "Velocity: " << velocity << std::endl;
-	//std::cout << "Accleration: " << accleration << std::endl;
+	std::cout << "<F>" << std::endl;
+	std::cout << "Position: " << position << std::endl;
+	std::cout << "Velocity: " << velocity << std::endl;
+	std::cout << "Accleration: " << accleration << std::endl;
 	int temp_tile = MapManager::GetInstance()->GetLevel(m_iLevel)->ReturnTileViaPos(position);
 	//std::cout << "X: " << position.x << " Y: " << position.y << " Z : " << position.z << std::endl;
 	if (temp_tile != tile_ID)
@@ -158,7 +158,7 @@ void Player::UpdateMovment(double dt)
 		m_movingtimer = m_defmov;
 	}
 	this->velocity += this->accleration * dt;
-	Math::Clamp(std::abs(velocity.x), 0.f, 10.f);
+	//Math::Clamp(std::abs(velocity.x), 0.f, 10.f);
 	Vector3 temp = this->position + velocity * dt;
 
 	SetAABB(Vector3((temp.x + (maxBoundary.x * 0.5)), (temp.y + (maxBoundary.y * 0.5)), (temp.z + (maxBoundary.z * 0.5))), Vector3((temp.x + (minBoundary.x * 0.5)), (temp.y + (minBoundary.y * 0.5)), (temp.z + (minBoundary.z * 0.5))));
@@ -220,9 +220,6 @@ void Player::UpdateMovment(double dt)
 			else
 				velocity.x = direction.x * Math::Clamp(std::abs(velocity.x), Math::EPSILON, 10.0f);
 		}
-
-		if (abs(velocity.y) > 0)
-			velocity.y = 0;
 	}
 	this->accleration.x = 0;
 }
@@ -235,6 +232,7 @@ void Player::UpdateJump(double dt)
 		{
 			velocity.y = 0;
 			direction.y = -1;
+			m_jump = false;
 		}
 	}
 }
@@ -292,7 +290,7 @@ void Player::Jump(double dt)
 	this->direction.y = 1;
 	this->m_jump = true;
 	this->m_isOnFloor = false;
-	this->velocity.y = 10;
+	this->velocity.y = 2.5;
 	this->accleration.y = -9.8f;
 }
 
