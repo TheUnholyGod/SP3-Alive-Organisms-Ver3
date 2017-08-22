@@ -139,7 +139,7 @@ void Player::Update(double dt)
 		}
 
 	if (!m_isOnFloor && !m_isClimbing)
-		accleration.y = -90.8;
+		accleration.y = -9.8;
 	else if (m_isOnFloor && accleration != 0)
 		accleration.y = 0;
 }
