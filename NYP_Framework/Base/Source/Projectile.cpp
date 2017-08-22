@@ -63,8 +63,12 @@ bool Projectile::CollisionResponse(GenericEntity * ThatEntity)
 	if (ThatEntity->type == ENEMY_OBJ)
 	{
 		ThatEntity->SetIsDone(true);
-		this->m_active = false;
 	}
+
+	this->m_active = false;
+	this->m_bCollider = false;
+	this->tile_ID = 0;
+
 	return false;
 }
 

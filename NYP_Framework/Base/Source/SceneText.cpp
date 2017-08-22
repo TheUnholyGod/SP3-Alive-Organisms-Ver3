@@ -126,9 +126,6 @@ void SceneText::Init()
 	// Create entities into the scene
 	Create::Entity("reference", Vector3(0.0f, 0.0f, 0.0f)); // Reference
 	Create::Entity("lightball", Vector3(lights[0]->position.x, lights[0]->position.y, lights[0]->position.z)); // Lightball
-	GenericEntity* aCube = Create::Entity("cube", Vector3(-20.0f, 0.0f, -20.0f));
-	aCube->SetCollider(true);
-	aCube->SetAABB(Vector3(0.5f, 0.5f, 0.5f), Vector3(-0.5f, -0.5f, -0.5f));
 //	groundEntity = Create::Ground("GRASS_DARKGREEN", "GEO_GRASS_LIGHTGREEN");
 //	Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));
 //	Create::Sprite2DObject("crosshair", Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f));
@@ -182,6 +179,8 @@ void SceneText::Init()
 	//	}
 	//	std::cout << std::endl;
 	//}
+	Create::Entity("background", Vector3(7 * 5, 7 * 5,-5), Vector3(100, 100));
+
 }
 
 void SceneText::Update(double dt)
