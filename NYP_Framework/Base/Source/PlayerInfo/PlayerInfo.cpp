@@ -84,10 +84,10 @@ void Player::Update(double dt)
 		this->m_combotimer = 0;
 		this->m_attacking = false;
 	}
-	std::cout << "<F>" << std::endl;
-	std::cout << "Position: " << position << std::endl;
-	std::cout << "Velocity: " << velocity << std::endl;
-	std::cout << "Accleration: " << accleration << std::endl;
+	//std::cout << "<F>" << std::endl;
+	//std::cout << "Position: " << position << std::endl;
+	//std::cout << "Velocity: " << velocity << std::endl;
+	//std::cout << "Accleration: " << accleration << std::endl;
 	int temp_tile = MapManager::GetInstance()->GetLevel(m_iLevel)->ReturnTileViaPos(position);
 	//std::cout << "X: " << position.x << " Y: " << position.y << " Z : " << position.z << std::endl;
 	if (temp_tile != tile_ID)
@@ -100,7 +100,7 @@ void Player::Update(double dt)
 	this->UpdateJump(dt);
 	this->UpdateMovment(dt);
     this->m_player_equipment[EQUIPMENT_MELEE]->Update(dt);
-	this->attachedCamera->SetCameraPos(Vector3(position.x, position.y, 40));
+	this->attachedCamera->SetCameraPos(Vector3(position.x, position.y, 7));
 	this->attachedCamera->SetCameraTarget(position);
 
 	std::vector<EntityBase*> temp_blocks;
@@ -141,7 +141,10 @@ void Player::Update(double dt)
 	if (!m_isOnFloor && !m_isClimbing)
 		accleration.y = -9.8;
 	else if (m_isOnFloor && accleration != 0)
+	{
 		accleration.y = 0;
+		velocity.y = 0;
+	}
 }
 
 void Player::UpdateMovment(double dt)
@@ -180,6 +183,7 @@ void Player::UpdateMovment(double dt)
 				//std::cout << dynamic_cast<TileEntity*>(*it)->block_type << std::endl;
 				if (dynamic_cast<TileEntity*>(*it)->block_type == TileEntity::SOLID_BLOCK)
 				{
+					velocity.y = 0;
 					SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
 					break;
 				}

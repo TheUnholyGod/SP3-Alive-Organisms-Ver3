@@ -27,11 +27,12 @@ void Projectile::Init(Vector3 _pos, Vector3 _vel, Vector3 _dir)
 	this->position = _pos;
 	this->velocity = _vel;
 	this->direction = _dir;
-	this->tile_ID = Player::GetInstance()->GetTileID();
+	this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(this->position);
 	this->isStatic = false;
 	this->m_bCollider = true;
 	this->size.Set(0.5f, 0.5f, 1);
 	this->type = PROJECTILE_OBJ;
+	this->m_active = true;
 }
 
 void Projectile::Update(double _dt)
@@ -59,8 +60,11 @@ void Projectile::Render()
 
 bool Projectile::CollisionResponse(GenericEntity * ThatEntity)
 {
-	ThatEntity->SetIsDone(true);
-	this->m_active = false;
+	if (ThatEntity->type == ENEMY_OBJ)
+	{
+		ThatEntity->SetIsDone(true);
+		this->m_active = false;
+	}
 	return false;
 }
 
