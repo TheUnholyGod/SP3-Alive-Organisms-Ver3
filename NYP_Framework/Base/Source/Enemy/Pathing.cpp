@@ -75,7 +75,14 @@ void PathFinder::readMap(int ** grid_)
 	{
 		for (int y = 0; y < worldSize.y; ++y)
 		{
-			if (grid_[y][x] != 0)
+			if (grid_[y][x] == 0 ||
+				grid_[y][x] == 4 ||
+				grid_[y][x] == 5 ||
+				grid_[y][x] == 6) //Walkable blocks
+			{
+				continue;
+			}
+			else //Collidable
 			{
 				addCollision({ x,y });
 			}

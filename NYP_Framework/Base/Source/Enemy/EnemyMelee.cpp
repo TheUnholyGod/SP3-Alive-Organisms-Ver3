@@ -20,6 +20,7 @@ EnemyMelee::EnemyMelee(Mesh * mesh,
 {
 	this->SetPosition(_position);
 	this->SetScale(_scale);
+	this->SetSize(_scale);
 	this->SetTileID(MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(position));
 	this->SetCollider(have_collider);
 	this->SetPhysic(have_physic);
@@ -29,6 +30,7 @@ EnemyMelee::EnemyMelee(Mesh * mesh,
 	m_path_finder.setDiagonalMovement(false);
 	m_path_finder.readMap(MapManager::GetInstance()->getMapArray());
 	m_path_index = 0;
+	isPathFound = false;
 }
 
 EnemyMelee::~EnemyMelee()
@@ -39,50 +41,53 @@ void EnemyMelee::Update(double _dt)
 {
 	Vector3 playerpos = Player::GetInstance()->GetPosition();
 
+	this->GenerateAABB(this->position);
+
 	//Update enemy pos
 	this->position += m_velocity * _dt;
 	Move();
 
 	m_timeSinceLastUpdate += _dt;
 
-	if (m_timeSinceLastUpdate > 1 && !m_result.valid())
+	if (m_timeSinceLastUpdate > 3 && !m_result.valid() && !isPathFound)
 	{
 		FindPath({ (int)(position.x + 0.5), (int)(position.y + 0.5)},
 				{ (int)(playerpos.x + 0.5), (int)(playerpos.y + 0.5)});
 		m_timeSinceLastUpdate = 0;
 	}
 	//Check if worker thread is done, if done, obtain result.
-	if (m_result.valid())
+	if (m_result.valid() && !isPathFound)
 	{
 		if (m_result.wait_for(std::chrono::seconds(0)) == std::future_status::ready)
 		{
 			m_path.clear();
 			m_path = m_result.get();
 			m_path_index = 0;
+			isPathFound = true;
 		}
 	}
 
-	if (!m_path.empty())
-	{
-		std::cout << "Path vector is not empty" << std::endl;
-		for (int i = 0; i < m_path.size(); ++i)
-		{	
-			if(i == 0)
-				std::cout << "Start";
-			std::cout << "->(" << m_path[i].x << ", " << m_path[i].y << ")";
-			if (i == m_path.size() - 1)
-				std::cout << "->End";
-		}
-		std::cout << std::endl;
-		//m_path.clear();
-	}
-	this->tile_ID = Player::GetInstance()->GetTileID();/*
-	this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(position);*/
+	//if (!m_path.empty())
+	//{
+	//	std::cout << "Path vector is not empty" << std::endl;
+	//	for (int i = 0; i < m_path.size(); ++i)
+	//	{	
+	//		if(i == 0)
+	//			std::cout << "Start";
+	//		std::cout << "->(" << m_path[i].x << ", " << m_path[i].y << ")";
+	//		if (i == m_path.size() - 1)
+	//			std::cout << "->End";
+	//	}
+	//	std::cout << std::endl;
+	//	//m_path.clear();
+	//}
+	this->tile_ID = Player::GetInstance()->GetTileID();
+	/*this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(position);*/
 }
 
 void EnemyMelee::Render()
 {
-	/*Sprite animation?*/
+	Collision::Render();
 	MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
 	modelStack.PushMatrix();
 	modelStack.Translate(position.x, position.y, position.z);
@@ -111,19 +116,21 @@ void EnemyMelee::Move()
 		if (dist <= 0.01)
 		{
 			std::cout << "Reached: (" << m_path[m_path_index].x << ", " << m_path[m_path_index].y << ")" << std::endl;
+			std::cout << "Traveling towards: (" << m_path[m_path_index + 1].x << ", " << m_path[m_path_index + 1].y << ")" << std::endl;
 			if(m_path_index + 1 < m_path.size())
 				++m_path_index;
+			
 		}
-		else
-		{
-			std::cout << "Traveling towards: (" << m_path[m_path_index].x << ", " << m_path[m_path_index].y << ")" << std::endl;
-		}
+		//else
+		//{
+		//	//std::cout << "Traveling towards: (" << m_path[m_path_index].x << ", " << m_path[m_path_index].y << ")" << std::endl;
+		//}
 	}	
 
-
 	//Check direction of next node
-	if (m_path.size() <= m_path_index + 1) return;
-	Coord2D dir = m_path[m_path_index] - m_path[m_path_index + 1];
+	Coord2D dir;
+	if (m_path_index + 1 < m_path.size())
+		dir = m_path[m_path_index] - m_path[m_path_index + 1];
 
 	if (dir == Coord2D(0, -1)) //Up
 	{
