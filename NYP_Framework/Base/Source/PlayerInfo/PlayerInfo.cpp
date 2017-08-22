@@ -231,11 +231,11 @@ void Player::UpdateMovment(double dt)
 								break;
 							}
 
-							if (velocity.x > 0)
+							if (last_direction.x > 0)
 							{
 								temp_pusher = -0.001;
 							}
-							else if (velocity.x < 0)
+							else
 							{
 								temp_pusher = 0.001;
 							}
