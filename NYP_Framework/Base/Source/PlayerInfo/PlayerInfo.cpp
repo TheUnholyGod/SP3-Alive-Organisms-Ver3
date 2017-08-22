@@ -84,10 +84,10 @@ void Player::Update(double dt)
 		this->m_combotimer = 0;
 		this->m_attacking = false;
 	}
-	std::cout << "<F>" << std::endl;
-	std::cout << "Position: " << position << std::endl;
-	std::cout << "Velocity: " << velocity << std::endl;
-	std::cout << "Accleration: " << accleration << std::endl;
+	//std::cout << "<F>" << std::endl;
+	//std::cout << "Position: " << position << std::endl;
+	//std::cout << "Velocity: " << velocity << std::endl;
+	//std::cout << "Accleration: " << accleration << std::endl;
 	int temp_tile = MapManager::GetInstance()->GetLevel(m_iLevel)->ReturnTileViaPos(position);
 	//std::cout << "X: " << position.x << " Y: " << position.y << " Z : " << position.z << std::endl;
 	if (temp_tile != tile_ID)
@@ -100,7 +100,7 @@ void Player::Update(double dt)
 	this->UpdateJump(dt);
 	this->UpdateMovment(dt);
     this->m_player_equipment[EQUIPMENT_MELEE]->Update(dt);
-	this->attachedCamera->SetCameraPos(Vector3(position.x, position.y, 40));
+	this->attachedCamera->SetCameraPos(Vector3(position.x, position.y, 20));
 	this->attachedCamera->SetCameraTarget(position);
 
 	std::vector<EntityBase*> temp_blocks;

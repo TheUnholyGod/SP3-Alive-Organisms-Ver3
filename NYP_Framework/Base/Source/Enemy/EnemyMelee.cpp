@@ -49,7 +49,7 @@ void EnemyMelee::Update(double _dt)
 
 	m_timeSinceLastUpdate += _dt;
 
-	if (m_timeSinceLastUpdate > 10 && !m_result.valid() && !isPathFound)
+	if (m_timeSinceLastUpdate > 5 && !m_result.valid() && !isPathFound)
 	{
 		FindPath({ (int)(position.x + 0.5), (int)(position.y + 0.5)},
 				{ (int)(playerpos.x + 0.5), (int)(playerpos.y + 0.5)});
@@ -63,12 +63,13 @@ void EnemyMelee::Update(double _dt)
 			m_path.clear();
 			m_path = m_result.get();
 			m_path_index = 0;
-			isPathFound = true;
+			if(!m_path.empty())
+				isPathFound = true;
 		}
 	}
 	//this->tile_ID = Player::GetInstance()->GetTileID();
 	this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(position);
-	std::cout << tile_ID << std::endl;
+	//std::cout << tile_ID << std::endl;
 }
 
 void EnemyMelee::Render()
@@ -103,15 +104,34 @@ void EnemyMelee::Move()
 	//Check if enemy is already at node
 	if (!m_path.empty())
 	{
-		float dist = (position - Vector3(m_path[m_path_index].x, m_path[m_path_index].y, 0)).LengthSquared();
-		if (dist < 0.1)
+		Vector3 absPos = Vector3(std::abs(position.x), std::abs(position.y), std::abs(position.z));
+		float dist;
+		if (m_path_index + 1 < m_path.size())
+			dist = (position - Vector3(m_path[m_path_index + 1].x, m_path[m_path_index + 1].y, 0)).Length();
+		else
+		{
+			std::cout << "Reached the Destination!" << std::endl;
+			m_path.clear();
+			isPathFound = false;
+			return;
+		}
+		std::cout << "Distance to:" << m_path[m_path_index].x << ", " << m_path[m_path_index].y << ": " << dist << std::endl;
+		if (dist <= 0.05)
 		{
 			std::cout << "Reached: (" << m_path[m_path_index].x << ", " << m_path[m_path_index].y << ")" << std::endl;
-			//If theres more nodes
-			if (m_path_index != m_path.size() - 1)
+			//If theres more nodes, set the next destination
+			if (m_path_index + 1 < m_path.size())
 			{
 				std::cout << "Traveling towards: (" << m_path[m_path_index + 1].x << ", " << m_path[m_path_index + 1].y << ")" << std::endl;
+				std::cout << "Current Pos: (" << position.x << ", " << position.y << ")" << std::endl;
 				++m_path_index;
+			}
+			else
+			{
+				std::cout << "Reached the Destination!" << std::endl;
+				m_path.clear();
+				isPathFound = false;
+				return;
 			}
 
 			std::cout << "Route: " << std::endl;
@@ -126,33 +146,31 @@ void EnemyMelee::Move()
 			std::cout << std::endl;
 
 		}
-		//else
-		//{
-		//	//std::cout << "Traveling towards: (" << m_path[m_path_index].x << ", " << m_path[m_path_index].y << ")" << std::endl;
-		//}
 	}	
 
 	//Check direction of next node
-	Coord2D dir = m_path[m_path_index - 1] - m_path[m_path_index];
+	Coord2D dir;
 	if (m_path_index + 1 < m_path.size())
 		dir = m_path[m_path_index] - m_path[m_path_index + 1];
+	else
+		dir = Coord2D((int)std::floor(position.x), (int)std::floor(position.y)) - m_path[m_path_index];
 
 	if (dir == Coord2D(0, -1)) //Up
 	{
 		this->m_velocity += Vector3(0, 1, 0);
 		return;
 	}
-	if (dir == Coord2D(0, 1)) //Down
+	else if (dir == Coord2D(0, 1)) //Down
 	{
 		this->m_velocity += Vector3(0, -1, 0);
 		return;
 	}
-	if (dir == Coord2D(1, 0)) //Left
+	else if (dir == Coord2D(1, 0)) //Left
 	{
 		this->m_velocity += Vector3(-1, 0, 0);
 		return;
 	}
-	if (dir == Coord2D(-1, 0)) //Right
+	else if (dir == Coord2D(-1, 0)) //Right
 	{
 		this->m_velocity += Vector3(1, 0, 0);
 		return;
