@@ -28,4 +28,5 @@ private:
 	std::vector<Coord2D> m_path;
 	int m_path_index;
 	std::future<std::vector<Coord2D>> m_result;
+	bool isPathFound;
 };
