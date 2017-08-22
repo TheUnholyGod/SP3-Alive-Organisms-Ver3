@@ -15,6 +15,7 @@ void EntityManager::Update(double _dt)
 	// Update all entities
 	Level *level = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel());
 	std::vector<int> temp = level->ReturnSurroundingTilesViaCurrentTile(Player::GetInstance()->GetTileID());
+	temp.push_back(0);
 	std::list<EntityBase*>::iterator it;
 
 	std::list<EntityBase*> entity_list_full;
@@ -50,6 +51,12 @@ void EntityManager::Update(double _dt)
 
 		while(it != m_entity_map_base[temp[i]].end())
 		{
+		/*	if (dynamic_cast<TileEntity*>(*it) != nullptr)
+			{
+				++it;
+				continue;
+			}*/
+
 			if ((*it)->IsDone())
 			{
 				delete *it;
@@ -76,6 +83,7 @@ void EntityManager::Render()
 	// Render all entities
 	Level *level = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel());
 	std::vector<int> temp = level->ReturnSurroundingTilesViaCurrentTile(Player::GetInstance()->GetTileID());
+	temp.push_back(0);
 	std::list<EntityBase*>::iterator it;
 
 	for (int i = 0; i < temp.size(); ++i)
