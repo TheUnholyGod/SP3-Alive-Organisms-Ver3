@@ -130,17 +130,11 @@ void SceneText::Init()
 //	Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));
 //	Create::Sprite2DObject("crosshair", Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f));
 	
-	GenericEntity* aSprite = Create::Entity("GEO_SPRITE_ANIMATION", Vector3(-20.0f, 0.0f, -30.0f), Vector3(1.0f, 1.0f, 1.0f));
 	/*SkyBoxEntity* theSkyBox = Create::SkyBox("SKYBOX_FRONT", "SKYBOX_BACK",
 											 "SKYBOX_LEFT", "SKYBOX_RIGHT",
 											 "SKYBOX_TOP", "SKYBOX_BOTTOM");*/
 
-	SpriteAnimation* sa = dynamic_cast<SpriteAnimation*>(MeshList::GetInstance()->GetMesh("GEO_SPRITE_ANIMATION"));
-	if (sa)
-	{
-		sa->m_anim = new Animation();
-		sa->m_anim->Set(0, 4, 0, 1.0f, true);
-	}
+
 	// Customise the ground entity
 //	groundEntity->SetPosition(Vector3(0, -10, 0));
 //	groundEntity->SetScale(Vector3(100.0f, 100.0f, 100.0f));
@@ -180,6 +174,15 @@ void SceneText::Init()
 	//	std::cout << std::endl;
 	//}
 	Create::Entity("background", Vector3(7 * 5, 7 * 5,-5), Vector3(100, 100));
+
+    SpriteAnimation* sa = dynamic_cast<SpriteAnimation*>(MeshList::GetInstance()->GetMesh("GEO_SPRITE_ANIMATION"));
+    if (sa)
+    {
+        sa->m_anim = new Animation();
+        sa->m_anim->Set(1, 4, 1, 1.0f, true);
+        EntityBase* aSprite = new SpriteEntity(sa);
+        EntityManager::GetInstance()->AddEntity(aSprite);
+    }
 
 }
 

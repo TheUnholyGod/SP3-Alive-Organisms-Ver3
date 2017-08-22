@@ -3,6 +3,7 @@
 #include "GraphicsManager.h"
 #include "ShaderProgram.h"
 #include "MatrixStack.h"
+#include "SpriteAnimation.h"
 
 void RenderHelper::RenderMesh(Mesh* _mesh)
 {
@@ -110,4 +111,37 @@ void RenderHelper::RenderText(Mesh* _mesh, const std::string& _text, Color _colo
 
 	GraphicsManager::GetInstance()->UnbindTexture(0);
 	currProg->UpdateInt("textEnabled", 0);
+}
+
+void RenderHelper::RenderSpriteAnnimation(SpriteAnimation* _mesh)
+{
+    // Get all our transform matrices & update shader
+    Mtx44 MVP;
+    MVP = GraphicsManager::GetInstance()->GetProjectionMatrix() * GraphicsManager::GetInstance()->GetViewMatrix() * GraphicsManager::GetInstance()->GetModelStack().Top();
+    ShaderProgram* currProg = GraphicsManager::GetInstance()->GetActiveShader();
+    currProg->UpdateMatrix44("MVP", &MVP.a[0]);
+
+    // Disable lighting stuff
+    currProg->UpdateInt("lightEnabled", 0);
+
+    // Update textures first if available
+    if (_mesh->textureID > 0)
+    {
+        currProg->UpdateInt("colorTextureEnabled", 1);
+        GraphicsManager::GetInstance()->UpdateTexture(0, _mesh->textureID);
+        currProg->UpdateInt("colorTexture", 0);
+    }
+    else
+    {
+        currProg->UpdateInt("colorTextureEnabled", 0);
+    }
+
+    // Do actual rendering
+    _mesh->Render();
+
+    // Unbind texture for safety (in case next render call uses it by accident)
+    if (_mesh->textureID > 0)
+    {
+        GraphicsManager::GetInstance()->UnbindTexture(0);
+    }
 }
