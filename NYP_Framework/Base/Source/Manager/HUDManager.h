@@ -13,13 +13,17 @@ not responsible for updating information.
 
 #include "SingletonTemplate.h"
 
+class Player;
+
 class HUDManager : public Singleton<HUDManager>
 {
 	friend Singleton<HUDManager>;
 public:
-	
+	void RenderHUD();
+	void UpdateHUD();
+
 
 private:
-	HUDManager() {};
-	~HUDManager() {};
+	HUDManager();
+	~HUDManager();
 };
