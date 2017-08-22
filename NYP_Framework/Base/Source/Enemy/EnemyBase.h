@@ -10,12 +10,22 @@ Header file for EnemyBase. Contain basic information of the enemy.
 #pragma once
 
 #include <future>
-#include "Pathing.h"
+#include "Mtx44.h"
+#include "MeshBuilder.h"
+#include "MatrixStack.h"
+#include "GraphicsManager.h"
+#include "../EntityManager.h"
+#include "../MapManager.h"
+#include "../PlayerInfo/PlayerInfo.h"
 #include "../GenericEntity.h"
+#include "Pathing.h"
+#include "RenderHelper.h"
+#include "StrategyBase.h"
 
 class EnemyBase : public GenericEntity
 {
 public:
+	friend StrategyBase;
 	enum ENEMY_TYPE
 	{
 		E_MELEE,
@@ -28,17 +38,30 @@ public:
 	{
 		this->type = GenericEntity::ENEMY_OBJ;
 		this->m_velocity = Vector3(0, 0, 0);
+		m_timeSinceLastUpdate = 0;
+		m_path_finder.setDiagonalMovement(false);
+		m_path_finder.readMap(MapManager::GetInstance()->getMapArray());
+		m_path_index = 0;
+		isPathFound = false;
+		strats = nullptr;
 	}
 	~EnemyBase() {};
 
 	virtual void Update(double _dt);
 	virtual void Render();
 	virtual bool CollisionResponse(GenericEntity*);
-	virtual void Move();
 	
 protected:
+	//PathFinding
 	double m_timeSinceLastUpdate;
 	Vector3 m_velocity;
+	std::future<std::vector<Coord2D>> m_result;
+	PathFinder m_path_finder;
+	std::vector<Coord2D> m_path;
+	int m_path_index;
+	bool isPathFound;
+	//Strategy
+	StrategyBase* strats;
 };
 
 namespace Create

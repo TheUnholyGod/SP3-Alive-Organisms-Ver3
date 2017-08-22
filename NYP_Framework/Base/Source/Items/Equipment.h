@@ -25,6 +25,7 @@ public:
     virtual void Action(int _actiontype) = 0;
     virtual void Update(double dt) = 0;
     virtual void Render() = 0;
+
 protected:
 	/*Returns this equipment's rune vector*/
 	std::vector<Runes*> getRunes();
@@ -44,14 +45,13 @@ protected:
 	bool removeRune(RUNE_TYPE type);
 
 	/*Replaces the existing rune with this rune
-	Returns true if replaced successfully. If runes doesn't exist, add it in.
-	Returns false if replace failed*/
-	bool replaceRune(Runes* new_rune);
+	Returns replaced rune if replaced successfully. If runes doesn't exist, add it in.
+	Returns nullptr if replace failed*/
+	Runes* replaceRune(Runes* new_rune);
 
 	size_t m_max_runes; //Maximum number of runes this equipment can store
 	std::vector<Runes*> m_runes; //Equipment's runes
 
 	Player* m_owner;
-
 };
 
