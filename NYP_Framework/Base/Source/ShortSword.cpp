@@ -34,8 +34,7 @@ void ShortSword::Action(int _combo)
 	if (_combo >= COMBO_BASIC1 && _combo <= COMBO_BACK3)
 		this->m_hitbox[_combo]->GenerateAABB(this->m_owner->GetPosition() + (this->m_owner->GetDirection().x * Vector3(1, 0, 0)));
 	else if (_combo >= COMBO_UP1 && _combo <= COMBO_DOWN3)
-		this->m_hitbox[_combo]->GenerateAABB(this->m_owner->GetPosition() + (this->m_owner->GetDirection().y * Vector3(0, 1
-			, 0)));
+		this->m_hitbox[_combo]->GenerateAABB(this->m_owner->GetPosition() + (this->m_owner->GetDirection().y * Vector3(0, 1, 0)));
 	this->m_curr_combo = _combo;
 }
 
