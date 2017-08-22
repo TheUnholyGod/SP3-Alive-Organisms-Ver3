@@ -74,11 +74,11 @@ void MapManager::GenerateBlocks(int level)
 				{
 					if (!set_player_pos && i >= (temp.size() - 10))
 					{
-						Player::GetInstance()->SetPosition(Vector3((x + (row * 7)), (y + (section * 7)) + 0.2, 0));
+						Player::GetInstance()->SetPosition(Vector3((x + (row * 7)), (y + (section * 7)) - 0.2, 0));
 						set_player_pos = true;
 					}
 
-					temp_player_pos.Set((x + (row * 7)), (y + (section * 7)) + 0.2, 0);
+					temp_player_pos.Set((x + (row * 7)), (y + (section * 7)) - 0.2, 0);
 				}
 				break;
 				default:
@@ -207,14 +207,14 @@ void MapManager::GenerateMapArray(int level)
 	}*/
 	
 	//Printing for debug
-	for (int y = size - 1; y >= 0; --y)
+	/*for (int y = size - 1; y >= 0; --y)
 	{
 		for (int x = 0; x < size; ++x)
 		{
 			std::cout << m_map_array[y][x];
 		}
 		std::cout << std::endl;
-	}
+	}*/
 }
 
 Level* MapManager::GetLevel(int level)

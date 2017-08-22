@@ -188,6 +188,7 @@ void SceneText::Update(double dt)
 {
 	m_inputtimer += dt;
 
+	Player::GetInstance()->Update(dt);
 	// Update our entities
 	EntityManager::GetInstance()->Update(dt);
 
@@ -198,7 +199,6 @@ void SceneText::Update(double dt)
 		m_inputtimer -= 0.15f;
 	}
 
-	Player::GetInstance()->Update(dt);
 	// THIS WHOLE CHUNK TILL <THERE> CAN REMOVE INTO ENTITIES LOGIC! Or maybe into a scene function to keep the update clean
 	if (KeyboardController::GetInstance()->IsKeyDown('1'))
 		glEnable(GL_CULL_FACE);
@@ -271,7 +271,7 @@ void SceneText::Update(double dt)
 	// <THERE>
 
 	// Update the player position and other details based on keyboard and mouse inputs
-	Player::GetInstance()->Update(dt);
+
 
 	//camera.Update(dt); // Can put the camera into an entity rather than here (Then we don't have to write this)
 

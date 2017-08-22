@@ -119,12 +119,17 @@ void Application::Run()
 {
 	SceneManager::GetInstance()->SetActiveScene("Start");
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
+	static float dt = m_timer.getElapsedTime();
 	while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))
 	{
+		dt = m_timer.getElapsedTime();
 		glfwPollEvents();
 		UpdateInput();
 		
-		SceneManager::GetInstance()->Update(m_timer.getElapsedTime());
+		if (dt > 0.015f)
+			dt = 0.015f;
+
+		SceneManager::GetInstance()->Update(dt);
 		SceneManager::GetInstance()->Render();
 
 		//Swap buffers

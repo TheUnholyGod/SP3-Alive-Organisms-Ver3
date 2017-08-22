@@ -53,7 +53,7 @@ void Player::Init(void)
 	m_defmov = 0.125f;
 	m_combo = 0;
 	m_attacking = false;
-	m_isOnFloor = false;
+	m_isOnFloor = true;
 
 	// Set Boundary
 	maxBoundary.Set(.5, .5, .5);
@@ -143,7 +143,7 @@ void Player::Update(double dt)
 		}
 
 	if (!m_isOnFloor)
-		accleration.y = -1.8;
+		accleration.y = -9.8;
 	else
 		accleration.y = 0;
 }
