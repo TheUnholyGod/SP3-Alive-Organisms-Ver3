@@ -46,22 +46,22 @@ void EntityManager::Update(double _dt)
 
 	for (int i = 0; i < temp.size(); ++i)
 	{
-		it = m_entity_map_base[i].begin();
+		it = m_entity_map_base[temp[i]].begin();
 
-		while(it != m_entity_map_base[i].end())
+		while(it != m_entity_map_base[temp[i]].end())
 		{
 			if ((*it)->IsDone())
 			{
 				delete *it;
-				it = m_entity_map_base[i].erase(it);
+				it = m_entity_map_base[temp[i]].erase(it);
 			}
 			else
 			{
-				if ((*it)->GetTileID() != i)
+				if ((*it)->GetTileID() != temp[i])
 				{
-					EntityBase* temp = *it;
-					it = m_entity_map_base[i].erase(it);
-					m_entity_map_base[temp->GetTileID()].push_back(temp);
+					EntityBase* temp_entity = *it;
+					it = m_entity_map_base[temp[i]].erase(it);
+					m_entity_map_base[temp_entity->GetTileID()].push_back(temp_entity);
 				}
 				else
 					++it;

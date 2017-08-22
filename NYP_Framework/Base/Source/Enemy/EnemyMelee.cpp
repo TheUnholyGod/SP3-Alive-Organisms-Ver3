@@ -66,8 +66,9 @@ void EnemyMelee::Update(double _dt)
 			isPathFound = true;
 		}
 	}
-	this->tile_ID = Player::GetInstance()->GetTileID();
-	/*this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(position);*/
+	//this->tile_ID = Player::GetInstance()->GetTileID();
+	this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(position);
+	std::cout << tile_ID << std::endl;
 }
 
 void EnemyMelee::Render()
