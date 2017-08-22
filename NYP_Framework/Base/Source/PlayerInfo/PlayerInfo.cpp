@@ -53,7 +53,8 @@ void Player::Init(void)
 	m_defmov = 0.125f;
 	m_combo = 0;
 	m_attacking = false;
-	m_isOnFloor = true;
+	m_isOnFloor = false;
+	m_isClimbing = false;
 
 	// Set Boundary
 	maxBoundary.Set(.5, .5, .5);
@@ -74,11 +75,6 @@ void Player::Init(void)
 void Player::Update(double dt)
 {
 	SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
-
-	if (m_isOnFloor && accleration.y != 0)
-	{
-		accleration.y = 0;
-	}
 
 	if (m_attacking)
 		m_combotimer -= dt;
@@ -142,9 +138,9 @@ void Player::Update(double dt)
 			}
 		}
 
-	if (!m_isOnFloor)
-		accleration.y = -9.8;
-	else
+	if (!m_isOnFloor && !m_isClimbing)
+		accleration.y = -90.8;
+	else if (m_isOnFloor && accleration != 0)
 		accleration.y = 0;
 }
 
@@ -196,7 +192,7 @@ void Player::UpdateMovment(double dt)
 						else
 						{
 							this->position = temp;
-							accleration.y = 20;
+							accleration.y = 20;	
 						}
 						break;
 					}
@@ -253,12 +249,40 @@ void Player::Render()
 
 void Player::MoveUp(double dt)
 {
-	this->direction.y = 1;
-	this->velocity.y = 1;
-	m_movingtimer = m_defmov;
-	m_movingtimer = 0.125f;
+		
+	std::vector<EntityBase*> temp_blocks;
+	EntityManager::GetInstance()->GetAllBlocksWithinTileRadius(tile_ID, temp_blocks, true);
 
-	this->m_moving = true;
+	for (std::vector<EntityBase*>::iterator it = temp_blocks.begin(); it < temp_blocks.end(); ++it)
+	{
+		if (!(*it)->HasCollider())
+			continue;
+
+		if (CollisionManager::GetInstance()->CheckAABBCollision(*it, Player::GetInstance()))
+		{
+			if (dynamic_cast<TileEntity*>(*it) != nullptr)
+			{
+				//std::cout << dynamic_cast<TileEntity*>(*it)->block_type << std::endl;
+				if (dynamic_cast<TileEntity*>(*it)->block_type == TileEntity::LADDER || dynamic_cast<TileEntity*>(*it)->block_type == TileEntity::LADDERWITHPLATFORM)
+				{
+					m_isClimbing = true;
+					break;
+				}
+				else
+					m_isClimbing = false;
+			}
+		}
+	}
+
+	if (m_isClimbing)
+	{
+		this->direction.y = 1;
+		this->velocity.y = 1;
+		m_movingtimer = m_defmov;
+		m_movingtimer = 0.125f;
+
+		this->m_moving = true;
+	}
 }
 
 void Player::MoveDown(double dt)

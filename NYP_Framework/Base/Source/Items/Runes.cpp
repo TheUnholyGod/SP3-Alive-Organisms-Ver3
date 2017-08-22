@@ -19,6 +19,7 @@ Runes::Runes()
 Runes::Runes(int level, RUNE_TYPE type)
 {
 	//TODO: Randomise stats based on constructor
+
 }
 
 Runes::~Runes()

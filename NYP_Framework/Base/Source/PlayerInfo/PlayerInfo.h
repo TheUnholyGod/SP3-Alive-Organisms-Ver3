@@ -78,6 +78,7 @@ private:
 	bool m_invincible;
 
 	bool m_isOnFloor;
+	bool m_isClimbing;
 
 	FPSCamera* attachedCamera;
 

@@ -52,16 +52,23 @@ void MapManager::GenerateBlocks(int level)
 					break;
 				case 3:
 				{
-					if(y + 1 < map_database[level]->GetSizeOfTileSet() && temp[i]->GetTilesArray()[y + 1][x] != 3)
-						Create::TileEntityCreator(TileEntity::LADDERWITHPLATFORM, Vector3((x + (row * 7)), y + (section * 7), 0), Vector3(1, 1, 1), true, true, true, i);
+					if (y + 1 < map_database[level]->GetSizeOfTileSet())
+					{
+						if (temp[i]->GetTilesArray()[y + 1][x] != 3)
+							Create::TileEntityCreator(TileEntity::LADDERWITHPLATFORM, Vector3((x + (row * 7)), y + (section * 7), 0), Vector3(1, 1, 1), true, true, true, i);
+						else
+							Create::TileEntityCreator(TileEntity::LADDER, Vector3((x + (row * 7)), y + (section * 7), 0), Vector3(1, 1, 1), true, true, true, i);
+					}
 					else
-						Create::TileEntityCreator(TileEntity::LADDER, Vector3((x + (row * 7)), y + (section * 7), 0), Vector3(1, 1, 1), true, true, true, i);
+						Create::TileEntityCreator(TileEntity::LADDERWITHPLATFORM, Vector3((x + (row * 7)), y + (section * 7), 0), Vector3(1, 1, 1), true, true, true, i);
 				}
 					break;
 				case 4:
 				{
 					if (Math::RandIntMinMax(0, 100) < 20)
+					{
 						Create::TileEntityCreator(TileEntity::RUNE_SPAWNER, Vector3((x + (row * 7)), y + (section * 7), 0), Vector3(0.5, 1, 1), true, true, true, i);
+					}
 				}
 					break;
 				case 5:
