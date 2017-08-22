@@ -55,7 +55,7 @@ void MapManager::GenerateBlocks(int level)
 					if(y + 1 < map_database[level]->GetSizeOfTileSet() && temp[i]->GetTilesArray()[y + 1][x] != 3)
 						Create::TileEntityCreator(TileEntity::LADDERWITHPLATFORM, Vector3((x + (row * 7)), y + (section * 7), 0), Vector3(1, 1, 1), true, true, true, i);
 					else
-						Create::TileEntityCreator(TileEntity::LADDER, Vector3((x + (row * 7)), y + (section * 7), 0), Vector3(0.3, 1, 1), true, true, true, i);
+						Create::TileEntityCreator(TileEntity::LADDER, Vector3((x + (row * 7)), y + (section * 7), 0), Vector3(1, 1, 1), true, true, true, i);
 				}
 					break;
 				case 4:
@@ -235,7 +235,7 @@ TileEntity* Create::TileEntityCreator(const TileEntity::BLOCK_TYPE block_type,
 
 	case TileEntity::SOLID_BLOCK:
 	{
-		Mesh* modelMesh = MeshList::GetInstance()->GetMesh("quad");
+		Mesh* modelMesh = MeshList::GetInstance()->GetMesh("solid_block");
 		if (modelMesh == nullptr)
 			return nullptr;
 
@@ -246,7 +246,7 @@ TileEntity* Create::TileEntityCreator(const TileEntity::BLOCK_TYPE block_type,
 	}
 	case TileEntity::LADDER:
 	{
-		Mesh* modelMesh = MeshList::GetInstance()->GetMesh("quad");
+		Mesh* modelMesh = MeshList::GetInstance()->GetMesh("ladder_block");
 		if (modelMesh == nullptr)
 			return nullptr;
 
@@ -257,7 +257,7 @@ TileEntity* Create::TileEntityCreator(const TileEntity::BLOCK_TYPE block_type,
 	}
 	case TileEntity::LADDERWITHPLATFORM:
 	{
-		Mesh* modelMesh = MeshList::GetInstance()->GetMesh("quad");
+		Mesh* modelMesh = MeshList::GetInstance()->GetMesh("platform_ladder_block");
 		if (modelMesh == nullptr)
 			return nullptr;
 
@@ -268,7 +268,7 @@ TileEntity* Create::TileEntityCreator(const TileEntity::BLOCK_TYPE block_type,
 	}
 	case TileEntity::TOP_PLATFORM:
 	{
-		Mesh* modelMesh = MeshList::GetInstance()->GetMesh("quad");
+		Mesh* modelMesh = MeshList::GetInstance()->GetMesh("platform_block");
 		if (modelMesh == nullptr)
 			return nullptr;
 
@@ -279,7 +279,7 @@ TileEntity* Create::TileEntityCreator(const TileEntity::BLOCK_TYPE block_type,
 	}
 	case TileEntity::RUNE_SPAWNER:
 	{
-		Mesh* modelMesh = MeshList::GetInstance()->GetMesh("quad");
+		Mesh* modelMesh = MeshList::GetInstance()->GetMesh("rune_spawner_block");
 		if (modelMesh == nullptr)
 			return nullptr;
 
