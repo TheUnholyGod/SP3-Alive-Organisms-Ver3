@@ -57,6 +57,9 @@ void Projectile::Render()
 
 bool Projectile::CollisionResponse(GenericEntity * ThatEntity)
 {
+	std::cout << "HIT" << std::endl;
+	ThatEntity->SetIsDone(true);
+	this->SetIsDone(true);
 	return false;
 }
 
