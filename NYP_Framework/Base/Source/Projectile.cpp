@@ -29,6 +29,7 @@ void Projectile::Init(Vector3 _pos, Vector3 _vel, Vector3 _dir)
 	this->direction = _dir;
 	this->tile_ID = Player::GetInstance()->GetTileID();
 	this->isStatic = false;
+	this->size.Set(0.5f, 0.5f, 1);
 }
 
 void Projectile::Update(double _dt)
@@ -37,6 +38,7 @@ void Projectile::Update(double _dt)
 		return;
 	this->position += velocity * _dt;
 	this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(this->position);
+	this->GenerateAABB(this->position);
 }
 
 void Projectile::Render()
