@@ -24,6 +24,7 @@ struct Coord2D
 
 	//Used to compare Coord2D
 	bool operator == (const Coord2D& coordinates_);
+	Coord2D operator - (const Coord2D& coordinates_);
 };
 
 struct Node
@@ -38,6 +39,7 @@ struct Node
 
 class Heuristic
 {
+	//Function based on method to find score/priority
 	static Coord2D getDelta(Coord2D source_, Coord2D target_);
 
 public:
@@ -61,26 +63,35 @@ public:
 	//PathFinding options & configurations
 	void setWorldSize(Coord2D worldSize_);
 	void setDiagonalMovement(bool enable_);
-	/*Heuristic*/
+	/*
+	Heuristics(Use according to movement for optimised search speed):
+	Manhattan - 4 Direction movement
+	Euclidean - Any direction
+	Diagonal  - 8 Direction movement
+	*/
 	void setHeuristic(std::function<unsigned int(Coord2D, Coord2D)> heuristic_);
 
-	//Read map from array
+	//Read map from array & set collisions
 	void readMap(int** grid_);
 
-	//Find A-star path
+	/*Find A-star path
+	Returns vector of Coord2D
+	Destination at index[0]*/
 	std::vector<Coord2D> findPath(Coord2D source_, Coord2D target_);
 
-	//Functions for collision in the map
+	//Add collision in the form of 2D coordinate
 	void addCollision(Coord2D coordinates_);
+	//Remove collision in the form of 2D coordinate
 	void removeCollision(Coord2D coordinates_);
+	//Clear all the collision in the map
 	void clearCollisions();
 
-	//Debug Functions
+	//Debug Function - Print Map with routes marked
 	void printMap(std::vector<Coord2D> path_, Coord2D src_, Coord2D des_);
 
 private:
-	std::function<unsigned int(Coord2D, Coord2D)> heuristic;
-	std::vector<Coord2D> direction, walls;
-	Coord2D worldSize;
-	unsigned int directions;
+	std::function<unsigned int(Coord2D, Coord2D)> heuristic; //Method of calculating "Score" or Priority of node. Determines if its closer or further
+	std::vector<Coord2D> direction, walls; //Storage for walls and direction
+	Coord2D worldSize; //Size of the world
+	unsigned int directions; //Num of directions the player can move in
 };

@@ -53,7 +53,7 @@ void Player::Init(void)
 	m_defmov = 0.125f;
 	m_combo = 0;
 	m_attacking = false;
-	m_isOnFloor = false;
+	m_isOnFloor = true;
 
 	// Set Boundary
 	maxBoundary.Set(.5, .5, .5);
@@ -104,34 +104,48 @@ void Player::Update(double dt)
 	this->UpdateJump(dt);
 	this->UpdateMovment(dt);
     this->m_player_equipment[EQUIPMENT_MELEE]->Update(dt);
-	this->attachedCamera->SetCameraPos(Vector3(position.x, position.y, 10));
+	this->attachedCamera->SetCameraPos(Vector3(position.x, position.y, 7));
 	this->attachedCamera->SetCameraTarget(position);
 
 	std::vector<EntityBase*> temp_blocks;
 	EntityManager::GetInstance()->GetAllBlocksWithinTileRadius(tile_ID, temp_blocks, true);
 
-	if (!m_isOnFloor)
-	{
 		for (std::vector<EntityBase*>::iterator it = temp_blocks.begin(); it < temp_blocks.end(); ++it)
 		{
 
 			if (!(*it)->HasCollider())
 				continue;
 
-			if (CollisionManager::GetInstance()->CheckPointToAABBCollision(Vector3(Player::GetInstance()->GetPosition().x, Player::GetInstance()->GetPosition().y
-				, 0), *it))
+			if (CollisionManager::GetInstance()->CheckPointToAABBCollision(Vector3(Player::GetInstance()->GetPosition().x, Player::GetInstance()->GetPosition().y - 0.28f
+				, 0), *it) || 
+				CollisionManager::GetInstance()->CheckPointToAABBCollision(Vector3(Player::GetInstance()->GetPosition().x + 0.28f, Player::GetInstance()->GetPosition().y - 0.28f
+					, 0), *it) ||
+				CollisionManager::GetInstance()->CheckPointToAABBCollision(Vector3(Player::GetInstance()->GetPosition().x - 0.28f, Player::GetInstance()->GetPosition().y - 0.28f
+					, 0), *it))
 			{
-				//std::cout << dynamic_cast<TileEntity*>(*it)->block_type << std::endl;
-				if (dynamic_cast<TileEntity*>(*it)->block_type == TileEntity::SOLID_BLOCK || dynamic_cast<TileEntity*>(*it)->block_type == TileEntity::TOP_PLATFORM)
+				if (dynamic_cast<TileEntity*>(*it) != nullptr)
 				{
-					m_isOnFloor = true;
-					break;
+					if (dynamic_cast<TileEntity*>(*it)->block_type == TileEntity::SOLID_BLOCK || dynamic_cast<TileEntity*>(*it)->block_type == TileEntity::TOP_PLATFORM)
+					{
+						m_isOnFloor = true;
+						break;
+					}
+					else
+					{
+							m_isOnFloor = false;
+					}
 				}
-				else
+			}
+			else
+			{
 					m_isOnFloor = false;
 			}
 		}
-	}
+
+	if (!m_isOnFloor)
+		accleration.y = -9.8;
+	else
+		accleration.y = 0;
 }
 
 void Player::UpdateMovment(double dt)
@@ -165,24 +179,32 @@ void Player::UpdateMovment(double dt)
 
 		if (CollisionManager::GetInstance()->CheckAABBCollision(*it, Player::GetInstance()))
 		{
-			//std::cout << dynamic_cast<TileEntity*>(*it)->block_type << std::endl;
-			if (dynamic_cast<TileEntity*>(*it)->block_type == TileEntity::SOLID_BLOCK)
+			if (dynamic_cast<TileEntity*>(*it) != nullptr)
 			{
-				SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
-				break;
-			}
-			else if (dynamic_cast<TileEntity*>(*it)->block_type == TileEntity::TOP_PLATFORM)
-			{
-				if (CollisionManager::GetInstance()->CheckPlayerDirCollision(*it))
+				//std::cout << dynamic_cast<TileEntity*>(*it)->block_type << std::endl;
+				if (dynamic_cast<TileEntity*>(*it)->block_type == TileEntity::SOLID_BLOCK)
 				{
 					SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
 					break;
 				}
-				else
+				else if (dynamic_cast<TileEntity*>(*it)->block_type == TileEntity::TOP_PLATFORM)
 				{
-					this->position = temp;
-					accleration.y = 3;
-					break;
+					if (CollisionManager::GetInstance()->CheckPlayerDirCollision(*it))
+					{
+						if (m_isOnFloor)
+							SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
+						else
+						{
+							this->position = temp;
+							accleration.y = 20;
+						}
+						break;
+					}
+					else
+					{
+						this->position = temp;
+						break;
+					}
 				}
 			}
 		}

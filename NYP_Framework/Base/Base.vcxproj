@@ -17,7 +17,6 @@
     <ClCompile Include="Source\Enemy\EnemyBossBase.cpp" />
     <ClCompile Include="Source\Enemy\EnemyMelee.cpp" />
     <ClCompile Include="Source\Enemy\Pathing.cpp" />
-    <ClCompile Include="Source\Enemy\PathNode.cpp" />
     <ClCompile Include="Source\Enemy\StrategyBase.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\FPSCamera.cpp" />
@@ -62,7 +61,6 @@
     <ClInclude Include="Source\Enemy\EnemyBossBase.h" />
     <ClInclude Include="Source\Enemy\EnemyMelee.h" />
     <ClInclude Include="Source\Enemy\Pathing.h" />
-    <ClInclude Include="Source\Enemy\PathNode.h" />
     <ClInclude Include="Source\Enemy\StrategyBase.h" />
     <ClInclude Include="Source\EntityManager.h" />
     <ClInclude Include="Source\FPSCamera.h" />
