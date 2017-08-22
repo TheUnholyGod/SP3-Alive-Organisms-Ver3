@@ -12,14 +12,14 @@ public:
 		EnemyBase::ENEMY_TYPE enemy_type,
 		Vector3 _position,
 		Vector3 _scale,
-		bool have_collider = false,
-		bool have_physic = false,
+		bool have_collider = true,
+		bool have_physic = true,
 		bool is_static = false);
 	~EnemyMelee();
 
 	void Update(double _dt);
 	void Render();
-	bool collisionResponse(GenericEntity*);
+	bool CollisionResponse(GenericEntity*);
 	void Move();
 	void FindPath(Coord2D _src, Coord2D _end);
 

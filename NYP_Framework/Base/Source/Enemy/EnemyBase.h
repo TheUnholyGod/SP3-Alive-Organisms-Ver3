@@ -26,14 +26,14 @@ public:
 
 	EnemyBase(Mesh* enemyMesh) : GenericEntity(enemyMesh)
 	{
-		this->type = GenericEntity::ENTITY_OBJ;
+		this->type = GenericEntity::ENEMY_OBJ;
 		this->m_velocity = Vector3(0, 0, 0);
 	}
 	~EnemyBase() {};
 
 	virtual void Update(double _dt);
 	virtual void Render();
-	virtual bool collisionResponse(GenericEntity*);
+	virtual bool CollisionResponse(GenericEntity*);
 	virtual void Move();
 	
 protected:

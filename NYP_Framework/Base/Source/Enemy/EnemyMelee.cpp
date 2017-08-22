@@ -49,7 +49,7 @@ void EnemyMelee::Update(double _dt)
 
 	m_timeSinceLastUpdate += _dt;
 
-	if (m_timeSinceLastUpdate > 3 && !m_result.valid() && !isPathFound)
+	if (m_timeSinceLastUpdate > 10 && !m_result.valid() && !isPathFound)
 	{
 		FindPath({ (int)(position.x + 0.5), (int)(position.y + 0.5)},
 				{ (int)(playerpos.x + 0.5), (int)(playerpos.y + 0.5)});
@@ -66,21 +66,6 @@ void EnemyMelee::Update(double _dt)
 			isPathFound = true;
 		}
 	}
-
-	//if (!m_path.empty())
-	//{
-	//	std::cout << "Path vector is not empty" << std::endl;
-	//	for (int i = 0; i < m_path.size(); ++i)
-	//	{	
-	//		if(i == 0)
-	//			std::cout << "Start";
-	//		std::cout << "->(" << m_path[i].x << ", " << m_path[i].y << ")";
-	//		if (i == m_path.size() - 1)
-	//			std::cout << "->End";
-	//	}
-	//	std::cout << std::endl;
-	//	//m_path.clear();
-	//}
 	this->tile_ID = Player::GetInstance()->GetTileID();
 	/*this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(position);*/
 }
@@ -96,9 +81,14 @@ void EnemyMelee::Render()
 	modelStack.PopMatrix();
 }
 
-bool EnemyMelee::collisionResponse(GenericEntity *)
+bool EnemyMelee::CollisionResponse(GenericEntity *ThatEntity)
 {
 	/*Collision response for this enemy*/
+	if (ThatEntity->type == PROJECTILE_OBJ)
+	{
+		ThatEntity->SetIsDone(true);
+		this->SetIsDone(true);
+	}
 	return false;
 }
 
@@ -113,13 +103,27 @@ void EnemyMelee::Move()
 	if (!m_path.empty())
 	{
 		float dist = (position - Vector3(m_path[m_path_index].x, m_path[m_path_index].y, 0)).LengthSquared();
-		if (dist <= 0.01)
+		if (dist < 0.1)
 		{
 			std::cout << "Reached: (" << m_path[m_path_index].x << ", " << m_path[m_path_index].y << ")" << std::endl;
-			std::cout << "Traveling towards: (" << m_path[m_path_index + 1].x << ", " << m_path[m_path_index + 1].y << ")" << std::endl;
-			if(m_path_index + 1 < m_path.size())
+			//If theres more nodes
+			if (m_path_index != m_path.size() - 1)
+			{
+				std::cout << "Traveling towards: (" << m_path[m_path_index + 1].x << ", " << m_path[m_path_index + 1].y << ")" << std::endl;
 				++m_path_index;
-			
+			}
+
+			std::cout << "Route: " << std::endl;
+			for (int i = 0; i < m_path.size(); ++i)
+			{
+				if (i == 0)
+					std::cout << "Start";
+				std::cout << "->(" << m_path[i].x << ", " << m_path[i].y << ")";
+				if (i == m_path.size() - 1)
+					std::cout << "->End";
+			}
+			std::cout << std::endl;
+
 		}
 		//else
 		//{
@@ -128,7 +132,7 @@ void EnemyMelee::Move()
 	}	
 
 	//Check direction of next node
-	Coord2D dir;
+	Coord2D dir = m_path[m_path_index - 1] - m_path[m_path_index];
 	if (m_path_index + 1 < m_path.size())
 		dir = m_path[m_path_index] - m_path[m_path_index + 1];
 
