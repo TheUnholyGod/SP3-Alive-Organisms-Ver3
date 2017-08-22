@@ -27,7 +27,7 @@ void EnemyBase::Render()
 {
 }
 
-bool EnemyBase::collisionResponse(GenericEntity *)
+bool EnemyBase::CollisionResponse(GenericEntity *)
 {
 	return false;
 }

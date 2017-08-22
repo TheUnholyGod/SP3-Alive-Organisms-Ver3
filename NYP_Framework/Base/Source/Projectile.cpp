@@ -29,7 +29,9 @@ void Projectile::Init(Vector3 _pos, Vector3 _vel, Vector3 _dir)
 	this->direction = _dir;
 	this->tile_ID = Player::GetInstance()->GetTileID();
 	this->isStatic = false;
+	this->m_bCollider = true;
 	this->size.Set(0.5f, 0.5f, 1);
+	this->type = PROJECTILE_OBJ;
 }
 
 void Projectile::Update(double _dt)
@@ -57,9 +59,8 @@ void Projectile::Render()
 
 bool Projectile::CollisionResponse(GenericEntity * ThatEntity)
 {
-	std::cout << "HIT" << std::endl;
 	ThatEntity->SetIsDone(true);
-	this->SetIsDone(true);
+	this->m_active = false;
 	return false;
 }
 

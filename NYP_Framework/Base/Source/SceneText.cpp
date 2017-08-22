@@ -238,7 +238,7 @@ void SceneText::Update(double dt)
 	if (KeyboardController::GetInstance()->IsKeyReleased('P'))
 	{
 		Create::Particle("particle", Player::GetInstance()->GetPosition(), Vector3(0, -1, 0), EFFECT_TYPE::ET_FIRE, 0.1, 0.3);
-		Create::Enemy(EnemyBase::ENEMY_TYPE::E_MELEE, Vector3((int)Player::GetInstance()->GetPosition().x, (int)Player::GetInstance()->GetPosition().y, (int)Player::GetInstance()->GetPosition().z), Vector3(1, 1, 1), 1);
+		Create::Enemy(EnemyBase::ENEMY_TYPE::E_MELEE, Vector3((int)Player::GetInstance()->GetPosition().x, (int)Player::GetInstance()->GetPosition().y, (int)Player::GetInstance()->GetPosition().z), Vector3(1, 1, 1), true, false, false);
 	}
 	if (KeyboardController::GetInstance()->IsKeyReleased('T'))
 	{

@@ -19,7 +19,7 @@ public:
 
 	void Update(double _dt);
 	void Render();
-	bool collisionResponse(GenericEntity*);
+	bool CollisionResponse(GenericEntity*);
 	void Move();
 	void FindPath(Coord2D _src, Coord2D _end);
 

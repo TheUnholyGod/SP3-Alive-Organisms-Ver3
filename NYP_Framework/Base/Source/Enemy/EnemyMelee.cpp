@@ -81,9 +81,14 @@ void EnemyMelee::Render()
 	modelStack.PopMatrix();
 }
 
-bool EnemyMelee::collisionResponse(GenericEntity *)
+bool EnemyMelee::CollisionResponse(GenericEntity *ThatEntity)
 {
 	/*Collision response for this enemy*/
+	if (ThatEntity->type == PROJECTILE_OBJ)
+	{
+		ThatEntity->SetIsDone(true);
+		this->SetIsDone(true);
+	}
 	return false;
 }
 
