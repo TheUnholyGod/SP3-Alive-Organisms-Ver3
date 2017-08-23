@@ -25,6 +25,7 @@ private:
 	map<int, Tiles*> level_layout;
 public:
 	Level(int);
+	~Level();
 	int** GetLevelSetArray();
 	void GetLevelLayOut(map<int, Tiles*>&);
 
