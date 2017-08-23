@@ -31,11 +31,15 @@ public:
 	inline void SetScale(const Vector3& _value) { scale = _value; };
 	inline Vector3 GetScale() { return scale; };
 
+	void SetRotation(float angle, Vector3 axis);
+
 	inline void SetTextRenderMode(SPRITE_RENDERMODE _mode) { mode = _mode; };
 
 private:
 	Vector3 position;
 	Vector3 scale;
+	Vector3 rotateAxis;
+	float rotateAngle;
 	Mesh* modelMesh;
 	SPRITE_RENDERMODE mode;
 };
