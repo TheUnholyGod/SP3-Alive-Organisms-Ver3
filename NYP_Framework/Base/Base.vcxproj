@@ -50,6 +50,7 @@
     <ClCompile Include="Source\SkyBox\SkyBoxEntity.cpp" />
     <ClCompile Include="Source\Bow.cpp" />
     <ClCompile Include="Source\SpriteEntity.cpp" />
+    <ClCompile Include="Source\StatusEffect.cpp" />
     <ClCompile Include="Source\TextEntity.cpp" />
     <ClCompile Include="Source\TileEntity.cpp" />
     <ClCompile Include="Source\TileEntitySolidBlock.cpp" />
@@ -95,6 +96,7 @@
     <ClInclude Include="Source\ShortSword.h" />
     <ClInclude Include="Source\SkyBox\SkyBoxEntity.h" />
     <ClInclude Include="Source\SpriteEntity.h" />
+    <ClInclude Include="Source\StatusEffect.h" />
     <ClInclude Include="Source\TextEntity.h" />
     <ClInclude Include="Source\TileEntity.h" />
     <ClInclude Include="Source\TileEntitySolidBlock.h" />

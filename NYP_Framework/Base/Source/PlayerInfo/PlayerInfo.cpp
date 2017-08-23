@@ -417,6 +417,16 @@ void Player::SecondaryAttack(double dt,int _actiontype)
 	}
 }
 
+void Player::TakeDamage(int _dmg)
+{
+	this->m_health -= _dmg;
+}
+
+int Player::GetHealth()
+{
+	return this->m_health;
+}
+
 FPSCamera * Player::getCamera()
 {
 	return attachedCamera;

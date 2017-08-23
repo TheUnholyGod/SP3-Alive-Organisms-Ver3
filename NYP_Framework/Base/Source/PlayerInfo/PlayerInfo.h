@@ -45,6 +45,9 @@ public:
 	void PrimaryAttack(double dt, int _combo);
 	void SecondaryAttack(double dt, int _actiontype = 0);
 
+	void TakeDamage(int _dmg);
+	int GetHealth();
+
 	// Handling Camera
 	FPSCamera* getCamera();
 	void AttachCamera(FPSCamera* _cameraPtr);
@@ -68,6 +71,8 @@ private:
 	int m_combo;
 	double m_dSpeed;
 	double m_dAcceleration;
+
+	int m_health;
 
 	bool m_jump;
 	double m_dJumpSpeed;

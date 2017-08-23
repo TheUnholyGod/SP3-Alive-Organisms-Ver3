@@ -33,6 +33,7 @@ public:
 
 	virtual void SetActive(bool _active);
 	virtual bool GetActive();
+	virtual void ApplyDamage(int _dmg);
 	// Set the maxAABB and minAABB
 	//void SetAABB(Vector3 maxAABB, Vector3 minAABB);
 
