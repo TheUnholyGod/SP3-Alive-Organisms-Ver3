@@ -47,7 +47,6 @@ public:
 		m_path_finder.readMap(MapManager::GetInstance()->getMapArray());
 		m_path_index = 0;
 		isPathFound = false;
-		strats = nullptr;
 	}
 	~EnemyBase() {};
 
@@ -56,23 +55,24 @@ public:
 	virtual bool CollisionResponse(GenericEntity*);
 	
 	//Animation
+	//REDO: Change into array
 	SpriteEntity* animation;
+	SpriteEntity* animation2;
 
 protected:
 	//PathFinding
-	double m_timeSinceLastUpdate;
-	Vector3 m_velocity;
-	std::future<std::vector<Coord2D>> m_result;
 	PathFinder m_path_finder;
+	double m_timeSinceLastUpdate;
+	std::future<std::vector<Coord2D>> m_result;
 	std::vector<Coord2D> m_path;
 	int m_path_index;
 	bool isPathFound;
 
+	//Movement
+	Vector3 m_velocity;
+	
 	//Patrolling
 	bool dir; //True = right, False = left;
-
-	//Strategy
-	StrategyBase* strats;
 };
 
 namespace Create
