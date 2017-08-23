@@ -20,9 +20,21 @@ public:
 
 	bool CollisionResponse(GenericEntity*);
 	
+	enum AI_STATES
+	{
+		AI_PATROL, //Walks left & right
+		AI_CHASE,  //Follows path to player
+		AI_ATTACK, //Attacks the player
+
+		AI_TOTAL
+	}m_state;
+
+	//AI States
 	void FindPath(Coord2D _src, Coord2D _end);
-	void Move();
 	void Patrol();
+	void Detect(double dt);
+	void Move();
+	void Attack();
 	
 private:
 

@@ -17,6 +17,7 @@ public:
 		TOP_PLATFORM,
 		RUNE_SPAWNER,
 		SOLID_SPAWNER,
+		BOSS_DOOR,
 
 		TOTAL
 	} block_type;

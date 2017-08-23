@@ -124,8 +124,8 @@ void SceneText::Init()
 	//camera.Init(Vector3(0, 0, 10), Vector3(0, 0, 0), Vector3(0, 1, 0));
 
 	// Create entities into the scene
-	Create::Entity("reference", Vector3(0.0f, 0.0f, 0.0f)); // Reference
 	Create::Entity("lightball", Vector3(lights[0]->position.x, lights[0]->position.y, lights[0]->position.z)); // Lightball
+	Create::Entity("background", Vector3(7 * 5, 7 * 5, -5), Vector3(100, 100));
 //	groundEntity = Create::Ground("GRASS_DARKGREEN", "GEO_GRASS_LIGHTGREEN");
 //	Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));
 //	Create::Sprite2DObject("crosshair", Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f));
@@ -173,7 +173,9 @@ void SceneText::Init()
 	//	}
 	//	std::cout << std::endl;
 	//}
-	Create::Entity("background", Vector3(7 * 5, 7 * 5,-5), Vector3(100, 100));
+
+	AudioPlayer::GetInstance()->addSound("explosion", "Assets//Sound//explosion.wav"); //Move somewhere to run only once
+
 }
 
 void SceneText::Update(double dt)
@@ -229,17 +231,14 @@ void SceneText::Update(double dt)
 
 	if (KeyboardController::GetInstance()->IsKeyReleased('P'))
 	{
-		Create::Particle("particle", Player::GetInstance()->GetPosition(), Vector3(0, -1, 0), EFFECT_TYPE::ET_FIRE, 0.1, 0.3);
 		Create::Enemy(EnemyBase::ENEMY_TYPE::E_MELEE, Vector3((int)Player::GetInstance()->GetPosition().x, (int)Player::GetInstance()->GetPosition().y, (int)Player::GetInstance()->GetPosition().z), Vector3(1, 1, 1), true, false, false);
 		//Create::Enemy(EnemyBase::ENEMY_TYPE::E_BOMBER, Vector3((int)Player::GetInstance()->GetPosition().x + 1, (int)Player::GetInstance()->GetPosition().y, (int)Player::GetInstance()->GetPosition().z), Vector3(1, 1, 1), true, false, false);
 	}
-	if (KeyboardController::GetInstance()->IsKeyReleased('T'))
+	if (KeyboardController::GetInstance()->IsKeyReleased('R'))
 	{
-		AudioPlayer::GetInstance()->addSound("explosion", "Assets//Sound//explosion.wav"); //Move somewhere to run only once
-	}
-	if (KeyboardController::GetInstance()->IsKeyReleased('Y'))
+		Create::Particle("particle", Player::GetInstance()->GetPosition(), Vector3(20, 0, 0), EFFECT_TYPE::ET_FIRE, 0.5, 0.3);
 		AudioPlayer::GetInstance()->playSoundThreaded("explosion");
-
+	}
 	// if the left mouse button was released
 	if (MouseController::GetInstance()->IsButtonReleased(MouseController::LMB))
 	{
