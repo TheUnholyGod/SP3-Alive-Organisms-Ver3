@@ -43,7 +43,7 @@ public:
 	void Jump(double dt);
 	void DodgeRoll(double dt);
 	void PrimaryAttack(double dt, int _combo);
-	void SecondaryAttack(double dt);
+	void SecondaryAttack(double dt, int _actiontype = 0);
 
 	// Handling Camera
 	FPSCamera* getCamera();
