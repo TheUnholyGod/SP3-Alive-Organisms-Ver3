@@ -228,7 +228,6 @@ void Player::Update(double dt)
 			{
 				if (dynamic_cast<TileEntity*>(*it) != nullptr)
 				{
-
 					//std::cout << dynamic_cast<TileEntity*>(*it)->block_type << std::endl;
 					if (dynamic_cast<TileEntity*>(*it)->block_type == TileEntity::SOLID_BLOCK)
 					{
@@ -280,8 +279,8 @@ void Player::Update(double dt)
 			}
 		}
 
-	std::cout << "CLIMBING: " << m_isClimbing << std::endl;
-	std::cout << "ON FLOOR: " << m_isOnFloor << std::endl;
+	//std::cout << "CLIMBING: " << m_isClimbing << std::endl;
+	//std::cout << "ON FLOOR: " << m_isOnFloor << std::endl;
 
 }
 
@@ -328,7 +327,9 @@ void Player::UpdateMovment(double dt)
 						velocity.y = 0;
 					}
 					else
+					{
 						this->position = temp;
+					}
 					break;
 				}
 				else if (dynamic_cast<TileEntity*>(*it)->block_type == TileEntity::TOP_PLATFORM)
