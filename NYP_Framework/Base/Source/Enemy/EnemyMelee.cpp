@@ -43,31 +43,32 @@ void EnemyMelee::Update(double _dt)
 	
 	//Iterate through the path vector and move through the terrain
 	Move();
-
+	FindPatrolPath();
+	Patrol();
 	//Increment the time since last update for regulated checks
 	m_timeSinceLastUpdate += _dt;
 
-	//Player pos to find the player
-	Vector3 playerpos = Player::GetInstance()->GetPosition();
+	////Player pos to find the player
+	//Vector3 playerpos = Player::GetInstance()->GetPosition();
 
-	if (m_timeSinceLastUpdate > 1 && !m_result.valid() && !isPathFound)
-	{
-		FindPath({ (int)(position.x + 0.5), (int)(position.y + 0.5)},
-				{ (int)std::floor(playerpos.x + 0.5), (int)std::floor(playerpos.y + 0.5)});
-		m_timeSinceLastUpdate = 0;
-	}
-	//Check if worker thread is done, if done, obtain result.
-	if (m_result.valid() && !isPathFound)
-	{
-		if (m_result.wait_for(std::chrono::seconds(0)) == std::future_status::ready)
-		{
-			m_path.clear();
-			m_path = m_result.get();
-			m_path_index = 0;
-			if(!m_path.empty())
-				isPathFound = true;
-		}
-	}
+	//if (m_timeSinceLastUpdate > 1 && !m_result.valid() && !isPathFound)
+	//{
+	//	FindPath({ (int)(position.x + 0.5), (int)(position.y + 0.5)},
+	//			{ (int)std::floor(playerpos.x + 0.5), (int)std::floor(playerpos.y + 0.5)});
+	//	m_timeSinceLastUpdate = 0;
+	//}
+	////Check if worker thread is done, if done, obtain result.
+	//if (m_result.valid() && !isPathFound)
+	//{
+	//	if (m_result.wait_for(std::chrono::seconds(0)) == std::future_status::ready)
+	//	{
+	//		m_path.clear();
+	//		m_path = m_result.get();
+	//		m_path_index = 0;
+	//		if(!m_path.empty())
+	//			isPathFound = true;
+	//	}
+	//}
 
 	//Update tileID for spatial partition
 	this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(position);
@@ -191,6 +192,57 @@ void EnemyMelee::Move()
 		this->m_velocity += Vector3(3, 0, 0);
 		this->animation->SetRotation(180, Vector3(0, 1, 0));
 		return;
+	}
+}
+
+void EnemyMelee::Patrol()
+{
+	Coord2D pos = Coord2D((int)(position.x + 0.5), (int)(position.y + 0.5));
+
+	m_velocity = Vector3(2, 0, 0); //move right by default
+
+	if (pos.x >= maxRight.x) //Reach the end of the right path
+	{
+		m_velocity = Vector3(-2, 0, 0); //Go left
+		return;
+	}
+	if (pos.x <= maxLeft.x) //Reach the end of the right path
+	{
+		m_velocity = Vector3(2, 0, 0); //Go right
+		return;
+	}
+}
+
+void EnemyMelee::FindPatrolPath()
+{
+	maxRight = Coord2D(-99999, (int)(position.y + 0.5));
+	maxLeft = Coord2D(99999, (int)(position.y + 0.5));
+
+	int i = 1;
+	while (true)
+	{
+		if (!m_path_finder.detectCollision(Coord2D((int)(position.x + 0.5) + i, (int)(position.y + 0.5))))
+		{
+			if ((int)(position.x + 0.5) + i > maxRight.x)
+				maxRight.x = (int)(position.x + 0.5) + i;
+
+			++i;
+		}
+		else
+			break;
+	}
+	i = 0;
+	while (true)
+	{
+		if (!m_path_finder.detectCollision(Coord2D((int)(position.x + 0.5) - i, (int)(position.y + 0.5))))
+		{
+			if ((int)(position.x + 0.5) - i < maxLeft.x)
+				maxLeft.x = (int)(position.x + 0.5) - i;
+
+			++i;
+		}
+		else
+			break;
 	}
 }
 

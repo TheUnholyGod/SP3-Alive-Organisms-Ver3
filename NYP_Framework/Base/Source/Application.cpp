@@ -126,8 +126,8 @@ void Application::Run()
 		glfwPollEvents();
 		UpdateInput();
 		
-		if (dt > 0.015f)
-			dt = 0.015f;
+		if (dt > 0.016666666667f)
+			dt = 0.016666666667;
 
 		SceneManager::GetInstance()->Update(dt);
 		SceneManager::GetInstance()->Render();
@@ -235,7 +235,7 @@ void Application::InitAllMeshes()
 		MeshBuilder::GetInstance()->GenerateSpriteAnimation("explosion", 5, 5, 1.0f);
 		MeshList::GetInstance()->GetMesh("explosion")->textureID = LoadTGA("Image//explosion.tga");
 
-		MeshBuilder::GetInstance()->GenerateSpriteAnimation("enemy_1", 2, 5, 1.0f);
+		MeshBuilder::GetInstance()->GenerateSpriteAnimation("enemy_1", 3, 5, 1.0f);
 		MeshList::GetInstance()->GetMesh("enemy_1")->textureID = LoadTGA("Image//enemy_1.tga");
 
 		MeshBuilder::GetInstance()->GenerateQuad("player", Color(1, 0, 0), 0.5f);

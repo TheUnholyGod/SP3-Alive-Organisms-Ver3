@@ -57,7 +57,6 @@ public:
 	
 	//Animation
 	SpriteEntity* animation;
-	//SpriteAnimation* sa;
 
 protected:
 	//PathFinding
@@ -68,6 +67,9 @@ protected:
 	std::vector<Coord2D> m_path;
 	int m_path_index;
 	bool isPathFound;
+
+	Coord2D maxRight;
+	Coord2D maxLeft;
 
 	//Strategy
 	StrategyBase* strats;

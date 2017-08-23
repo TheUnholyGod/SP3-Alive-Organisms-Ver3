@@ -20,8 +20,10 @@ public:
 
 	bool CollisionResponse(GenericEntity*);
 	
+	void FindPatrolPath();
 	void FindPath(Coord2D _src, Coord2D _end);
 	void Move();
+	void Patrol();
 	
 private:
 

@@ -51,15 +51,17 @@ public:
 class PathFinder
 {
 private:
-	//Only the PathFinder needs these functions
-	bool isOutOfBounds(Coord2D coordinates_);
-	bool detectCollision(Coord2D coordinates_);
-	Node* findNodeOnList(std::set<Node*>& nodes_, Coord2D coordinates_);
-	void DeleteNodeSet(std::set<Node*>& nodes_);
+	
 
 public:
 	PathFinder();
 
+	//Some helper functions
+	bool isOutOfBounds(Coord2D coordinates_);
+	bool detectCollision(Coord2D coordinates_);
+	Node* findNodeOnList(std::set<Node*>& nodes_, Coord2D coordinates_);
+	void DeleteNodeSet(std::set<Node*>& nodes_);
+	
 	//PathFinding options & configurations
 	void setWorldSize(Coord2D worldSize_);
 	void setDiagonalMovement(bool enable_);
