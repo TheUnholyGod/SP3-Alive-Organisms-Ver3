@@ -217,7 +217,7 @@ void EnemyMelee::Patrol()
 	std::cout << "Corrected(R): (" << (int)(position.x) + 1 << ", " << (int)(position.y) << std::endl;
 	std::cout << "Corrected(L): (" << (int)(position.x) << ", " << (int)(position.y) << std::endl;
 	
-	position.y = std::ceil(position.y);
+	//position.y = std::ceil(position.y);
 	while (dir) //right
 	{
 		
