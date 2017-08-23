@@ -213,12 +213,14 @@ void EnemyMelee::Patrol()
 {
 	m_velocity.SetZero();
 
+	std::cout << "Pos: (" << position.x << ", " << position.y << ")" << std::endl;
+	std::cout << "Corrected(R): (" << (int)(position.x) + 1 << ", " << (int)(position.y) << std::endl;
+	std::cout << "Corrected(L): (" << (int)(position.x) << ", " << (int)(position.y) << std::endl;
 	while (dir) //right
 	{
-		this->position = Vector3(position.x, std::ceil(position.y), 0);
-
-		if (!m_path_finder.detectCollision(Coord2D((int)(position.x) + 1, (int)(position.y))))
+		if (!m_path_finder.detectCollision(Coord2D((int)(position.x) + 1, std::ceil(position.y))))
 		{
+			std::cout << "Right no collision" << std::endl;
 			m_velocity = Vector3(1, 0, 0);
 			this->animation->SetRotation(180, Vector3(0, 1, 0));
 			break;
@@ -231,10 +233,9 @@ void EnemyMelee::Patrol()
 	}
 	while (!dir) //left
 	{
-		this->position = Vector3(position.x, std::ceil(position.y), 0);
-	
-		if (!m_path_finder.detectCollision(Coord2D((int)(position.x), (int)(position.y))))
+		if (!m_path_finder.detectCollision(Coord2D((int)(position.x), std::ceil(position.y))))
 		{
+			std::cout << "Left no collision" << std::endl;
 			m_velocity = Vector3(-1, 0, 0);
 			this->animation->SetRotation(0, Vector3(0, 1, 0));
 			break;
@@ -251,7 +252,7 @@ void EnemyMelee::Detect(double dt)
 {
 	float dist = (Player::GetInstance()->GetPosition() - position).Length();
 
-	if (dist < 0.1)
+	if (dist < 0.8)
 	{
 		isPathFound = false;
 		m_path.clear();
@@ -272,7 +273,7 @@ void EnemyMelee::Detect(double dt)
 		Vector3 playerpos = Player::GetInstance()->GetPosition();
 
 		//Find the path every 5 sec
-		if (m_timeSinceLastUpdate > 1 && !m_result.valid() && !isPathFound)
+		if (m_timeSinceLastUpdate > 1 && !m_result.valid() && !isPathFound && m_path.empty())
 		{
 			std::cout << "Calling pathfinder!" << std::endl;
 			FindPath({ (int)(position.x + 0.5), (int)(position.y + 0.5) },
@@ -303,8 +304,12 @@ void EnemyMelee::Detect(double dt)
 
 void EnemyMelee::Attack()
 {
-	//Do damage to player
 	m_velocity.SetZero();
+	//Do damage to player
+	std::cout << "Deal dmg to player" << std::endl;
+
+	//Go back to chase
+	m_state = AI_CHASE;
 	return;
 }
 
