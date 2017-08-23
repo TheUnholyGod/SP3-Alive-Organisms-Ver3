@@ -90,6 +90,7 @@
     <ClInclude Include="Source\Particle Effect\Emitter.h" />
     <ClInclude Include="Source\Particle Effect\Particle.h" />
     <ClInclude Include="Source\Particle Effect\ParticleEffect.h" />
+    <ClInclude Include="Source\PlagueBoss.h" />
     <ClInclude Include="Source\PlayerInfo\PlayerInfo.h" />
     <ClInclude Include="Source\Projectile.h" />
     <ClInclude Include="Source\SceneText.h" />
