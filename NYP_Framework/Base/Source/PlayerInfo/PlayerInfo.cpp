@@ -75,6 +75,10 @@ void Player::Init(void)
 	direction.Set(0, 0, 0);
 	last_direction = direction;
 
+    m_interacted = false;
+    m_interacttimer = 0;
+    m_definteracttimer = 0.025f;
+
 	SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
     this->m_player_equipment[EQUIPMENT_MELEE] = new ShortSword();
 	this->m_player_equipment[EQUIPMENT_RANGED] = new Bow();
@@ -87,6 +91,13 @@ void Player::Init(void)
 
 void Player::Update(double dt)
 {
+    if (m_interacted)
+        this->m_interacttimer -= dt;
+    if (m_interacted && m_interacttimer < 0)
+        this->m_interacted = false;
+
+    std::cout << m_interacted << std::endl;
+
 	SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
 	
 	//Update sprite position
@@ -503,6 +514,14 @@ void Player::SecondaryAttack(double dt,int _actiontype)
 	{
 		Weapon->Action(_actiontype);
 	}
+}
+
+void Player::Interact(double dt)
+{
+    this->m_interacted = true;
+    this->m_interacttimer = this->m_definteracttimer;
+
+    //Add Interact Codes Here.
 }
 
 void Player::TakeDamage(int _dmg)

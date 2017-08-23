@@ -29,6 +29,7 @@ bool Keyboard::Create(Player* thePlayerInfo)
 	KeyList[CONTROLLER_DODGEROLL] = VK_SHIFT;
 	KeyList[CONTROLLER_PRIMARYATT] = 'Q';
 	KeyList[CONTROLLER_SECONDARYATT] = 'E';
+    KeyList[CONTROLLER_INTERACT] = 'F';
 
 	return false;
 }
