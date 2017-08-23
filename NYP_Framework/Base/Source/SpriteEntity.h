@@ -6,6 +6,7 @@
 #include "Vertex.h"
 #include <string>
 
+class SpriteAnimation;
 class Mesh;
 
 class SpriteEntity : public EntityBase
@@ -42,6 +43,7 @@ private:
 	float rotateAngle;
 	Mesh* modelMesh;
 	SPRITE_RENDERMODE mode;
+	SpriteAnimation* sa;
 };
 
 namespace Create

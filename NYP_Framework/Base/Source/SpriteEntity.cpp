@@ -17,7 +17,8 @@ SpriteEntity::SpriteEntity(Mesh* _modelMesh) :
     this->isStatic = false;
     this->tile_ID = 0;
     this->position = Player::GetInstance()->GetPosition();
-    std::cout << position << std::endl;
+	this->sa = nullptr;
+    //std::cout << position << std::endl;
     mode = MODE_3D;
 }
 
@@ -31,18 +32,18 @@ void SpriteEntity::Update(double _dt)
 
   /*  this->position = Player::GetInstance()->GetPosition();
     this->position.x += 1;*/
-    SpriteAnimation* sa = dynamic_cast<SpriteAnimation*>(this->modelMesh);
+    sa = dynamic_cast<SpriteAnimation*>(this->modelMesh);
     if (sa)
     {
         sa->Update(_dt);
         sa->m_anim->animationActive = true;
-        std::cout << sa->m_currentFrame << std::endl;
+       // std::cout << sa->m_currentFrame << std::endl;
     }
 }
 
 void SpriteEntity::Render()
 {
-    SpriteAnimation* sa = dynamic_cast<SpriteAnimation*>(this->modelMesh);
+    sa = dynamic_cast<SpriteAnimation*>(this->modelMesh);
 
 	if (mode == MODE_2D)
 		return;

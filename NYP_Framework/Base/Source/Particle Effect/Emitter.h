@@ -84,7 +84,7 @@ private:
 	Vector3 m_position;					//Position of this emitter
 	Vector3 m_velocity;					//Velocity of this emitter
 	double m_age;						//How long this emitter is alive for
-	bool m_isActive;						//Dead or alive (Used to stop spawning of particles)
+	bool m_isActive;					//Dead or alive (Used to stop spawning of particles)
 	bool m_isDone;						//All particles are inactive and emitter is dead (Used to remove this entity)
 
 	double m_emitterLifeSpan;			//How long this emitter can stay alive
