@@ -347,13 +347,19 @@ void Player::UpdateMovment(double dt)
 						}
 						else
 						{
-							this->position = temp;
+							if (temp.y < MapManager::GetInstance()->GetLevel(m_iLevel)->GetSizeOfLevel() * MapManager::GetInstance()->GetLevel(m_iLevel)->GetSizeOfTileSet())
+								this->position = temp;
+							else
+								this->position.x = temp.x;
 							break;
 						}
 					}
 					else
 					{
-						this->position = temp;
+						if (temp.y < (MapManager::GetInstance()->GetLevel(m_iLevel)->GetSizeOfLevel() * MapManager::GetInstance()->GetLevel(m_iLevel)->GetSizeOfTileSet()) - 1)
+							this->position = temp;
+						else
+							this->position.x = temp.x;
 						break;
 					}
 				}
