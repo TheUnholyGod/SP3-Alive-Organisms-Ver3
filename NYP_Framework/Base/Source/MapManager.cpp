@@ -66,15 +66,17 @@ void MapManager::GenerateBlocks(int level)
 				case 4:
 				{
 					if (Math::RandIntMinMax(0, 100) < 20)
-					{
 						Create::TileEntityCreator(TileEntity::RUNE_SPAWNER, Vector3((x + (row * 7)), y + (section * 7), 0), Vector3(0.5, 1, 1), true, true, true, i);
-					}
 				}
 					break;
 				case 5:
 				{
-					//if (Math::RandIntMinMax(0, 100) < 50)
+					if (Math::RandIntMinMax(0, 100) < 50)
+					{
 						Create::TileEntityCreator(TileEntity::TOP_PLATFORM, Vector3((x + (row * 7)), (y + (section * 7)) + 0.35, 0), Vector3(1, 0.3, 1), true, true, true, i);
+					}
+					else
+						temp[i]->SetTilesInArray(x, y, 0);
 				}
 				break;
 				case 6:

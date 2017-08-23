@@ -68,8 +68,8 @@ protected:
 	int m_path_index;
 	bool isPathFound;
 
-	Coord2D maxRight;
-	Coord2D maxLeft;
+	//Patrolling
+	bool dir; //True = right, False = left;
 
 	//Strategy
 	StrategyBase* strats;
