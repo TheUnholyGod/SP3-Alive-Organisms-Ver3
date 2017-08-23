@@ -68,6 +68,7 @@ void EnemyMelee::Update(double _dt)
 				isPathFound = true;
 		}
 	}
+
 	//Update tileID for spatial partition
 	this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(position);
 }
@@ -139,13 +140,13 @@ void EnemyMelee::Move()
 			}
 			else
 			{
-				//std::cout << "Reached the Destination!" << std::endl;
+				std::cout << "Reached the Destination!" << std::endl;
 				m_path.clear();
 				isPathFound = false;
 				return;
 			}
 
-			//std::cout << "Route: " << std::endl;
+			std::cout << "Route: " << std::endl;
 			for (int i = 0; i < m_path.size(); ++i)
 			{
 				if (i == 0)

@@ -23,6 +23,7 @@ Header file for EnemyBase. Contain basic information of the enemy.
 #include "StrategyBase.h"
 
 class SpriteEntity;
+class SpriteAnimation;
 
 class EnemyBase : public GenericEntity
 {
@@ -54,9 +55,9 @@ public:
 	virtual void Render();
 	virtual bool CollisionResponse(GenericEntity*);
 	
-
 	//Animation
 	SpriteEntity* animation;
+	//SpriteAnimation* sa;
 
 protected:
 	//PathFinding
