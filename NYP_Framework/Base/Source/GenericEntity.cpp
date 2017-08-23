@@ -43,6 +43,10 @@ bool GenericEntity::GetActive()
 	return m_active;
 }
 
+void GenericEntity::ApplyDamage(int _dmg)
+{
+}
+
 // Set the maxAABB and minAABB
 //void GenericEntity::SetAABB(Vector3 maxAABB, Vector3 minAABB)
 //{
