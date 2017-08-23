@@ -7,6 +7,7 @@ Hitbox::Hitbox(Mesh * _modelMesh) : GenericEntity(_modelMesh)
 {
 	type = HITBOX_OBJ;
 	this->m_bCollider = true;
+	this->isStatic = false;
 }
 
 Hitbox::~Hitbox()
