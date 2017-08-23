@@ -2,12 +2,12 @@
 #include "Items\Melee.h"
 #include "MeshList.h"
 #include "EntityManager.h"
+#include "PlayerInfo\PlayerInfo.h"
+#include "MapManager.h"
 
 Hitbox::Hitbox(Mesh * _modelMesh) : GenericEntity(_modelMesh)
 {
 	type = HITBOX_OBJ;
-	this->m_bCollider = true;
-	this->isStatic = false;
 }
 
 Hitbox::~Hitbox()
@@ -16,17 +16,21 @@ Hitbox::~Hitbox()
 
 void Hitbox::Init()
 {
+	this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(this->position);
+	this->m_bCollider = true;
+	this->isStatic = false;
+	this->m_active = true;
 }
 
 void Hitbox::Update(double _dt)
 {
-	if (this->m_parent->GetCurrentHitbox() != this)
+	if (this->m_parent->GetCurrentHitbox() != this || !this->m_active)
 		return;
 }
 
 void Hitbox::Render()
 {
-	if (this->m_parent->GetCurrentHitbox() != this)
+	if (this->m_parent->GetCurrentHitbox() != this || !this->m_active)
 		return;
 
 	Collision::Render();
@@ -35,7 +39,10 @@ void Hitbox::Render()
 bool Hitbox::CollisionResponse(GenericEntity * ThatEntity)
 {
 	if (ThatEntity->type == ENEMY_OBJ)
+	{
 		ThatEntity->SetIsDone(true);
+		this->m_active = false;
+	}
 	return false;
 }
 

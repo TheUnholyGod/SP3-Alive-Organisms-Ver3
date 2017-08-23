@@ -90,6 +90,7 @@ bool EnemyMelee::CollisionResponse(GenericEntity *ThatEntity)
 	/*Collision response for this enemy*/
 	if (ThatEntity->type == PROJECTILE_OBJ || ThatEntity->type == HITBOX_OBJ)
 	{
+		std::cout << "Dieded" << std::endl;
 		ThatEntity->SetActive(false);
 		this->SetIsDone(true);
 	}
