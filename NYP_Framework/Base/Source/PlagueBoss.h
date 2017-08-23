@@ -3,6 +3,8 @@
 
 #include "Enemy\EnemyBossBase.h"
 
+class PlagueStrategy;
+
 class PlagueBoss : public EnemyBossBase
 {
 private:
@@ -15,6 +17,8 @@ private:
         STATES_CHARGE,
         NUM_STATES,
     }m_currstate;
+
+    PlagueStrategy** m_strats;
 public:
     PlagueBoss();
     ~PlagueBoss();
