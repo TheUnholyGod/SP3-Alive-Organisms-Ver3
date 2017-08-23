@@ -32,7 +32,8 @@ EnemyBase * Create::Enemy(const EnemyBase::ENEMY_TYPE enemy_type,
 	const Vector3 & _scale, 
 	bool have_collider, 
 	bool have_physic, 
-	bool is_static)
+	bool is_static,
+	int tile_ID)
 {
 	switch (enemy_type)
 	{

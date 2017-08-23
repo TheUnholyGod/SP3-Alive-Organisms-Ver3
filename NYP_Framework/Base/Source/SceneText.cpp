@@ -124,8 +124,8 @@ void SceneText::Init()
 	//camera.Init(Vector3(0, 0, 10), Vector3(0, 0, 0), Vector3(0, 1, 0));
 
 	// Create entities into the scene
-	Create::Entity("reference", Vector3(0.0f, 0.0f, 0.0f)); // Reference
 	Create::Entity("lightball", Vector3(lights[0]->position.x, lights[0]->position.y, lights[0]->position.z)); // Lightball
+	Create::Entity("background", Vector3(7 * 5, 7 * 5, -5), Vector3(100, 100));
 //	groundEntity = Create::Ground("GRASS_DARKGREEN", "GEO_GRASS_LIGHTGREEN");
 //	Create::Text3DObject("text", Vector3(0.0f, 0.0f, 0.0f), "DM2210", Vector3(10.0f, 10.0f, 10.0f), Color(0, 1, 1));
 //	Create::Sprite2DObject("crosshair", Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f));
@@ -173,7 +173,6 @@ void SceneText::Init()
 	//	}
 	//	std::cout << std::endl;
 	//}
-	Create::Entity("background", Vector3(7 * 5, 7 * 5,-5), Vector3(100, 100));
 }
 
 void SceneText::Update(double dt)

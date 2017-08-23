@@ -82,6 +82,7 @@ namespace Create
 		const Vector3& _scale,
 		bool have_collider = false,
 		bool have_physic = false,
-		bool is_static = false);
+		bool is_static = false, 
+		int tile_ID = 0);
 
 };

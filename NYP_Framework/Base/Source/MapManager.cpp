@@ -6,6 +6,7 @@
 #include "PlayerInfo\PlayerInfo.h"
 
 #include "TileEntitySolidBlock.h"
+#include "Enemy\EnemyBase.h"
 
 void MapManager::Init()
 {
@@ -26,14 +27,17 @@ void MapManager::Init()
 	4 - 20/100 chance of spawning rune,
 	5 - 50/100 chance of a platform
 	6 - Player Spawner
+	7 - Boss Door
+	8 - Enemy Node
 */
 void MapManager::GenerateBlocks(int level)
 {
 	map<int, Tiles*> temp;
-	Vector3 temp_player_pos(0, 0, 0);
+	map<int, vector<Vector3>> enemy_temp_list;
+	Vector3 temp_player_pos(0, 0, 0), temp_door_pos(0, 0, 0);
 	map_database[level]->GetLevelLayOut(temp);
 	int section = 0, row = 0;
-	bool set_player_pos = false;
+	bool set_player_pos = false, set_boss_door = false;
 	for (int i = 0; i < temp.size(); ++i)
 	{
 
@@ -90,6 +94,28 @@ void MapManager::GenerateBlocks(int level)
 					temp_player_pos.Set((x + (row * 7)), (y + (section * 7)) - 0.2, 0);
 				}
 				break;
+				case 7:
+				{
+					if (!set_boss_door)
+					{
+						if (Math::RandIntMinMax(0, 200) < 4 && i < (temp.size() - 10))
+						{
+							std::cout << "X: " << (x + (row * 7)) << " Y: " << (y + (section * 7)) << std::endl;
+							set_boss_door = true;
+							Create::TileEntityCreator(TileEntity::BOSS_DOOR, Vector3((x + (row * 7)), (y + (section * 7)) - 0.2, 0), Vector3(1, 1.5, 1), true, true, true, i);
+							Create::Entity("reference", Vector3((x + (row * 7)), (y + (section * 7)), 0)); // Reference
+						}
+					}
+					if (temp_player_pos.x == 0)
+						temp_door_pos.Set((x + (row * 7)), (y + (section * 7)) + 0.35, 0);
+				}
+				break;
+				case 8:
+				{
+					if (Math::RandIntMinMax(0, 100) < 4)
+						enemy_temp_list[i].push_back(Vector3((x + (row * 7)), y + (section * 7), 0));
+				}
+				break;
 				default:
 					break;
 				}
@@ -110,6 +136,13 @@ void MapManager::GenerateBlocks(int level)
 		Player::GetInstance()->SetPosition(temp_player_pos);
 	}
 
+	if (!set_boss_door)
+	{
+		std::cout << "X: " << temp_door_pos.x << " Y: " << temp_door_pos.y << std::endl;
+		Create::TileEntityCreator(TileEntity::BOSS_DOOR, Vector3(temp_door_pos.x, temp_door_pos.y - 0.2, 0), Vector3(1, 1.5, 1), true, true, false, GetLevel(level)->ReturnTileViaPos(temp_door_pos));
+		Create::Entity("reference", temp_door_pos); // Reference
+	}
+
 	for (int y = 0; y < map_database[level]->GetSizeOfLevel() * map_database[level]->GetSizeOfTileSet(); ++y)
 	{
 		for (int x = 0; x < map_database[level]->GetSizeOfLevel() * map_database[level]->GetSizeOfTileSet(); ++x)
@@ -128,6 +161,17 @@ void MapManager::GenerateBlocks(int level)
 	}
 
 	GenerateMapArray(level);
+
+	if (enemy_temp_list.size() > 0)
+	{
+		for (map<int, vector<Vector3>>::iterator it = enemy_temp_list.begin(); it != enemy_temp_list.end(); ++it)
+		{
+			for (vector<Vector3>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
+			{
+				Create::Enemy(EnemyBase::ENEMY_TYPE::E_MELEE, *it2, Vector3(1, 1, 1), true, false, false, it->first);
+			}
+		}
+	}
 }
 
 void MapManager::DeleteAllLevels()
@@ -170,7 +214,7 @@ void MapManager::GenerateMapArray(int level)
 		{
 			for (int x = 0; x < map_database[level]->GetSizeOfTileSet(); ++x)
 			{
-				if (temp[i]->GetTilesArray()[y][x] == 0 || temp[i]->GetTilesArray()[y][x] == 6)
+				if (temp[i]->GetTilesArray()[y][x] == 0 || temp[i]->GetTilesArray()[y][x] == 4 || temp[i]->GetTilesArray()[y][x] == 6 || temp[i]->GetTilesArray()[y][x] == 7 || temp[i]->GetTilesArray()[y][x] == 8)
 				{
 					m_map_array[y + (section * 7)][x + (row * 7)] = 0;
 				}
@@ -252,6 +296,17 @@ TileEntity* Create::TileEntityCreator(const TileEntity::BLOCK_TYPE block_type,
 	case TileEntity::RUNE_SPAWNER:
 	{
 		Mesh* modelMesh = MeshList::GetInstance()->GetMesh("rune_spawner_block");
+		if (modelMesh == nullptr)
+			return nullptr;
+
+		TileEntitySolidBlock* result = new TileEntitySolidBlock(modelMesh, _position, _scale, have_collider, have_physic, current_tile_ID, is_static, block_type);
+		EntityManager::GetInstance()->AddEntity(result);
+
+		return result;
+	}
+	case TileEntity::BOSS_DOOR:
+	{
+		Mesh* modelMesh = MeshList::GetInstance()->GetMesh("quad");
 		if (modelMesh == nullptr)
 			return nullptr;
 

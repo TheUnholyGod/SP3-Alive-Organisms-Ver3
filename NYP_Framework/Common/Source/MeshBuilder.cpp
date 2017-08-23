@@ -24,32 +24,16 @@ Mesh* MeshBuilder::GenerateAxes(const std::string &meshName, float lengthX, floa
 {
 	Vertex v;
 	std::vector<Vertex> vertex_buffer_data;
-	v.pos.Set(-1000, 0, 0);
-	v.color.Set(1, 0, 0);
-	vertex_buffer_data.push_back(v);
-	v.pos.Set(1000, 0, 0);
-	v.color.Set(1, 0, 0);
-	vertex_buffer_data.push_back(v);
-	v.pos.Set(0, -1000, 0);
-	v.color.Set(0, 1, 0);
-	vertex_buffer_data.push_back(v);
-	v.pos.Set(0, 1000, 0);
-	v.color.Set(0, 1, 0);
-	vertex_buffer_data.push_back(v);
 	v.pos.Set(0, 0, -1000);
 	v.color.Set(0, 0, 1);
 	vertex_buffer_data.push_back(v);
-	v.pos.Set(0, 0, 1000);
+	v.pos.Set(0, 0, 1);
 	v.color.Set(0, 0, 1);
 	vertex_buffer_data.push_back(v);
 
 	std::vector<GLuint> index_buffer_data;
 	index_buffer_data.push_back(0);
 	index_buffer_data.push_back(1);
-	index_buffer_data.push_back(2);
-	index_buffer_data.push_back(3);
-	index_buffer_data.push_back(4);
-	index_buffer_data.push_back(5);
 
 	Mesh *mesh = new Mesh(meshName);
 	

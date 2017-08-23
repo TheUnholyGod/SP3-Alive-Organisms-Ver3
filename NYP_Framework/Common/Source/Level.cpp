@@ -11,7 +11,6 @@ Level::Level(int size_of_map_xy)
 	for(int i = 0; i < m_max_level_size_xy; ++i)
 		level_set[i] = new int[m_max_level_size_xy];
 
-
 	for (int y = 0; y < m_max_level_size_xy; ++y)
 	{
 		for (int x = 0; x < m_max_level_size_xy; ++x)
