@@ -9,6 +9,7 @@
 #include "SingletonTemplate.h"
 #include "../GenericEntity.h"
 
+class SpriteEntity;
 class Equipment;
 
 class Player : public Singleton<Player> , public GenericEntity
@@ -83,5 +84,7 @@ private:
 
 	FPSCamera* attachedCamera;
 
+	SpriteEntity* animation;
+	
 	Equipment* m_player_equipment[NUM_EQUIPMENT];
 };

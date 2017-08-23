@@ -75,6 +75,7 @@ void PathFinder::readMap(int ** grid_)
 	{
 		for (int y = 0; y < worldSize.y; ++y)
 		{
+			//Check for air blocks, if theres air under it, its not passable.
 			if (grid_[y][x] == 0)
 			{
 				if (y - 1 < 0)

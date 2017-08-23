@@ -9,6 +9,7 @@
 #include "RenderHelper.h"
 #include "GraphicsManager.h"
 #include "../Items/Melee.h"
+#include "../SpriteEntity.h"
 
 #include <list>
 #include <vector>
@@ -44,6 +45,16 @@ Player::~Player(void)
 // Initialise this class instance
 void Player::Init(void)
 {
+	//Animate player
+	SpriteAnimation* sa = dynamic_cast<SpriteAnimation*>(MeshList::GetInstance()->GetMesh("GEO_SPRITE_ANIMATION"));
+	if (sa)
+	{
+		sa->m_anim = new Animation();
+		sa->m_anim->Set(1, 4, 1, 1.0f, true);
+		animation = new SpriteEntity(sa);
+		//EntityManager::GetInstance()->AddEntity(aSprite);
+	}
+
 	// Set the default values
 	defaultPosition.Set(0,0,10);
 	m_invincible = true;
@@ -77,6 +88,12 @@ void Player::Init(void)
 void Player::Update(double dt)
 {
 	SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
+	
+	//Update sprite position
+	animation->SetPosition(position);
+	animation->SetScale(Vector3(0.5, 0.5, 0.5));
+	animation->Update(dt);
+
 
 	if (m_attacking)
 		m_combotimer -= dt;
@@ -296,13 +313,16 @@ void Player::UpdateJump(double dt)
 
 void Player::Render()
 {
-    Collision::Render();
-    this->m_player_equipment[EQUIPMENT_MELEE]->Render();
+    //Collision::Render();
+
+	this->animation->Render();
+
+   /* this->m_player_equipment[EQUIPMENT_MELEE]->Render();
 	MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
 	modelStack.PushMatrix();
 	modelStack.Translate(position.x, position.y, position.z);
 	RenderHelper::RenderMesh(modelMesh);
-	modelStack.PopMatrix();
+	modelStack.PopMatrix();*/
 }
 
 

@@ -174,16 +174,6 @@ void SceneText::Init()
 	//	std::cout << std::endl;
 	//}
 	Create::Entity("background", Vector3(7 * 5, 7 * 5,-5), Vector3(100, 100));
-
-    SpriteAnimation* sa = dynamic_cast<SpriteAnimation*>(MeshList::GetInstance()->GetMesh("GEO_SPRITE_ANIMATION"));
-    if (sa)
-    {
-        sa->m_anim = new Animation();
-        sa->m_anim->Set(1, 4, 1, 1.0f, true);
-        EntityBase* aSprite = new SpriteEntity(sa);
-        EntityManager::GetInstance()->AddEntity(aSprite);
-    }
-
 }
 
 void SceneText::Update(double dt)

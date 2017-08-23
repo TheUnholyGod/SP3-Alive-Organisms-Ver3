@@ -185,43 +185,6 @@ void MapManager::GenerateMapArray(int level)
 			++section;
 		}
 	}
-
-	////Initialise new array
-	//Level* l = GetLevel(level);
-	//int size = l->GetSizeOfLevel() * 7;
-
-	//new_map_array = new int*[size];
-	//for (int h = 0; h < size; ++h)
-	//{
-	//	new_map_array[h] = new int[size];
-	//	for (int w = 0; w < size; ++w)
-	//	{
-	//		new_map_array[h][w] = 0;
-	//	}
-	//}
-
-	//Change the map before printing
-	// y,x
-	//m_map_array[1][0] = 3;
-
-	//Correct map to allow easier debug
-	/*for (int x = 10 * 7 - 1, x2 = 0; x >= 0 && x2 < 10 * 7; --x, ++x2)
-	{
-		for (int y = 0; y < 10 * 7; ++y)
-		{
-			new_map_array[x2][y] = m_map_array[x][y];
-		}
-	}*/
-	
-	//Printing for debug
-	/*for (int y = size - 1; y >= 0; --y)
-	{
-		for (int x = 0; x < size; ++x)
-		{
-			std::cout << m_map_array[y][x];
-		}
-		std::cout << std::endl;
-	}*/
 }
 
 Level* MapManager::GetLevel(int level)

@@ -27,8 +27,8 @@ void SpriteEntity::Update(double _dt)
 {
 	// Does nothing here, can inherit & override or create your own version of this class :D
 
-    this->position = Player::GetInstance()->GetPosition();
-    this->position.x += 1;
+  /*  this->position = Player::GetInstance()->GetPosition();
+    this->position.x += 1;*/
     SpriteAnimation* sa = dynamic_cast<SpriteAnimation*>(this->modelMesh);
     if (sa)
     {
