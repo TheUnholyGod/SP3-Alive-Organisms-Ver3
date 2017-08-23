@@ -255,6 +255,12 @@ void Application::InitAllMeshes()
 		MeshList::GetInstance()->AddMesh("rune_spawner_block", MeshBuilder::GetInstance()->GenerateQuad("rune_spawner", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("rune_spawner_block")->textureID = LoadTGA("Image//rune_spawner.tga");
 
+		MeshList::GetInstance()->AddMesh("door_block", MeshBuilder::GetInstance()->GenerateQuad("door", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("door_block")->textureID = LoadTGA("Image//door.tga");
+
+		MeshList::GetInstance()->AddMesh("arrow_projectile", MeshBuilder::GetInstance()->GenerateQuad("arrow", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("arrow_projectile")->textureID = LoadTGA("Image//arrow.tga");
+
 		/*MeshBuilder::GetInstance()->GenerateQuad("GRASS_DARKGREEN", Color(1, 1, 1), 1.f);
 		MeshList::GetInstance()->GetMesh("GRASS_DARKGREEN")->textureID = LoadTGA("Image//grass_darkgreen.tga");
 		MeshBuilder::GetInstance()->GenerateQuad("GEO_GRASS_LIGHTGREEN", Color(1, 1, 1), 1.f);

@@ -16,7 +16,7 @@ void Bow::Init(Player * _owner)
 	this->m_owner = _owner;
 	for (int i = 0; i < m_projectilecount; ++i)
 	{
-		this->m_projectilelist[i] = Create::CreateProjectile("sphere", Vector3(0, 0, 0), Vector3(0.1, 0.1, 0.1), this);
+		this->m_projectilelist[i] = Create::CreateProjectile("arrow_projectile", Vector3(0, 0, 0), Vector3(0.1, 0.1, 0.1), this);
 		this->m_projectilelist[i]->SetSize(Vector3(1, 1, 1));
 	}
 }

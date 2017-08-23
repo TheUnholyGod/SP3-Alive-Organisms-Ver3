@@ -306,7 +306,7 @@ TileEntity* Create::TileEntityCreator(const TileEntity::BLOCK_TYPE block_type,
 	}
 	case TileEntity::BOSS_DOOR:
 	{
-		Mesh* modelMesh = MeshList::GetInstance()->GetMesh("quad");
+		Mesh* modelMesh = MeshList::GetInstance()->GetMesh("door_block");
 		if (modelMesh == nullptr)
 			return nullptr;
 
