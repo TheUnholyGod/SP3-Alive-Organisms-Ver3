@@ -22,6 +22,8 @@ Header file for EnemyBase. Contain basic information of the enemy.
 #include "RenderHelper.h"
 #include "StrategyBase.h"
 
+class SpriteEntity;
+
 class EnemyBase : public GenericEntity
 {
 public:
@@ -52,6 +54,10 @@ public:
 	virtual void Render();
 	virtual bool CollisionResponse(GenericEntity*);
 	
+
+	//Animation
+	SpriteEntity* animation;
+
 protected:
 	//PathFinding
 	double m_timeSinceLastUpdate;
@@ -61,6 +67,7 @@ protected:
 	std::vector<Coord2D> m_path;
 	int m_path_index;
 	bool isPathFound;
+
 	//Strategy
 	StrategyBase* strats;
 };
