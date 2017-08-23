@@ -43,6 +43,7 @@ public:
 	void DodgeRoll(double dt);
 	void PrimaryAttack(double dt, int _combo);
 	void SecondaryAttack(double dt, int _actiontype = 0);
+    void Interact(double dt);
 
 	void TakeDamage(int _dmg);
 	int GetHealth();
@@ -85,6 +86,8 @@ private:
 
 	bool m_isOnFloor;
 	bool m_isClimbing;
+    bool m_interacted;
+    double m_interacttimer, m_definteracttimer;
 
 	FPSCamera* attachedCamera;
 

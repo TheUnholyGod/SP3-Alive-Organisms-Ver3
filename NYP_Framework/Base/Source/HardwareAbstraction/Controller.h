@@ -22,6 +22,7 @@ public:
 		CONTROLLER_PRIMARYATT,
 		CONTROLLER_SECONDARYATT,
 		CONTROLLER_DODGEROLL,
+        CONTROLLER_INTERACT,
         NUM_CONRTOLLER,
     };
 
@@ -47,6 +48,7 @@ public:
 	virtual bool DodgeRoll(double dt);
 	virtual bool PrimaryAtt(double dt);
 	virtual bool SecondaryAtt(double dt);
+    virtual bool Interact(double dt);
 
 	virtual bool PrimaryUpperAtt(double dt);
 	virtual bool PrimaryLowerAtt(double dt);

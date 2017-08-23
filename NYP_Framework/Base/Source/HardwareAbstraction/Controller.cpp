@@ -39,6 +39,7 @@ bool Controller::Create(Player* thePlayerInfo)
 	this->controllerfunc[CONTROLLER_DODGEROLL] = &Controller::DodgeRoll;
 	this->controllerfunc[CONTROLLER_PRIMARYATT] = &Controller::PrimaryAtt;
 	this->controllerfunc[CONTROLLER_SECONDARYATT] = &Controller::SecondaryAtt;
+    this->controllerfunc[CONTROLLER_INTERACT] = &Controller::Interact;
 	Combo[CONTROLLER_MOVERIGHT][CONTROLLER_PRIMARYATT] = &Controller::PrimaryFrontAtt;
 	Combo[CONTROLLER_MOVELEFT][CONTROLLER_PRIMARYATT] = &Controller::PrimaryBackAtt;
 	Combo[CONTROLLER_MOVEUP][CONTROLLER_PRIMARYATT] = &Controller::PrimaryUpperAtt;
@@ -228,6 +229,12 @@ bool Controller::SecondaryAtt(double dt)
 
  //   std::cout << "Ranged" << std::endl;
 	return false;
+}
+
+bool Controller::Interact(double dt)
+{
+    this->thePlayerInfo->Interact(dt);
+    return false;
 }
 
 bool Controller::PrimaryUpperAtt(double dt)
