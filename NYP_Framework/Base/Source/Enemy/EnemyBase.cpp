@@ -9,7 +9,10 @@ cpp file for EnemyBase.
 ///////////////////////////////////////////////////////////////////////////////
 #include "EnemyBase.h"
 
+#include "../SpriteEntity.h"
+
 #include "EnemyMelee.h"
+
 
 void EnemyBase::Update(double _dt)
 {	
@@ -35,11 +38,21 @@ EnemyBase * Create::Enemy(const EnemyBase::ENEMY_TYPE enemy_type,
 	{
 	case EnemyBase::ENEMY_TYPE::E_MELEE:
 	{
-		Mesh* modelMesh = MeshList::GetInstance()->GetMesh("enemy");
+		Mesh* modelMesh = MeshList::GetInstance()->GetMesh("enemy_1");
 		if (modelMesh == nullptr)
 			return nullptr;
 
 		EnemyMelee* result = new EnemyMelee(modelMesh, enemy_type, _position, _scale);
+		
+		//Animation
+		SpriteAnimation* sa = new SpriteAnimation(*dynamic_cast<SpriteAnimation*>(MeshList::GetInstance()->GetMesh("enemy_1")));
+		if (sa)
+		{
+			sa->m_anim = new Animation();
+			sa->m_anim->Set(1, 9, 1, 1.0f, true);
+			result->animation = new SpriteEntity(sa);
+		}
+
 		EntityManager::GetInstance()->AddEntity(result);
 		return result;
 	}

@@ -1,5 +1,6 @@
 #include "Controller.h"
 #include "../Items/Melee.h"
+#include "../Items/Ranged.h"
 #include <iostream>
 #include <list>
 using namespace std;
@@ -287,7 +288,7 @@ bool Controller::SecondaryUpperAtt(double dt)
 	this->m_curraction_canceltime = 0.5f;
 	this->m_curraction_animationtime = 1;
     m_is_free = false;
-	this->thePlayerInfo->SecondaryAttack(dt);
+	this->thePlayerInfo->SecondaryAttack(dt, Ranged::DIR_UP);
 
 	//std::cout << "Upper Ranged" << std::endl;
 	return false;
@@ -299,7 +300,7 @@ bool Controller::SecondaryLowerAtt(double dt)
 	this->m_curraction_canceltime = 0.5f;
 	this->m_curraction_animationtime = 1;
     m_is_free = false;
-	this->thePlayerInfo->SecondaryAttack(dt);
+	this->thePlayerInfo->SecondaryAttack(dt, Ranged::DIR_DOWN);
 
 	//std::cout << "Lower Ranged" << std::endl;
 	return false;
@@ -311,7 +312,7 @@ bool Controller::SecondaryBackAtt(double dt)
 	this->m_curraction_canceltime = 0.5f;
 	this->m_curraction_animationtime = 1;
     m_is_free = false;
-	this->thePlayerInfo->SecondaryAttack(dt);
+	this->thePlayerInfo->SecondaryAttack(dt, Ranged::DIR_LEFT);
 
 	//std::cout << "Back Ranged" << std::endl;
 	return false;
@@ -325,7 +326,7 @@ bool Controller::SecondaryFrontAtt(double dt)
     m_is_free = false;
 
 	//std::cout << "Front Ranged" << std::endl;
-	this->thePlayerInfo->SecondaryAttack(dt);
+	this->thePlayerInfo->SecondaryAttack(dt, Ranged::DIR_RIGHT);
 
 	return false;
 }

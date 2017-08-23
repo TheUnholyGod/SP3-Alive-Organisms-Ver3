@@ -8,7 +8,7 @@
 #include "../MapManager.h"
 #include "../PlayerInfo/PlayerInfo.h"
 #include "RenderHelper.h"
-
+#include "../SpriteEntity.h"
 
 EnemyMelee::EnemyMelee(Mesh * mesh, 
 	EnemyBase::ENEMY_TYPE enemy_type, 
@@ -38,6 +38,8 @@ void EnemyMelee::Update(double _dt)
 
 	//Update enemy pos
 	this->position += m_velocity * _dt;
+	this->animation->SetPosition(position);
+	this->animation->Update(_dt);
 	
 	//Iterate through the path vector and move through the terrain
 	Move();
@@ -66,27 +68,30 @@ void EnemyMelee::Update(double _dt)
 				isPathFound = true;
 		}
 	}
+
 	//Update tileID for spatial partition
 	this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(position);
 }
 
 void EnemyMelee::Render()
 {
-	Collision::Render();
+	this->animation->Render();
+	/*Collision::Render();
 	MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
 	modelStack.PushMatrix();
 	modelStack.Translate(position.x, position.y, position.z);
 	modelStack.Scale(scale.x, scale.y, scale.z);
 	RenderHelper::RenderMesh(modelMesh);
-	modelStack.PopMatrix();
+	modelStack.PopMatrix();*/
 }
 
 bool EnemyMelee::CollisionResponse(GenericEntity *ThatEntity)
 {
 	/*Collision response for this enemy*/
-	if (ThatEntity->type == PROJECTILE_OBJ)
+	if (ThatEntity->type == PROJECTILE_OBJ || ThatEntity->type == HITBOX_OBJ)
 	{
-		ThatEntity->SetIsDone(true);
+		std::cout << "Dieded" << std::endl;
+		ThatEntity->SetActive(false);
 		this->SetIsDone(true);
 	}
 	return false;
@@ -136,13 +141,13 @@ void EnemyMelee::Move()
 			}
 			else
 			{
-				//std::cout << "Reached the Destination!" << std::endl;
+				std::cout << "Reached the Destination!" << std::endl;
 				m_path.clear();
 				isPathFound = false;
 				return;
 			}
 
-			//std::cout << "Route: " << std::endl;
+			std::cout << "Route: " << std::endl;
 			for (int i = 0; i < m_path.size(); ++i)
 			{
 				if (i == 0)
@@ -166,21 +171,25 @@ void EnemyMelee::Move()
 	if (dir == Coord2D(0, -1)) //Up
 	{
 		this->m_velocity += Vector3(0, 3, 0);
+		this->animation->SetRotation(0, Vector3(0, 1, 0));
 		return;
 	}
 	else if (dir == Coord2D(0, 1)) //Down
 	{
 		this->m_velocity += Vector3(0, -3, 0);
+		this->animation->SetRotation(0, Vector3(0, 1, 0));
 		return;
 	}
 	else if (dir == Coord2D(1, 0)) //Left
 	{
 		this->m_velocity += Vector3(-3, 0, 0);
+		this->animation->SetRotation(0, Vector3(0, 1, 0));
 		return;
 	}
 	else if (dir == Coord2D(-1, 0)) //Right
 	{
 		this->m_velocity += Vector3(3, 0, 0);
+		this->animation->SetRotation(180, Vector3(0, 1, 0));
 		return;
 	}
 }

@@ -27,7 +27,10 @@ void Bow::Action(int _actiontype)
 	if (p)
 	{
 		p->SetActive(true);
-		p->Init(this->m_owner->GetPosition() + (this->m_owner->GetDirection().x * Vector3(1, 0, 0)),Vector3(10 * m_owner->GetDirection().x), Vector3(m_owner->GetDirection().x));
+		if(_actiontype >= DIR_UP && _actiontype <= DIR_DOWN)
+			p->Init(this->m_owner->GetPosition() + (this->m_owner->GetDirection().y * Vector3(0, 1, 0)), Vector3(0,10 * m_owner->GetDirection().y), Vector3(0,m_owner->GetDirection().y));
+		else
+			p->Init(this->m_owner->GetPosition() + (this->m_owner->GetDirection().x * Vector3(1, 0, 0)),Vector3(10 * m_owner->GetDirection().x), Vector3(m_owner->GetDirection().x));
 	}
 }
 

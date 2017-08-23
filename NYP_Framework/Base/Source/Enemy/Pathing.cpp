@@ -80,10 +80,10 @@ void PathFinder::readMap(int ** grid_)
 			{
 				if (y - 1 < 0)
 					continue;
-				
-				if(grid_[y-1][x] == 0)
+
+				if (grid_[y - 1][x] == 0)
 					addCollision({ x,y });
-				
+
 				continue;
 			}
 			if (grid_[y][x] == 3 ||
@@ -98,9 +98,6 @@ void PathFinder::readMap(int ** grid_)
 			}
 		}
 	}
-
-	std::vector<Coord2D> t;
-	printMap(t, { 0,0 }, { 0,0 });
 }
 
 void PathFinder::addCollision(Coord2D coordinates_)

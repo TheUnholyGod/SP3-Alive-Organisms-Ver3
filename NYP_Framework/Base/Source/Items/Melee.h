@@ -1,9 +1,9 @@
 #ifndef _MELEE_H_
 #define _MELEE_H_
 
-#include "Collider\Collider.h"
 #include "Equipment.h"
 
+class Hitbox;
 class Player;
 
 class Melee :public Equipment
@@ -44,8 +44,10 @@ public:
     virtual void Update(double dt) = 0;
     virtual void Render() = 0;
 
+	virtual Hitbox* GetCurrentHitbox();
+
 protected:
 	int m_curr_combo;
-    Collision** m_hitbox;
+	Hitbox** m_hitbox;
 };
 #endif

@@ -7,6 +7,15 @@ class Projectile;
 class Ranged:public Equipment
 {
 public:
+	enum DIR
+	{	
+		DIR_LEFT,
+		DIR_RIGHT,
+		DIR_UP,
+		DIR_DOWN,
+	
+		NUM_DIR,
+	};
 	Ranged();
 	Ranged(int _projectilecount);
 	Ranged(int level, RUNE_TYPE type);
@@ -21,6 +30,6 @@ public:
 protected:
 	Projectile** m_projectilelist;
 	int m_projectilecount;
-	
+	int m_curr_dir;
 };
 #endif

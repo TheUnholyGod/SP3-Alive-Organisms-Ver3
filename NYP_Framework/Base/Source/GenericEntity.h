@@ -10,9 +10,6 @@ class Mesh;
 class GenericEntity : public EntityBase, public Collision
 {
 public:
-	GenericEntity(Mesh* _modelMesh);
-	virtual ~GenericEntity();
-
 	enum OBJECT_TYPE {
 		NONE = 0,
 		PLAYER_OBJ,
@@ -20,20 +17,28 @@ public:
 		ENTITY_OBJ,
 		PROJECTILE_OBJ,
 		ENEMY_OBJ,
+		HITBOX_OBJ,
 
 		TOTAL
 
 	}type;
+
+	GenericEntity(Mesh* _modelMesh);
+	virtual ~GenericEntity();
 
 	virtual void Update(double _dt);
 	virtual void Render();
 
 	virtual bool CollisionResponse(GenericEntity* ThatEntity);
 
+	virtual void SetActive(bool _active);
+	virtual bool GetActive();
+	virtual void ApplyDamage(int _dmg);
 	// Set the maxAABB and minAABB
 	//void SetAABB(Vector3 maxAABB, Vector3 minAABB);
 
 protected:
+	bool m_active;
 	Mesh* modelMesh;
 };
 

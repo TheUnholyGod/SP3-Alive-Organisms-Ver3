@@ -33,6 +33,16 @@ bool GenericEntity::CollisionResponse(GenericEntity * ThatEntity)
 	return false;
 }
 
+void GenericEntity::SetActive(bool _active)
+{
+	this->m_active = _active;
+}
+
+bool GenericEntity::GetActive()
+{
+	return m_active;
+}
+
 // Set the maxAABB and minAABB
 //void GenericEntity::SetAABB(Vector3 maxAABB, Vector3 minAABB)
 //{

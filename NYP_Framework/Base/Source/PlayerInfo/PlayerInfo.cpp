@@ -470,7 +470,7 @@ void Player::Jump(double dt)
 void Player::DodgeRoll(double dt)
 {
 	m_invincible = true;
-	this->velocity.x = 20;
+	this->velocity.x = 20 * this->direction.x;
 	this->m_moving = true;
 	m_movingtimer = 0.125;
 }
@@ -489,14 +489,24 @@ void Player::PrimaryAttack(double dt, int _combo)
 	}
 }
 
-void Player::SecondaryAttack(double dt)
+void Player::SecondaryAttack(double dt,int _actiontype)
 {
 	Ranged* Weapon = dynamic_cast<Ranged*>(this->m_player_equipment[EQUIPMENT_RANGED]);
 
 	if (Weapon)
 	{
-		Weapon->Action();
+		Weapon->Action(_actiontype);
 	}
+}
+
+void Player::TakeDamage(int _dmg)
+{
+	this->m_health -= _dmg;
+}
+
+int Player::GetHealth()
+{
+	return this->m_health;
 }
 
 FPSCamera * Player::getCamera()

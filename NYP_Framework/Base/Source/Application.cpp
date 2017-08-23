@@ -227,8 +227,16 @@ void Application::InitAllMeshes()
 		MeshBuilder::GetInstance()->GenerateCube("cube", Color(1.0f, 1.0f, 0.0f), 1.0f);
 		MeshList::GetInstance()->GetMesh("cone")->material.kDiffuse.Set(0.99f, 0.99f, 0.99f);
 		MeshList::GetInstance()->GetMesh("cone")->material.kSpecular.Set(0.f, 0.f, 0.f);
+
+		//Animations
 		MeshBuilder::GetInstance()->GenerateSpriteAnimation("GEO_SPRITE_ANIMATION", 1, 6, 1.0f);
 		MeshList::GetInstance()->GetMesh("GEO_SPRITE_ANIMATION")->textureID = LoadTGA("Image//cat.tga");
+
+		MeshBuilder::GetInstance()->GenerateSpriteAnimation("explosion", 5, 5, 1.0f);
+		MeshList::GetInstance()->GetMesh("explosion")->textureID = LoadTGA("Image//explosion.tga");
+
+		MeshBuilder::GetInstance()->GenerateSpriteAnimation("enemy_1", 2, 5, 1.0f);
+		MeshList::GetInstance()->GetMesh("enemy_1")->textureID = LoadTGA("Image//enemy_1.tga");
 
 		MeshBuilder::GetInstance()->GenerateQuad("player", Color(1, 0, 0), 0.5f);
 

@@ -12,10 +12,13 @@ SpriteEntity::SpriteEntity(Mesh* _modelMesh) :
 	scale(1.0f, 1.0f, 1.0f),
 	mode(MODE_2D)
 {
+	this->rotateAngle = 0;
+	this->rotateAxis = Vector3(0, 1, 0);
     this->isStatic = false;
     this->tile_ID = 0;
     this->position = Player::GetInstance()->GetPosition();
-    std::cout << position << std::endl;
+	this->sa = nullptr;
+    //std::cout << position << std::endl;
     mode = MODE_3D;
 }
 
@@ -29,28 +32,29 @@ void SpriteEntity::Update(double _dt)
 
   /*  this->position = Player::GetInstance()->GetPosition();
     this->position.x += 1;*/
-    SpriteAnimation* sa = dynamic_cast<SpriteAnimation*>(this->modelMesh);
+    sa = dynamic_cast<SpriteAnimation*>(this->modelMesh);
     if (sa)
     {
         sa->Update(_dt);
         sa->m_anim->animationActive = true;
-        std::cout << sa->m_currentFrame << std::endl;
+       // std::cout << sa->m_currentFrame << std::endl;
     }
 }
 
 void SpriteEntity::Render()
 {
-    SpriteAnimation* sa = dynamic_cast<SpriteAnimation*>(this->modelMesh);
+    sa = dynamic_cast<SpriteAnimation*>(this->modelMesh);
 
 	if (mode == MODE_2D)
 		return;
-
+	
     if (sa)
     {
         MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
         modelStack.PushMatrix();
         modelStack.Translate(position.x, position.y, position.z);
         modelStack.Scale(scale.x, scale.y, scale.z);
+		modelStack.Rotate(rotateAngle, rotateAxis.x, rotateAxis.y, rotateAxis.z);
         RenderHelper::RenderSpriteAnnimation(sa);
         modelStack.PopMatrix();
     }
@@ -73,6 +77,12 @@ void SpriteEntity::RenderUI()
         RenderHelper::RenderMesh(sa);
         modelStack.PopMatrix();
     }
+}
+
+void SpriteEntity::SetRotation(float angle, Vector3 axis)
+{
+	this->rotateAngle = angle;
+	this->rotateAxis = axis;
 }
 
 SpriteEntity* Create::Sprite2DObject(const std::string& _meshName, const Vector3& _position, const Vector3& _scale)
