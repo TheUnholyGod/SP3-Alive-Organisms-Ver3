@@ -26,6 +26,8 @@ EnemyMelee::EnemyMelee(Mesh * mesh,
 	this->SetPhysic(have_physic);
 	this->SetStatic(false);
 
+
+	m_state = AI_STATES::AI_PATROL;
 	dir = true;
 }
 
@@ -40,45 +42,54 @@ void EnemyMelee::Update(double _dt)
 
 	//Update enemy pos
 	this->position += m_velocity * _dt;
+
 	this->animation->SetPosition(position);
 	this->animation->Update(_dt);
+
+	this->animation2->SetPosition(position);
+	this->animation2->Update(_dt);
 	
-	//Iterate through the path vector and move through the terrain
-	Move();
-	if(m_path.empty())
+	Detect(_dt);
+
+	switch (m_state)
+	{
+	case EnemyMelee::AI_PATROL:
+	{
 		Patrol();
-	//Increment the time since last update for regulated checks
-	m_timeSinceLastUpdate += _dt;
-
-	//Player pos to find the player
-	Vector3 playerpos = Player::GetInstance()->GetPosition();
-
-	if (m_timeSinceLastUpdate > 1 && !m_result.valid() && !isPathFound)
-	{
-		FindPath({ (int)(position.x + 0.5), (int)(position.y + 0.5)},
-				{ (int)std::floor(playerpos.x + 0.5), (int)std::floor(playerpos.y + 0.5)});
-		m_timeSinceLastUpdate = 0;
+		std::cout << "Patrolling" << std::endl;
+		break;
 	}
-	//Check if worker thread is done, if done, obtain result.
-	if (m_result.valid() && !isPathFound)
+	case EnemyMelee::AI_CHASE:
 	{
-		if (m_result.wait_for(std::chrono::seconds(0)) == std::future_status::ready)
-		{
-			m_path.clear();
-			m_path = m_result.get();
-			m_path_index = 0;
-			if(!m_path.empty())
-				isPathFound = true;
-		}
+		Move();
+		std::cout << "Chasing" << std::endl;
+		break;
+	}
+	case EnemyMelee::AI_ATTACK:
+	{
+		Attack();
+		std::cout << "Attack" << std::endl;
+		break;
+	}
+	default:
+		break;
 	}
 
+	//Iterate through the path vector and move through the terrain
+	/*Move();
+	if(m_path.empty())
+		Patrol();*/
+	
 	//Update tileID for spatial partition
 	this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(position);
 }
 
 void EnemyMelee::Render()
 {
-	this->animation->Render();
+	if (m_state == AI_ATTACK)
+		this->animation2->Render();
+	else
+		this->animation->Render();
 	/*Collision::Render();
 	MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
 	modelStack.PushMatrix();
@@ -116,7 +127,8 @@ void EnemyMelee::Move()
 			dist = (position - Vector3(m_path[m_path_index + 1].x, m_path[m_path_index + 1].y, 0)).Length();
 		else
 		{
-			std::cout << "Reached the Destination!" << std::endl;
+			std::cout << "Reached the Destination! & cleared path!" << std::endl;
+			m_state = AI_PATROL;
 			m_path.clear();
 			isPathFound = false;
 			return;
@@ -203,6 +215,8 @@ void EnemyMelee::Patrol()
 
 	while (dir) //right
 	{
+		this->position = Vector3(position.x, std::ceil(position.y), 0);
+
 		if (!m_path_finder.detectCollision(Coord2D((int)(position.x) + 1, (int)(position.y))))
 		{
 			m_velocity = Vector3(1, 0, 0);
@@ -217,6 +231,8 @@ void EnemyMelee::Patrol()
 	}
 	while (!dir) //left
 	{
+		this->position = Vector3(position.x, std::ceil(position.y), 0);
+	
 		if (!m_path_finder.detectCollision(Coord2D((int)(position.x), (int)(position.y))))
 		{
 			m_velocity = Vector3(-1, 0, 0);
@@ -229,6 +245,67 @@ void EnemyMelee::Patrol()
 			break;
 		}
 	}
+}
+
+void EnemyMelee::Detect(double dt)
+{
+	float dist = (Player::GetInstance()->GetPosition() - position).Length();
+
+	if (dist < 0.1)
+	{
+		isPathFound = false;
+		m_path.clear();
+		m_state = AI_ATTACK;
+	}
+	else if (dist > 10)
+	{
+		/*isPathFound = false;
+		m_path.clear();*/
+		m_state = AI_PATROL;
+	}
+	else
+	{
+		//Increment the time since last update for regulated checks
+		m_timeSinceLastUpdate += dt;
+
+		//Player pos to find the player
+		Vector3 playerpos = Player::GetInstance()->GetPosition();
+
+		//Find the path every 5 sec
+		if (m_timeSinceLastUpdate > 1 && !m_result.valid() && !isPathFound)
+		{
+			std::cout << "Calling pathfinder!" << std::endl;
+			FindPath({ (int)(position.x + 0.5), (int)(position.y + 0.5) },
+			{ (int)std::floor(playerpos.x + 0.5), (int)std::floor(playerpos.y + 0.5) });
+			m_timeSinceLastUpdate = 0;
+		}
+		//Check if worker thread is done, if done, obtain result & change state
+		if (m_result.valid() && !isPathFound)
+		{
+			if (m_result.wait_for(std::chrono::seconds(0)) == std::future_status::ready)
+			{
+				m_path.clear();
+				m_path = m_result.get();
+				m_path_index = 0;
+				if (!m_path.empty())
+				{
+					m_state = AI_CHASE;
+					isPathFound = true;
+				}
+				else
+				{
+					m_state = AI_PATROL;
+				}
+			}
+		}
+	}
+}
+
+void EnemyMelee::Attack()
+{
+	//Do damage to player
+	m_velocity.SetZero();
+	return;
 }
 
 void EnemyMelee::FindPath(Coord2D _src, Coord2D _end)
