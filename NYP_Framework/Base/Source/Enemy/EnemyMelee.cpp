@@ -216,8 +216,11 @@ void EnemyMelee::Patrol()
 	std::cout << "Pos: (" << position.x << ", " << position.y << ")" << std::endl;
 	std::cout << "Corrected(R): (" << (int)(position.x) + 1 << ", " << (int)(position.y) << std::endl;
 	std::cout << "Corrected(L): (" << (int)(position.x) << ", " << (int)(position.y) << std::endl;
+	
+	position.y = std::ceil(position.y);
 	while (dir) //right
 	{
+		
 		if (!m_path_finder.detectCollision(Coord2D((int)(position.x) + 1, std::ceil(position.y))))
 		{
 			std::cout << "Right no collision" << std::endl;
