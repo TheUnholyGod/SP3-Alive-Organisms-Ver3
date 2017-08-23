@@ -122,6 +122,19 @@ void Player::Update(double dt)
 	this->attachedCamera->SetCameraPos(Vector3(position.x, position.y, 7));
 	this->attachedCamera->SetCameraTarget(position);
 
+	if (!m_isOnFloor && !m_isClimbing)
+		accleration.y = -9.8;
+	else if (m_isOnFloor && accleration != 0 && !m_isClimbing)
+	{
+		accleration.y = 0;
+		velocity.y = 0;
+	}
+
+	if (m_isClimbing)
+	{
+		accleration.y = 0;
+	}
+
 	std::vector<EntityBase*> temp_blocks;
 	EntityManager::GetInstance()->GetAllBlocksWithinTileRadius(tile_ID, temp_blocks, true);
 
@@ -140,9 +153,19 @@ void Player::Update(double dt)
 			{
 				if (dynamic_cast<TileEntity*>(*it) != nullptr)
 				{
-					if (dynamic_cast<TileEntity*>(*it)->block_type == TileEntity::SOLID_BLOCK || dynamic_cast<TileEntity*>(*it)->block_type == TileEntity::TOP_PLATFORM)
+					if (dynamic_cast<TileEntity*>(*it)->block_type == TileEntity::SOLID_BLOCK || dynamic_cast<TileEntity*>(*it)->block_type == TileEntity::LADDERWITHPLATFORM)
 					{
 						m_isOnFloor = true;				
+						break;
+					}
+					else if (dynamic_cast<TileEntity*>(*it)->block_type == TileEntity::TOP_PLATFORM)
+					{
+						while (position.y - 0.26f < (*it)->GetPosition().y + (*it)->GetScale().y * 0.5)
+						{
+							position.y += 0.001;
+						}
+
+						m_isOnFloor = true;
 						break;
 					}
 					else
@@ -198,6 +221,8 @@ void Player::Update(double dt)
 					//std::cout << dynamic_cast<TileEntity*>(*it)->block_type << std::endl;
 					if (dynamic_cast<TileEntity*>(*it)->block_type == TileEntity::SOLID_BLOCK)
 					{
+						if (!m_isClimbing)
+						{
 							double temp_pusher = 0;
 							while (true)
 							{
@@ -215,42 +240,33 @@ void Player::Update(double dt)
 									temp_pusher = -0.001;
 								}
 
+								velocity.x = 0;
+
 								position.x += temp_pusher;
 								SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
 
-						}
-						break;
-					}
-					/*else if (dynamic_cast<TileEntity*>(*it)->block_type == TileEntity::TOP_PLATFORM)
-					{
-						if (CollisionManager::GetInstance()->CheckPlayerDirCollision(*it))
-						{
-							velocity.y = 0;
-							SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
-							break;
+							}
 						}
 						else
 						{
-							this->position = temp;
+							SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
+
+							break;
+						}
+					}
+				/*	else if (dynamic_cast<TileEntity*>(*it)->block_type == TileEntity::TOP_PLATFORM)
+					{
+						if (CollisionManager::GetInstance()->CheckPlayerDirCollision(*it))
+						{
+							if(!m_isOnFloor)
+							velocity.y = 0;
+							SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
 							break;
 						}
 					}*/
 				}
 			}
 		}
-
-	if (!m_isOnFloor && !m_isClimbing)
-		accleration.y = -9.8;
-	else if (m_isOnFloor && accleration != 0 && !m_isClimbing)
-	{
-		accleration.y = 0;
-		velocity.y = 0;
-	}
-	if (m_isClimbing)
-	{
-		velocity.y = 0;
-		accleration.y = 0;
-	}
 
 	std::cout << "CLIMBING: " << m_isClimbing << std::endl;
 	std::cout << "ON FLOOR: " << m_isOnFloor << std::endl;
@@ -300,11 +316,40 @@ void Player::UpdateMovment(double dt)
 				}
 				else if (dynamic_cast<TileEntity*>(*it)->block_type == TileEntity::TOP_PLATFORM)
 				{
+
 					if (CollisionManager::GetInstance()->CheckPlayerDirCollision(*it))
 					{
-						velocity.y = 0;
-						SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
+						if (position.y - 0.28f > (*it)->GetPosition().y + (*it)->GetScale().y * 0.5)
+						{
+							velocity.y = 0;
+							SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
+						}
+						else
+							this->position = temp;
 						break;
+					}
+					else
+					{
+						this->position = temp;
+						break;
+					}
+
+				}
+				else if (dynamic_cast<TileEntity*>(*it)->block_type == TileEntity::LADDERWITHPLATFORM)
+				{
+					if (!m_isClimbing)
+					{
+						if (CollisionManager::GetInstance()->CheckPlayerDirCollision(*it))
+						{
+							velocity.y = 0;
+							SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
+							break;
+						}
+						else
+						{
+							this->position = temp;
+							break;
+						}
 					}
 					else
 					{
@@ -319,6 +364,7 @@ void Player::UpdateMovment(double dt)
 
 	if (!m_moving)
 	{
+		last_position = position;
 		if (abs(velocity.x) > 0)
 		{
 			velocity.x -= (velocity.x * 5) * dt;
@@ -376,6 +422,9 @@ void Player::MoveUp(double dt)
 
 void Player::MoveDown(double dt)
 {
+	std::map<int, Tiles*> temp_map;
+	if (static_cast<int>(position.y) - 1 > -1 && MapManager::GetInstance()->getMapArray()[static_cast<int>(position.y) - 1][static_cast<int>(position.x)] == 3)
+		m_isClimbing = true;
 
 	if (m_isClimbing)
 	{

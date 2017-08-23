@@ -58,7 +58,7 @@ public:
 private:
 	Vector3 defaultPosition;
 	Vector3 direction,velocity,accleration;
-	Vector3 last_direction;
+	Vector3 last_direction, last_position;
 	Vector3 maxBoundary, minBoundary;
 	GroundEntity* m_pTerrain;
 
