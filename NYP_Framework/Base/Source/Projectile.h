@@ -21,7 +21,6 @@ public:
 	virtual bool GetActive();
 	virtual void SetActive(bool _active);
 protected:
-	bool m_active;
 	double m_range;
 	Vector3 velocity;
 	Vector3 direction;

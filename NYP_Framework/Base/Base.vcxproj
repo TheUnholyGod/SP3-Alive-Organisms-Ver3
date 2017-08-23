@@ -25,6 +25,7 @@
     <ClCompile Include="Source\HardwareAbstraction\Controller.cpp" />
     <ClCompile Include="Source\HardwareAbstraction\Keyboard.cpp" />
     <ClCompile Include="Source\HardwareAbstraction\Mouse.cpp" />
+    <ClCompile Include="Source\Hitbox.cpp" />
     <ClCompile Include="Source\Items\Equipment.cpp" />
     <ClCompile Include="Source\Items\Flask.cpp" />
     <ClCompile Include="Source\Items\ItemModifier.cpp" />
@@ -69,6 +70,7 @@
     <ClInclude Include="Source\HardwareAbstraction\Controller.h" />
     <ClInclude Include="Source\HardwareAbstraction\Keyboard.h" />
     <ClInclude Include="Source\HardwareAbstraction\Mouse.h" />
+    <ClInclude Include="Source\Hitbox.h" />
     <ClInclude Include="Source\Items\Equipment.h" />
     <ClInclude Include="Source\Items\Flask.h" />
     <ClInclude Include="Source\Items\ItemBase.h" />

@@ -84,9 +84,9 @@ void EnemyMelee::Render()
 bool EnemyMelee::CollisionResponse(GenericEntity *ThatEntity)
 {
 	/*Collision response for this enemy*/
-	if (ThatEntity->type == PROJECTILE_OBJ)
+	if (ThatEntity->type == PROJECTILE_OBJ || ThatEntity->type == HITBOX_OBJ)
 	{
-		ThatEntity->SetIsDone(true);
+		ThatEntity->SetActive(false);
 		this->SetIsDone(true);
 	}
 	return false;
