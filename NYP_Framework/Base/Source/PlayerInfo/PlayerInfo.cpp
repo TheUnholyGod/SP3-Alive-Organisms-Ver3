@@ -268,8 +268,8 @@ void Player::Update(double dt)
 			}
 		}
 
-	std::cout << "CLIMBING: " << m_isClimbing << std::endl;
-	std::cout << "ON FLOOR: " << m_isOnFloor << std::endl;
+	/*std::cout << "CLIMBING: " << m_isClimbing << std::endl;
+	std::cout << "ON FLOOR: " << m_isOnFloor << std::endl;*/
 
 }
 
