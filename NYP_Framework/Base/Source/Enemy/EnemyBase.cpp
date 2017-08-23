@@ -56,6 +56,26 @@ EnemyBase * Create::Enemy(const EnemyBase::ENEMY_TYPE enemy_type,
 		EntityManager::GetInstance()->AddEntity(result);
 		return result;
 	}
+	case EnemyBase::ENEMY_TYPE::E_BOMBER:
+	{
+		Mesh* modelMesh = MeshList::GetInstance()->GetMesh("explosion");
+		if (modelMesh == nullptr)
+			return nullptr;
+
+		EnemyMelee* result = new EnemyMelee(modelMesh, enemy_type, _position, _scale);
+
+		//Animation
+		SpriteAnimation* sa = new SpriteAnimation(*dynamic_cast<SpriteAnimation*>(MeshList::GetInstance()->GetMesh("explosion")));
+		if (sa)
+		{
+			sa->m_anim = new Animation();
+			sa->m_anim->Set(1, 24, 1, 1.0f, true);
+			result->animation = new SpriteEntity(sa);
+		}
+
+		EntityManager::GetInstance()->AddEntity(result);
+		return result;
+	}
 	default:
 		break;
 	}
