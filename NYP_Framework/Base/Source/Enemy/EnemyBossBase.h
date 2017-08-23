@@ -8,6 +8,11 @@ class EnemyBossBase :public GenericEntity
 private:
 
 public:
+	enum TYPE
+	{
+		TYPE_PLAGUE,
+		NUM_TYPE
+	};
 	EnemyBossBase();
 	~EnemyBossBase();
 };
