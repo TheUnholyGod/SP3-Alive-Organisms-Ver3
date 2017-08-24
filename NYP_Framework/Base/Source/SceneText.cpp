@@ -162,6 +162,8 @@ void SceneText::Init()
 	keyboard->Create(Player::GetInstance());
 	Math::InitRNG();
 
+	EntityManager::GetInstance()->AddEntity(Player::GetInstance());
+
 	m_inputtimer = 0;
 	MapManager::GetInstance()->Init();
 	MapManager::GetInstance()->GenerateBlocks(Player::GetInstance()->GetCurrentLevel());
@@ -180,9 +182,10 @@ void SceneText::Init()
 
 	PlagueBoss* pb = new PlagueBoss();
 	pb->SetPosition(Player::GetInstance()->GetPosition());
-	pb->SetTileID(0);
 	pb->Init();
 	EntityManager::GetInstance()->AddEntity(pb);
+	pb->SetTileID(0);
+
 }
 
 void SceneText::Update(double dt)

@@ -13,11 +13,14 @@ PlagueBubbleStrategy::~PlagueBubbleStrategy()
 
 void PlagueBubbleStrategy::Init()
 {
-	PoisonGasBubbles* bubble = dynamic_cast<PoisonGasBubbles*>(this->m_parent->GetEntity(GenericEntity::PLAGUE_BUBBLE_OBJ));
-	
-	if (bubble)
+	for (int i = 0;i < 3;++i)
 	{
-		bubbles.push_back(bubble);
+		PoisonGasBubbles* bubble = dynamic_cast<PoisonGasBubbles*>(this->m_parent->GetEntity(GenericEntity::PLAGUE_BUBBLE_OBJ));
+
+		if (bubble)
+		{
+			bubbles.push_back(bubble);
+		}
 	}
 	m_deftotaltimer = 5;
 	m_totaltimer = 0;
@@ -39,9 +42,9 @@ void PlagueBubbleStrategy::Update(double dt)
 	{
 		this->m_isdone = true;
 	}
-	if (action)
+	if (action && bubbles.size())
 	{
-		PoisonGasBubbles* bubble = *bubbles.end();
+		PoisonGasBubbles* bubble = bubbles[bubbles.size() - 1];
 		float x = Math::RandFloatMinMax(0, 25);
 		float y = Math::RandFloatMinMax(0, 25);
 		float dirx = Math::RandIntMinMax(-1, 1);
