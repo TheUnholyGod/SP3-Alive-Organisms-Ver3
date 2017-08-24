@@ -60,6 +60,7 @@
     <ClCompile Include="Source\TextEntity.cpp" />
     <ClCompile Include="Source\TileEntity.cpp" />
     <ClCompile Include="Source\TileEntitySolidBlock.cpp" />
+    <ClCompile Include="Source\ToxicGas.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />

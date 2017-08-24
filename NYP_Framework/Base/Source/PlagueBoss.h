@@ -2,6 +2,7 @@
 #define _PLAGUEBOSS_H
 
 #include "Enemy\EnemyBossBase.h"
+#include <vector>
 
 class PlagueStrategy;
 
@@ -19,6 +20,12 @@ private:
     }m_currstate;
 
     PlagueStrategy** m_strats;
+
+	std::vector<GenericEntity*> m_entitylist;
+	bool m_isstatefree[NUM_STATES];
+
+	bool m_freestate;
+	double m_defchangestatetimer, m_changestatetimer;
 public:
     PlagueBoss();
     ~PlagueBoss();
@@ -27,6 +34,10 @@ public:
     virtual void Update(double _dt);
     virtual void Render();
     virtual bool CollisionResponse(GenericEntity*);
+
+	virtual bool GetNextState();
+
+	virtual GenericEntity* GetEntity(GenericEntity::OBJECT_TYPE _type);
 };
 
 #endif
