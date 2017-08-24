@@ -73,7 +73,8 @@ bool PlagueBoss::CollisionResponse(GenericEntity *)
 
 bool PlagueBoss::GetNextState()
 {
-	m_currstate = static_cast<PLAGUESTATES>(Math::RandIntMinMax(STATE_SUMMON, STATE_CHARGE));
+	//m_currstate = static_cast<PLAGUESTATES>(Math::RandIntMinMax(STATE_SUMMON, STATE_CHARGE));
+	m_currstate = STATE_BUBBLE;
 	return false;
 }
 
