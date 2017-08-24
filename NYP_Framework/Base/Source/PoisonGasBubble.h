@@ -23,7 +23,8 @@ namespace Create
     PoisonGasBubbles* CreatePoisonGasBubbles(const std::string& _meshName,
         const Vector3& _position,
         const Vector3& _scale = Vector3(1.0f, 1.0f, 1.0f),
-        Ranged* _parent = nullptr);
+        Ranged* _parent = nullptr,
+		bool is_boss_room = true);
 };
 
 #endif

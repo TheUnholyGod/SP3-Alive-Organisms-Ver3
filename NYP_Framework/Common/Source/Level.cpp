@@ -153,14 +153,14 @@ void Level::GenerateLevel()
 		}
 	}
 
-	for (int y = 0; y < GetSizeOfLevel(); ++y)
+	/*for (int y = 0; y < GetSizeOfLevel(); ++y)
 	{
 		for (int x = 0; x < GetSizeOfLevel(); ++x)
 		{
 			std::cout << level_set[y][x];
 		}
 		std::cout << std::endl;
-	}
+	}*/
 }
 
 void Level::GenerateBossLevel()
@@ -170,7 +170,7 @@ void Level::GenerateBossLevel()
 	{
 		for (int x = 0; x < m_max_level_size_xy; ++x)
 		{
-			level_set[y][x] = 3;
+			level_set[y][x] = 2;
 		}
 	}
 
@@ -204,14 +204,14 @@ void Level::GenerateBossLevel()
 		}
 	}
 
-	for (int y = 0; y < GetSizeOfLevel(); ++y)
+	/*for (int y = 0; y < GetSizeOfLevel(); ++y)
 	{
 		for (int x = 0; x < GetSizeOfLevel(); ++x)
 		{
 			std::cout << level_set[y][x];
 		}
 		std::cout << std::endl;
-	}
+	}*/
 }
 
 int Level::GetSizeOfLevel()

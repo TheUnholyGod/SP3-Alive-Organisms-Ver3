@@ -164,6 +164,7 @@ void SceneText::Init()
 	m_inputtimer = 0;
 	MapManager::GetInstance()->Init();
 	MapManager::GetInstance()->GenerateBlocks(Player::GetInstance()->GetCurrentLevel());
+	MapManager::GetInstance()->GenerateBossBlocks(Player::GetInstance()->GetCurrentLevel());
 
 	//for (int y = 0; y < MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->GetSizeOfLevel(); ++y)
 	//{
