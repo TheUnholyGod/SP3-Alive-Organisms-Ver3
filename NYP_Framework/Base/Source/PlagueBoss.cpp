@@ -23,15 +23,16 @@ void PlagueBoss::Init()
     this->m_strats[STATE_PROJECTILE] = new PlagueProjectileStrategy;
     this->m_strats[STATES_CHARGE] = new PlagueChargeStrategy;
 
-	//for (int i = 0;i < 10;++i)
-	//{
-	//	this->m_entitylist.push_back(Create::CreatePoisonGasBubbles("q", Vector3()));
-	//	this->m_entitylist.push_back(Create::CreatePoisonHitbox("q",Vector3()));
-	//	this->m_entitylist.push_back(Create::CreatePoisonProjectile("q",Vector3()));
-	//	this->m_entitylist.push_back(Create::CreateToxicGas("q", Vector3()));
-	//}
+	for (int i = 0;i < 10;++i)
+	{
+		this->m_entitylist.push_back(Create::CreatePoisonGasBubbles("q", Vector3()));
+		this->m_entitylist.push_back(Create::CreatePoisonHitbox("q",Vector3()));
+		this->m_entitylist.push_back(Create::CreatePoisonProjectile("q",Vector3()));
+		this->m_entitylist.push_back(Create::CreateToxicGas("q", Vector3()));
+	}
 	m_changestatetimer = 0;
 	m_defchangestatetimer = 5;
+	m_currstate = STATES_IDLE;
 }
 
 void PlagueBoss::Update(double _dt)
@@ -42,6 +43,7 @@ void PlagueBoss::Update(double _dt)
 		if (m_changestatetimer < 0)
 		{
 			m_freestate = false;
+			this->GetNextState();
 		}
 	}
 	else if (m_currstate >= STATE_SUMMON && m_currstate <= STATES_CHARGE)
@@ -63,6 +65,7 @@ bool PlagueBoss::CollisionResponse(GenericEntity *)
 
 bool PlagueBoss::GetNextState()
 {
+	m_currstate = static_cast<PLAGUESTATES>(Math::RandIntMinMax(STATE_SUMMON, STATES_CHARGE));
 	return false;
 }
 

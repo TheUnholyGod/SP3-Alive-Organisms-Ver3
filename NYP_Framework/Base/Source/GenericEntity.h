@@ -31,7 +31,7 @@ public:
 
 	GenericEntity(Mesh* _modelMesh);
 	virtual ~GenericEntity();
-
+	virtual void Init();
 	virtual void Update(double _dt);
 	virtual void Render();
 

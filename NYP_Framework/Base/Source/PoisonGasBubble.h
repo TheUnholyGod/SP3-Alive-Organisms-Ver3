@@ -16,6 +16,10 @@ public:
     virtual void Render();
 
     virtual bool CollisionResponse(GenericEntity* ThatEntity);
+protected:
+	Vector3 m_maxscale;
+	double m_bubbletimer,m_defbubbletimer;
+	bool m_pop;
 };
 
 namespace Create
