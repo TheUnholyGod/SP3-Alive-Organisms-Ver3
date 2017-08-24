@@ -11,8 +11,12 @@ various game screens: Menu, Options, Gameover etc.
 ///////////////////////////////////////////////////////////////////////////////
 #pragma once
 
+#include <vector>
+
 #include "SingletonTemplate.h"
 #include "GameStateManager.h"
+
+#include "../UIElement.h"
 
 class GameStateManager;
 
@@ -20,7 +24,7 @@ class UIManager : public Singleton<UIManager>
 {
 	friend Singleton<UIManager>;
 public:
-	//Initialise the game state
+	//Initialise the game state, and all UIElements
 	void Init();
 	/*Take in user input and calls respective managers to handle the event*/
 	void Update(double _dt);
@@ -34,5 +38,8 @@ public:
 private:
 	UIManager() {};
 	virtual ~UIManager() {};
+
+	//Vector to store all UIElements
+	std::vector<>
 
 };
