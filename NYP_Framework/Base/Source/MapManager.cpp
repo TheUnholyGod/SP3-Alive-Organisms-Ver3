@@ -201,19 +201,6 @@ void MapManager::GenerateBossBlocks(int level)
 				case 2:
 					Create::TileEntityCreator(TileEntity::TOP_PLATFORM, Vector3((x + (row * 7)) + 100, ((y + (section * 7)) + 0.35) + 100, 0), Vector3(1, 0.3, 1), true, true, true, i, true);
 					break;
-				case 3:
-				{
-					if (y + 1 < boss_map_database[level]->GetSizeOfTileSet())
-					{
-						if (temp[i]->GetTilesArray()[y + 1][x] != 3)
-							Create::TileEntityCreator(TileEntity::LADDERWITHPLATFORM, Vector3((x + (row * 7)) + 100, y + (section * 7) + 100, 0), Vector3(1, 1, 1), true, true, true, i, true);
-						else
-							Create::TileEntityCreator(TileEntity::LADDER, Vector3((x + (row * 7)) + 100, y + (section * 7) + 100, 0), Vector3(1, 1, 1), true, true, true, i, true);
-					}
-					else
-						Create::TileEntityCreator(TileEntity::LADDERWITHPLATFORM, Vector3((x + (row * 7)) + 100, y + (section * 7) + 100, 0), Vector3(1, 1, 1), true, true, true, i, true);
-				}
-				break;
 				case 4:
 				{
 					if (Math::RandIntMinMax(0, 100) < 20)

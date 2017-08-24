@@ -23,6 +23,8 @@ TileMaker::~TileMaker()
 	4 - 20/100 chance of spawning rune,
 	5 - 50/100 chance of a platform
 	6 - Player Spawner
+	7 - Boss Door
+	8 - Enemy Node
 */
 
 Tiles* TileMaker::GenerateRoom(TILE_SET_GENERATOR generator)
@@ -39,7 +41,12 @@ Tiles* TileMaker::GenerateRoom(TILE_SET_GENERATOR generator)
 				if(Math::RandIntMinMax(0, 100) < 51)
 					tiles_set->SetTilesInArray(x, y, 0);
 				else
-					tiles_set->SetTilesInArray(x, y, 1);
+				{
+					if (Math::RandIntMinMax(0, 100) < 51)
+						tiles_set->SetTilesInArray(x, y, 2);
+					else
+						tiles_set->SetTilesInArray(x, y, 3);
+				}
 			}
 		}
 		break;
