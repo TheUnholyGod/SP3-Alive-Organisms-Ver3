@@ -180,9 +180,10 @@ void SceneText::Init()
 
 	PlagueBoss* pb = new PlagueBoss();
 	pb->SetPosition(Player::GetInstance()->GetPosition());
-	pb->SetTileID(0);
 	pb->Init();
 	EntityManager::GetInstance()->AddEntity(pb);
+	pb->SetTileID(0);
+
 }
 
 void SceneText::Update(double dt)

@@ -82,7 +82,6 @@ void Projectile::SetActive(bool _active)
 	this->m_active = _active;
 }
 
-
 Projectile * Create::CreateProjectile(const std::string & _meshName, const Vector3 & _position, const Vector3 & _scale, Ranged * _parent,
 	bool is_boss_room)
 {
