@@ -56,19 +56,19 @@ void EnemyMelee::Update(double _dt)
 	case EnemyMelee::AI_PATROL:
 	{
 		Patrol();
-		std::cout << "Patrolling" << std::endl;
+		//std::cout << "Patrolling" << std::endl;
 		break;
 	}
 	case EnemyMelee::AI_CHASE:
 	{
 		Move();
-		std::cout << "Chasing" << std::endl;
+		//std::cout << "Chasing" << std::endl;
 		break;
 	}
 	case EnemyMelee::AI_ATTACK:
 	{
 		Attack();
-		std::cout << "Attack" << std::endl;
+		//std::cout << "Attack" << std::endl;
 		break;
 	}
 	default:
@@ -223,7 +223,7 @@ void EnemyMelee::Patrol()
 		
 		if (!m_path_finder.detectCollision(Coord2D((int)(position.x) + 1, std::floor(position.y + 0.5))))
 		{
-			std::cout << "Right no collision" << std::endl;
+			//std::cout << "Right no collision" << std::endl;
 			m_velocity = Vector3(1, 0, 0);
 			this->animation->SetRotation(180, Vector3(0, 1, 0));
 			break;
@@ -238,7 +238,7 @@ void EnemyMelee::Patrol()
 	{
 		if (!m_path_finder.detectCollision(Coord2D((int)(position.x), std::floor(position.y + 0.5))))
 		{
-			std::cout << "Left no collision" << std::endl;
+			//std::cout << "Left no collision" << std::endl;
 			m_velocity = Vector3(-1, 0, 0);
 			this->animation->SetRotation(0, Vector3(0, 1, 0));
 			break;
