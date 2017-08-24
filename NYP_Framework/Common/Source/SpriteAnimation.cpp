@@ -62,6 +62,7 @@ void SpriteAnimation::Update(double dt)
 
 void SpriteAnimation::Render()
 {
+	//glDisable(GL_DEPTH_TEST);
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
@@ -83,9 +84,11 @@ void SpriteAnimation::Render()
 		glDrawElements(GL_TRIANGLE_STRIP, indexSize, GL_UNSIGNED_INT, (void*)(this->m_currentFrame * 6 * sizeof(GLint)));
 	else
 		glDrawElements(GL_TRIANGLES, indexSize, GL_UNSIGNED_INT, (void*)(this->m_currentFrame * 6 * sizeof(GLint)));
+	
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
 	glDisableVertexAttribArray(3);
+	//glEnable(GL_DEPTH_TEST);
 }

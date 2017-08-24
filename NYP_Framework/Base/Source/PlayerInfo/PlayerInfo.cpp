@@ -35,6 +35,7 @@ Player::Player(void)
 	type = GenericEntity::PLAYER_OBJ;
 	tile_ID = 0;
 	SetCollider(true);
+	this->m_health = 100;
 }
 
 Player::~Player(void)
