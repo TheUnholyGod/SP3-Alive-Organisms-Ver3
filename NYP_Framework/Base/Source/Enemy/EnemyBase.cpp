@@ -12,6 +12,7 @@ cpp file for EnemyBase.
 #include "../SpriteEntity.h"
 
 #include "EnemyMelee.h"
+#include "EnemyMaggot.h"
 
 
 void EnemyBase::Update(double _dt)
@@ -64,13 +65,13 @@ EnemyBase * Create::Enemy(const EnemyBase::ENEMY_TYPE enemy_type,
 		EntityManager::GetInstance()->AddEntity(result);
 		return result;
 	}
-	case EnemyBase::ENEMY_TYPE::E_BOMBER:
+	case EnemyBase::ENEMY_TYPE::E_MAGGOT:
 	{
 		Mesh* modelMesh = MeshList::GetInstance()->GetMesh("explosion");
 		if (modelMesh == nullptr)
 			return nullptr;
 
-		EnemyMelee* result = new EnemyMelee(modelMesh, enemy_type, _position, _scale);
+		EnemyMaggot* result = new EnemyMaggot(modelMesh, enemy_type, _position, _scale);
 
 		//Animation
 		SpriteAnimation* sa = new SpriteAnimation(*dynamic_cast<SpriteAnimation*>(MeshList::GetInstance()->GetMesh("explosion")));
@@ -79,6 +80,13 @@ EnemyBase * Create::Enemy(const EnemyBase::ENEMY_TYPE enemy_type,
 			sa->m_anim = new Animation();
 			sa->m_anim->Set(1, 24, 1, 1.0f, true);
 			result->animation = new SpriteEntity(sa);
+		}
+		SpriteAnimation* sa2 = new SpriteAnimation(*dynamic_cast<SpriteAnimation*>(MeshList::GetInstance()->GetMesh("explosion")));
+		if (sa2)
+		{
+			sa2->m_anim = new Animation();
+			sa2->m_anim->Set(1, 24, 1, 1.0f, true);
+			result->animation2 = new SpriteEntity(sa2);
 		}
 
 		EntityManager::GetInstance()->AddEntity(result);
