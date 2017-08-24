@@ -10,8 +10,8 @@ void UIManager::Init()
 	//Initialise UIElements
 	m_cursor = Create::UI("quad", UI_CURSOR, Vector3(0, 0, 0), Vector3(10, 10, 10), GAMESTATE::GS_MAINMENU, false);
 
-	Create::UI("ladder_block", UI_CURSOR, Vector3(0, 0, 0), Vector3(100, 100, 100), GAMESTATE::GS_MAINMENU);
-	Create::UI("ladder_block", UI_CURSOR, Vector3(20, 20, 0), Vector3(100, 100, 100), GAMESTATE::GS_MAINMENU);
+	/*Create::UI("ladder_block", UI_CURSOR, Vector3(0, 0, 0), Vector3(100, 100, 100), GAMESTATE::GS_MAINMENU);
+	Create::UI("ladder_block", UI_CURSOR, Vector3(20, 20, 0), Vector3(100, 100, 100), GAMESTATE::GS_MAINMENU);*/
 }
 
 void UIManager::Update(double _dt)
