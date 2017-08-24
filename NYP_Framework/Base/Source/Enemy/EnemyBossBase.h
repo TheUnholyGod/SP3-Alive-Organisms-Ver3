@@ -5,7 +5,7 @@
 
 class EnemyBossBase :public GenericEntity
 {
-private:
+protected:
 
 public:
 	enum TYPE
@@ -15,6 +15,11 @@ public:
 	};
 	EnemyBossBase();
 	~EnemyBossBase();
+
+    virtual void Init();
+    virtual void Update(double _dt);
+    virtual void Render();
+    virtual bool CollisionResponse(GenericEntity*);
 };
 
 #endif

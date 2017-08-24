@@ -14,7 +14,7 @@ class StrategyBase
 {
 public:
 	StrategyBase();
-	~StrategyBase();
+    virtual ~StrategyBase();
 
 private:
 
