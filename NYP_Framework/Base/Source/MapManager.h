@@ -19,6 +19,7 @@ private:
 	~MapManager() {}
 
 	map<int, Level*> map_database;
+	map<int, Level*> boss_map_database;
 	int** m_map_array; //Array view
 	//int** new_map_array; //Corrected map view
 

@@ -36,6 +36,7 @@ public:
 		3 - room three - //Rooms with only Left, Right and Top exit
 	*/
 	void GenerateLevel();
+	void GenerateBossLevel();
 
 	int GetSizeOfLevel();  //Returns size of level
 	int GetSizeOfTileSet();  //Returns size of one tile

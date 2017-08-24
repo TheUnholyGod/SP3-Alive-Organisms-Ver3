@@ -83,16 +83,25 @@ void EntityManager::Render()
 	// Render all entities
 	Level *level = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel());
 	std::vector<int> temp = level->ReturnSurroundingTilesViaCurrentTile(Player::GetInstance()->GetTileID());
-	temp.push_back(0);
+	for (int i = 0; i <= temp.size(); ++i)
+	{
+		if(i == temp.size())
+			temp.push_back(0);
+
+		if (temp[i] == 0)
+			break;
+	}
+
 	std::list<EntityBase*>::iterator it;
 
-	for (int i = 0; i < temp.size(); ++i)
+	for (int i = temp.size() - 1; i >= 0; --i)
 	{
 		for (it = m_entity_map_base[temp[i]].begin(); it != m_entity_map_base[temp[i]].end(); ++it)
 		{
 			(*it)->Render();
 		}
 	}
+	
 }
 
 //// Render the UI entities
