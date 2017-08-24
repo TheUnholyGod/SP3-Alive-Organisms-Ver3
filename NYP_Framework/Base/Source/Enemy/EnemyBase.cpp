@@ -34,7 +34,8 @@ EnemyBase * Create::Enemy(const EnemyBase::ENEMY_TYPE enemy_type,
 	bool have_collider, 
 	bool have_physic, 
 	bool is_static,
-	int tile_ID)
+	int tile_ID,
+	bool is_boss_room)
 {
 	switch (enemy_type)
 	{
@@ -62,7 +63,7 @@ EnemyBase * Create::Enemy(const EnemyBase::ENEMY_TYPE enemy_type,
 			result->animation2 = new SpriteEntity(sa2);
 		}
 
-		EntityManager::GetInstance()->AddEntity(result);
+		EntityManager::GetInstance()->AddEntity(result, is_boss_room);
 		return result;
 	}
 	case EnemyBase::ENEMY_TYPE::E_MAGGOT:
@@ -74,22 +75,22 @@ EnemyBase * Create::Enemy(const EnemyBase::ENEMY_TYPE enemy_type,
 		EnemyMaggot* result = new EnemyMaggot(modelMesh, enemy_type, _position, _scale);
 
 		//Animation
-		SpriteAnimation* sa = new SpriteAnimation(*dynamic_cast<SpriteAnimation*>(MeshList::GetInstance()->GetMesh("explosion")));
+		SpriteAnimation* sa = new SpriteAnimation(*dynamic_cast<SpriteAnimation*>(MeshList::GetInstance()->GetMesh("maggot")));
 		if (sa)
 		{
 			sa->m_anim = new Animation();
-			sa->m_anim->Set(1, 24, 1, 1.0f, true);
+			sa->m_anim->Set(1, 12, 1, 0.6f, true);
 			result->animation = new SpriteEntity(sa);
 		}
-		SpriteAnimation* sa2 = new SpriteAnimation(*dynamic_cast<SpriteAnimation*>(MeshList::GetInstance()->GetMesh("explosion")));
+		SpriteAnimation* sa2 = new SpriteAnimation(*dynamic_cast<SpriteAnimation*>(MeshList::GetInstance()->GetMesh("maggot")));
 		if (sa2)
 		{
 			sa2->m_anim = new Animation();
-			sa2->m_anim->Set(1, 24, 1, 1.0f, true);
+			sa2->m_anim->Set(1, 12, 1, 1.0f, true);
 			result->animation2 = new SpriteEntity(sa2);
 		}
 
-		EntityManager::GetInstance()->AddEntity(result);
+		EntityManager::GetInstance()->AddEntity(result, is_boss_room);
 		return result;
 	}
 	default:

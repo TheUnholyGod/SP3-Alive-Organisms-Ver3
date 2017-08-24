@@ -26,6 +26,7 @@
 #include "MapManager.h"
 #include "Enemy\Pathing.h"
 #include "Enemy\EnemyBase.h"
+#include "PlagueBoss.h"
 
 #include <future>
 #include <iostream>
@@ -164,6 +165,7 @@ void SceneText::Init()
 	m_inputtimer = 0;
 	MapManager::GetInstance()->Init();
 	MapManager::GetInstance()->GenerateBlocks(Player::GetInstance()->GetCurrentLevel());
+	MapManager::GetInstance()->GenerateBossBlocks(Player::GetInstance()->GetCurrentLevel());
 
 	//for (int y = 0; y < MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->GetSizeOfLevel(); ++y)
 	//{
@@ -176,6 +178,11 @@ void SceneText::Init()
 
 	AudioPlayer::GetInstance()->addSound("explosion", "Assets//Sound//explosion.wav"); //Move somewhere to run only once
 
+	PlagueBoss* pb = new PlagueBoss();
+	pb->SetPosition(Player::GetInstance()->GetPosition());
+	pb->SetTileID(0);
+	pb->Init();
+	EntityManager::GetInstance()->AddEntity(pb);
 }
 
 void SceneText::Update(double dt)
@@ -231,8 +238,8 @@ void SceneText::Update(double dt)
 
 	if (KeyboardController::GetInstance()->IsKeyReleased('P'))
 	{
-		Create::Enemy(EnemyBase::ENEMY_TYPE::E_MAGGOT, Vector3((int)Player::GetInstance()->GetPosition().x, (int)Player::GetInstance()->GetPosition().y, (int)Player::GetInstance()->GetPosition().z), Vector3(1, 1, 1), true, false, false);
-		//Create::Enemy(EnemyBase::ENEMY_TYPE::E_BOMBER, Vector3((int)Player::GetInstance()->GetPosition().x + 1, (int)Player::GetInstance()->GetPosition().y, (int)Player::GetInstance()->GetPosition().z), Vector3(1, 1, 1), true, false, false);
+		Create::Enemy(EnemyBase::ENEMY_TYPE::E_MAGGOT, Vector3((int)Player::GetInstance()->GetPosition().x, (int)Player::GetInstance()->GetPosition().y - 0.25, (int)Player::GetInstance()->GetPosition().z), Vector3(1, 0.5, 1), true, false, false);
+		Create::Enemy(EnemyBase::ENEMY_TYPE::E_MELEE, Vector3((int)Player::GetInstance()->GetPosition().x + 1, (int)Player::GetInstance()->GetPosition().y, (int)Player::GetInstance()->GetPosition().z), Vector3(1, 1, 1), true, false, false);
 	}
 	if (KeyboardController::GetInstance()->IsKeyReleased('R'))
 	{
@@ -294,8 +301,8 @@ void SceneText::Render()
 	GraphicsManager::GetInstance()->SetPerspectiveProjection(45.0f, 4.0f / 3.0f, 0.1f, 10000.0f);
 	GraphicsManager::GetInstance()->AttachCamera(Player::GetInstance()->getCamera());
 	
-	Player::GetInstance()->Render();
 	EntityManager::GetInstance()->Render();
+	Player::GetInstance()->Render();
 
 	// Setup 2D pipeline then render 2D
 	int halfWindowWidth = Application::GetInstance().GetWindowWidth() / 2;

@@ -51,6 +51,9 @@
     <ClCompile Include="Source\PlagueSpawnStrategy.cpp" />
     <ClCompile Include="Source\PlagueStrategy.cpp" />
     <ClCompile Include="Source\PlayerInfo\PlayerInfo.cpp" />
+    <ClCompile Include="Source\PoisonGasBubble.cpp" />
+    <ClCompile Include="Source\PoisonHitbox.cpp" />
+    <ClCompile Include="Source\PoisonProjectile.cpp" />
     <ClCompile Include="Source\Projectile.cpp" />
     <ClCompile Include="Source\SceneText.cpp" />
     <ClCompile Include="Source\ShortSword.cpp" />
@@ -61,6 +64,7 @@
     <ClCompile Include="Source\TextEntity.cpp" />
     <ClCompile Include="Source\TileEntity.cpp" />
     <ClCompile Include="Source\TileEntitySolidBlock.cpp" />
+    <ClCompile Include="Source\ToxicGas.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />

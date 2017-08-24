@@ -19,13 +19,19 @@ public:
 		ENEMY_OBJ,
 		HITBOX_OBJ,
 
+		PLAGUE_BUBBLE_OBJ,
+		PLAGUE_GAS_OBJ, 
+		PLAGUE_PROJECTILE_OBJ,
+		PLAGUE_MAGGOT_OBJ,
+		PLAGUE_POISON_OBJ,
+
 		TOTAL
 
 	}type;
 
 	GenericEntity(Mesh* _modelMesh);
 	virtual ~GenericEntity();
-
+	virtual void Init();
 	virtual void Update(double _dt);
 	virtual void Render();
 

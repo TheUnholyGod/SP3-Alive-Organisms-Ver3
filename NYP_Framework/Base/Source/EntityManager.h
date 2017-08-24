@@ -20,7 +20,7 @@ public:
 	void Render();
 	/*void RenderUI();*/
 
-	void AddEntity(EntityBase* _newEntity);
+	void AddEntity(EntityBase* _newEntity, bool fighting_boss = false);
 	void GetAllBlocksWithinTileRadius(int, vector<EntityBase*>&, bool);
 	void GetAllBlocks(vector<EntityBase*>&);
 	void GetAllBlocksInTileSet(int, vector<EntityBase*>&);
@@ -31,6 +31,7 @@ private:
 	virtual ~EntityManager();
 
 	map<int, std::list<EntityBase*>> m_entity_map_base;
+	map<int, std::list<EntityBase*>> m_entity_boss_map_base;
 	vector<EntityBase*> m_all_blocks_storage;
 
 

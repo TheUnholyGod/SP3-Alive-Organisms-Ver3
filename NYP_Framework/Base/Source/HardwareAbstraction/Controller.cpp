@@ -233,7 +233,7 @@ bool Controller::SecondaryAtt(double dt)
 
 bool Controller::Interact(double dt)
 {
-    this->thePlayerInfo->Interact(dt);
+    this->thePlayerInfo->SetInteracting(true);
     return false;
 }
 

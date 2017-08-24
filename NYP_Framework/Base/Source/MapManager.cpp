@@ -79,7 +79,7 @@ void MapManager::GenerateBlocks(int level)
 					break;
 				case 5:
 				{
-					if (Math::RandIntMinMax(0, 100) < 50)
+					if (Math::RandIntMinMax(0, 100) < 100)
 					{
 						Create::TileEntityCreator(TileEntity::TOP_PLATFORM, Vector3((x + (row * 7)), (y + (section * 7)) + 0.35, 0), Vector3(1, 0.3, 1), true, true, true, i);
 					}
@@ -166,13 +166,98 @@ void MapManager::GenerateBlocks(int level)
 
 	GenerateMapArray(level);
 
+
 	if (enemy_temp_list.size() > 0)
 	{
 		for (map<int, vector<Vector3>>::iterator it = enemy_temp_list.begin(); it != enemy_temp_list.end(); ++it)
 		{
 			for (vector<Vector3>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
 			{
-				Create::Enemy(EnemyBase::ENEMY_TYPE::E_MELEE, *it2, Vector3(1, 1, 1), true, false, false, it->first);
+				Create::Enemy(EnemyBase::ENEMY_TYPE::E_MELEE, Vector3(it2->x, it2->y, it2->z + 0.1), Vector3(1, 1, 1), true, false, false, it->first);
+			}
+		}
+	}
+}
+
+void MapManager::GenerateBossBlocks(int level)
+{
+	map<int, Tiles*> temp;
+	map<int, vector<Vector3>> enemy_temp_list;
+	Vector3 temp_player_pos(0, 0, 0), temp_door_pos(0, 0, 0);
+	boss_map_database[level]->GetLevelLayOut(temp);
+	int section = 0, row = 0;
+	for (int i = 0; i < temp.size(); ++i)
+	{
+
+		for (int y = 0; y < boss_map_database[level]->GetSizeOfTileSet(); ++y)
+		{
+			for (int x = 0; x < boss_map_database[level]->GetSizeOfTileSet(); ++x)
+			{
+				switch (temp[i]->GetTilesArray()[y][x])
+				{
+				case 1:
+					Create::TileEntityCreator(TileEntity::SOLID_BLOCK, Vector3((x + (row * 7)) + 100, y + (section * 7) + 100, 0), Vector3(1, 1, 1), true, true, true, i, true);
+					break;
+				case 2:
+					Create::TileEntityCreator(TileEntity::TOP_PLATFORM, Vector3((x + (row * 7)) + 100, ((y + (section * 7)) + 0.35) + 100, 0), Vector3(1, 0.3, 1), true, true, true, i, true);
+					break;
+				case 4:
+				{
+					if (Math::RandIntMinMax(0, 100) < 20)
+						Create::TileEntityCreator(TileEntity::RUNE_SPAWNER, Vector3((x + (row * 7)) + 100, y + (section * 7) + 100, 0), Vector3(0.5, 1, 1), true, true, true, i, true);
+				}
+				break;
+				case 5:
+				{
+					if (Math::RandIntMinMax(0, 100) < 100)
+					{
+						Create::TileEntityCreator(TileEntity::TOP_PLATFORM, Vector3((x + (row * 7)) + 100, ((y + (section * 7)) + 0.35) + 100, 0), Vector3(1, 0.3, 1), true, true, true, i, true);
+					}
+					else
+						temp[i]->SetTilesInArray(x, y, 0);
+				}
+				break;
+				default:
+					break;
+				}
+			}
+		}
+
+		++row;
+
+		if ((i + 1) % boss_map_database[level]->GetSizeOfLevel() == 0)
+		{
+			row = 0;
+			++section;
+		}
+	}
+
+	for (int y = 0; y < boss_map_database[level]->GetSizeOfLevel() * boss_map_database[level]->GetSizeOfTileSet(); ++y)
+	{
+		for (int x = 0; x < boss_map_database[level]->GetSizeOfLevel() * boss_map_database[level]->GetSizeOfTileSet(); ++x)
+		{
+			if (y == 0 || y == (boss_map_database[level]->GetSizeOfLevel() * boss_map_database[level]->GetSizeOfTileSet()) - 1)
+			{
+				Create::TileEntityCreator(TileEntity::SOLID_BLOCK, Vector3(x + 100, (y + ((y == 0) ? -1 : 1)) + 100, 0), Vector3(1, 1, 1), true, true, true, boss_map_database[level]->ReturnTileViaPos(Vector3(x, y, 0)), true);
+				if (x == 0 || x == (boss_map_database[level]->GetSizeOfLevel() * boss_map_database[level]->GetSizeOfTileSet()) - 1)
+					Create::TileEntityCreator(TileEntity::SOLID_BLOCK, Vector3((x + ((x == 0) ? -1 : 1)) + 100, y + 100, 0), Vector3(1, 1, 1), true, true, true, boss_map_database[level]->ReturnTileViaPos(Vector3(x, y, 0)), true);
+
+			}
+			else if (x == 0 || x == (boss_map_database[level]->GetSizeOfLevel() * boss_map_database[level]->GetSizeOfTileSet()) - 1)
+				Create::TileEntityCreator(TileEntity::SOLID_BLOCK, Vector3((x + ((x == 0) ? -1 : 1)) + 100, y + 100, 0), Vector3(1, 1, 1), true, true, true, boss_map_database[level]->ReturnTileViaPos(Vector3(x, y, 0)), true);
+
+		}
+	}
+
+	GenerateMapArray(level);
+
+	if (enemy_temp_list.size() > 0)
+	{
+		for (map<int, vector<Vector3>>::iterator it = enemy_temp_list.begin(); it != enemy_temp_list.end(); ++it)
+		{
+			for (vector<Vector3>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
+			{
+				Create::Enemy(EnemyBase::ENEMY_TYPE::E_MELEE, Vector3(it2->x, it2->y, it2->z + 0.1), Vector3(1, 1, 1), true, false, false, it->first, true);
 			}
 		}
 	}
@@ -199,7 +284,7 @@ void MapManager::GenerateMapArray(int level)
 
 	//Initialise new array
 	Level* l = GetLevel(level);
-	int size = l->GetSizeOfLevel() * 7;
+	int size = (l->GetSizeOfLevel() * 7) + (l->GetSizeOfLevel() * 7);
 
 	m_map_array = new int*[size];
 	for (int h = 0; h < size; ++h)
@@ -235,6 +320,33 @@ void MapManager::GenerateMapArray(int level)
 			++section;
 		}
 	}
+
+	boss_map_database[level]->GetLevelLayOut(temp);
+
+	section = 0, row = 0;
+	for (int i = 0; i < temp.size(); ++i)
+	{
+		for (int y = 0; y < boss_map_database[level]->GetSizeOfTileSet(); ++y)
+		{
+			for (int x = 0; x < boss_map_database[level]->GetSizeOfTileSet(); ++x)
+			{
+				if (temp[i]->GetTilesArray()[y][x] == 0 || temp[i]->GetTilesArray()[y][x] == 4 || temp[i]->GetTilesArray()[y][x] == 6 || temp[i]->GetTilesArray()[y][x] == 7 || temp[i]->GetTilesArray()[y][x] == 8)
+				{
+					m_map_array[y + (section * 7) + 100][x + (row * 7) + 100] = 0;
+				}
+				else
+					m_map_array[y + (section * 7) + 100][x + (row * 7) + 100] = temp[i]->GetTilesArray()[y][x];
+			}
+		}
+
+		++row;
+
+		if ((i + 1) % boss_map_database[level]->GetSizeOfLevel() == 0)
+		{
+			row = 0;
+			++section;
+		}
+	}
 }
 
 Level* MapManager::GetLevel(int level)
@@ -248,7 +360,8 @@ TileEntity* Create::TileEntityCreator(const TileEntity::BLOCK_TYPE block_type,
 	bool have_collider,
 	bool have_physic,
 	bool is_static,
-	int current_tile_ID)
+	int current_tile_ID, 
+	bool is_boss_room)
 {
 	switch (block_type)
 	{
@@ -260,7 +373,7 @@ TileEntity* Create::TileEntityCreator(const TileEntity::BLOCK_TYPE block_type,
 			return nullptr;
 
 		TileEntitySolidBlock* result = new TileEntitySolidBlock(modelMesh, _position, _scale, have_collider, have_physic, current_tile_ID, is_static, block_type);
-		EntityManager::GetInstance()->AddEntity(result);
+		EntityManager::GetInstance()->AddEntity(result, is_boss_room);
 
 		return result;
 	}
@@ -271,7 +384,7 @@ TileEntity* Create::TileEntityCreator(const TileEntity::BLOCK_TYPE block_type,
 			return nullptr;
 
 		TileEntitySolidBlock* result = new TileEntitySolidBlock(modelMesh, _position, _scale, have_collider, have_physic, current_tile_ID, is_static, block_type);
-		EntityManager::GetInstance()->AddEntity(result);
+		EntityManager::GetInstance()->AddEntity(result, is_boss_room);
 
 		return result;
 	}
@@ -282,7 +395,7 @@ TileEntity* Create::TileEntityCreator(const TileEntity::BLOCK_TYPE block_type,
 			return nullptr;
 
 		TileEntitySolidBlock* result = new TileEntitySolidBlock(modelMesh, _position, _scale, have_collider, have_physic, current_tile_ID, is_static, block_type);
-		EntityManager::GetInstance()->AddEntity(result);
+		EntityManager::GetInstance()->AddEntity(result, is_boss_room);
 
 		return result;
 	}
@@ -293,7 +406,7 @@ TileEntity* Create::TileEntityCreator(const TileEntity::BLOCK_TYPE block_type,
 			return nullptr;
 
 		TileEntitySolidBlock* result = new TileEntitySolidBlock(modelMesh, _position, _scale, have_collider, have_physic, current_tile_ID, is_static, block_type);
-		EntityManager::GetInstance()->AddEntity(result);
+		EntityManager::GetInstance()->AddEntity(result, is_boss_room);
 
 		return result;
 	}
@@ -304,7 +417,7 @@ TileEntity* Create::TileEntityCreator(const TileEntity::BLOCK_TYPE block_type,
 			return nullptr;
 
 		TileEntitySolidBlock* result = new TileEntitySolidBlock(modelMesh, _position, _scale, have_collider, have_physic, current_tile_ID, is_static, block_type);
-		EntityManager::GetInstance()->AddEntity(result);
+		EntityManager::GetInstance()->AddEntity(result, is_boss_room);
 
 		return result;
 	}
@@ -315,7 +428,7 @@ TileEntity* Create::TileEntityCreator(const TileEntity::BLOCK_TYPE block_type,
 			return nullptr;
 
 		TileEntitySolidBlock* result = new TileEntitySolidBlock(modelMesh, _position, _scale, have_collider, have_physic, current_tile_ID, is_static, block_type);
-		EntityManager::GetInstance()->AddEntity(result);
+		EntityManager::GetInstance()->AddEntity(result, is_boss_room);
 
 		return result;
 	}
