@@ -84,6 +84,7 @@ namespace Create
 		bool have_collider = false,
 		bool have_physic = false,
 		bool is_static = false, 
-		int tile_ID = 0);
+		int tile_ID = 0,
+		bool is_boss_room = false);
 
 };

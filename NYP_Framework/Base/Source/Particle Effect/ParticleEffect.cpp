@@ -60,7 +60,8 @@ ParticleEffect * Create::Particle(
 	const Vector3& vel,
 	const EFFECT_TYPE& type,
 	const double& effect_life_span,
-	const double& particle_life_span)
+	const double& particle_life_span,
+	bool is_boss_room)
 {
 	Mesh* modelMesh = MeshList::GetInstance()->GetMesh(_meshName);
 	if (modelMesh == nullptr)

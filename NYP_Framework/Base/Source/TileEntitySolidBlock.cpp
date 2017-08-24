@@ -1,4 +1,5 @@
 #include "TileEntitySolidBlock.h"
+#include "PlayerInfo\PlayerInfo.h"
 #include <iostream>
 
 TileEntitySolidBlock::TileEntitySolidBlock(Mesh* mesh, Vector3 pos, Vector3 size, bool have_collider, bool have_physic, int current_tile_ID, bool is_static, TileEntity::BLOCK_TYPE type) : TileEntity(mesh)
@@ -22,18 +23,21 @@ TileEntitySolidBlock::TileEntitySolidBlock(Mesh* mesh, Vector3 pos, Vector3 size
 
 void TileEntitySolidBlock::Update(double dt)
 {
-	if (type == LADDER)
-	{
-		
-	}
 }
 
 bool TileEntitySolidBlock::CollisionResponse(GenericEntity* entity)
 {
 	if (entity->type == GenericEntity::PLAYER_OBJ && this->type == GenericEntity::ENVIORNMENT_OBJ)
 	{
-	//	std::cout << "[ COLLIDED PLAYER WITH BLOCK ]" << std::endl;
-		return true;
+		if (block_type == BOSS_DOOR)
+		{
+			if (Player::GetInstance()->IsInteracting())
+			{
+				Player::GetInstance()->SetIsFightingBoss(true);
+			}
+			//	std::cout << "[ COLLIDED PLAYER WITH BLOCK ]" << std::endl;
+			return true;
+		}
 	}
 
 	return false;

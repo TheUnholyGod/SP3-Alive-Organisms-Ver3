@@ -66,6 +66,7 @@ void Player::Init(void)
 	m_attacking = false;
 	m_isOnFloor = false;
 	m_isClimbing = false;
+	m_isFightingBoss = false;
 
 	// Set Boundary
 	maxBoundary.Set(.5, .5, .5);
@@ -130,7 +131,7 @@ void Player::Update(double dt)
 	this->UpdateJump(dt);
 	this->UpdateMovment(dt);
     this->m_player_equipment[EQUIPMENT_MELEE]->Update(dt);
-	this->attachedCamera->SetCameraPos(Vector3(position.x, position.y, 7));
+	this->attachedCamera->SetCameraPos(Vector3(position.x, position.y, 40));
 	this->attachedCamera->SetCameraTarget(position);
 
 	if (!m_isOnFloor && !m_isClimbing)
@@ -147,7 +148,7 @@ void Player::Update(double dt)
 	}
 
 	std::vector<EntityBase*> temp_blocks;
-	EntityManager::GetInstance()->GetAllBlocksWithinTileRadius(tile_ID, temp_blocks, true);
+	EntityManager::GetInstance()->GetAllBlocksWithinTileRadius(tile_ID, temp_blocks, Player::GetInstance()->GetIsFightingBoss());
 
 		for (std::vector<EntityBase*>::iterator it = temp_blocks.begin(); it < temp_blocks.end(); ++it)
 		{
@@ -298,7 +299,7 @@ void Player::UpdateMovment(double dt)
 	Vector3 temp = this->position + velocity * dt;
 
 	std::vector<EntityBase*> temp_blocks;
-	EntityManager::GetInstance()->GetAllBlocksWithinTileRadius(tile_ID, temp_blocks, true);
+	EntityManager::GetInstance()->GetAllBlocksWithinTileRadius(tile_ID, temp_blocks, Player::GetInstance()->GetIsFightingBoss());
 
 	SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (temp.y + (maxBoundary.y * 0.5)), (temp.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (temp.y + (minBoundary.y * 0.5)), (temp.z + (minBoundary.z * 0.5))));
 
@@ -377,7 +378,7 @@ void Player::UpdateMovment(double dt)
 						bool move_X = false, move_Y = false;
 						if (temp.y < (MapManager::GetInstance()->GetLevel(m_iLevel)->GetSizeOfLevel() * MapManager::GetInstance()->GetLevel(m_iLevel)->GetSizeOfTileSet()) - 1)
 						{
-							SetAABB(Vector3((temp.x + (maxBoundary.x * 0.5)) + 0.1, (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((temp.x + (minBoundary.x * 0.5)) - 0.1, (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
+							SetAABB(Vector3((temp.x + (maxBoundary.x * 0.5)) + 0.05, (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((temp.x + (minBoundary.x * 0.5)) - 0.05, (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
 							for (std::vector<EntityBase*>::iterator it2 = temp_blocks.begin(); it2 <= temp_blocks.end(); ++it2)
 							{
 								if (it2 == temp_blocks.end())
@@ -401,7 +402,7 @@ void Player::UpdateMovment(double dt)
 								}
 							}
 
-							SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (temp.y + (maxBoundary.y * 0.5)) + 0.1, (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (temp.y + (minBoundary.y * 0.5)) - 0.1, (position.z + (minBoundary.z * 0.5))));
+							SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (temp.y + (maxBoundary.y * 0.5)) + 0.02, (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (temp.y + (minBoundary.y * 0.5)) - 0.02, (position.z + (minBoundary.z * 0.5))));
 							for (std::vector<EntityBase*>::iterator it2 = temp_blocks.begin(); it2 <= temp_blocks.end(); ++it2)
 							{
 								if (it2 == temp_blocks.end())
@@ -503,7 +504,7 @@ void Player::MoveUp(double dt)
 void Player::MoveDown(double dt)
 {
 	std::vector<EntityBase*> temp_blocks;
-	EntityManager::GetInstance()->GetAllBlocksWithinTileRadius(tile_ID, temp_blocks, true);
+	EntityManager::GetInstance()->GetAllBlocksWithinTileRadius(tile_ID, temp_blocks, Player::GetInstance()->GetIsFightingBoss());
 
 	for (std::vector<EntityBase*>::iterator it = temp_blocks.begin(); it < temp_blocks.end(); ++it)
 	{
@@ -602,12 +603,15 @@ void Player::SecondaryAttack(double dt,int _actiontype)
 	}
 }
 
-void Player::Interact(double dt)
+bool Player::IsInteracting()
 {
-    this->m_interacted = true;
-    this->m_interacttimer = this->m_definteracttimer;
+	return m_interacted;
+}
 
-    //Add Interact Codes Here.
+void Player::SetInteracting(bool interacting)
+{
+	m_interacted = interacting;
+	m_interacttimer = m_definteracttimer;
 }
 
 void Player::TakeDamage(int _dmg)
@@ -652,4 +656,15 @@ Vector3 Player::GetDirection()
 Vector3 Player::GetPlayerVelocity()
 {
 	return velocity;
+}
+
+bool Player::GetIsFightingBoss()
+{
+	return m_isFightingBoss;
+}
+
+void Player::SetIsFightingBoss(bool is_fighting)
+{
+	m_isFightingBoss = is_fighting;
+	position.Set(100, 100, 0);
 }

@@ -34,7 +34,8 @@ EnemyBase * Create::Enemy(const EnemyBase::ENEMY_TYPE enemy_type,
 	bool have_collider, 
 	bool have_physic, 
 	bool is_static,
-	int tile_ID)
+	int tile_ID,
+	bool is_boss_room)
 {
 	switch (enemy_type)
 	{
@@ -62,7 +63,7 @@ EnemyBase * Create::Enemy(const EnemyBase::ENEMY_TYPE enemy_type,
 			result->animation2 = new SpriteEntity(sa2);
 		}
 
-		EntityManager::GetInstance()->AddEntity(result);
+		EntityManager::GetInstance()->AddEntity(result, is_boss_room);
 		return result;
 	}
 	case EnemyBase::ENEMY_TYPE::E_MAGGOT:
@@ -89,7 +90,7 @@ EnemyBase * Create::Enemy(const EnemyBase::ENEMY_TYPE enemy_type,
 			result->animation2 = new SpriteEntity(sa2);
 		}
 
-		EntityManager::GetInstance()->AddEntity(result);
+		EntityManager::GetInstance()->AddEntity(result, is_boss_room);
 		return result;
 	}
 	default:

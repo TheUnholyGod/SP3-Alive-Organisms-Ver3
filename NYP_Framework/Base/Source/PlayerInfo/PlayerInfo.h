@@ -43,7 +43,8 @@ public:
 	void DodgeRoll(double dt);
 	void PrimaryAttack(double dt, int _combo);
 	void SecondaryAttack(double dt, int _actiontype = 0);
-    void Interact(double dt);
+	bool IsInteracting();
+	void SetInteracting(bool);
 
 	void TakeDamage(int _dmg);
 	int GetHealth();
@@ -57,6 +58,8 @@ public:
 
 	Vector3 GetDirection();
 	Vector3 GetPlayerVelocity();
+	bool GetIsFightingBoss();
+	void SetIsFightingBoss(bool);
 
 private:
 	Vector3 defaultPosition;
@@ -88,6 +91,7 @@ private:
 	bool m_isClimbing;
     bool m_interacted;
     double m_interacttimer, m_definteracttimer;
+	bool m_isFightingBoss;
 
 	FPSCamera* attachedCamera;
 
