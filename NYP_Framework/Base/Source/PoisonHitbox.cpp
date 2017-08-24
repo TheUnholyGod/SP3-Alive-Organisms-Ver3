@@ -25,7 +25,7 @@ bool PoisonHitbox::CollisionResponse(GenericEntity * ThatEntity)
 	return false;
 }
 
-PoisonHitbox * Create::CreatePoisonHitbox(const std::string & _meshName, const Vector3 & _position, const Vector3 & _scale)
+PoisonHitbox * Create::CreatePoisonHitbox(const std::string & _meshName, const Vector3 & _position, const Vector3 & _scale, bool is_boss)
 {
 	return nullptr;
 }
