@@ -83,7 +83,8 @@ void Projectile::SetActive(bool _active)
 }
 
 
-Projectile * Create::CreateProjectile(const std::string & _meshName, const Vector3 & _position, const Vector3 & _scale, Ranged * _parent)
+Projectile * Create::CreateProjectile(const std::string & _meshName, const Vector3 & _position, const Vector3 & _scale, Ranged * _parent,
+	bool is_boss_room)
 {
 	Mesh* modelMesh = MeshList::GetInstance()->GetMesh(_meshName);
 	if (modelMesh == nullptr)

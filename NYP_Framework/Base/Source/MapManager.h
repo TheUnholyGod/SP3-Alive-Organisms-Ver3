@@ -26,6 +26,7 @@ private:
 public:
 	void Init();
 	void GenerateBlocks(int);
+	void GenerateBossBlocks(int);
 	void DeleteAllLevels();
 	
 	//Return the entire map in array
@@ -45,7 +46,8 @@ namespace Create
 		bool have_collider, 
 		bool have_physic,
 		bool is_static,
-		int current_tile_ID);
+		int current_tile_ID,
+		bool is_boss_room = false);
 
 };
 
