@@ -21,7 +21,7 @@ void PlagueBoss::Init()
     this->m_strats[STATE_SUMMON] = new PlagueSpawnStrategy;
     this->m_strats[STATE_BUBBLE] = new PlagueBubbleStrategy;
     this->m_strats[STATE_PROJECTILE] = new PlagueProjectileStrategy;
-    this->m_strats[STATES_CHARGE] = new PlagueChargeStrategy;
+    this->m_strats[STATE_CHARGE] = new PlagueChargeStrategy;
 
 	for (int i = 0;i < 10;++i)
 	{
@@ -32,7 +32,11 @@ void PlagueBoss::Init()
 	}
 	m_changestatetimer = 0;
 	m_defchangestatetimer = 5;
-	m_currstate = STATES_IDLE;
+	m_currstate = STATE_IDLE;
+	this->size.Set(5, 5, 1);
+
+	GenerateAABB(this->position);
+	this->scale = Vector3(1, 1, 1);
 }
 
 void PlagueBoss::Update(double _dt)
@@ -46,16 +50,20 @@ void PlagueBoss::Update(double _dt)
 			this->GetNextState();
 		}
 	}
-	else if (m_currstate >= STATE_SUMMON && m_currstate <= STATES_CHARGE)
+	else if (m_currstate >= STATE_SUMMON && m_currstate <= STATE_CHARGE)
 	{
 		this->m_strats[m_currstate]->Update(_dt);
 	}
 	else
 		m_currstate = STATE_IDLE;
+
+	GenerateAABB(this->position);
+
 }
 
 void PlagueBoss::Render()
 {
+	Collision::Render();
 }
 
 bool PlagueBoss::CollisionResponse(GenericEntity *)
@@ -65,7 +73,7 @@ bool PlagueBoss::CollisionResponse(GenericEntity *)
 
 bool PlagueBoss::GetNextState()
 {
-	m_currstate = static_cast<PLAGUESTATES>(Math::RandIntMinMax(STATE_SUMMON, STATES_CHARGE));
+	m_currstate = static_cast<PLAGUESTATES>(Math::RandIntMinMax(STATE_SUMMON, STATE_CHARGE));
 	return false;
 }
 

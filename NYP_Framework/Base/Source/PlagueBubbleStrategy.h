@@ -5,6 +5,8 @@
 
 #include <vector>
 
+class PoisonGasBubbles;
+
 class PlagueBubbleStrategy : public PlagueStrategy
 {
 public:
