@@ -5,9 +5,13 @@ void UIManager::Init()
 {
 	//Initialise gamestate
 	this->m_gameState = GAMESTATE::GS_MAINMENU;
+	GameStateManager::GetInstance()->setState(GS_MAINMENU);
 
 	//Initialise UIElements
 	m_cursor = Create::UI("quad", UI_CURSOR, Vector3(0, 0, 0), Vector3(10, 10, 10), GAMESTATE::GS_MAINMENU, false);
+
+	Create::UI("ladder_block", UI_CURSOR, Vector3(0, 0, 0), Vector3(100, 100, 100), GAMESTATE::GS_MAINMENU);
+	Create::UI("ladder_block", UI_CURSOR, Vector3(20, 20, 0), Vector3(100, 100, 100), GAMESTATE::GS_MAINMENU);
 }
 
 void UIManager::Update(double _dt)
@@ -23,9 +27,8 @@ void UIManager::Update(double _dt)
 	float posX = (static_cast<float>(x) - halfWindowWidth);
 	float posY = (halfWindowHeight - static_cast<float>(y));
 
-	std::cout << "Window Size: " << halfWindowWidth * 2 << ", " << halfWindowHeight * 2 << std::endl;
+	//std::cout << "Window Size: " << halfWindowWidth * 2 << ", " << halfWindowHeight * 2 << std::endl;
 	this->m_cursor->SetPosition(Vector3(posX, posY, 10.f));
-
 
 	//If mouse clicks, check if its colliding with any buttons
 	if (MouseController::GetInstance()->IsButtonReleased(MouseController::BUTTON_TYPE::LMB))

@@ -34,15 +34,7 @@ void UIElement::Render()
 
 void UIElement::Response()
 {
-	switch (m_type)
-	{
-	case UI_CURSOR:
-	{
-		break;
-	}
-	default:
-		break;
-	}
+	std::cout << "Button Responded!" << std::endl;
 }
 
 GAMESTATE UIElement::getState()
