@@ -257,8 +257,8 @@ void EnemyMelee::Detect(double dt)
 
 	if (dist < 0.8)
 	{
-		isPathFound = false;
-		m_path.clear();
+		/*isPathFound = false;
+		m_path.clear();*/
 		m_state = AI_ATTACK;
 	}
 	else if (dist > 10)
