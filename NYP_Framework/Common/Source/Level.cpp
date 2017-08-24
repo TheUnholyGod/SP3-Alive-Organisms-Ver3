@@ -163,6 +163,57 @@ void Level::GenerateLevel()
 	}
 }
 
+void Level::GenerateBossLevel()
+{
+
+	for (int y = 0; y < m_max_level_size_xy; ++y)
+	{
+		for (int x = 0; x < m_max_level_size_xy; ++x)
+		{
+			level_set[y][x] = 3;
+		}
+	}
+
+
+	int ** temp_array;
+	temp_array = new int*[GetSizeOfLevel()];
+	for (int i = 0; i < GetSizeOfLevel(); ++i)
+		temp_array[i] = new int[GetSizeOfLevel()];
+
+	int temp_array_y = 0, temp_array_x = 0;
+	for (int y = GetSizeOfLevel() - 1; y >= 0; --y)
+	{
+		for (int x = 0; x < GetSizeOfLevel(); ++x)
+		{
+			temp_array[temp_array_y][temp_array_x] = level_set[y][x];
+			++temp_array_x;
+		}
+		temp_array_x = 0;
+		++temp_array_y;
+	}
+
+	level_set = temp_array;
+
+	int i = 0;
+	for (int y = 0; y < GetSizeOfLevel(); ++y)
+	{
+		for (int x = 0; x < GetSizeOfLevel(); ++x)
+		{
+			level_layout[i] = TileMaker::GetInstance()->GenerateRoom(static_cast<TileMaker::TILE_SET_GENERATOR>(level_set[y][x]));
+			++i;
+		}
+	}
+
+	for (int y = 0; y < GetSizeOfLevel(); ++y)
+	{
+		for (int x = 0; x < GetSizeOfLevel(); ++x)
+		{
+			std::cout << level_set[y][x];
+		}
+		std::cout << std::endl;
+	}
+}
+
 int Level::GetSizeOfLevel()
 {
 	return m_max_level_size_xy;

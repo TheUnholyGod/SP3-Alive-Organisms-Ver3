@@ -16,6 +16,11 @@ void MapManager::Init()
 		level->GenerateLevel();
 		
 		map_database[i] = level;
+
+		level = new Level(2);
+		level->GenerateBossLevel();
+
+		boss_map_database[i] = level;
 	}
 }
 
@@ -45,7 +50,6 @@ void MapManager::GenerateBlocks(int level)
 		{
 			for (int x = 0; x < map_database[level]->GetSizeOfTileSet(); ++x)
 			{
-
 				switch (temp[i]->GetTilesArray()[y][x])
 				{
 				case 1:
