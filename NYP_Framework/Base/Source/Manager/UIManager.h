@@ -37,6 +37,7 @@ public:
 
 	//Returns the element that is on the mouse
 	UIElement* GetElementOnCursor();
+
 private:
 	UIManager() {};
 	virtual ~UIManager() {};

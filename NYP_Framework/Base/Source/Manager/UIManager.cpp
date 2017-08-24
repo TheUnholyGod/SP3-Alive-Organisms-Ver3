@@ -25,10 +25,18 @@ void UIManager::Update(double _dt)
 
 void UIManager::RenderUI()
 {
-	for (auto &it : m_UIElements)
+	MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
+	modelStack.PushMatrix();
+	modelStack.Translate(0, 0, 0);
+	modelStack.Scale(100, 100, 0);
+	RenderHelper::RenderMesh(MeshList::GetInstance()->GetMesh("quad"));
+	modelStack.PopMatrix();
+
+	/*for (auto &it : m_UIElements)
 	{
-		it->RenderUI();
-	}
+		if(dynamic_cast<UIElement*>(it)->getState() == m_gameState)
+			it->RenderUI();
+	}*/
 }
 
 void UIManager::addElement(EntityBase * element)
