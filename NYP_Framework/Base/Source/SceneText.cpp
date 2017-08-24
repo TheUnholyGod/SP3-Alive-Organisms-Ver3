@@ -26,6 +26,7 @@
 #include "MapManager.h"
 #include "Enemy\Pathing.h"
 #include "Enemy\EnemyBase.h"
+#include "PlagueBoss.h"
 
 #include <future>
 #include <iostream>
@@ -177,6 +178,11 @@ void SceneText::Init()
 
 	AudioPlayer::GetInstance()->addSound("explosion", "Assets//Sound//explosion.wav"); //Move somewhere to run only once
 
+	PlagueBoss* pb = new PlagueBoss();
+	pb->SetPosition(Player::GetInstance()->GetPosition());
+	pb->SetTileID(0);
+	pb->Init();
+	EntityManager::GetInstance()->AddEntity(pb);
 }
 
 void SceneText::Update(double dt)
@@ -296,8 +302,8 @@ void SceneText::Render()
 	GraphicsManager::GetInstance()->SetPerspectiveProjection(45.0f, 4.0f / 3.0f, 0.1f, 10000.0f);
 	GraphicsManager::GetInstance()->AttachCamera(Player::GetInstance()->getCamera());
 	
-	Player::GetInstance()->Render();
 	EntityManager::GetInstance()->Render();
+	Player::GetInstance()->Render();
 
 	// Setup 2D pipeline then render 2D
 	int halfWindowWidth = Application::GetInstance().GetWindowWidth() / 2;

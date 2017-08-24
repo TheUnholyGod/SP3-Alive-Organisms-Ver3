@@ -18,7 +18,7 @@ public:
 
 namespace Create
 {
-    ToxicGas* CreatePoisonHitbox(const std::string& _meshName,
+    ToxicGas* CreateToxicGas(const std::string& _meshName,
         const Vector3& _position,
         const Vector3& _scale = Vector3(1.0f, 1.0f, 1.0f),
 		bool is_boss_room = true);
