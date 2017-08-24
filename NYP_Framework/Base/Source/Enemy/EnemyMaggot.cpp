@@ -100,43 +100,13 @@ void EnemyMaggot::Move()
 	if (dir)
 	{
 		m_velocity = Vector3(1, 0, 0);
-		this->animation->SetRotation(180, Vector3(0, 1, 0));
+		this->animation->SetRotation(0, Vector3(0, 1, 0));
 	}
 	else
 	{
 		m_velocity = Vector3(-1, 0, 0);
-		this->animation->SetRotation(0, Vector3(0, 1, 0));
+		this->animation->SetRotation(180, Vector3(0, 1, 0));
 	}
-	//while (dir) //right
-	//{
-	//	if (!m_path_finder.detectCollision(Coord2D((int)(position.x) + 1, std::floor(position.y + 0.5))))
-	//	{
-	//		//std::cout << "Right no collision" << std::endl;
-	//		m_velocity = Vector3(1, 0, 0);
-	//		this->animation->SetRotation(180, Vector3(0, 1, 0));
-	//		break;
-	//	}
-	//	else
-	//	{
-	//		//dir = !dir;
-	//		break;
-	//	}
-	//}
-	//while (!dir) //left
-	//{
-	//	if (!m_path_finder.detectCollision(Coord2D((int)(position.x), std::floor(position.y + 0.5))))
-	//	{
-	//		//std::cout << "Left no collision" << std::endl;
-	//		m_velocity = Vector3(-1, 0, 0);
-	//		this->animation->SetRotation(0, Vector3(0, 1, 0));
-	//		break;
-	//	}
-	//	else
-	//	{
-	//		//dir = !dir;
-	//		break;
-	//	}
-	//}
 }
 
 void EnemyMaggot::Detect(double dt)
