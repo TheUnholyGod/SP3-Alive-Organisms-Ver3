@@ -13,6 +13,7 @@
 #include "GraphicsManager.h"
 #include "ShaderProgram.h"
 #include "EntityManager.h"
+#include "../Source/Manager/UIManager.h"
 
 #include "GenericEntity.h"
 #include "GroundEntity.h"
@@ -310,6 +311,8 @@ void SceneText::Render()
 	int halfWindowHeight = Application::GetInstance().GetWindowHeight() / 2; 
 	GraphicsManager::GetInstance()->SetOrthographicProjection(-halfWindowWidth, halfWindowWidth, -halfWindowHeight, halfWindowHeight, -10, 10);
 	GraphicsManager::GetInstance()->DetachCamera();
+
+	UIManager::GetInstance()->RenderUI();
 	//EntityManager::GetInstance()->RenderUI();
 }
 

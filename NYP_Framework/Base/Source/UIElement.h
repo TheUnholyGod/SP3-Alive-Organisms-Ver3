@@ -8,3 +8,20 @@ Header file for UIElement.
 */
 ///////////////////////////////////////////////////////////////////////////////
 #pragma once
+
+#include "GenericEntity.h"
+
+class UIElement : public GenericEntity
+{
+public:
+	UIElement(Mesh* mesh) : GenericEntity(mesh) 
+	{
+
+	};
+	~UIElement() {};
+
+	void Response();
+
+private:
+
+};

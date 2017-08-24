@@ -15,6 +15,7 @@ various game screens: Menu, Options, Gameover etc.
 
 #include "SingletonTemplate.h"
 #include "GameStateManager.h"
+#include "MouseController.h"
 
 #include "../UIElement.h"
 
@@ -30,16 +31,17 @@ public:
 	void Update(double _dt);
 	/*Renders the current UI based on game state*/
 	void RenderUI();
-
-	/*TODO: Add more functions for rendering Menu,Options etc*/
-	/*Various game state rendering functions*/
 	
+	//Adds the element into manager
+	void addElement(EntityBase* element);
 
+	//Returns the element that is on the mouse
+	UIElement* GetElementOnCursor();
 private:
 	UIManager() {};
 	virtual ~UIManager() {};
 
 	//Vector to store all UIElements
-	std::vector<>
-
+	std::vector<EntityBase*> m_UIElements;
+	GAMESTATE m_gameState;
 };
