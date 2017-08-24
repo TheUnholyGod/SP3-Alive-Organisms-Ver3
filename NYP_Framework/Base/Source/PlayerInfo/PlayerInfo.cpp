@@ -68,6 +68,7 @@ void Player::Init(void)
 	m_isOnFloor = false;
 	m_isClimbing = false;
 	m_isFightingBoss = false;
+	m_canDoubleJump = false;
 
 	// Set Boundary
 	maxBoundary.Set(.5, .5, .5);
@@ -159,15 +160,16 @@ void Player::Update(double dt)
 
 			if (CollisionManager::GetInstance()->CheckPointToAABBCollision(Vector3(Player::GetInstance()->GetPosition().x, Player::GetInstance()->GetPosition().y - 0.28f
 				, 0), *it) || 
-				CollisionManager::GetInstance()->CheckPointToAABBCollision(Vector3(Player::GetInstance()->GetPosition().x + 0.26f, Player::GetInstance()->GetPosition().y - 0.28f
+				CollisionManager::GetInstance()->CheckPointToAABBCollision(Vector3(Player::GetInstance()->GetPosition().x + 0.25f, Player::GetInstance()->GetPosition().y - 0.28f
 					, 0), *it) ||
-				CollisionManager::GetInstance()->CheckPointToAABBCollision(Vector3(Player::GetInstance()->GetPosition().x - 0.26f, Player::GetInstance()->GetPosition().y - 0.28f
+				CollisionManager::GetInstance()->CheckPointToAABBCollision(Vector3(Player::GetInstance()->GetPosition().x - 0.25f, Player::GetInstance()->GetPosition().y - 0.28f
 					, 0), *it))
 			{
 				if (dynamic_cast<TileEntity*>(*it) != nullptr)
 				{
 					if (dynamic_cast<TileEntity*>(*it)->block_type == TileEntity::SOLID_BLOCK || dynamic_cast<TileEntity*>(*it)->block_type == TileEntity::LADDERWITHPLATFORM)
 					{
+						m_canDoubleJump = false;
 						m_isOnFloor = true;				
 						break;
 					}
@@ -177,7 +179,7 @@ void Player::Update(double dt)
 						{
 							position.y += 0.001;
 						}
-
+						m_canDoubleJump = false;
 						m_isOnFloor = true;
 						break;
 					}
@@ -261,8 +263,9 @@ void Player::Update(double dt)
 						}
 						else
 						{
-							if(!m_isClimbing)
-								SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
+							velocity.y = 0;
+							position.y += 0.01;
+							SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
 
 							break;
 						}
@@ -569,6 +572,17 @@ void Player::Jump(double dt)
 		last_direction.y = direction.y;
 		this->direction.y = 1;
 		this->m_jump = true;
+		this->m_canDoubleJump = true;
+		this->m_isOnFloor = false;
+		this->velocity.y = 4.5;
+		this->accleration.y = -9.8f;
+	}
+	else if (!m_isClimbing && m_canDoubleJump && velocity.y < 0)
+	{
+		last_direction.y = direction.y;
+		this->direction.y = 1;
+		this->m_jump = true;
+		this->m_canDoubleJump = false;
 		this->m_isOnFloor = false;
 		this->velocity.y = 4.5;
 		this->accleration.y = -9.8f;

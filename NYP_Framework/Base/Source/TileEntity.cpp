@@ -18,16 +18,6 @@ void TileEntity::Update(double dt)
 {
 }
 
-void TileEntity::Render()
-{
-	MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
-	modelStack.PushMatrix();
-	modelStack.Translate(position.x, position.y, position.z);
-	modelStack.Scale(scale.x, scale.y, scale.z);
-	RenderHelper::RenderMesh(modelMesh);
-	modelStack.PopMatrix();
-}
-
 bool TileEntity::CollisionResponse(GenericEntity* other)
 {
 	return false;

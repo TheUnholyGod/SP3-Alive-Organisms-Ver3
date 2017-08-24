@@ -29,11 +29,46 @@ enum ATTRIBUTE_TYPE
 	AT_SPEED,
 	AT_TOTAL
 };
-/*Structure of attribute*/
+
+/*
+	Enums to store the base element that the rune has.
+		ET_NONE  - No elemental abilty in rune
+		ET_FIRE  - Fire elemental ability in rune  (burning, fire projectile, et cetera)
+		ET_WATER - Water elemental ability in rune (negate attack damage on chance, et cetera)
+		ET_EARTH - Earth elemental ability in rune (on chance life steal, et cetera)
+		ET_AIR   - Air elemental ability in rune   (knocking back, et cetera)
+		ET_TOTAL
+*/
+enum ELEMENTAL_TYPE
+{
+	ET_NONE, 
+	ET_FIRE,
+	ET_WATER,
+	ET_EARTH,
+	ET_AIR,
+	ET_TOTAL
+};
+
+/*
+	Structure of attribute
+	AT & ET values have a cap of 5
+	Values: 
+		- 1: +3%
+		- 2: +6%
+		- 3: +9%
+		- 4: +12%
+		- 5: +15%
+
+	AT values boosts base stats by percentage								 (final value in nearest int)
+	ET values boosts base elemental duration/damage per second by percentage (final value in nearest int)
+*/
 struct Attribute
 {
 	ATTRIBUTE_TYPE m_type;
-	int m_value;
+	ELEMENTAL_TYPE m_element;
+
+	int m_ATvalue,
+		m_ETvalue;
 };
 
 class Runes

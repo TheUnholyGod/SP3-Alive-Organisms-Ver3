@@ -29,14 +29,16 @@ bool TileEntitySolidBlock::CollisionResponse(GenericEntity* entity)
 {
 	if (entity->type == GenericEntity::PLAYER_OBJ && this->type == GenericEntity::ENVIORNMENT_OBJ)
 	{
-		if (block_type == BOSS_DOOR)
+		switch(block_type)
 		{
+		case BOSS_DOOR:
 			if (Player::GetInstance()->IsInteracting())
 			{
 				Player::GetInstance()->SetIsFightingBoss(true);
 			}
-			//	std::cout << "[ COLLIDED PLAYER WITH BLOCK ]" << std::endl;
 			return true;
+		default:
+			return false;
 		}
 	}
 

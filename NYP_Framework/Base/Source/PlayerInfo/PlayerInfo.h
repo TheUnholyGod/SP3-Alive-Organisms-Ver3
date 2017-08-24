@@ -92,6 +92,7 @@ private:
     bool m_interacted;
     double m_interacttimer, m_definteracttimer;
 	bool m_isFightingBoss;
+	bool m_canDoubleJump;
 
 	FPSCamera* attachedCamera;
 

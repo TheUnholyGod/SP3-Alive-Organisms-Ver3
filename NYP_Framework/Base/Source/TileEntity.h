@@ -31,7 +31,6 @@ public:
 
 	Vector3 GetDir();
 	virtual void Update(double);
-	void Render();
 	virtual bool CollisionResponse(GenericEntity*);
 
 };
