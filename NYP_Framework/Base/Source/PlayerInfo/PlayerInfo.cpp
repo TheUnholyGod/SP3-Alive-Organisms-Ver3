@@ -35,6 +35,7 @@ Player::Player(void)
 	type = GenericEntity::PLAYER_OBJ;
 	tile_ID = 0;
 	SetCollider(true);
+	this->m_health = 100;
 }
 
 Player::~Player(void)
@@ -563,12 +564,15 @@ void Player::MoveLeft(double dt)
 
 void Player::Jump(double dt)
 {
-	last_direction.y = direction.y;
-	this->direction.y = 1;
-	this->m_jump = true;
-	this->m_isOnFloor = false;
-	this->velocity.y = 2.5;
-	this->accleration.y = -9.8f;
+	if (!m_isClimbing && m_isOnFloor)
+	{
+		last_direction.y = direction.y;
+		this->direction.y = 1;
+		this->m_jump = true;
+		this->m_isOnFloor = false;
+		this->velocity.y = 4.5;
+		this->accleration.y = -9.8f;
+	}
 }
 
 void Player::DodgeRoll(double dt)

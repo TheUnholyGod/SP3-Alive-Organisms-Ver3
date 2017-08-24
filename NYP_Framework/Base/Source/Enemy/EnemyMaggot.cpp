@@ -141,8 +141,10 @@ void EnemyMaggot::Attack()
 {
 	m_velocity.SetZero();
 	//Do damage to player
-	std::cout << "Deal dmg to player" << std::endl;
+	std::cout << "Deal dmg to player 100 " << std::endl;
 
+	Player::GetInstance()->TakeDamage(100);
+	std::cout << "player hp: "<< Player::GetInstance()->GetHealth() << std::endl;
 	//Go back to chase
 	m_state = AI_CHASE;
 	return;
