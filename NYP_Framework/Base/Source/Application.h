@@ -32,6 +32,7 @@ private:
 	Application();
 	~Application();
 
+
 	static bool IsKeyPressed(unsigned short key);
 
 	// Should make these not hard-coded :P

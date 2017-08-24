@@ -90,13 +90,13 @@ void EnemyMelee::Render()
 		this->animation2->Render();
 	else
 		this->animation->Render();
-	/*Collision::Render();
-	MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
-	modelStack.PushMatrix();
-	modelStack.Translate(position.x, position.y, position.z);
-	modelStack.Scale(scale.x, scale.y, scale.z);
-	RenderHelper::RenderMesh(modelMesh);
-	modelStack.PopMatrix();*/
+	//Collision::Render();
+	//MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
+	//modelStack.PushMatrix();
+	//modelStack.Translate(position.x, position.y, position.z);
+	//modelStack.Scale(scale.x, scale.y, scale.z);
+	//RenderHelper::RenderMesh(modelMesh);
+	//modelStack.PopMatrix();
 }
 
 bool EnemyMelee::CollisionResponse(GenericEntity *ThatEntity)

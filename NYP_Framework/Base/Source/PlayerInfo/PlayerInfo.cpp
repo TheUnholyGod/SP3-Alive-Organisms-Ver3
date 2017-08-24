@@ -51,7 +51,7 @@ void Player::Init(void)
 	{
 		sa->m_anim = new Animation();
 		sa->m_anim->Set(1, 4, 1, 1.0f, true);
-		animation = new SpriteEntity(sa);
+		animation = new SpriteEntity(sa); //Create new entity for the animiation
 		//EntityManager::GetInstance()->AddEntity(aSprite);
 	}
 
@@ -666,5 +666,5 @@ bool Player::GetIsFightingBoss()
 void Player::SetIsFightingBoss(bool is_fighting)
 {
 	m_isFightingBoss = is_fighting;
-	position.Set(100, 100, 0);
+	position.Set(100, 102, 0);
 }

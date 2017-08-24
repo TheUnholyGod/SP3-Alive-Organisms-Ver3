@@ -12,12 +12,16 @@ various game screens: Menu, Options, Gameover etc.
 #pragma once
 
 #include "SingletonTemplate.h"
+#include "GameStateManager.h"
 
+class GameStateManager;
 
 class UIManager : public Singleton<UIManager>
 {
 	friend Singleton<UIManager>;
 public:
+	//Initialise the game state
+	void Init();
 	/*Take in user input and calls respective managers to handle the event*/
 	void Update(double _dt);
 	/*Renders the current UI based on game state*/

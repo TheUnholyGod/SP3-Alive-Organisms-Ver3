@@ -16,6 +16,7 @@ enum GAMESTATE
 {
 	GS_MAINMENU = 0,
 	GS_PAUSED,
+	GS_OPTIONS,
 };
 	
 class GameStateManager : public Singleton<GameStateManager>
