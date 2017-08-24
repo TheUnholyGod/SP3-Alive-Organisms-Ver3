@@ -23,14 +23,14 @@ void UIManager::Update(double _dt)
 	float posX = (static_cast<float>(x) - halfWindowWidth);
 	float posY = (halfWindowHeight - static_cast<float>(y));
 
-	std::cout << "Mouse pos: " << x << ", " << y << std::endl;
 	this->m_cursor->SetPosition(Vector3(posX, posY, 10.f));
 
 
 	//If mouse clicks, check if its colliding with any buttons
 	if (MouseController::GetInstance()->IsButtonReleased(MouseController::BUTTON_TYPE::LMB))
 	{
-		GetElementOnCursor()->Response();
+		if(GetElementOnCursor())
+			GetElementOnCursor()->Response();
 	}
 }
 
