@@ -112,7 +112,7 @@ void MapManager::GenerateBlocks(int level)
 				break;
 				case 8:
 				{
-					if (Math::RandIntMinMax(0, 100) < 4)
+					if (Math::RandIntMinMax(0, 100) < 20)
 						enemy_temp_list[i].push_back(Vector3((x + (row * 7)), y + (section * 7), 0));
 				}
 				break;
