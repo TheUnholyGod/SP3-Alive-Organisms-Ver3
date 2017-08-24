@@ -9,7 +9,7 @@
 #include "Mesh.h"
 #include "MatrixStack.h"
 #include "GenericEntity.h"
-
+#include"../Source/Manager/HUDManager.h"
 class ShaderProgram;
 class SceneManager;
 class TextEntity;
@@ -40,7 +40,7 @@ private:
 	GenericEntity* theCube;
 	Keyboard* keyboard;
 	static SceneText* sInstance; // The pointer to the object that gets registered
-
+	HUDManager* hudmanager;
 	double m_inputtimer;
 };
 

@@ -288,7 +288,6 @@ void SceneText::Update(double dt)
 void SceneText::Render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 	GraphicsManager::GetInstance()->UpdateLightUniforms();
 
 	// Setup 3D pipeline then render 3D
@@ -304,6 +303,7 @@ void SceneText::Render()
 	GraphicsManager::GetInstance()->SetOrthographicProjection(-halfWindowWidth, halfWindowWidth, -halfWindowHeight, halfWindowHeight, -10, 10);
 	GraphicsManager::GetInstance()->DetachCamera();
 	//EntityManager::GetInstance()->RenderUI();
+	hudmanager->RenderHUD();
 }
 
 void SceneText::Exit()

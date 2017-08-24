@@ -12,10 +12,15 @@ not responsible for updating information.
 #pragma once
 
 #include "SingletonTemplate.h"
+#include "RenderHelper.h"
+#include "GraphicsManager.h"
+#include "EntityBase.h"
+#include "MeshList.h"
+#include <string>
 
 class Player;
 
-class HUDManager : public Singleton<HUDManager>
+class HUDManager : public Singleton<HUDManager> 
 {
 	friend Singleton<HUDManager>;
 public:
@@ -26,4 +31,5 @@ public:
 private:
 	HUDManager();
 	~HUDManager();
+
 };

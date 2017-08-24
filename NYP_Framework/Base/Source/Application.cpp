@@ -261,6 +261,9 @@ void Application::InitAllMeshes()
 		MeshList::GetInstance()->AddMesh("arrow_projectile", MeshBuilder::GetInstance()->GenerateQuad("arrow", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("arrow_projectile")->textureID = LoadTGA("Image//arrow.tga");
 
+		MeshList::GetInstance()->AddMesh("health_bar", MeshBuilder::GetInstance()->GenerateQuad("health", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("health_bar")->textureID = LoadTGA("Image//healthBar.tga");
+
 		/*MeshBuilder::GetInstance()->GenerateQuad("GRASS_DARKGREEN", Color(1, 1, 1), 1.f);
 		MeshList::GetInstance()->GetMesh("GRASS_DARKGREEN")->textureID = LoadTGA("Image//grass_darkgreen.tga");
 		MeshBuilder::GetInstance()->GenerateQuad("GEO_GRASS_LIGHTGREEN", Color(1, 1, 1), 1.f);
