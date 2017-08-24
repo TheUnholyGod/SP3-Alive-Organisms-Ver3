@@ -97,36 +97,46 @@ void EnemyMaggot::Move()
 {
 	m_velocity.SetZero();
 
-	while (dir) //right
+	if (dir)
 	{
-		if (!m_path_finder.detectCollision(Coord2D((int)(position.x) + 1, std::floor(position.y + 0.5))))
-		{
-			//std::cout << "Right no collision" << std::endl;
-			m_velocity = Vector3(1, 0, 0);
-			this->animation->SetRotation(180, Vector3(0, 1, 0));
-			break;
-		}
-		else
-		{
-			//dir = !dir;
-			break;
-		}
+		m_velocity = Vector3(1, 0, 0);
+		this->animation->SetRotation(180, Vector3(0, 1, 0));
 	}
-	while (!dir) //left
+	else
 	{
-		if (!m_path_finder.detectCollision(Coord2D((int)(position.x), std::floor(position.y + 0.5))))
-		{
-			//std::cout << "Left no collision" << std::endl;
-			m_velocity = Vector3(-1, 0, 0);
-			this->animation->SetRotation(0, Vector3(0, 1, 0));
-			break;
-		}
-		else
-		{
-			//dir = !dir;
-			break;
-		}
+		m_velocity = Vector3(-1, 0, 0);
+		this->animation->SetRotation(0, Vector3(0, 1, 0));
 	}
+	//while (dir) //right
+	//{
+	//	if (!m_path_finder.detectCollision(Coord2D((int)(position.x) + 1, std::floor(position.y + 0.5))))
+	//	{
+	//		//std::cout << "Right no collision" << std::endl;
+	//		m_velocity = Vector3(1, 0, 0);
+	//		this->animation->SetRotation(180, Vector3(0, 1, 0));
+	//		break;
+	//	}
+	//	else
+	//	{
+	//		//dir = !dir;
+	//		break;
+	//	}
+	//}
+	//while (!dir) //left
+	//{
+	//	if (!m_path_finder.detectCollision(Coord2D((int)(position.x), std::floor(position.y + 0.5))))
+	//	{
+	//		//std::cout << "Left no collision" << std::endl;
+	//		m_velocity = Vector3(-1, 0, 0);
+	//		this->animation->SetRotation(0, Vector3(0, 1, 0));
+	//		break;
+	//	}
+	//	else
+	//	{
+	//		//dir = !dir;
+	//		break;
+	//	}
+	//}
 }
 
 void EnemyMaggot::Detect(double dt)
@@ -140,13 +150,14 @@ void EnemyMaggot::Detect(double dt)
 	if (distX > 0) //player on the right
 	{
 		dir = true;
-		std::cout << "Player on the right" << std::endl;
+		//std::cout << "Player on the right" << std::endl;
 	}
 	else
 	{
 		dir = false;
-		std::cout << "Player on the left" << std::endl;
+		//std::cout << "Player on the left" << std::endl;
 	}
+
 	if (dist < 0.1)
 		m_state = AI_ATTACK;
 	else
