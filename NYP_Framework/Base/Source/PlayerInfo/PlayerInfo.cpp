@@ -353,9 +353,9 @@ void Player::UpdateMovment(double dt)
 					}
 
 				}
-				else if (dynamic_cast<TileEntity*>(*it)->block_type == TileEntity::LADDERWITHPLATFORM)
+				else if (dynamic_cast<TileEntity*>(*it)->block_type == TileEntity::LADDERWITHPLATFORM || dynamic_cast<TileEntity*>(*it)->block_type == TileEntity::LADDER)
 				{
-					if (!m_isClimbing)
+					/*if (!m_isClimbing)
 					{
 						if (CollisionManager::GetInstance()->CheckPlayerDirCollision(*it))
 						{
@@ -371,11 +371,67 @@ void Player::UpdateMovment(double dt)
 								this->position.x = temp.x;
 							break;
 						}
-					}
-					else
+					}*/
+					if(m_isClimbing)
 					{
+						bool move_X = false, move_Y = false;
 						if (temp.y < (MapManager::GetInstance()->GetLevel(m_iLevel)->GetSizeOfLevel() * MapManager::GetInstance()->GetLevel(m_iLevel)->GetSizeOfTileSet()) - 1)
-							this->position = temp;
+						{
+							SetAABB(Vector3((temp.x + (maxBoundary.x * 0.5)) + 0.1, (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((temp.x + (minBoundary.x * 0.5)) - 0.1, (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
+							for (std::vector<EntityBase*>::iterator it2 = temp_blocks.begin(); it2 <= temp_blocks.end(); ++it2)
+							{
+								if (it2 == temp_blocks.end())
+								{
+									move_X = true;
+									break;
+								}
+
+								if (!(*it2)->HasCollider())
+									continue;
+								if (it == it2)
+									continue;
+
+								if (dynamic_cast<TileEntity*>(*it2)->block_type == TileEntity::SOLID_BLOCK)
+								{
+									if (CollisionManager::GetInstance()->CheckAABBCollision(*it2, Player::GetInstance()))
+									{
+										move_X = false;
+										break;
+									}
+								}
+							}
+
+							SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (temp.y + (maxBoundary.y * 0.5)) + 0.1, (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (temp.y + (minBoundary.y * 0.5)) - 0.1, (position.z + (minBoundary.z * 0.5))));
+							for (std::vector<EntityBase*>::iterator it2 = temp_blocks.begin(); it2 <= temp_blocks.end(); ++it2)
+							{
+								if (it2 == temp_blocks.end())
+								{
+									move_Y = true;
+									break;
+								}
+
+								if (!(*it2)->HasCollider())
+									continue;
+								if (it == it2)
+									continue;
+								if (dynamic_cast<TileEntity*>(*it2)->block_type == TileEntity::SOLID_BLOCK)
+								{
+									if (CollisionManager::GetInstance()->CheckAABBCollision(*it2, Player::GetInstance()))
+									{
+										move_Y = false;
+										break;
+									}
+								}
+							}
+
+							if (move_X)
+								position.x = temp.x;
+							if (move_Y)
+								position.y = temp.y;
+
+							SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
+							break;
+						}
 						else
 							this->position.x = temp.x;
 						break;
