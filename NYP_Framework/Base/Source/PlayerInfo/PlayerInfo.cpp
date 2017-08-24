@@ -159,9 +159,9 @@ void Player::Update(double dt)
 
 			if (CollisionManager::GetInstance()->CheckPointToAABBCollision(Vector3(Player::GetInstance()->GetPosition().x, Player::GetInstance()->GetPosition().y - 0.28f
 				, 0), *it) || 
-				CollisionManager::GetInstance()->CheckPointToAABBCollision(Vector3(Player::GetInstance()->GetPosition().x + 0.20f, Player::GetInstance()->GetPosition().y - 0.28f
+				CollisionManager::GetInstance()->CheckPointToAABBCollision(Vector3(Player::GetInstance()->GetPosition().x + 0.26f, Player::GetInstance()->GetPosition().y - 0.28f
 					, 0), *it) ||
-				CollisionManager::GetInstance()->CheckPointToAABBCollision(Vector3(Player::GetInstance()->GetPosition().x - 0.20f, Player::GetInstance()->GetPosition().y - 0.28f
+				CollisionManager::GetInstance()->CheckPointToAABBCollision(Vector3(Player::GetInstance()->GetPosition().x - 0.26f, Player::GetInstance()->GetPosition().y - 0.28f
 					, 0), *it))
 			{
 				if (dynamic_cast<TileEntity*>(*it) != nullptr)
