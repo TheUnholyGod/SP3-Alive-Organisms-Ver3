@@ -168,6 +168,8 @@ void SceneText::Init()
 	MapManager::GetInstance()->GenerateBlocks(Player::GetInstance()->GetCurrentLevel());
 	MapManager::GetInstance()->GenerateBossBlocks(Player::GetInstance()->GetCurrentLevel());
 
+	UIManager::GetInstance()->Init();
+
 	//for (int y = 0; y < MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->GetSizeOfLevel(); ++y)
 	//{
 	//	for (int x = 0; x < MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->GetSizeOfLevel(); ++x)
@@ -193,6 +195,8 @@ void SceneText::Update(double dt)
 	Player::GetInstance()->Update(dt);
 	// Update our entities
 	EntityManager::GetInstance()->Update(dt);
+
+	UIManager::GetInstance()->Update(dt);
 
 	keyboard->Read(dt);
 	if (m_inputtimer > 0.15f)

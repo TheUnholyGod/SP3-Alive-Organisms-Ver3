@@ -14,7 +14,8 @@ Header file for UIElement.
 
 enum UI_TYPE
 {
-
+	UI_CURSOR,
+	UI_TOTAL
 };
 
 class UIElement : public GenericEntity
@@ -50,5 +51,6 @@ namespace Create
 		const UI_TYPE& _type,
 		const Vector3& _position,
 		const Vector3& _scale,
-		const GAMESTATE& _state);
+		const GAMESTATE& _state,
+		const bool addToManager = true);
 };

@@ -44,5 +44,9 @@ private:
 
 	//Vector to store all UIElements
 	std::vector<EntityBase*> m_UIElements;
+
+	//State of the game
 	GAMESTATE m_gameState;
+
+	UIElement* m_cursor;
 };

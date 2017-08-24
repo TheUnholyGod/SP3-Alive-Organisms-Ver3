@@ -24,10 +24,25 @@ void UIElement::Update(double _dt)
 
 void UIElement::Render()
 {
+	MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
+	modelStack.PushMatrix();
+	modelStack.Translate(position.x, position.y, position.z);
+	modelStack.Scale(scale.x, scale.y, scale.z);
+	RenderHelper::RenderMesh(modelMesh);
+	modelStack.PopMatrix();
 }
 
 void UIElement::Response()
 {
+	switch (m_type)
+	{
+	case UI_CURSOR:
+	{
+		break;
+	}
+	default:
+		break;
+	}
 }
 
 GAMESTATE UIElement::getState()
@@ -39,7 +54,8 @@ UIElement * Create::UI(const std::string & _meshName,
 	const UI_TYPE & _type, 
 	const Vector3 & _position, 
 	const Vector3 & _scale, 
-	const GAMESTATE & _state)
+	const GAMESTATE & _state,
+	const bool addToManager)
 {
 	Mesh* modelMesh = MeshList::GetInstance()->GetMesh(_meshName);
 	if (modelMesh == nullptr)
@@ -49,6 +65,7 @@ UIElement * Create::UI(const std::string & _meshName,
 	result->SetPosition(_position);
 	result->SetScale(_scale);
 	result->SetCollider(false);
-	UIManager::GetInstance()->addElement(result);
+	if(addToManager)
+		UIManager::GetInstance()->addElement(result);
 	return result;
 }
