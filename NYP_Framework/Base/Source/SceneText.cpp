@@ -162,6 +162,8 @@ void SceneText::Init()
 	keyboard->Create(Player::GetInstance());
 	Math::InitRNG();
 
+	EntityManager::GetInstance()->AddEntity(Player::GetInstance());
+
 	m_inputtimer = 0;
 	MapManager::GetInstance()->Init();
 	MapManager::GetInstance()->GenerateBlocks(Player::GetInstance()->GetCurrentLevel());
