@@ -1,6 +1,6 @@
 #include "PoisonProjectile.h"
 
-PoisonProjectile * Create::CreatePoisonProjectile(const std::string & _meshName, const Vector3 & _position, const Vector3 & _scale, Ranged * _parent)
+PoisonProjectile * Create::CreatePoisonProjectile(const std::string & _meshName, const Vector3 & _position, const Vector3 & _scale, Ranged * _parent, bool is_boss)
 {
 	return nullptr;
 }

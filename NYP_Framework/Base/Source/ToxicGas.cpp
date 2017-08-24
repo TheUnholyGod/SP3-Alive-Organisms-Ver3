@@ -25,7 +25,7 @@ bool ToxicGas::CollisionResponse(GenericEntity * ThatEntity)
 	return false;
 }
 
-ToxicGas * Create::CreateToxicGas(const std::string & _meshName, const Vector3 & _position, const Vector3 & _scale)
+ToxicGas * Create::CreateToxicGas(const std::string & _meshName, const Vector3 & _position, const Vector3 & _scale, bool is_boss)
 {
 	return nullptr;
 }

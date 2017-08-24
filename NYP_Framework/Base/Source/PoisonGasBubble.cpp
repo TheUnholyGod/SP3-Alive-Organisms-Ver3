@@ -2,7 +2,7 @@
 #include "MapManager.h"
 #include "PlayerInfo\PlayerInfo.h"
 
-PoisonGasBubbles * Create::CreatePoisonGasBubbles(const std::string & _meshName, const Vector3 & _position, const Vector3 & _scale, Ranged * _parent)
+PoisonGasBubbles * Create::CreatePoisonGasBubbles(const std::string & _meshName, const Vector3 & _position, const Vector3 & _scale, Ranged * _parent, bool is_boss)
 {
 	return nullptr;
 }
