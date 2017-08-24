@@ -19,16 +19,21 @@ PlagueBoss::~PlagueBoss()
 void PlagueBoss::Init()
 {
     this->m_strats[STATE_SUMMON] = new PlagueSpawnStrategy;
+	this->m_strats[STATE_SUMMON]->SetParent(this);
     this->m_strats[STATE_BUBBLE] = new PlagueBubbleStrategy;
+	this->m_strats[STATE_BUBBLE]->SetParent(this);
     this->m_strats[STATE_PROJECTILE] = new PlagueProjectileStrategy;
+	this->m_strats[STATE_PROJECTILE]->SetParent(this);
     this->m_strats[STATE_CHARGE] = new PlagueChargeStrategy;
+	this->m_strats[STATE_CHARGE]->SetParent(this);
+
 
 	for (int i = 0;i < 10;++i)
 	{
-		this->m_entitylist.push_back(Create::CreatePoisonGasBubbles("q", Vector3()));
-		this->m_entitylist.push_back(Create::CreatePoisonHitbox("q",Vector3()));
-		this->m_entitylist.push_back(Create::CreatePoisonProjectile("q",Vector3()));
-		this->m_entitylist.push_back(Create::CreateToxicGas("q", Vector3()));
+		this->m_entitylist.push_back(Create::CreatePoisonGasBubbles("quad", Vector3()));
+		this->m_entitylist.push_back(Create::CreatePoisonHitbox("quad",Vector3()));
+		this->m_entitylist.push_back(Create::CreatePoisonProjectile("quad",Vector3()));
+		this->m_entitylist.push_back(Create::CreateToxicGas("quad", Vector3()));
 	}
 	m_changestatetimer = 0;
 	m_defchangestatetimer = 5;
@@ -37,6 +42,9 @@ void PlagueBoss::Init()
 
 	GenerateAABB(this->position);
 	this->scale = Vector3(1, 1, 1);
+	this->isStatic = false;
+	this->m_bCollider = true;
+	this->tile_ID = 0;
 }
 
 void PlagueBoss::Update(double _dt)
@@ -63,7 +71,7 @@ void PlagueBoss::Update(double _dt)
 
 void PlagueBoss::Render()
 {
-	Collision::Render();
+	//Collision::Render();
 }
 
 bool PlagueBoss::CollisionResponse(GenericEntity *)
@@ -73,7 +81,9 @@ bool PlagueBoss::CollisionResponse(GenericEntity *)
 
 bool PlagueBoss::GetNextState()
 {
-	m_currstate = static_cast<PLAGUESTATES>(Math::RandIntMinMax(STATE_SUMMON, STATE_CHARGE));
+	//m_currstate = static_cast<PLAGUESTATES>(Math::RandIntMinMax(STATE_SUMMON, STATE_CHARGE));
+	m_currstate = STATE_BUBBLE;
+	this->m_strats[m_currstate]->Init();
 	return false;
 }
 

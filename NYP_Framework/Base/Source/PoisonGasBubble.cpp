@@ -1,18 +1,30 @@
 #include "PoisonGasBubble.h"
 #include "MapManager.h"
 #include "PlayerInfo\PlayerInfo.h"
+#include "MeshList.h"
+#include "EntityManager.h"
 
 PoisonGasBubbles * Create::CreatePoisonGasBubbles(const std::string & _meshName, const Vector3 & _position, const Vector3 & _scale, Ranged * _parent, bool is_boss)
 {
-	return nullptr;
+	Mesh* modelMesh = MeshList::GetInstance()->GetMesh(_meshName);
+	if (modelMesh == nullptr)
+		return nullptr;
+
+	PoisonGasBubbles* result = new PoisonGasBubbles(modelMesh);
+	result->SetPosition(_position);
+	result->SetScale(_scale);
+	result->SetCollider(false);
+	EntityManager::GetInstance()->AddEntity(result);
+	return result;
 }
 
 PoisonGasBubbles::PoisonGasBubbles()
 {
 }
 
-PoisonGasBubbles::PoisonGasBubbles(Mesh * _mesh)
+PoisonGasBubbles::PoisonGasBubbles(Mesh * _mesh) :Projectile(_mesh)
 {
+	this->type = GenericEntity::PLAGUE_BUBBLE_OBJ;
 }
 
 PoisonGasBubbles::~PoisonGasBubbles()
@@ -35,6 +47,11 @@ void PoisonGasBubbles::Init(Vector3 _pos, Vector3 _vel, Vector3 _dir)
 	this->m_defbubbletimer = Math::RandFloatMinMax(3, 10);
 	this->m_bubbletimer = 0;
 	this->m_pop = false;
+	this->size.Set(2, 2, 0);
+	this->isStatic = false;
+	this->m_bCollider = true;
+	this->tile_ID = 0;
+
 }
 
 void PoisonGasBubbles::Update(double _dt)
@@ -49,6 +66,7 @@ void PoisonGasBubbles::Update(double _dt)
 		m_pop = true;
 	}
 	this->position += velocity * _dt;
+	GenerateAABB(this->position);
 }
 
 void PoisonGasBubbles::Render()

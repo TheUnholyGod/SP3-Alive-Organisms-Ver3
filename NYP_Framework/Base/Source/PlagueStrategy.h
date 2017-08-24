@@ -15,6 +15,7 @@ public:
     virtual void Update(double dt) = 0;
 
 	virtual bool GetIsDone();
+	virtual void SetParent(PlagueBoss* _parent);
 protected:
     PlagueBoss* m_parent;
 	double m_deftotaltimer, m_totaltimer;
