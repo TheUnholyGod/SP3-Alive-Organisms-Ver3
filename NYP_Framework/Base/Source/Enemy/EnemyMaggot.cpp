@@ -26,7 +26,6 @@ EnemyMaggot::EnemyMaggot(Mesh * mesh,
 	this->SetPhysic(have_physic);
 	this->SetStatic(false);
 
-
 	m_state = AI_STATES::AI_CHASE;
 	dir = true;
 }
@@ -48,6 +47,9 @@ void EnemyMaggot::Update(double _dt)
 
 	this->animation2->SetPosition(position);
 	this->animation2->Update(_dt);
+
+	this->animation->SetScale(scale);
+	this->animation2->SetScale(scale);
 
 	Detect(_dt);
 
