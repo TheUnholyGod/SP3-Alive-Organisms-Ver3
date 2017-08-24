@@ -62,8 +62,7 @@ void SpriteEntity::Render()
 
 void SpriteEntity::RenderUI()
 {
-
-    SpriteAnimation* sa = dynamic_cast<SpriteAnimation*>(this->modelMesh);
+    sa = dynamic_cast<SpriteAnimation*>(this->modelMesh);
 
 	if (mode == MODE_3D)
 		return;
