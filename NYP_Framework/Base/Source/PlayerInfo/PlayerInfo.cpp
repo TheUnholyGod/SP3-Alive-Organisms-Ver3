@@ -666,5 +666,5 @@ bool Player::GetIsFightingBoss()
 void Player::SetIsFightingBoss(bool is_fighting)
 {
 	m_isFightingBoss = is_fighting;
-	position.Set(100, 100, 0);
+	position.Set(100, 102, 0);
 }
