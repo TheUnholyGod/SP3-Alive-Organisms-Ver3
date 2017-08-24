@@ -162,8 +162,6 @@ void SceneText::Init()
 	keyboard->Create(Player::GetInstance());
 	Math::InitRNG();
 
-	EntityManager::GetInstance()->AddEntity(Player::GetInstance());
-
 	m_inputtimer = 0;
 	MapManager::GetInstance()->Init();
 	MapManager::GetInstance()->GenerateBlocks(Player::GetInstance()->GetCurrentLevel());
@@ -182,10 +180,9 @@ void SceneText::Init()
 
 	PlagueBoss* pb = new PlagueBoss();
 	pb->SetPosition(Player::GetInstance()->GetPosition());
+	pb->SetTileID(0);
 	pb->Init();
 	EntityManager::GetInstance()->AddEntity(pb);
-	pb->SetTileID(0);
-
 }
 
 void SceneText::Update(double dt)
@@ -241,8 +238,8 @@ void SceneText::Update(double dt)
 
 	if (KeyboardController::GetInstance()->IsKeyReleased('P'))
 	{
-		Create::Enemy(EnemyBase::ENEMY_TYPE::E_MAGGOT, Vector3((int)Player::GetInstance()->GetPosition().x, (int)Player::GetInstance()->GetPosition().y - 0.25, (int)Player::GetInstance()->GetPosition().z), Vector3(1, 0.5, 1), true, false, false);
-		Create::Enemy(EnemyBase::ENEMY_TYPE::E_MELEE, Vector3((int)Player::GetInstance()->GetPosition().x + 1, (int)Player::GetInstance()->GetPosition().y, (int)Player::GetInstance()->GetPosition().z), Vector3(1, 1, 1), true, false, false);
+		Create::Enemy(EnemyBase::ENEMY_TYPE::E_MAGGOT, Vector3((int)Player::GetInstance()->GetPosition().x, (int)Player::GetInstance()->GetPosition().y, (int)Player::GetInstance()->GetPosition().z), Vector3(1, 1, 1), true, false, false);
+		//Create::Enemy(EnemyBase::ENEMY_TYPE::E_BOMBER, Vector3((int)Player::GetInstance()->GetPosition().x + 1, (int)Player::GetInstance()->GetPosition().y, (int)Player::GetInstance()->GetPosition().z), Vector3(1, 1, 1), true, false, false);
 	}
 	if (KeyboardController::GetInstance()->IsKeyReleased('R'))
 	{
@@ -298,6 +295,7 @@ void SceneText::Update(double dt)
 void SceneText::Render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	GraphicsManager::GetInstance()->UpdateLightUniforms();
 
 	// Setup 3D pipeline then render 3D
@@ -313,7 +311,6 @@ void SceneText::Render()
 	GraphicsManager::GetInstance()->SetOrthographicProjection(-halfWindowWidth, halfWindowWidth, -halfWindowHeight, halfWindowHeight, -10, 10);
 	GraphicsManager::GetInstance()->DetachCamera();
 	//EntityManager::GetInstance()->RenderUI();
-	hudmanager->RenderHUD();
 }
 
 void SceneText::Exit()
