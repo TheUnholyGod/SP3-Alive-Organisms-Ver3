@@ -213,15 +213,15 @@ void EnemyMelee::Patrol()
 {
 	m_velocity.SetZero();
 
-	std::cout << "Pos: (" << position.x << ", " << position.y << ")" << std::endl;
+	/*std::cout << "Pos: (" << position.x << ", " << position.y << ")" << std::endl;
 	std::cout << "Corrected(R): (" << (int)(position.x) + 1 << ", " << (int)(position.y) << std::endl;
-	std::cout << "Corrected(L): (" << (int)(position.x) << ", " << (int)(position.y) << std::endl;
+	std::cout << "Corrected(L): (" << (int)(position.x) << ", " << (int)(position.y) << std::endl;*/
 	
 	//position.y = std::ceil(position.y);
 	while (dir) //right
 	{
 		
-		if (!m_path_finder.detectCollision(Coord2D((int)(position.x) + 1, std::ceil(position.y))))
+		if (!m_path_finder.detectCollision(Coord2D((int)(position.x) + 1, std::floor(position.y + 0.5))))
 		{
 			std::cout << "Right no collision" << std::endl;
 			m_velocity = Vector3(1, 0, 0);
@@ -236,7 +236,7 @@ void EnemyMelee::Patrol()
 	}
 	while (!dir) //left
 	{
-		if (!m_path_finder.detectCollision(Coord2D((int)(position.x), std::ceil(position.y))))
+		if (!m_path_finder.detectCollision(Coord2D((int)(position.x), std::floor(position.y + 0.5))))
 		{
 			std::cout << "Left no collision" << std::endl;
 			m_velocity = Vector3(-1, 0, 0);
