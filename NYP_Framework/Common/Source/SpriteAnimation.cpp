@@ -62,7 +62,7 @@ void SpriteAnimation::Update(double dt)
 
 void SpriteAnimation::Render()
 {
-	//glDisable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
@@ -90,5 +90,5 @@ void SpriteAnimation::Render()
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
 	glDisableVertexAttribArray(3);
-	//glEnable(GL_DEPTH_TEST);
+	//glDisable(GL_DEPTH_TEST);
 }

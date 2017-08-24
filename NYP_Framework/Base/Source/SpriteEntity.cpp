@@ -5,6 +5,8 @@
 #include "RenderHelper.h"
 #include "SpriteAnimation.h"
 #include "PlayerInfo\PlayerInfo.h"
+#include "GL\glew.h"
+
 
 SpriteEntity::SpriteEntity(Mesh* _modelMesh) :
 	modelMesh(_modelMesh),
@@ -50,6 +52,8 @@ void SpriteEntity::Render()
 	
     if (sa)
     {
+		/*glDisable(GL_DEPTH_TEST);
+		glEnable(GL_ALPHA_TEST);*/
         MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
         modelStack.PushMatrix();
         modelStack.Translate(position.x, position.y, position.z);
@@ -57,6 +61,8 @@ void SpriteEntity::Render()
 		modelStack.Rotate(rotateAngle, rotateAxis.x, rotateAxis.y, rotateAxis.z);
         RenderHelper::RenderSpriteAnnimation(sa);
         modelStack.PopMatrix();
+		/*glDisable(GL_ALPHA_TEST);
+		glEnable(GL_DEPTH_TEST);*/
     }
 }
 

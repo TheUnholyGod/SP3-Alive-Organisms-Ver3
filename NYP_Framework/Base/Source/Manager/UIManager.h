@@ -11,8 +11,13 @@ various game screens: Menu, Options, Gameover etc.
 ///////////////////////////////////////////////////////////////////////////////
 #pragma once
 
+#include <vector>
+
 #include "SingletonTemplate.h"
 #include "GameStateManager.h"
+#include "MouseController.h"
+
+#include "../UIElement.h"
 
 class GameStateManager;
 
@@ -20,19 +25,28 @@ class UIManager : public Singleton<UIManager>
 {
 	friend Singleton<UIManager>;
 public:
-	//Initialise the game state
+	//Initialise the game state, and all UIElements
 	void Init();
 	/*Take in user input and calls respective managers to handle the event*/
 	void Update(double _dt);
 	/*Renders the current UI based on game state*/
 	void RenderUI();
-
-	/*TODO: Add more functions for rendering Menu,Options etc*/
-	/*Various game state rendering functions*/
 	
+	//Adds the element into manager
+	void addElement(EntityBase* element);
+
+	//Returns the element that is on the mouse
+	UIElement* GetElementOnCursor();
 
 private:
 	UIManager() {};
 	virtual ~UIManager() {};
 
+	//Vector to store all UIElements
+	std::vector<EntityBase*> m_UIElements;
+
+	//State of the game
+	GAMESTATE m_gameState;
+
+	UIElement* m_cursor;
 };

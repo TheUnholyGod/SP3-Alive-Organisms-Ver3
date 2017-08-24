@@ -41,6 +41,8 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 
 void resize_callback(GLFWwindow* window, int w, int h)
 {
+	Application::GetInstance().SetWindowHeight(h);
+	Application::GetInstance().SetWindowWidth(w);
 	glViewport(0, 0, w, h);
 }
 
@@ -202,6 +204,16 @@ int Application::GetWindowHeight()
 int Application::GetWindowWidth()
 {
 	return m_window_width;
+}
+
+void Application::SetWindowHeight(int h)
+{
+	this->m_window_height = h;
+}
+
+void Application::SetWindowWidth(int w)
+{
+	this->m_window_width = w;
 }
 
 void Application::InitAllMeshes()

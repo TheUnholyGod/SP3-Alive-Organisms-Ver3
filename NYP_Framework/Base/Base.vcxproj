@@ -66,6 +66,7 @@
     <ClCompile Include="Source\TileEntity.cpp" />
     <ClCompile Include="Source\TileEntitySolidBlock.cpp" />
     <ClCompile Include="Source\ToxicGas.cpp" />
+    <ClCompile Include="Source\UIElement.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />
@@ -124,6 +125,7 @@
     <ClInclude Include="Source\TileEntity.h" />
     <ClInclude Include="Source\TileEntitySolidBlock.h" />
     <ClInclude Include="Source\ToxicGas.h" />
+    <ClInclude Include="Source\UIElement.h" />
     <ClInclude Include="Source\UpgradeShop.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
