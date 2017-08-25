@@ -74,7 +74,9 @@ void MapManager::GenerateBlocks(int level)
 				case 4:
 				{
 					if (Math::RandIntMinMax(0, 100) < 20)
+					{
 						Create::TileEntityCreator(TileEntity::RUNE_SPAWNER, Vector3((x + (row * 7)), y + (section * 7), 0), Vector3(0.5, 1, 1), true, true, true, i);
+					}
 				}
 					break;
 				case 5:
@@ -106,7 +108,7 @@ void MapManager::GenerateBlocks(int level)
 						{
 							std::cout << "X: " << (x + (row * 7)) << " Y: " << (y + (section * 7)) << std::endl;
 							set_boss_door = true;
-							Create::TileEntityCreator(TileEntity::BOSS_DOOR, Vector3((x + (row * 7)), (y + (section * 7)) - 0.2, 0), Vector3(1, 1.5, 1), true, true, true, i);
+							Create::TileEntityCreator(TileEntity::BOSS_DOOR, Vector3((x + (row * 7)), (y + (section * 7)), 0), Vector3(1, 1.5, 1), true, true, true, i);
 							Create::Entity("reference", Vector3((x + (row * 7)), (y + (section * 7)), 0)); // Reference
 						}
 					}
@@ -204,7 +206,9 @@ void MapManager::GenerateBossBlocks(int level)
 				case 4:
 				{
 					if (Math::RandIntMinMax(0, 100) < 20)
+					{
 						Create::TileEntityCreator(TileEntity::RUNE_SPAWNER, Vector3((x + (row * 7)) + 100, y + (section * 7) + 100, 0), Vector3(0.5, 1, 1), true, true, true, i, true);
+					}
 				}
 				break;
 				case 5:
