@@ -16,6 +16,7 @@ not responsible for updating information.
 #include "GraphicsManager.h"
 #include "EntityBase.h"
 #include "MeshList.h"
+#include "../PlayerInfo/PlayerInfo.h"
 #include <string>
 
 class Player;
@@ -24,12 +25,11 @@ class HUDManager : public Singleton<HUDManager>
 {
 	friend Singleton<HUDManager>;
 public:
+	HUDManager();
+	~HUDManager();
 	void RenderHUD();
 	void UpdateHUD();
 
-
 private:
-	HUDManager();
-	~HUDManager();
-
+	float HPsizeX;
 };

@@ -23,13 +23,60 @@ Runes::Runes(int level, RUNE_TYPE type)
 	switch (type)
 	{
 	case RT_OFFENSIVE:
-		
+	{
+		Attribute *temp_attribute = new Attribute;
+		if (Math::RandIntMinMax(1, 100) <= 40)
+		{
+			temp_attribute->m_type = AT_SPEED;
+			temp_attribute->m_ATvalue = Math::RandIntMinMax(1, ((level + 1) > 5) ? 5 : (level + 1));
+
+			temp_attribute->m_element = static_cast<ELEMENTAL_TYPE>(Math::RandIntMinMax(0, ET_TOTAL));
+			temp_attribute->m_ETvalue = Math::RandIntMinMax(1, ((level + 1) > 5) ? 5 : (level + 1));
+
+		}
+		else
+		{
+			temp_attribute->m_type = AT_ATTACK;
+			temp_attribute->m_ATvalue = Math::RandIntMinMax(1, ((level + 1) > 5) ? 5 : (level + 1));
+
+			temp_attribute->m_element = static_cast<ELEMENTAL_TYPE>(Math::RandIntMinMax(0, ET_TOTAL));
+			temp_attribute->m_ETvalue = Math::RandIntMinMax(1, ((level + 1) > 5) ? 5 : (level + 1));
+
+		}
+
+		m_attributes.push_back(temp_attribute);
+		m_modifier->addModifier(static_cast<ItemModifier::MODIFIER_TYPE>(Math::RandIntMinMax(0, ItemModifier::MT_TOTAL)));
+
+	}
 		break;
 	case RT_DEFENSIVE:
+	{
+		Attribute *temp_attribute = new Attribute;
+		
+		temp_attribute->m_type = AT_DEFEND;
+		temp_attribute->m_ATvalue = Math::RandIntMinMax(1, ((level + 1) > 5) ? 5 : (level + 1));
 
+		temp_attribute->m_element = static_cast<ELEMENTAL_TYPE>(Math::RandIntMinMax(0, ET_TOTAL));
+		temp_attribute->m_ETvalue = Math::RandIntMinMax(1, ((level + 1) > 5) ? 5 : (level + 1));
+
+		m_attributes.push_back(temp_attribute);
+		m_modifier->addModifier(static_cast<ItemModifier::MODIFIER_TYPE>(Math::RandIntMinMax(0, ItemModifier::MT_TOTAL)));
+
+	}
 		break;
 	case RT_UTILITY:
+	{
+		Attribute *temp_attribute = new Attribute;
+		
+		temp_attribute->m_type = AT_SPEED;
+		temp_attribute->m_ATvalue = Math::RandIntMinMax(1, ((level + 1) > 5) ? 5 : (level + 1));
 
+		temp_attribute->m_element = static_cast<ELEMENTAL_TYPE>(Math::RandIntMinMax(0, ET_TOTAL));
+		temp_attribute->m_ETvalue = Math::RandIntMinMax(1, ((level + 1) > 5) ? 5 : (level + 1));
+
+		m_attributes.push_back(temp_attribute);
+		m_modifier->addModifier(static_cast<ItemModifier::MODIFIER_TYPE>(Math::RandIntMinMax(0, ItemModifier::MT_TOTAL)));
+	}
 		break;
 	default:
 		break;
