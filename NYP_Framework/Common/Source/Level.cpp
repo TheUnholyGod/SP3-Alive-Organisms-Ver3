@@ -245,22 +245,33 @@ vector<int> Level::ReturnSurroundingTilesViaCurrentTile(int tile)
 	vector<int> temp;
 
 	int tile_selected = 0;
-	double dividor = 1.0 / (GetSizeOfLevel() - 1);
-	int min_max_y = (static_cast<int>(tile * dividor)) * (GetSizeOfLevel() - 1);
+	int min_max_y = 0, min_y = 0, max_y = 0, temp_adder = 0;
 
-	for (int i = -11; i < -8; ++i)
+	while (true)
+	{
+		if ((temp_adder * GetSizeOfLevel()) > (tile - GetSizeOfLevel()) && (temp_adder * GetSizeOfLevel()) < (tile + GetSizeOfLevel()))
+		{
+			min_max_y = temp_adder * GetSizeOfLevel();
+			min_y = ((temp_adder - 2) * GetSizeOfLevel()) + (GetSizeOfLevel() - 1);
+			max_y = (temp_adder + 2) * GetSizeOfLevel();
+			break;
+		}
+		++temp_adder;
+	}
+
+	for (int i = -(GetSizeOfLevel() + 1); i <= -(GetSizeOfLevel() - 1); ++i)
 	{
 		tile_selected = tile + i;
-		if (tile_selected >= 0 && tile_selected < GetTotalTilesInLevel() && tile_selected < min_max_y)
+		if (tile_selected >= 0 && tile_selected < GetTotalTilesInLevel() && tile_selected < min_max_y && tile_selected > min_y)
 		{
 			temp.push_back(tile_selected);
 		}
 	}
 
-	for (int i = 11; i > 8; --i)
+	for (int i = (GetSizeOfLevel() + 1); i >= (GetSizeOfLevel() - 1); --i)
 	{
 		tile_selected = tile + i;
-		if (tile_selected >= 0 && tile_selected < GetTotalTilesInLevel() && tile_selected > min_max_y)
+		if (tile_selected >= 0 && tile_selected < GetTotalTilesInLevel() && tile_selected > min_max_y + (GetSizeOfLevel() - 1) && tile_selected < max_y)
 		{
 			temp.push_back(tile_selected);
 		}
@@ -269,7 +280,7 @@ vector<int> Level::ReturnSurroundingTilesViaCurrentTile(int tile)
 	for (int i = -1; i < 2; ++i)
 	{
 		tile_selected = tile + i;
-		if (tile_selected >= 0 && tile_selected < GetTotalTilesInLevel())
+		if (tile_selected >= 0 && tile_selected < GetTotalTilesInLevel() && tile_selected >= min_max_y && tile_selected <= min_max_y + (GetSizeOfLevel() - 1) && tile_selected > min_y && tile_selected < max_y)
 		{
 			temp.push_back(tile_selected);
 		}

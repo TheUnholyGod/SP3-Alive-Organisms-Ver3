@@ -121,14 +121,17 @@ void Player::Update(double dt)
 	//std::cout << "Position: " << position << std::endl;
 	//std::cout << "Velocity: " << velocity << std::endl;
 	//std::cout << "Accleration: " << accleration << std::endl;
-	int temp_tile = MapManager::GetInstance()->GetLevel(m_iLevel)->ReturnTileViaPos(position);
+	int temp_tile = 0;
+	if (!this->m_isFightingBoss)
+		temp_tile = MapManager::GetInstance()->GetLevel(m_iLevel)->ReturnTileViaPos(position);
+	else
+		temp_tile = 0;
+
 	//std::cout << "X: " << position.x << " Y: " << position.y << " Z : " << position.z << std::endl;
 	if (temp_tile != tile_ID)
 	{
 		tile_ID = temp_tile;
 	}
-	else if (this->m_isFightingBoss)
-		this->tile_ID = 0;
 
 	//std::cout << tile_ID << std::endl;
 
@@ -693,6 +696,6 @@ void Player::SetIsFightingBoss(bool is_fighting)
 	else
 	{
 		m_isFightingBoss = false;
-		position = last_position;
+		position.Set(last_position.x, last_position.y + 0.01, last_position.z);
 	}
 }

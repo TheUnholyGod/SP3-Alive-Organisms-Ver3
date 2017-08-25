@@ -13,7 +13,7 @@ void MapManager::Init()
 {
 	for (int i = 0; i < 5; ++i)
 	{
-		Level *level = new Level(10);
+		Level *level = new Level(3 * (i + 1));
 		level->GenerateLevel();
 		
 		map_database[i] = level;
@@ -57,7 +57,18 @@ void MapManager::GenerateBlocks(int level)
 					Create::TileEntityCreator(TileEntity::SOLID_BLOCK, Vector3((x + (row * 7)), y + (section * 7), 0), Vector3(1, 1, 1), true, true, true, i);
 					break;
 				case 2:
+				{
 					Create::TileEntityCreator(TileEntity::TOP_PLATFORM, Vector3((x + (row * 7)), (y + (section * 7)) + 0.35, 0), Vector3(1, 0.3, 1), true, true, true, i);
+					if (i < (temp.size() - MapManager::GetInstance()->GetLevel(level)->GetSizeOfLevel()) && !set_boss_door)
+					{
+						temp_door_pos = Vector3((x + (row * 7)), (y + (section * 7)) + 1.4, 0);
+					}
+
+					if (i < (temp.size() - MapManager::GetInstance()->GetLevel(level)->GetSizeOfLevel()) && !set_player_pos)
+					{
+						temp_player_pos = Vector3((x + (row * 7)), (y + (section * 7)) + 1.1, 0);
+					}
+				}
 					break;
 				case 3:
 				{
@@ -83,7 +94,7 @@ void MapManager::GenerateBlocks(int level)
 					break;
 				case 5:
 				{
-					if (Math::RandIntMinMax(0, 100) < 100)
+					if (Math::RandIntMinMax(0, 100) < 50)
 					{
 						Create::TileEntityCreator(TileEntity::TOP_PLATFORM, Vector3((x + (row * 7)), (y + (section * 7)) + 0.35, 0), Vector3(1, 0.3, 1), true, true, true, i);
 					}
@@ -106,11 +117,11 @@ void MapManager::GenerateBlocks(int level)
 				{
 					if (!set_boss_door)
 					{
-						if (Math::RandIntMinMax(0, 200) < 4 && i < (temp.size() - 10))
+						if (Math::RandIntMinMax(0, 200) < 50 && i < (temp.size() - 10))
 						{
 							std::cout << "X: " << (x + (row * 7)) << " Y: " << (y + (section * 7)) << std::endl;
 							set_boss_door = true;
-							Create::TileEntityCreator(TileEntity::BOSS_DOOR, Vector3((x + (row * 7)), (y + (section * 7)), 0), Vector3(1, 1.5, 1), true, true, true, i);
+							Create::TileEntityCreator(TileEntity::BOSS_DOOR, Vector3((x + (row * 7)), (y + (section * 7)) + 0.4, 0), Vector3(1, 1.5, 1), true, true, true, i);
 							Create::Entity("reference", Vector3((x + (row * 7)), (y + (section * 7)), 0)); // Reference
 						}
 					}
@@ -120,7 +131,7 @@ void MapManager::GenerateBlocks(int level)
 				break;
 				case 8:
 				{
-					if (Math::RandIntMinMax(0, 100) < 20)
+					if (Math::RandIntMinMax(0, 100) < 40)
 						enemy_temp_list[i].push_back(Vector3((x + (row * 7)), y + (section * 7), 0));
 				}
 				break;
@@ -290,7 +301,7 @@ void MapManager::GenerateMapArray(int level)
 
 	//Initialise new array
 	Level* l = GetLevel(level);
-	int size = (l->GetSizeOfLevel() * 7) + (l->GetSizeOfLevel() * 7);
+	int size = (10 * 7) + (10 * 7);
 
 	m_map_array = new int*[size];
 	for (int h = 0; h < size; ++h)

@@ -187,7 +187,7 @@ void SceneText::Init()
 	AudioPlayer::GetInstance()->playSoundThreaded("menubgm");
 
    //<REMOVE THIS>
-	Player::GetInstance()->SetIsFightingBoss(true);
+	//Player::GetInstance()->SetIsFightingBoss(true);
 	PlagueBoss* pb = new PlagueBoss();
 	pb->SetPosition(Player::GetInstance()->GetPosition() + Vector3(12,0,0));
 	pb->SetTileID(0);
