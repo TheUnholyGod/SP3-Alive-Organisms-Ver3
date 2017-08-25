@@ -31,7 +31,6 @@ private:
 	SceneText(SceneManager* _sceneMgr); // This is used to register to SceneManager
 
 	ShaderProgram* currProg;
-	Player* playerInfo;
 	GroundEntity* groundEntity;
 	FPSCamera *camera;
 	TextEntity* textObj[3];
@@ -40,7 +39,6 @@ private:
 	GenericEntity* theCube;
 	Keyboard* keyboard;
 	static SceneText* sInstance; // The pointer to the object that gets registered
-	HUDManager* hudmanager;
 	double m_inputtimer;
 };
 

@@ -190,7 +190,6 @@ void SceneText::Init()
 	pb->SetTileID(0);
 	pb->Init();
 	EntityManager::GetInstance()->AddEntity(pb, true);
-
 }
 
 void SceneText::Update(double dt)
@@ -202,6 +201,8 @@ void SceneText::Update(double dt)
 	EntityManager::GetInstance()->Update(dt);
 
 	UIManager::GetInstance()->Update(dt);
+
+	HUDManager::GetInstance()->UpdateHUD();
 
 	keyboard->Read(dt);
 	if (m_inputtimer > 0.15f)
@@ -293,7 +294,7 @@ void SceneText::Update(double dt)
 	float fps = (float)(1.f / dt);
 	ss << "FPS: " << fps;
 	textObj[1]->SetText(ss.str());
-	std::cout << "FPS: " << fps << std::endl;
+	//std::cout << "FPS: " << fps << std::endl;
 
 	// Update the player position into textObj[2]
 	std::ostringstream ss1;
@@ -323,7 +324,7 @@ void SceneText::Render()
 
 	UIManager::GetInstance()->RenderUI();
 	//EntityManager::GetInstance()->RenderUI();
-	hudmanager->RenderHUD();
+	HUDManager::GetInstance()->RenderHUD();
 }
 
 void SceneText::Exit()

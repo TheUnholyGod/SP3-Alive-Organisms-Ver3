@@ -25,15 +25,11 @@ class HUDManager : public Singleton<HUDManager>
 {
 	friend Singleton<HUDManager>;
 public:
+	HUDManager();
+	~HUDManager();
 	void RenderHUD();
 	void UpdateHUD();
 
-
 private:
-	HUDManager();
-	~HUDManager();
-
-	//int HPsizeX = 21.5f;
-	//Player * player;
-
+	float HPsizeX;
 };

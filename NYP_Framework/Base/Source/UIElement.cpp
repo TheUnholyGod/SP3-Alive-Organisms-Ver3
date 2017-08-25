@@ -13,6 +13,7 @@ cpp file for UIElement.
 #include "MeshBuilder.h"
 #include "GraphicsManager.h"
 #include "RenderHelper.h"
+#include "Application.h"
 
 void UIElement::Init()
 {
@@ -20,6 +21,10 @@ void UIElement::Init()
 
 void UIElement::Update(double _dt)
 {
+	this->position = Vector3(Application::GetInstance().GetWindowWidth() * posX, Application::GetInstance().GetWindowHeight() * posY, z_pos);
+	this->scale = Vector3(Application::GetInstance().GetWindowWidth() * sizeX, Application::GetInstance().GetWindowHeight() * sizeY, z_pos);
+	this->size = scale;
+	this->GenerateAABB(this->position);
 }
 
 void UIElement::Render()
@@ -34,7 +39,59 @@ void UIElement::Render()
 
 void UIElement::Response()
 {
-	std::cout << "Button Responded!" << std::endl;
+	std::cout << "Responding with..." << std::endl;
+	switch (m_type)
+	{
+	case UI_MM_START:
+	{
+		std::cout << "UI_MM_START" << std::endl;
+		GameStateManager::GetInstance()->setState(GS_PLAYING);
+		break;
+	}
+	case UI_MM_OPTION:
+	{
+		std::cout << "UI_MM_OPTION" << std::endl;
+		break;
+	}
+	case UI_MM_EXIT:
+	{
+		std::cout << "UI_MM_EXIT" << std::endl;
+		break;
+	}
+	case UI_PM_RESUME:
+	{
+		std::cout << "UI_PM_RESUME" << std::endl;
+		break;
+	}
+	case UI_PM_OPTION:
+	{
+		std::cout << "UI_PM_OPTION" << std::endl;
+		break;
+	}
+	case UI_PM_EXIT_TO_MENU:
+	{
+		std::cout << "UI_PM_EXIT_TO_MENU" << std::endl;
+		break;
+	}
+	case UI_OM_VOL_UP:
+	{
+		std::cout << "UI_OM_VOL_UP" << std::endl;
+		break;
+	}
+	case UI_OM_VOL_DOWN:
+	{
+		std::cout << "UI_OM_VOL_DOWN" << std::endl;
+		break;
+	}
+	case UI_OM_EXIT_TO_PAUSE:
+	{
+		std::cout << "UI_OM_EXIT_TO_PAUSE" << std::endl;
+		break;
+	}
+	default:
+		std::cout << "Nothing!" << std::endl;
+		break;
+	}
 }
 
 GAMESTATE UIElement::getState()
@@ -42,21 +99,29 @@ GAMESTATE UIElement::getState()
 	return this->m_parent_state;
 }
 
-UIElement * Create::UI(const std::string & _meshName, 
-	const UI_TYPE & _type, 
-	const Vector3 & _position, 
-	const Vector3 & _scale, 
-	const GAMESTATE & _state,
+UIElement * Create::UI(const std::string& _meshName,
+	const UI_TYPE& _type,
+	const GAMESTATE& _state,
+	const float& _sizeX,
+	const float& _sizeY,
+	const float& _posX,
+	const float& _posY,
+	const float& z_val,
 	const bool addToManager)
 {
 	Mesh* modelMesh = MeshList::GetInstance()->GetMesh(_meshName);
 	if (modelMesh == nullptr)
 		return nullptr;
 
-	UIElement* result = new UIElement(modelMesh, _state, _type);
-	result->SetPosition(_position);
-	result->SetScale(_scale);
-	result->SetCollider(false);
+	UIElement* result = new UIElement(modelMesh, _state, _type, _sizeX, _sizeY, _posX, _posY, z_val);
+	result->SetPosition(Vector3(0, 0, 0));
+	result->SetScale(Vector3(10, 10, 10));
+	
+	if(!(_type == UI_BACKGROUND))
+		result->SetCollider(true);
+	else
+		result->SetCollider(false);
+
 	if(addToManager)
 		UIManager::GetInstance()->addElement(result);
 	return result;
