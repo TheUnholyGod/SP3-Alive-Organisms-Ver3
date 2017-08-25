@@ -29,7 +29,7 @@ public:
 	void Init(void);
 	// Update
 	void Update(double dt = 0.0333f);
-	void UpdateMovment(double dt);
+	void UpdateMovement(double dt);
 	void UpdateJump(double dt);
 	//Render 
 	void Render();

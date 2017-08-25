@@ -133,7 +133,7 @@ void Player::Update(double dt)
 	//std::cout << tile_ID << std::endl;
 
 	this->UpdateJump(dt);
-	this->UpdateMovment(dt);
+	this->UpdateMovement(dt);
     this->m_player_equipment[EQUIPMENT_MELEE]->Update(dt);
 	this->attachedCamera->SetCameraPos(Vector3(position.x, position.y, 7));
 	this->attachedCamera->SetCameraTarget(position);
@@ -291,7 +291,7 @@ void Player::Update(double dt)
 
 }
 
-void Player::UpdateMovment(double dt)
+void Player::UpdateMovement(double dt)
 {
 	if (m_moving && m_movingtimer > 0)
 		m_movingtimer -= dt;
@@ -327,7 +327,7 @@ void Player::UpdateMovment(double dt)
 
 				//std::cout << dynamic_cast<TileEntity*>(*it)->block_type << std::endl;
 				if (dynamic_cast<TileEntity*>(*it)->block_type == TileEntity::SOLID_BLOCK)
-				{		
+				{
 					if (!m_isClimbing)
 					{
 						SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
@@ -364,22 +364,22 @@ void Player::UpdateMovment(double dt)
 				{
 					/*if (!m_isClimbing)
 					{
-						if (CollisionManager::GetInstance()->CheckPlayerDirCollision(*it))
-						{
-							velocity.y = 0;
-							SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
-							break;
-						}
-						else
-						{
-							if (temp.y < MapManager::GetInstance()->GetLevel(m_iLevel)->GetSizeOfLevel() * MapManager::GetInstance()->GetLevel(m_iLevel)->GetSizeOfTileSet())
-								this->position = temp;
-							else
-								this->position.x = temp.x;
-							break;
-						}
+					if (CollisionManager::GetInstance()->CheckPlayerDirCollision(*it))
+					{
+					velocity.y = 0;
+					SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
+					break;
+					}
+					else
+					{
+					if (temp.y < MapManager::GetInstance()->GetLevel(m_iLevel)->GetSizeOfLevel() * MapManager::GetInstance()->GetLevel(m_iLevel)->GetSizeOfTileSet())
+					this->position = temp;
+					else
+					this->position.x = temp.x;
+					break;
+					}
 					}*/
-					if(m_isClimbing)
+					if (m_isClimbing)
 					{
 						bool move_X = false, move_Y = false;
 						if (temp.y < (MapManager::GetInstance()->GetLevel(m_iLevel)->GetSizeOfLevel() * MapManager::GetInstance()->GetLevel(m_iLevel)->GetSizeOfTileSet()) - 1)
