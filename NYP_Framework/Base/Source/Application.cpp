@@ -247,6 +247,21 @@ void Application::InitAllMeshes()
 		MeshBuilder::GetInstance()->GenerateSpriteAnimation("explosion", 5, 5, 1.0f);
 		MeshList::GetInstance()->GetMesh("explosion")->textureID = LoadTGA("Image//explosion.tga");
 
+		MeshBuilder::GetInstance()->GenerateSpriteAnimation("fire_rune_item", 4, 3, 1.0f);
+		MeshList::GetInstance()->GetMesh("fire_rune_item")->textureID = LoadTGA("Image//fire_rune.tga");
+
+		MeshBuilder::GetInstance()->GenerateSpriteAnimation("earth_rune_item", 4, 3, 1.0f);
+		MeshList::GetInstance()->GetMesh("earth_rune_item")->textureID = LoadTGA("Image//earth_rune.tga");
+
+		MeshBuilder::GetInstance()->GenerateSpriteAnimation("water_rune_item", 4, 3, 1.0f);
+		MeshList::GetInstance()->GetMesh("water_rune_item")->textureID = LoadTGA("Image//water_rune.tga");
+
+		MeshBuilder::GetInstance()->GenerateSpriteAnimation("wind_rune_item", 4, 3, 1.0f);
+		MeshList::GetInstance()->GetMesh("wind_rune_item")->textureID = LoadTGA("Image//wind_rune.tga");
+
+		MeshBuilder::GetInstance()->GenerateSpriteAnimation("normal_rune_item", 4, 3, 1.0f);
+		MeshList::GetInstance()->GetMesh("normal_rune_item")->textureID = LoadTGA("Image//normal_rune.tga");
+
 		MeshBuilder::GetInstance()->GenerateSpriteAnimation("enemy_1", 3, 5, 1.0f);
 		MeshList::GetInstance()->GetMesh("enemy_1")->textureID = LoadTGA("Image//enemy_1.tga");
 

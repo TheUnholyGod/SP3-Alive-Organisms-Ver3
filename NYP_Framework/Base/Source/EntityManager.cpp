@@ -18,7 +18,10 @@ void EntityManager::Update(double _dt)
 	for (int i = 0; i <= temp.size(); ++i)
 	{
 		if (i == temp.size())
+		{
 			temp.push_back(-1);
+			break;
+		}
 
 		if (temp[i] == -1)
 			break;
@@ -148,8 +151,11 @@ void EntityManager::Render()
 	std::vector<int> temp = level->ReturnSurroundingTilesViaCurrentTile(Player::GetInstance()->GetTileID());
 	for (int i = 0; i <= temp.size(); ++i)
 	{
-		if(i == temp.size())
+		if (i == temp.size())
+		{
 			temp.push_back(-1);
+			break;
+		}
 
 		if (temp[i] == -1)
 			break;
