@@ -11,11 +11,17 @@ void UIManager::Init()
 	//Initialise UIElements
 	m_cursor = Create::UI("quad", UI_CURSOR, GAMESTATE::GS_MAINMENU, 1, 1, 1, 1, 10, false);
 
-	//MAIN MENU
+	//Main Menu
 	Create::UI("main_menu", UI_BACKGROUND, GAMESTATE::GS_MAINMENU, 1, 1, 0, 0, 0);
 	Create::UI("start_button", UI_MM_START, GAMESTATE::GS_MAINMENU, 0.15, 0.1, -0.2, 0.11, 1);
 	Create::UI("option_button", UI_MM_OPTION, GAMESTATE::GS_MAINMENU, 0.25, 0.1, -0.2, 0, 1);
 	Create::UI("quit_button", UI_MM_EXIT, GAMESTATE::GS_MAINMENU, 0.12, 0.1, -0.2, -0.11, 1);
+
+	//Pause Menu
+	Create::UI("pause_menu", UI_BACKGROUND, GAMESTATE::GS_PAUSED, 1, 1, 0, 0, 0);
+	Create::UI("resume_button", UI_PM_RESUME, GAMESTATE::GS_PAUSED, 0.25, 0.1, 0, 0.11, 1);
+	Create::UI("option_button", UI_PM_OPTION, GAMESTATE::GS_PAUSED, 0.30, 0.1, 0, 0, 1);
+	Create::UI("quit_button", UI_PM_EXIT_TO_MENU, GAMESTATE::GS_PAUSED, 0.15, 0.1, 0, -0.22, 1);
 }
 
 void UIManager::Update(double _dt)
@@ -75,7 +81,6 @@ UIElement * UIManager::GetElementOnCursor()
 	{
 		if (CollisionManager::GetInstance()->CheckPointToAABBCollision(m_cursor->GetPosition(), it, true))
 		{
-			std::cout << "Detected collision with button" << std::endl;
 			return dynamic_cast<UIElement*>(it);
 		}
 	}

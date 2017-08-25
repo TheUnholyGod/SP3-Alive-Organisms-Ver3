@@ -264,6 +264,15 @@ void Application::InitAllMeshes()
 		MeshList::GetInstance()->GetMesh("option_button")->textureID = LoadTGA("Image//option_button.tga");
 		MeshList::GetInstance()->AddMesh("quit_button", MeshBuilder::GetInstance()->GenerateQuad("quit_btn", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("quit_button")->textureID = LoadTGA("Image//quit_button.tga");
+
+		MeshList::GetInstance()->AddMesh("pause_menu", MeshBuilder::GetInstance()->GenerateQuad("pause_scrn", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("pause_menu")->textureID = LoadTGA("Image//pause_menu.tga");
+		MeshList::GetInstance()->AddMesh("resume_button", MeshBuilder::GetInstance()->GenerateQuad("resume_btn", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("resume_button")->textureID = LoadTGA("Image//resume_button.tga");
+		MeshList::GetInstance()->AddMesh("back_button", MeshBuilder::GetInstance()->GenerateQuad("back_btn", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("back_button")->textureID = LoadTGA("Image//back_button.tga");
+
+		
 		//Blocks
 		MeshList::GetInstance()->AddMesh("solid_block", MeshBuilder::GetInstance()->GenerateQuad("block", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("solid_block")->textureID = LoadTGA("Image//block.tga");

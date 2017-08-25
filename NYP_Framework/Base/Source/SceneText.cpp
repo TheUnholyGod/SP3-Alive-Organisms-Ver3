@@ -248,6 +248,8 @@ void SceneText::Update(double dt)
 	{
 		Create::Enemy(EnemyBase::ENEMY_TYPE::E_MAGGOT, Vector3((int)Player::GetInstance()->GetPosition().x, (int)Player::GetInstance()->GetPosition().y, (int)Player::GetInstance()->GetPosition().z), Vector3(1, 1, 1), true, false, false);
 		//Create::Enemy(EnemyBase::ENEMY_TYPE::E_BOMBER, Vector3((int)Player::GetInstance()->GetPosition().x + 1, (int)Player::GetInstance()->GetPosition().y, (int)Player::GetInstance()->GetPosition().z), Vector3(1, 1, 1), true, false, false);
+		
+		GameStateManager::GetInstance()->setState(GS_PAUSED);
 	}
 	if (KeyboardController::GetInstance()->IsKeyReleased('R'))
 	{
