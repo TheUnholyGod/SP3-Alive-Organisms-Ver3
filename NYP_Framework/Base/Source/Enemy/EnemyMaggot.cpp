@@ -25,8 +25,10 @@ EnemyMaggot::EnemyMaggot(Mesh * mesh,
 	this->SetCollider(have_collider);
 	this->SetPhysic(have_physic);
 	this->SetStatic(false);
+	this->SetActive(false);
 
 	m_state = AI_STATES::AI_CHASE;
+	this->type = PLAGUE_MAGGOT_OBJ;
 	dir = true;
 }
 
@@ -34,8 +36,18 @@ EnemyMaggot::~EnemyMaggot()
 {
 }
 
+void EnemyMaggot::Init(Vector3 pos)
+{
+	this->position = pos;
+	this->SetActive(true);
+	this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(this->position);
+}
+
 void EnemyMaggot::Update(double _dt)
 {
+	if (!(this->m_active))
+		return;
+
 	//Create AABB for collision
 	this->GenerateAABB(this->position);
 
@@ -72,11 +84,14 @@ void EnemyMaggot::Update(double _dt)
 	}
 
 	//Update tileID for spatial partition
-	this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(position);
+	this->tile_ID = 0;//MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(position);
 }
 
 void EnemyMaggot::Render()
 {
+	if (!(this->m_active))
+		return;
+
 	if (m_state == AI_ATTACK)
 		this->animation2->Render();
 	else
