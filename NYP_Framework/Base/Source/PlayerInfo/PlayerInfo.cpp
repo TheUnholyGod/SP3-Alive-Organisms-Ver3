@@ -451,7 +451,6 @@ void Player::UpdateMovement(double dt)
 
 	if (!m_moving)
 	{
-		last_position = position;
 		if (abs(velocity.x) > 0)
 		{
 			velocity.x -= (velocity.x * 5) * dt;
@@ -685,6 +684,15 @@ bool Player::GetIsFightingBoss()
 
 void Player::SetIsFightingBoss(bool is_fighting)
 {
-	m_isFightingBoss = is_fighting;
-	position.Set(100, 102, 0);
+	if (is_fighting)
+	{
+		last_position = position;
+		m_isFightingBoss = is_fighting;
+		position.Set(100, 102, 0);
+	}
+	else
+	{
+		m_isFightingBoss = false;
+		position = last_position;
+	}
 }
