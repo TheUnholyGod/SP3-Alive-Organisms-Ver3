@@ -31,7 +31,6 @@ private:
 	SceneText(SceneManager* _sceneMgr); // This is used to register to SceneManager
 
 	ShaderProgram* currProg;
-	Player* playerInfo;
 	GroundEntity* groundEntity;
 	FPSCamera *camera;
 	TextEntity* textObj[3];
