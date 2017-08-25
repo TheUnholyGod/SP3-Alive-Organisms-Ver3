@@ -181,15 +181,15 @@ void SceneText::Init()
 
 	AudioPlayer::GetInstance()->addSound("explosion", "Assets//Sound//explosion.wav"); //Move somewhere to run only once
 
-   //<REMOVE THIS>
-	Player::GetInstance()->SetIsFightingBoss(true);
-	//</REMOVE>
+ //  //<REMOVE THIS>
+	//Player::GetInstance()->SetIsFightingBoss(true);
+	////</REMOVE>
 
-	PlagueBoss* pb = new PlagueBoss();
-	pb->SetPosition(Player::GetInstance()->GetPosition() + Vector3(12,0,0));
-	pb->SetTileID(0);
-	pb->Init();
-	EntityManager::GetInstance()->AddEntity(pb, true);
+	//PlagueBoss* pb = new PlagueBoss();
+	//pb->SetPosition(Player::GetInstance()->GetPosition() + Vector3(12,0,0));
+	//pb->SetTileID(0);
+	//pb->Init();
+	//EntityManager::GetInstance()->AddEntity(pb, true);
 }
 
 void SceneText::Update(double dt)
