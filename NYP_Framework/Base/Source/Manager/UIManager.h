@@ -49,4 +49,5 @@ private:
 	GAMESTATE m_gameState;
 
 	UIElement* m_cursor;
+	UIElement* m_selecter;
 };

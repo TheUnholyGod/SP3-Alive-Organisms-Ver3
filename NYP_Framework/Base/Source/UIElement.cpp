@@ -14,6 +14,7 @@ cpp file for UIElement.
 #include "GraphicsManager.h"
 #include "RenderHelper.h"
 #include "Application.h"
+#include "Audio\AudioPlayer.h"
 
 void UIElement::Init()
 {
@@ -51,41 +52,49 @@ void UIElement::Response()
 	case UI_MM_OPTION:
 	{
 		std::cout << "UI_MM_OPTION" << std::endl;
+		GameStateManager::GetInstance()->setState(GS_OPTIONS);
 		break;
 	}
 	case UI_MM_EXIT:
 	{
 		std::cout << "UI_MM_EXIT" << std::endl;
+		exit(0);
 		break;
 	}
 	case UI_PM_RESUME:
 	{
 		std::cout << "UI_PM_RESUME" << std::endl;
+		GameStateManager::GetInstance()->setState(GS_PLAYING);
 		break;
 	}
 	case UI_PM_OPTION:
 	{
 		std::cout << "UI_PM_OPTION" << std::endl;
+		GameStateManager::GetInstance()->setState(GS_OPTIONS);
 		break;
 	}
 	case UI_PM_EXIT_TO_MENU:
 	{
 		std::cout << "UI_PM_EXIT_TO_MENU" << std::endl;
+		GameStateManager::GetInstance()->setState(GS_MAINMENU);
 		break;
 	}
 	case UI_OM_VOL_UP:
 	{
 		std::cout << "UI_OM_VOL_UP" << std::endl;
+		AudioPlayer::GetInstance()->increaseVolume(0.1);
 		break;
 	}
 	case UI_OM_VOL_DOWN:
 	{
 		std::cout << "UI_OM_VOL_DOWN" << std::endl;
+		AudioPlayer::GetInstance()->decreaseVolume(0.1);
 		break;
 	}
 	case UI_OM_EXIT_TO_PAUSE:
 	{
 		std::cout << "UI_OM_EXIT_TO_PAUSE" << std::endl;
+		GameStateManager::GetInstance()->setState(GS_PAUSED);
 		break;
 	}
 	default:

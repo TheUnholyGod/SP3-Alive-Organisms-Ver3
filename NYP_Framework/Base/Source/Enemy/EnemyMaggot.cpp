@@ -28,7 +28,7 @@ EnemyMaggot::EnemyMaggot(Mesh * mesh,
 	this->SetActive(false);
 
 	m_state = AI_STATES::AI_CHASE;
-	this->type = PLAGUE_MAGGOT_OBJ;
+	this->type = GenericEntity::PLAGUE_MAGGOT_OBJ;
 	dir = true;
 }
 
@@ -38,6 +38,8 @@ EnemyMaggot::~EnemyMaggot()
 
 void EnemyMaggot::Init(Vector3 pos)
 {
+	this->type = GenericEntity::PLAGUE_MAGGOT_OBJ;
+
 	this->position = pos;
 	this->SetActive(true);
 	this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(this->position);
