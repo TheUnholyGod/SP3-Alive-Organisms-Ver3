@@ -34,7 +34,7 @@ void HUDManager::UpdateHUD()
 	HPsizeX = Player::GetInstance()->GetHealth();
 	if (HPsizeX < 0)
 		HPsizeX = 1;
-	std::cout << "HPsizeX: "<< HPsizeX << std::endl;
+	//std::cout << "HPsizeX: "<< HPsizeX << std::endl;
 
 }
 

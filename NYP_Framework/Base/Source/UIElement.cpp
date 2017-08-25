@@ -21,11 +21,9 @@ void UIElement::Init()
 
 void UIElement::Update(double _dt)
 {
-	if (this->type == UI_BACKGROUND)
-	{
-		this->scale = Vector3(Application::GetInstance().GetWindowWidth(), Application::GetInstance().GetWindowHeight(), 0);
-		this->size = scale;
-	}
+	this->position = Vector3(Application::GetInstance().GetWindowWidth() * posX, Application::GetInstance().GetWindowHeight() * posY, z_pos);
+	this->scale = Vector3(Application::GetInstance().GetWindowWidth() * sizeX, Application::GetInstance().GetWindowHeight() * sizeY, z_pos);
+	this->size = scale;
 	this->GenerateAABB(this->position);
 }
 
@@ -101,22 +99,28 @@ GAMESTATE UIElement::getState()
 	return this->m_parent_state;
 }
 
-UIElement * Create::UI(const std::string & _meshName, 
-	const UI_TYPE & _type, 
-	const Vector3 & _position, 
-	const Vector3 & _scale, 
-	const GAMESTATE & _state,
+UIElement * Create::UI(const std::string& _meshName,
+	const UI_TYPE& _type,
+	const GAMESTATE& _state,
+	const float& _sizeX,
+	const float& _sizeY,
+	const float& _posX,
+	const float& _posY,
+	const float& z_val,
 	const bool addToManager)
 {
 	Mesh* modelMesh = MeshList::GetInstance()->GetMesh(_meshName);
 	if (modelMesh == nullptr)
 		return nullptr;
 
-	UIElement* result = new UIElement(modelMesh, _state, _type);
-	result->SetPosition(_position);
-	result->SetScale(_scale);
-	result->SetCollider(true);
-	result->SetSize(_scale);
+	UIElement* result = new UIElement(modelMesh, _state, _type, _sizeX, _sizeY, _posX, _posY, z_val);
+	result->SetPosition(Vector3(0, 0, 0));
+	result->SetScale(Vector3(10, 10, 10));
+	
+	if(!(_type == UI_BACKGROUND))
+		result->SetCollider(true);
+	else
+		result->SetCollider(false);
 
 	if(addToManager)
 		UIManager::GetInstance()->addElement(result);
