@@ -26,7 +26,7 @@ public:
 
 	/* All play functions STOP execution of the program except
 	* playSoundThreaded(). Note: It isn't really multi-threaded.*/
-	void playSoundThreaded(std::string soundName);	// Plays sound without stopping program
+	void playSoundThreaded(std::string soundName, bool looped = false);	// Plays sound without stopping program
 	void playSoundThreaded3D(std::string soundName, Vector3 pos);
 	
 	// True = music is playing
@@ -37,6 +37,9 @@ public:
 	void increaseVolume(int increment);
 	void decreaseVolume(int increment);
 	int getCurrentVolume();
+
+	//Stops all currently playing sounds
+	void StopAllSound();
 
 private:
 	AudioPlayer();

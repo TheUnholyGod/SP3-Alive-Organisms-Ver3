@@ -66,14 +66,14 @@ bool CollisionManager::CheckAABBCollision(EntityBase * ThisEntity, EntityBase * 
 bool CollisionManager::CheckPointToAABBCollision(Vector3 point, EntityBase * ThatEntity, bool is2D)
 {
 	if (!ThatEntity->HasCollider()) {
-		std::cout << "Entity does not have Collider" << std::endl;
+		//std::cout << "Entity does not have Collider" << std::endl;
 		return false;
 	}
 
 	GenericEntity* thatHitbox = dynamic_cast<GenericEntity*>(ThatEntity);
 
 	if (!thatHitbox->HasAABB()) {
-		std::cout << "Entity does not have AABB" << std::endl;
+		//std::cout << "Entity does not have AABB" << std::endl;
 		return false;
 	}
 

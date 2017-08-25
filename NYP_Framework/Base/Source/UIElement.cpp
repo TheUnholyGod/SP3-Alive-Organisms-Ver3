@@ -22,10 +22,27 @@ void UIElement::Init()
 
 void UIElement::Update(double _dt)
 {
-	this->position = Vector3(Application::GetInstance().GetWindowWidth() * posX, Application::GetInstance().GetWindowHeight() * posY, z_pos);
-	this->scale = Vector3(Application::GetInstance().GetWindowWidth() * sizeX, Application::GetInstance().GetWindowHeight() * sizeY, z_pos);
-	this->size = scale;
-	this->GenerateAABB(this->position);
+	if (this->m_type == UI_OM_VOL_DISPLAY)
+	{
+		this->position = Vector3(Application::GetInstance().GetWindowWidth() * posX, 
+			Application::GetInstance().GetWindowHeight() * posY, 
+			z_pos);
+		this->scale = Vector3(Application::GetInstance().GetWindowWidth() * sizeX * ((float)AudioPlayer::GetInstance()->getCurrentVolume() / 10),
+			Application::GetInstance().GetWindowHeight() * sizeY, 
+			z_pos);
+		this->size = scale;
+		this->GenerateAABB(this->position);
+
+		std::cout << AudioPlayer::GetInstance()->getCurrentVolume() << std::endl;
+		return;
+	}
+	else
+	{
+		this->position = Vector3(Application::GetInstance().GetWindowWidth() * posX, Application::GetInstance().GetWindowHeight() * posY, z_pos);
+		this->scale = Vector3(Application::GetInstance().GetWindowWidth() * sizeX, Application::GetInstance().GetWindowHeight() * sizeY, z_pos);
+		this->size = scale;
+		this->GenerateAABB(this->position);
+	}
 }
 
 void UIElement::Render()
@@ -47,6 +64,8 @@ void UIElement::Response()
 	{
 		std::cout << "UI_MM_START" << std::endl;
 		GameStateManager::GetInstance()->setState(GS_PLAYING);
+		AudioPlayer::GetInstance()->StopAllSound();
+		AudioPlayer::GetInstance()->playSoundThreaded("gamebgm");
 		break;
 	}
 	case UI_MM_OPTION:
@@ -82,13 +101,13 @@ void UIElement::Response()
 	case UI_OM_VOL_UP:
 	{
 		std::cout << "UI_OM_VOL_UP" << std::endl;
-		AudioPlayer::GetInstance()->increaseVolume(0.1);
+		AudioPlayer::GetInstance()->increaseVolume(1);
 		break;
 	}
 	case UI_OM_VOL_DOWN:
 	{
 		std::cout << "UI_OM_VOL_DOWN" << std::endl;
-		AudioPlayer::GetInstance()->decreaseVolume(0.1);
+		AudioPlayer::GetInstance()->decreaseVolume(1);
 		break;
 	}
 	case UI_OM_EXIT_TO_PAUSE:
@@ -126,7 +145,7 @@ UIElement * Create::UI(const std::string& _meshName,
 	result->SetPosition(Vector3(0, 0, 0));
 	result->SetScale(Vector3(10, 10, 10));
 	
-	if(!(_type == UI_BACKGROUND))
+	if(!(_type == UI_BACKGROUND || _type == UI_CURSOR))
 		result->SetCollider(true);
 	else
 		result->SetCollider(false);

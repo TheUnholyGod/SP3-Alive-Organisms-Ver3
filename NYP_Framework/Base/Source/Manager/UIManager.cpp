@@ -1,6 +1,7 @@
 #include "UIManager.h"
 #include "../Application.h"
 #include "../CollisionManager.h"
+#include "Audio/AudioPlayer.h"
 
 void UIManager::Init()
 {
@@ -26,9 +27,9 @@ void UIManager::Init()
 
 	//Options Menu
 	Create::UI("pause_menu", UI_BACKGROUND, GAMESTATE::GS_OPTIONS, 1, 1, 0, 0, 0);
-	Create::UI("quad", UI_CURSOR, GAMESTATE::GS_OPTIONS, 0.15, 0.1, 0, 0.2, 1);
+	Create::UI("quad", UI_OM_VOL_DISPLAY, GAMESTATE::GS_OPTIONS, 0.02, 0.1, 0, 0.0, 1);
 	Create::UI("volume_up", UI_OM_VOL_UP, GAMESTATE::GS_OPTIONS, 0.1, 0.1, 0.25, 0, 1);
-	Create::UI("volume_button", UI_CURSOR, GAMESTATE::GS_OPTIONS, 0.25, 0.1, 0, 0, 1);
+	Create::UI("volume_button", UI_CURSOR, GAMESTATE::GS_OPTIONS, 0.25, 0.1, 0, 0.2, 1);
 	Create::UI("volume_down", UI_OM_VOL_DOWN, GAMESTATE::GS_OPTIONS, 0.1, 0.04, -0.25, 0, 1);
 	Create::UI("back_button", UI_OM_EXIT_TO_PAUSE, GAMESTATE::GS_OPTIONS, 0.15, 0.1, 0, -0.22, 1);
 }
@@ -60,9 +61,11 @@ void UIManager::Update(double _dt)
 		}
 	}
 
-	if (GetElementOnCursor())
+	if (GetElementOnCursor() != nullptr)
 	{
-		if (dynamic_cast<UIElement*>(GetElementOnCursor())->getState() == m_gameState)
+		if (dynamic_cast<UIElement*>(GetElementOnCursor())->getState() == m_gameState &&
+			dynamic_cast<UIElement*>(GetElementOnCursor())->m_type != UI_CURSOR && 
+			dynamic_cast<UIElement*>(GetElementOnCursor())->m_type != UI_OM_VOL_DISPLAY)
 		{
 			m_selecter->posX = GetElementOnCursor()->posX;
 			m_selecter->posY = GetElementOnCursor()->posY;
@@ -70,14 +73,14 @@ void UIManager::Update(double _dt)
 			m_selecter->sizeY = GetElementOnCursor()->sizeY + 0.02;
 			m_selecter->Update(_dt);
 		}
-		else
-		{
-			m_selecter->posX = 0;
-			m_selecter->posY = 0;
-			m_selecter->sizeX = 0;
-			m_selecter->sizeY = 0;
-			m_selecter->Update(_dt);
-		}
+	}
+	else
+	{
+		m_selecter->posX = 0;
+		m_selecter->posY = 0;
+		m_selecter->sizeX = 0;
+		m_selecter->sizeY = 0;
+		m_selecter->Update(_dt);
 	}
 
 	//Updates the UI
@@ -112,10 +115,15 @@ UIElement * UIManager::GetElementOnCursor()
 {
 	for (auto &it : m_UIElements)
 	{
+		if (dynamic_cast<UIElement*>(it)->getState() != m_gameState) continue;
+		if (dynamic_cast<UIElement*>(it)->type == UI_CURSOR) continue;
+		if (dynamic_cast<UIElement*>(it)->type == UI_BACKGROUND) continue;
+
 		if (CollisionManager::GetInstance()->CheckPointToAABBCollision(m_cursor->GetPosition(), it, true))
 		{
 			return dynamic_cast<UIElement*>(it);
 		}
 	}
+	return nullptr;
 }
 

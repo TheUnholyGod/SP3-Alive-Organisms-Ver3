@@ -180,7 +180,11 @@ void SceneText::Init()
 	//}
 
 	AudioPlayer::GetInstance()->addSound("explosion", "Assets//Sound//explosion.wav"); //Move somewhere to run only once
+	AudioPlayer::GetInstance()->addSound("menubgm", "Assets//Sound//menubgm.mp3"); //Move somewhere to run only once
+	AudioPlayer::GetInstance()->addSound("gamebgm", "Assets//Sound//gamebgm.mp3"); //Move somewhere to run only once
 
+
+	AudioPlayer::GetInstance()->playSoundThreaded("menubgm", true);
  //  //<REMOVE THIS>
 	//Player::GetInstance()->SetIsFightingBoss(true);
 	////</REMOVE>

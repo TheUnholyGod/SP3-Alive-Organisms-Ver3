@@ -27,6 +27,7 @@ enum UI_TYPE
 
 	UI_OM_VOL_UP,
 	UI_OM_VOL_DOWN,
+	UI_OM_VOL_DISPLAY,
 	UI_OM_EXIT_TO_PAUSE,
 
 	UI_TOTAL
@@ -66,7 +67,6 @@ public:
 	GAMESTATE getState();
 
 	float sizeX, sizeY, posX, posY, z_pos;
-private:
 	GAMESTATE m_parent_state;
 	UI_TYPE m_type;
 

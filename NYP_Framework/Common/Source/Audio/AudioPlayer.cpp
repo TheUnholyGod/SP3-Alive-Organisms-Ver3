@@ -52,12 +52,12 @@ bool AudioPlayer::removeSound(std::string name)
 /***************************
 PLAY FUNCTIONS
 ***************************/
-void AudioPlayer::playSoundThreaded(std::string soundName)
+void AudioPlayer::playSoundThreaded(std::string soundName, bool looped)
 {
 	//Find the sound file in library
 	std::string fileName(m_soundLibrary[soundName]->m_fileDirectory);
 
-	currentSound = soundEngine->play2D(fileName.c_str(), false, false, true);
+	currentSound = soundEngine->play2D(fileName.c_str(), looped, false, true);
 	if (!currentSound)
 	{
 		cout << "Error: Could not play file" << endl;
@@ -113,4 +113,9 @@ void AudioPlayer::decreaseVolume(int increment)
 int AudioPlayer::getCurrentVolume()
 {
 	return this->volume;
+}
+
+void AudioPlayer::StopAllSound()
+{
+	this->soundEngine->stopAllSounds();
 }
