@@ -14,9 +14,9 @@ void UIManager::Init()
 
 	//MAIN MENU
 	Create::UI("main_menu", UI_BACKGROUND, Vector3(0, 0, 0), Vector3(Application::GetInstance().GetWindowWidth(), Application::GetInstance().GetWindowHeight(), 0), GAMESTATE::GS_MAINMENU);
-	Create::UI("quad", UI_MM_START, Vector3(-140, 100, 1), Vector3(200,80,100), GAMESTATE::GS_MAINMENU);
-	Create::UI("quad", UI_MM_OPTION, Vector3(-140, 0, 1), Vector3(200, 80, 100), GAMESTATE::GS_MAINMENU);
-	Create::UI("quad", UI_MM_EXIT, Vector3(-140, -100, 1), Vector3(200, 80, 100), GAMESTATE::GS_MAINMENU);
+	Create::UI("start_button", UI_MM_START, Vector3(-140, 100, 1), Vector3(200, 50, 50), GAMESTATE::GS_MAINMENU);
+	Create::UI("quad", UI_MM_OPTION, Vector3(-140, 0, 1), Vector3(200, 50, 50), GAMESTATE::GS_MAINMENU);
+	Create::UI("quad", UI_MM_EXIT, Vector3(-140, -100, 1), Vector3(200, 50, 50), GAMESTATE::GS_MAINMENU);
 }
 
 void UIManager::Update(double _dt)

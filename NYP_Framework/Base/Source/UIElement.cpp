@@ -47,6 +47,7 @@ void UIElement::Response()
 	case UI_MM_START:
 	{
 		std::cout << "UI_MM_START" << std::endl;
+		GameStateManager::GetInstance()->setState(GS_PLAYING);
 		break;
 	}
 	case UI_MM_OPTION:
