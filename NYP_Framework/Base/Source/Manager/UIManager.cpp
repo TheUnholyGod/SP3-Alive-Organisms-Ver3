@@ -25,6 +25,7 @@ void UIManager::Init()
 
 	//Options Menu
 	Create::UI("pause_menu", UI_BACKGROUND, GAMESTATE::GS_OPTIONS, 1, 1, 0, 0, 0);
+	Create::UI("quad", UI_CURSOR, GAMESTATE::GS_OPTIONS, 0.15, 0.1, 0, 0.2, 1);
 	Create::UI("volume_up", UI_OM_VOL_UP, GAMESTATE::GS_OPTIONS, 0.1, 0.1, 0.25, 0, 1);
 	Create::UI("volume_button", UI_CURSOR, GAMESTATE::GS_OPTIONS, 0.25, 0.1, 0, 0, 1);
 	Create::UI("volume_down", UI_OM_VOL_DOWN, GAMESTATE::GS_OPTIONS, 0.1, 0.04, -0.25, 0, 1);
