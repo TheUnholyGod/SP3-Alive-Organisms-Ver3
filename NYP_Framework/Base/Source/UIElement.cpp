@@ -101,13 +101,13 @@ void UIElement::Response()
 	case UI_OM_VOL_UP:
 	{
 		std::cout << "UI_OM_VOL_UP" << std::endl;
-		AudioPlayer::GetInstance()->increaseVolume(1);
+		AudioPlayer::GetInstance()->increaseVolume(10);
 		break;
 	}
 	case UI_OM_VOL_DOWN:
 	{
 		std::cout << "UI_OM_VOL_DOWN" << std::endl;
-		AudioPlayer::GetInstance()->decreaseVolume(1);
+		AudioPlayer::GetInstance()->decreaseVolume(10);
 		break;
 	}
 	case UI_OM_EXIT_TO_PAUSE:
