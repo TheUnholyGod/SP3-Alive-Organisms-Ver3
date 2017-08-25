@@ -65,11 +65,11 @@ public:
 	//Returns the parent_state of this button
 	GAMESTATE getState();
 
+	float sizeX, sizeY, posX, posY, z_pos;
 private:
 	GAMESTATE m_parent_state;
 	UI_TYPE m_type;
 
-	float sizeX, sizeY, posX, posY, z_pos;
 };
 
 namespace Create

@@ -10,6 +10,7 @@ void UIManager::Init()
 
 	//Initialise UIElements
 	m_cursor = Create::UI("quad", UI_CURSOR, GAMESTATE::GS_MAINMENU, 1, 1, 1, 1, 10, false);
+	m_selecter = Create::UI("selecter", UI_CURSOR, GAMESTATE::GS_MAINMENU, 1, 1, 1, 1, 2, false);
 
 	//Main Menu
 	Create::UI("main_menu", UI_BACKGROUND, GAMESTATE::GS_MAINMENU, 1, 1, 0, 0, 0);
@@ -53,8 +54,30 @@ void UIManager::Update(double _dt)
 	//If mouse clicks, check if its colliding with any buttons
 	if (MouseController::GetInstance()->IsButtonReleased(MouseController::BUTTON_TYPE::LMB))
 	{
-		if(GetElementOnCursor())
+		if (GetElementOnCursor())
+		{
 			GetElementOnCursor()->Response();
+		}
+	}
+
+	if (GetElementOnCursor())
+	{
+		if (dynamic_cast<UIElement*>(GetElementOnCursor())->getState() == m_gameState)
+		{
+			m_selecter->posX = GetElementOnCursor()->posX;
+			m_selecter->posY = GetElementOnCursor()->posY;
+			m_selecter->sizeX = GetElementOnCursor()->sizeX + 0.02;
+			m_selecter->sizeY = GetElementOnCursor()->sizeY + 0.02;
+			m_selecter->Update(_dt);
+		}
+		else
+		{
+			m_selecter->posX = 0;
+			m_selecter->posY = 0;
+			m_selecter->sizeX = 0;
+			m_selecter->sizeY = 0;
+			m_selecter->Update(_dt);
+		}
 	}
 
 	//Updates the UI
@@ -77,6 +100,7 @@ void UIManager::RenderUI()
 	}
 
 	m_cursor->Render();
+	m_selecter->Render();
 }
 
 void UIManager::addElement(EntityBase * element)

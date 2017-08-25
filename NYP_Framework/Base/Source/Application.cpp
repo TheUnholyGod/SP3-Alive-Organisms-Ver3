@@ -277,7 +277,9 @@ void Application::InitAllMeshes()
 		MeshList::GetInstance()->GetMesh("volume_up")->textureID = LoadTGA("Image//volume_up.tga");		
 		MeshList::GetInstance()->AddMesh("volume_down", MeshBuilder::GetInstance()->GenerateQuad("volume_down_btn", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("volume_down")->textureID = LoadTGA("Image//volume_down.tga");
-		
+		MeshList::GetInstance()->AddMesh("selecter", MeshBuilder::GetInstance()->GenerateQuad("select", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("selecter")->textureID = LoadTGA("Image//selecter.tga");
+
 		//Blocks
 		MeshList::GetInstance()->AddMesh("solid_block", MeshBuilder::GetInstance()->GenerateQuad("block", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("solid_block")->textureID = LoadTGA("Image//block.tga");
