@@ -183,13 +183,12 @@ void SceneText::Init()
 
    //<REMOVE THIS>
 	Player::GetInstance()->SetIsFightingBoss(true);
-	//</REMOVE>
-
 	PlagueBoss* pb = new PlagueBoss();
 	pb->SetPosition(Player::GetInstance()->GetPosition() + Vector3(12,0,0));
 	pb->SetTileID(0);
 	pb->Init();
 	EntityManager::GetInstance()->AddEntity(pb, true);
+	//</REMOVE>
 }
 
 void SceneText::Update(double dt)

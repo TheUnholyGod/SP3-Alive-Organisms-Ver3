@@ -127,6 +127,8 @@ void Player::Update(double dt)
 	{
 		tile_ID = temp_tile;
 	}
+	else if (this->m_isFightingBoss)
+		this->tile_ID = 0;
 
 	//std::cout << tile_ID << std::endl;
 

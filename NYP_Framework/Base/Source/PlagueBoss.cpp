@@ -11,6 +11,8 @@
 
 PlagueBoss::PlagueBoss() : m_strats(new PlagueStrategy*[NUM_STATES])
 {
+	this->isStatic = false;
+
 }
 
 PlagueBoss::~PlagueBoss()
