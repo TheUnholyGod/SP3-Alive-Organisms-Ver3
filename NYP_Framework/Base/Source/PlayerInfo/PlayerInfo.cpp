@@ -574,7 +574,7 @@ void Player::Jump(double dt)
 		this->m_jump = true;
 		this->m_canDoubleJump = true;
 		this->m_isOnFloor = false;
-		this->velocity.y = 4.5;
+		this->velocity.y = 6;
 		this->accleration.y = -9.8f;
 	}
 	else if (!m_isClimbing && m_canDoubleJump && velocity.y < 0)
@@ -584,7 +584,7 @@ void Player::Jump(double dt)
 		this->m_jump = true;
 		this->m_canDoubleJump = false;
 		this->m_isOnFloor = false;
-		this->velocity.y = 4.5;
+		this->velocity.y = 6;
 		this->accleration.y = -9.8f;
 	}
 }

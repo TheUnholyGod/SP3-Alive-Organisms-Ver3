@@ -47,7 +47,7 @@ void ShortSword::Action(int _combo)
 	}
 
 	this->m_curr_combo = _combo;
-	this->m_hitbox[_combo]->Init();
+	this->m_hitbox[_combo]->Init(this->m_owner->GetIsFightingBoss());
 }
 
 void ShortSword::Update(double dt)

@@ -27,6 +27,7 @@ void PlagueBubbleStrategy::Init()
 	m_defactiontimer = 1;
 	m_actiontimer = 0;
 	action = false;
+	m_isdone = false;
 }
 
 void PlagueBubbleStrategy::Update(double dt)

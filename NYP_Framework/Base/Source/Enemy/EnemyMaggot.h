@@ -13,10 +13,12 @@ public:
 		bool have_collider = true,
 		bool have_physic = true,
 		bool is_static = false);
-	~EnemyMaggot();
+	virtual ~EnemyMaggot();
 
-	void Update(double _dt);
-	void Render();
+	virtual void Init(Vector3 pos);
+
+	virtual void Update(double _dt);
+	virtual void Render();
 
 	bool CollisionResponse(GenericEntity*);
 

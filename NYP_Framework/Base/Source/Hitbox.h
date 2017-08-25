@@ -11,7 +11,7 @@ public:
 	Hitbox(Mesh* _modelMesh);
 	virtual ~Hitbox();
 
-	virtual void Init();
+	virtual void Init(bool _isboss);
 	virtual void Update(double _dt);
 	virtual void Render();
 
@@ -27,7 +27,8 @@ namespace Create
 	Hitbox* HitboxEntity(const std::string& _meshName,
 		const Vector3& _position,
 		const Vector3& _scale = Vector3(1.0f, 1.0f, 1.0f),
-		Melee* _parent = nullptr);
+		Melee* _parent = nullptr,
+		bool _isboss = false);
 };
 
 #endif
