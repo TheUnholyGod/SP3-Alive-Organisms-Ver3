@@ -71,7 +71,7 @@ void PlagueBoss::Update(double _dt)
 
 void PlagueBoss::Render()
 {
-	//Collision::Render();
+	Collision::Render();
 }
 
 bool PlagueBoss::CollisionResponse(GenericEntity *)

@@ -8,6 +8,7 @@ cpp file for Runes class.
 */
 ///////////////////////////////////////////////////////////////////////////////
 #include "Runes.h"
+#include "MyMath.h"
 
 Runes::Runes() 
 	: m_level(0),
@@ -19,7 +20,20 @@ Runes::Runes()
 Runes::Runes(int level, RUNE_TYPE type)
 {
 	//TODO: Randomise stats based on constructor
+	switch (type)
+	{
+	case RT_OFFENSIVE:
+		
+		break;
+	case RT_DEFENSIVE:
 
+		break;
+	case RT_UTILITY:
+
+		break;
+	default:
+		break;
+	}
 }
 
 Runes::~Runes()

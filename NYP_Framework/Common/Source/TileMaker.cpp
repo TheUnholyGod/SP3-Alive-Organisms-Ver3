@@ -34,7 +34,7 @@ Tiles* TileMaker::GenerateRoom(TILE_SET_GENERATOR generator)
 	switch (generator)
 	{
 	case ROOM_RANDOM:
-		for (int y = 0; y < MAX_TILE_SIZE_XY; ++y)
+		for (int y = 0; y < MAX_TILE_SIZE_XY - 1; ++y)
 		{
 			for (int x = 0; x < MAX_TILE_SIZE_XY; ++x)
 			{

@@ -65,7 +65,7 @@ void MapManager::GenerateBlocks(int level)
 						if (temp[i]->GetTilesArray()[y + 1][x] != 3)
 							Create::TileEntityCreator(TileEntity::LADDERWITHPLATFORM, Vector3((x + (row * 7)), y + (section * 7), 0), Vector3(1, 1, 1), true, true, true, i);
 						else
-							Create::TileEntityCreator(TileEntity::LADDER, Vector3((x + (row * 7)), y + (section * 7), 0), Vector3(1, 1, 1), true, true, true, i);
+							Create::TileEntityCreator(TileEntity::LADDER, Vector3((x + (row * 7)), y + (section * 7), 0), Vector3(0.3, 1, 1), true, true, true, i);
 					}
 					else
 						Create::TileEntityCreator(TileEntity::LADDERWITHPLATFORM, Vector3((x + (row * 7)), y + (section * 7), 0), Vector3(1, 1, 1), true, true, true, i);

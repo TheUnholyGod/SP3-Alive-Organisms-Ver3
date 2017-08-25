@@ -13,6 +13,7 @@
 #include "GraphicsManager.h"
 #include "ShaderProgram.h"
 #include "EntityManager.h"
+#include "../Source/Manager/UIManager.h"
 
 #include "GenericEntity.h"
 #include "GroundEntity.h"
@@ -167,6 +168,8 @@ void SceneText::Init()
 	MapManager::GetInstance()->GenerateBlocks(Player::GetInstance()->GetCurrentLevel());
 	MapManager::GetInstance()->GenerateBossBlocks(Player::GetInstance()->GetCurrentLevel());
 
+	UIManager::GetInstance()->Init();
+
 	//for (int y = 0; y < MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->GetSizeOfLevel(); ++y)
 	//{
 	//	for (int x = 0; x < MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->GetSizeOfLevel(); ++x)
@@ -192,6 +195,8 @@ void SceneText::Update(double dt)
 	Player::GetInstance()->Update(dt);
 	// Update our entities
 	EntityManager::GetInstance()->Update(dt);
+
+	UIManager::GetInstance()->Update(dt);
 
 	keyboard->Read(dt);
 	if (m_inputtimer > 0.15f)
@@ -310,6 +315,8 @@ void SceneText::Render()
 	int halfWindowHeight = Application::GetInstance().GetWindowHeight() / 2; 
 	GraphicsManager::GetInstance()->SetOrthographicProjection(-halfWindowWidth, halfWindowWidth, -halfWindowHeight, halfWindowHeight, -10, 10);
 	GraphicsManager::GetInstance()->DetachCamera();
+
+	UIManager::GetInstance()->RenderUI();
 	//EntityManager::GetInstance()->RenderUI();
 	hudmanager->RenderHUD();
 }

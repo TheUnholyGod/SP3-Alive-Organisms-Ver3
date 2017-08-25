@@ -19,6 +19,7 @@
     <ClCompile Include="Source\Enemy\EnemyMelee.cpp" />
     <ClCompile Include="Source\Enemy\Pathing.cpp" />
     <ClCompile Include="Source\Enemy\StrategyBase.cpp" />
+    <ClCompile Include="Source\EntityDrop.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\FPSCamera.cpp" />
     <ClCompile Include="Source\GenericEntity.cpp" />
@@ -65,6 +66,7 @@
     <ClCompile Include="Source\TileEntity.cpp" />
     <ClCompile Include="Source\TileEntitySolidBlock.cpp" />
     <ClCompile Include="Source\ToxicGas.cpp" />
+    <ClCompile Include="Source\UIElement.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />
@@ -76,6 +78,7 @@
     <ClInclude Include="Source\Enemy\EnemyMelee.h" />
     <ClInclude Include="Source\Enemy\Pathing.h" />
     <ClInclude Include="Source\Enemy\StrategyBase.h" />
+    <ClInclude Include="Source\EntityDrop.h" />
     <ClInclude Include="Source\EntityManager.h" />
     <ClInclude Include="Source\FPSCamera.h" />
     <ClInclude Include="Source\GenericEntity.h" />
@@ -122,6 +125,7 @@
     <ClInclude Include="Source\TileEntity.h" />
     <ClInclude Include="Source\TileEntitySolidBlock.h" />
     <ClInclude Include="Source\ToxicGas.h" />
+    <ClInclude Include="Source\UIElement.h" />
     <ClInclude Include="Source\UpgradeShop.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
