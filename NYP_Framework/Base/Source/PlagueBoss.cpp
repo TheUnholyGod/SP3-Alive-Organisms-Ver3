@@ -32,9 +32,9 @@ void PlagueBoss::Init()
 	for (int i = 0;i < 20;++i)
 	{
 		this->m_entitylist.push_back(Create::CreatePoisonGasBubbles("quad", Vector3(),Vector3(1,1,0),nullptr,true));
-		this->m_entitylist.push_back(Create::CreatePoisonHitbox("quad",Vector3()));
-		this->m_entitylist.push_back(Create::CreatePoisonProjectile("quad",Vector3()));
-		this->m_entitylist.push_back(Create::CreateToxicGas("quad", Vector3()));
+		//this->m_entitylist.push_back(Create::CreatePoisonHitbox("quad",Vector3()));
+		//this->m_entitylist.push_back(Create::CreatePoisonProjectile("quad",Vector3()));
+		//this->m_entitylist.push_back(Create::CreateToxicGas("quad", Vector3()));
 		this->m_entitylist.push_back(Create::Enemy(EnemyBase::E_MAGGOT, Vector3(), Vector3(1, 1, 1), true, false, false, 0, true));
 	}
 	m_changestatetimer = 0;
@@ -85,7 +85,7 @@ bool PlagueBoss::CollisionResponse(GenericEntity *)
 bool PlagueBoss::GetNextState()
 {
 	//m_currstate = static_cast<PLAGUESTATES>(Math::RandIntMinMax(STATE_SUMMON, STATE_CHARGE));
-	m_currstate = STATE_SUMMON;
+	m_currstate = STATE_BUBBLE;
 	this->m_strats[m_currstate]->Init();
 	return false;
 }

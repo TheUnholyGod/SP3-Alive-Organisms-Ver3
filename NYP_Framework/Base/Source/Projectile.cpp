@@ -27,7 +27,7 @@ void Projectile::Init(Vector3 _pos, Vector3 _vel, Vector3 _dir)
 	this->position = _pos;
 	this->velocity = _vel;
 	this->direction = _dir;
-	this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(this->position);
+	this->tile_ID = -1;
 	this->isStatic = false;
 	this->m_bCollider = true;
 	this->size.Set(0.5f, 0.5f, 1);
@@ -93,6 +93,7 @@ Projectile * Create::CreateProjectile(const std::string & _meshName, const Vecto
 	result->SetPosition(_position);
 	result->SetScale(_scale);
 	result->SetCollider(false);
+	result->SetTileID(-1);
 	EntityManager::GetInstance()->AddEntity(result);
 	return result;
 }

@@ -8,6 +8,7 @@
 Hitbox::Hitbox(Mesh * _modelMesh) : GenericEntity(_modelMesh)
 {
 	type = HITBOX_OBJ;
+	this->tile_ID = -1;
 }
 
 Hitbox::~Hitbox()
@@ -16,11 +17,7 @@ Hitbox::~Hitbox()
 
 void Hitbox::Init(bool _isboss)
 {
-	if (!_isboss)
-
-		this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(this->position);
-	else
-		this->tile_ID = 0;
+	this->tile_ID = -1;
 	this->m_bCollider = true;
 	this->isStatic = false;
 	this->m_active = true;
@@ -67,6 +64,8 @@ Hitbox * Create::HitboxEntity(const std::string & _meshName, const Vector3 & _po
 	result->SetScale(_scale);
 	result->SetCollider(false);
 	result->SetParent(_parent);
+	result->SetTileID(-1);
+
 	EntityManager::GetInstance()->AddEntity(result, _isboss);
 	return result;
 }
