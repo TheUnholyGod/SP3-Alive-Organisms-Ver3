@@ -183,17 +183,17 @@ void SceneText::Init()
 	AudioPlayer::GetInstance()->addSound("menubgm", "Assets//Sound//menubgm.mp3"); //Move somewhere to run only once
 	AudioPlayer::GetInstance()->addSound("gamebgm", "Assets//Sound//gamebgm.mp3"); //Move somewhere to run only once
 
+	AudioPlayer::GetInstance()->StopAllSound();
+	AudioPlayer::GetInstance()->playSoundThreaded("menubgm");
 
-	AudioPlayer::GetInstance()->playSoundThreaded("menubgm", true);
- //  //<REMOVE THIS>
-	//Player::GetInstance()->SetIsFightingBoss(true);
-	////</REMOVE>
-
-	//PlagueBoss* pb = new PlagueBoss();
-	//pb->SetPosition(Player::GetInstance()->GetPosition() + Vector3(12,0,0));
-	//pb->SetTileID(0);
-	//pb->Init();
-	//EntityManager::GetInstance()->AddEntity(pb, true);
+   //<REMOVE THIS>
+	Player::GetInstance()->SetIsFightingBoss(true);
+	PlagueBoss* pb = new PlagueBoss();
+	pb->SetPosition(Player::GetInstance()->GetPosition() + Vector3(12,0,0));
+	pb->SetTileID(0);
+	pb->Init();
+	EntityManager::GetInstance()->AddEntity(pb, true);
+	//</REMOVE>
 }
 
 void SceneText::Update(double dt)

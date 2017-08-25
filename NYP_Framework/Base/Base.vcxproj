@@ -179,6 +179,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)/Common/Source;$(SolutionDir)/glfw/include;$(SolutionDir)/glew/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <ExceptionHandling>Async</ExceptionHandling>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

@@ -7,6 +7,7 @@
 
 #include "TileEntitySolidBlock.h"
 #include "Enemy\EnemyBase.h"
+#include "EntityDrop.h"
 
 void MapManager::Init()
 {
@@ -75,6 +76,7 @@ void MapManager::GenerateBlocks(int level)
 				{
 					if (Math::RandIntMinMax(0, 100) < 20)
 					{
+						Create::Rune(Vector3((x + (row * 7)), y + (section * 7) + 0.3, 0), Vector3(1, 1, 1), i);
 						Create::TileEntityCreator(TileEntity::RUNE_SPAWNER, Vector3((x + (row * 7)), y + (section * 7), 0), Vector3(0.5, 1, 1), true, true, true, i);
 					}
 				}

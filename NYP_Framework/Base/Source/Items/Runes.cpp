@@ -12,13 +12,15 @@ cpp file for Runes class.
 
 Runes::Runes() 
 	: m_level(0),
-	m_attributes(0),
+	m_attributes(0), 
 	m_modifier(nullptr)
 {
 }
 
 Runes::Runes(int level, RUNE_TYPE type)
 {
+	m_modifier = new ItemModifier;
+
 	switch (type)
 	{
 	case RT_OFFENSIVE:
@@ -29,7 +31,7 @@ Runes::Runes(int level, RUNE_TYPE type)
 			temp_attribute->m_type = AT_SPEED;
 			temp_attribute->m_ATvalue = Math::RandIntMinMax(1, ((level + 1) > 5) ? 5 : (level + 1));
 
-			temp_attribute->m_element = static_cast<ELEMENTAL_TYPE>(Math::RandIntMinMax(0, ET_TOTAL));
+			temp_attribute->m_element = static_cast<ELEMENTAL_TYPE>(Math::RandIntMinMax(0, ET_TOTAL - 1));
 			temp_attribute->m_ETvalue = Math::RandIntMinMax(1, ((level + 1) > 5) ? 5 : (level + 1));
 
 		}
@@ -38,13 +40,13 @@ Runes::Runes(int level, RUNE_TYPE type)
 			temp_attribute->m_type = AT_ATTACK;
 			temp_attribute->m_ATvalue = Math::RandIntMinMax(1, ((level + 1) > 5) ? 5 : (level + 1));
 
-			temp_attribute->m_element = static_cast<ELEMENTAL_TYPE>(Math::RandIntMinMax(0, ET_TOTAL));
+			temp_attribute->m_element = static_cast<ELEMENTAL_TYPE>(Math::RandIntMinMax(0, ET_TOTAL - 1));
 			temp_attribute->m_ETvalue = Math::RandIntMinMax(1, ((level + 1) > 5) ? 5 : (level + 1));
 
 		}
 
 		m_attributes.push_back(temp_attribute);
-		m_modifier->addModifier(static_cast<ItemModifier::MODIFIER_TYPE>(Math::RandIntMinMax(0, ItemModifier::MT_TOTAL)));
+		m_modifier->addModifier(static_cast<ItemModifier::MODIFIER_TYPE>(Math::RandIntMinMax(0, ItemModifier::MT_TOTAL - 1)));
 
 	}
 		break;
@@ -59,7 +61,7 @@ Runes::Runes(int level, RUNE_TYPE type)
 		temp_attribute->m_ETvalue = Math::RandIntMinMax(1, ((level + 1) > 5) ? 5 : (level + 1));
 
 		m_attributes.push_back(temp_attribute);
-		m_modifier->addModifier(static_cast<ItemModifier::MODIFIER_TYPE>(Math::RandIntMinMax(0, ItemModifier::MT_TOTAL)));
+		m_modifier->addModifier(static_cast<ItemModifier::MODIFIER_TYPE>(Math::RandIntMinMax(0, ItemModifier::MT_TOTAL - 1)));
 
 	}
 		break;
@@ -74,7 +76,7 @@ Runes::Runes(int level, RUNE_TYPE type)
 		temp_attribute->m_ETvalue = Math::RandIntMinMax(1, ((level + 1) > 5) ? 5 : (level + 1));
 
 		m_attributes.push_back(temp_attribute);
-		m_modifier->addModifier(static_cast<ItemModifier::MODIFIER_TYPE>(Math::RandIntMinMax(0, ItemModifier::MT_TOTAL)));
+		m_modifier->addModifier(static_cast<ItemModifier::MODIFIER_TYPE>(Math::RandIntMinMax(0, ItemModifier::MT_TOTAL - 1)));
 	}
 		break;
 	default:
