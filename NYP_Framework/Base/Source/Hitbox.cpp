@@ -14,12 +14,17 @@ Hitbox::~Hitbox()
 {
 }
 
-void Hitbox::Init()
+void Hitbox::Init(bool _isboss)
 {
-	this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(this->position);
+	if (!_isboss)
+
+		this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(this->position);
+	else
+		this->tile_ID = 0;
 	this->m_bCollider = true;
 	this->isStatic = false;
 	this->m_active = true;
+	
 }
 
 void Hitbox::Update(double _dt)
@@ -51,7 +56,7 @@ void Hitbox::SetParent(Melee * _parent)
 	this->m_parent = _parent;
 }
 
-Hitbox * Create::HitboxEntity(const std::string & _meshName, const Vector3 & _position, const Vector3 & _scale, Melee * _parent)
+Hitbox * Create::HitboxEntity(const std::string & _meshName, const Vector3 & _position, const Vector3 & _scale, Melee * _parent,bool _isboss)
 {
 	Mesh* modelMesh = MeshList::GetInstance()->GetMesh(_meshName);
 	if (modelMesh == nullptr)
@@ -62,6 +67,6 @@ Hitbox * Create::HitboxEntity(const std::string & _meshName, const Vector3 & _po
 	result->SetScale(_scale);
 	result->SetCollider(false);
 	result->SetParent(_parent);
-	EntityManager::GetInstance()->AddEntity(result);
+	EntityManager::GetInstance()->AddEntity(result, _isboss);
 	return result;
 }

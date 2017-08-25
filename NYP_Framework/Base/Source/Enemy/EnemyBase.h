@@ -49,7 +49,7 @@ public:
 		m_path_index = 0;
 		isPathFound = false;
 	}
-	~EnemyBase() {};
+	virtual ~EnemyBase() {};
 
 	virtual void Update(double _dt);
 	virtual void Render();
