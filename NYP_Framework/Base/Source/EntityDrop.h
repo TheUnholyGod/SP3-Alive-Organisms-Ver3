@@ -4,10 +4,10 @@
 #include "GenericEntity.h"
 #include "../Source/Items/Runes.h"
 
-class SpriteEntity;
-
 class EntityDrop : public GenericEntity
 {
+private:
+	float m_floating_timer;
 protected:
 	Runes* m_runeDrop;
 
@@ -21,15 +21,14 @@ public:
 		m_bCollider = true;
 		m_bPhysic = false;
 		isStatic = false;
+		m_floating_timer = 0;
 	}
 
 	void Update(double _dt);
-	void Render();
 
+	void SetModelMesh(Mesh*);
 	bool CollisionResponse(GenericEntity* ThatEntity);
 	Runes* GetRuneDrop();
-
-	SpriteEntity* animation;
 };
 
 namespace Create

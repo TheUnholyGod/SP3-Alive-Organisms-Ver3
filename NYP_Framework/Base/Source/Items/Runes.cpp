@@ -57,7 +57,7 @@ Runes::Runes(int level, RUNE_TYPE type)
 		temp_attribute->m_type = AT_DEFEND;
 		temp_attribute->m_ATvalue = Math::RandIntMinMax(1, ((level + 1) > 5) ? 5 : (level + 1));
 
-		temp_attribute->m_element = static_cast<ELEMENTAL_TYPE>(Math::RandIntMinMax(0, ET_TOTAL));
+		temp_attribute->m_element = static_cast<ELEMENTAL_TYPE>(Math::RandIntMinMax(0, ET_TOTAL - 1));
 		temp_attribute->m_ETvalue = Math::RandIntMinMax(1, ((level + 1) > 5) ? 5 : (level + 1));
 
 		m_attributes.push_back(temp_attribute);
@@ -72,7 +72,7 @@ Runes::Runes(int level, RUNE_TYPE type)
 		temp_attribute->m_type = AT_SPEED;
 		temp_attribute->m_ATvalue = Math::RandIntMinMax(1, ((level + 1) > 5) ? 5 : (level + 1));
 
-		temp_attribute->m_element = static_cast<ELEMENTAL_TYPE>(Math::RandIntMinMax(0, ET_TOTAL));
+		temp_attribute->m_element = static_cast<ELEMENTAL_TYPE>(Math::RandIntMinMax(0, ET_TOTAL - 1));
 		temp_attribute->m_ETvalue = Math::RandIntMinMax(1, ((level + 1) > 5) ? 5 : (level + 1));
 
 		m_attributes.push_back(temp_attribute);

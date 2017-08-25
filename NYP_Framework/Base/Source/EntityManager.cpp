@@ -45,6 +45,12 @@ void EntityManager::Update(double _dt)
 	}
 	else
 	{
+		temp.clear();
+		temp.push_back(0);
+		temp.push_back(1);
+		temp.push_back(2);
+		temp.push_back(3);
+
 		for (int i = 0; i < temp.size(); ++i)
 		{
 			for (it = m_entity_boss_map_base[temp[i]].begin(); it != m_entity_boss_map_base[temp[i]].end(); ++it)
