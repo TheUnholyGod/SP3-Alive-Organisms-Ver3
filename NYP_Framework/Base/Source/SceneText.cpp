@@ -187,7 +187,6 @@ void SceneText::Init()
 	pb->Init();
 	EntityManager::GetInstance()->AddEntity(pb);
 
-	hudmanager = new HUDManager();
 }
 
 void SceneText::Update(double dt)
@@ -329,8 +328,6 @@ void SceneText::Exit()
 {
 	// Detach camera from other entities
 	GraphicsManager::GetInstance()->DetachCamera();
-
-	delete hudmanager;
 
 	// Delete the lights
 	delete lights[0];
