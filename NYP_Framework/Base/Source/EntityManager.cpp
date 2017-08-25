@@ -18,9 +18,9 @@ void EntityManager::Update(double _dt)
 	for (int i = 0; i <= temp.size(); ++i)
 	{
 		if (i == temp.size())
-			temp.push_back(0);
+			temp.push_back(-1);
 
-		if (temp[i] == 0)
+		if (temp[i] == -1)
 			break;
 	}
 	std::list<EntityBase*>::iterator it;
@@ -51,6 +51,14 @@ void EntityManager::Update(double _dt)
 				else
 					entity_list_full.push_front(*it);
 			}
+		}
+
+		for (it = m_entity_map_base[-1].begin(); it != m_entity_map_base[-1].end(); ++it)
+		{
+			if ((*it)->GetIsStatic())
+				entity_list_full.push_back(*it);
+			else
+				entity_list_full.push_front(*it);
 		}
 	}
 
@@ -126,16 +134,7 @@ void EntityManager::Update(double _dt)
 					it = m_entity_boss_map_base[temp[i]].erase(it);
 				}
 				else
-				{
-					if ((*it)->GetTileID() != temp[i])
-					{
-						EntityBase* temp_entity = *it;
-						it = m_entity_boss_map_base[temp[i]].erase(it);
-						m_entity_boss_map_base[temp_entity->GetTileID()].push_back(temp_entity);
-					}
-					else
-						++it;
-				}
+					++it;
 			}
 		}
 	}
@@ -150,9 +149,9 @@ void EntityManager::Render()
 	for (int i = 0; i <= temp.size(); ++i)
 	{
 		if(i == temp.size())
-			temp.push_back(0);
+			temp.push_back(-1);
 
-		if (temp[i] == 0)
+		if (temp[i] == -1)
 			break;
 	}
 
@@ -195,6 +194,14 @@ void EntityManager::Render()
 				else
 					entity_list_full.push_front(*it);
 			}
+		}
+
+		for (it = m_entity_map_base[-1].begin(); it != m_entity_map_base[-1].end(); ++it)
+		{
+			if ((*it)->GetIsStatic())
+				entity_list_full.push_back(*it);
+			else
+				entity_list_full.push_front(*it);
 		}
 
 		for (it2 = entity_list_full.rbegin(); it2 != entity_list_full.rend(); ++it2)
