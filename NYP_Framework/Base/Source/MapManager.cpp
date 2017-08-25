@@ -369,6 +369,10 @@ TileEntity* Create::TileEntityCreator(const TileEntity::BLOCK_TYPE block_type,
 	case TileEntity::SOLID_BLOCK:
 	{
 		Mesh* modelMesh = MeshList::GetInstance()->GetMesh("solid_block");
+
+		if (Math::RandIntMinMax(0, 100) < 10)
+			modelMesh = MeshList::GetInstance()->GetMesh("solid_block_cracked");
+
 		if (modelMesh == nullptr)
 			return nullptr;
 

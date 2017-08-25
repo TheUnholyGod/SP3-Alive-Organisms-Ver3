@@ -258,6 +258,9 @@ void Application::InitAllMeshes()
 		MeshList::GetInstance()->AddMesh("solid_block", MeshBuilder::GetInstance()->GenerateQuad("block", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("solid_block")->textureID = LoadTGA("Image//block.tga");
 
+		MeshList::GetInstance()->AddMesh("solid_block_cracked", MeshBuilder::GetInstance()->GenerateQuad("block_cracked", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("solid_block_cracked")->textureID = LoadTGA("Image//block_cracked.tga");
+
 		MeshList::GetInstance()->AddMesh("ladder_block", MeshBuilder::GetInstance()->GenerateQuad("ladder", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("ladder_block")->textureID = LoadTGA("Image//ladder.tga");
 
