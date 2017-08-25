@@ -14,7 +14,7 @@ Header file for UIElement.
 
 enum UI_TYPE
 {
-	UI_CURSOR,
+	UI_CURSOR = 0,
 	UI_BACKGROUND,
 
 	UI_MM_START,

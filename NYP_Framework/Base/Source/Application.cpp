@@ -270,8 +270,13 @@ void Application::InitAllMeshes()
 		MeshList::GetInstance()->AddMesh("resume_button", MeshBuilder::GetInstance()->GenerateQuad("resume_btn", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("resume_button")->textureID = LoadTGA("Image//resume_button.tga");
 		MeshList::GetInstance()->AddMesh("back_button", MeshBuilder::GetInstance()->GenerateQuad("back_btn", 1, 1.f));
-		MeshList::GetInstance()->GetMesh("back_button")->textureID = LoadTGA("Image//back_button.tga");
-
+		MeshList::GetInstance()->GetMesh("back_button")->textureID = LoadTGA("Image//back_button.tga");		
+		MeshList::GetInstance()->AddMesh("volume_button", MeshBuilder::GetInstance()->GenerateQuad("volume_btn", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("volume_button")->textureID = LoadTGA("Image//volume_button.tga");
+		MeshList::GetInstance()->AddMesh("volume_up", MeshBuilder::GetInstance()->GenerateQuad("volume_up_btn", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("volume_up")->textureID = LoadTGA("Image//volume_up.tga");		
+		MeshList::GetInstance()->AddMesh("volume_down", MeshBuilder::GetInstance()->GenerateQuad("volume_down_btn", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("volume_down")->textureID = LoadTGA("Image//volume_down.tga");
 		
 		//Blocks
 		MeshList::GetInstance()->AddMesh("solid_block", MeshBuilder::GetInstance()->GenerateQuad("block", 1, 1.f));
