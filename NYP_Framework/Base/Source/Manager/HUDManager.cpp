@@ -1,6 +1,7 @@
 #include "HUDManager.h"
 
-#include"../Application.h"
+//#include"../Application.h"
+
 
 void HUDManager::RenderHUD()
 {
@@ -31,7 +32,7 @@ void HUDManager::RenderHUD()
 
 void HUDManager::UpdateHUD()
 {
-
+	//HPsizeX = player->getHealth()*0.215;
 }
 
 HUDManager::HUDManager()

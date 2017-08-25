@@ -16,6 +16,7 @@ not responsible for updating information.
 #include "GraphicsManager.h"
 #include "EntityBase.h"
 #include "MeshList.h"
+#include "../PlayerInfo/PlayerInfo.h"
 #include <string>
 
 class Player;
@@ -31,5 +32,8 @@ public:
 private:
 	HUDManager();
 	~HUDManager();
+
+	//int HPsizeX = 21.5f;
+	//Player * player;
 
 };
