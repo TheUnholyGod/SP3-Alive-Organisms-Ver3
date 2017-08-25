@@ -13,6 +13,7 @@ cpp file for UIElement.
 #include "MeshBuilder.h"
 #include "GraphicsManager.h"
 #include "RenderHelper.h"
+#include "Application.h"
 
 void UIElement::Init()
 {
@@ -20,6 +21,12 @@ void UIElement::Init()
 
 void UIElement::Update(double _dt)
 {
+	if (this->type == UI_BACKGROUND)
+	{
+		this->scale = Vector3(Application::GetInstance().GetWindowWidth(), Application::GetInstance().GetWindowHeight(), 0);
+		this->size = scale;
+	}
+	this->GenerateAABB(this->position);
 }
 
 void UIElement::Render()
@@ -34,7 +41,58 @@ void UIElement::Render()
 
 void UIElement::Response()
 {
-	std::cout << "Button Responded!" << std::endl;
+	std::cout << "Responding with..." << std::endl;
+	switch (m_type)
+	{
+	case UI_MM_START:
+	{
+		std::cout << "UI_MM_START" << std::endl;
+		break;
+	}
+	case UI_MM_OPTION:
+	{
+		std::cout << "UI_MM_OPTION" << std::endl;
+		break;
+	}
+	case UI_MM_EXIT:
+	{
+		std::cout << "UI_MM_EXIT" << std::endl;
+		break;
+	}
+	case UI_PM_RESUME:
+	{
+		std::cout << "UI_PM_RESUME" << std::endl;
+		break;
+	}
+	case UI_PM_OPTION:
+	{
+		std::cout << "UI_PM_OPTION" << std::endl;
+		break;
+	}
+	case UI_PM_EXIT_TO_MENU:
+	{
+		std::cout << "UI_PM_EXIT_TO_MENU" << std::endl;
+		break;
+	}
+	case UI_OM_VOL_UP:
+	{
+		std::cout << "UI_OM_VOL_UP" << std::endl;
+		break;
+	}
+	case UI_OM_VOL_DOWN:
+	{
+		std::cout << "UI_OM_VOL_DOWN" << std::endl;
+		break;
+	}
+	case UI_OM_EXIT_TO_PAUSE:
+	{
+		std::cout << "UI_OM_EXIT_TO_PAUSE" << std::endl;
+		break;
+	}
+	default:
+		std::cout << "Nothing!" << std::endl;
+		break;
+	}
 }
 
 GAMESTATE UIElement::getState()
@@ -56,7 +114,9 @@ UIElement * Create::UI(const std::string & _meshName,
 	UIElement* result = new UIElement(modelMesh, _state, _type);
 	result->SetPosition(_position);
 	result->SetScale(_scale);
-	result->SetCollider(false);
+	result->SetCollider(true);
+	result->SetSize(_scale);
+
 	if(addToManager)
 		UIManager::GetInstance()->addElement(result);
 	return result;

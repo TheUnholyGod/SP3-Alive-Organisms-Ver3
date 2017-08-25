@@ -255,6 +255,11 @@ void Application::InitAllMeshes()
 
 		MeshBuilder::GetInstance()->GenerateQuad("player", Color(1, 0, 0), 0.5f);
 
+		//UI
+		MeshList::GetInstance()->AddMesh("main_menu", MeshBuilder::GetInstance()->GenerateQuad("menu", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("main_menu")->textureID = LoadTGA("Image//menu.tga");
+
+		//Blocks
 		MeshList::GetInstance()->AddMesh("solid_block", MeshBuilder::GetInstance()->GenerateQuad("block", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("solid_block")->textureID = LoadTGA("Image//block.tga");
 

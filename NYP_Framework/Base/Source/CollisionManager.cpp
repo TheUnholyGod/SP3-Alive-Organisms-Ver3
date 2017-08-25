@@ -63,7 +63,7 @@ bool CollisionManager::CheckAABBCollision(EntityBase * ThisEntity, EntityBase * 
 		(thisHitbox->GetMinAABB().z <= thatHitbox->GetMaxAABB().z && thisHitbox->GetMaxAABB().z >= thatHitbox->GetMinAABB().z);
 }
 
-bool CollisionManager::CheckPointToAABBCollision(Vector3 point, EntityBase * ThatEntity)
+bool CollisionManager::CheckPointToAABBCollision(Vector3 point, EntityBase * ThatEntity, bool is2D)
 {
 	if (!ThatEntity->HasCollider()) {
 		std::cout << "Entity does not have Collider" << std::endl;
@@ -77,9 +77,13 @@ bool CollisionManager::CheckPointToAABBCollision(Vector3 point, EntityBase * Tha
 		return false;
 	}
 
-	return (point.x <= thatHitbox->GetMaxAABB().x && point.x >= thatHitbox->GetMinAABB().x) &&
+	if (!is2D)
+		return (point.x <= thatHitbox->GetMaxAABB().x && point.x >= thatHitbox->GetMinAABB().x) &&
 		(point.y <= thatHitbox->GetMaxAABB().y && point.y >= thatHitbox->GetMinAABB().y) &&
 		(point.z <= thatHitbox->GetMaxAABB().z && point.z >= thatHitbox->GetMinAABB().z);
+	else
+		return (point.x <= thatHitbox->GetMaxAABB().x && point.x >= thatHitbox->GetMinAABB().x) &&
+		(point.y <= thatHitbox->GetMaxAABB().y && point.y >= thatHitbox->GetMinAABB().y);
 }
 
 bool CollisionManager::CheckPlayerDirCollision(EntityBase * tile_entity)

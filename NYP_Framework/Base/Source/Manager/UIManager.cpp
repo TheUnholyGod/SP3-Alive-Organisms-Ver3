@@ -1,5 +1,6 @@
 #include "UIManager.h"
 #include "../Application.h"
+#include "../CollisionManager.h"
 
 void UIManager::Init()
 {
@@ -10,8 +11,12 @@ void UIManager::Init()
 	//Initialise UIElements
 	m_cursor = Create::UI("quad", UI_CURSOR, Vector3(0, 0, 0), Vector3(10, 10, 10), GAMESTATE::GS_MAINMENU, false);
 
-	/*Create::UI("ladder_block", UI_CURSOR, Vector3(0, 0, 0), Vector3(100, 100, 100), GAMESTATE::GS_MAINMENU);
-	Create::UI("ladder_block", UI_CURSOR, Vector3(20, 20, 0), Vector3(100, 100, 100), GAMESTATE::GS_MAINMENU);*/
+
+	//MAIN MENU
+	Create::UI("main_menu", UI_BACKGROUND, Vector3(0, 0, 0), Vector3(Application::GetInstance().GetWindowWidth(), Application::GetInstance().GetWindowHeight(), 0), GAMESTATE::GS_MAINMENU);
+	Create::UI("quad", UI_MM_START, Vector3(-140, 100, 1), Vector3(200,80,100), GAMESTATE::GS_MAINMENU);
+	Create::UI("quad", UI_MM_OPTION, Vector3(-140, 0, 1), Vector3(200, 80, 100), GAMESTATE::GS_MAINMENU);
+	Create::UI("quad", UI_MM_EXIT, Vector3(-140, -100, 1), Vector3(200, 80, 100), GAMESTATE::GS_MAINMENU);
 }
 
 void UIManager::Update(double _dt)
@@ -36,6 +41,13 @@ void UIManager::Update(double _dt)
 		if(GetElementOnCursor())
 			GetElementOnCursor()->Response();
 	}
+
+	//Updates the UI
+	for (auto &it : m_UIElements)
+	{
+		if (dynamic_cast<UIElement*>(it)->getState() == m_gameState)
+			it->Update(_dt);
+	}
 }
 
 void UIManager::RenderUI()
@@ -56,6 +68,12 @@ void UIManager::addElement(EntityBase * element)
 
 UIElement * UIManager::GetElementOnCursor()
 {
-	return nullptr;
+	for (auto &it : m_UIElements)
+	{
+		if (CollisionManager::GetInstance()->CheckPointToAABBCollision(m_cursor->GetPosition(), it))
+		{
+			return dynamic_cast<UIElement*>(it);
+		}
+	}
 }
 

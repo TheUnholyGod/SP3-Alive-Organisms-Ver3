@@ -20,7 +20,7 @@ public:
 	// Check if this entity collided with another entity, but both must have collider
 	bool CheckAABBCollision(EntityBase *ThisEntity, EntityBase *ThatEntity);
 	// Check if a point is within an AABB, one must have collider
-	bool CheckPointToAABBCollision(Vector3 point, EntityBase *ThatEntity);
+	bool CheckPointToAABBCollision(Vector3 point, EntityBase *ThatEntity, bool is2D = false);
 	// Check direction collision with Player and Block AABB
 	bool CheckPlayerDirCollision(EntityBase *ThatEntity);
 
