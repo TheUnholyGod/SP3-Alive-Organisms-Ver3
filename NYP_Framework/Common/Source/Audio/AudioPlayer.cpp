@@ -100,7 +100,6 @@ void AudioPlayer::increaseVolume(int increment)
 
 	if (volume > 100)
 		volume = 100;
-	currentSound->setVolume(volume / 100.0);
 }
 
 void AudioPlayer::decreaseVolume(int increment)
@@ -109,7 +108,6 @@ void AudioPlayer::decreaseVolume(int increment)
 
 	if (volume < 0)
 		volume = 0;
-	currentSound->setVolume(volume / 100.0);
 }
 
 int AudioPlayer::getCurrentVolume()

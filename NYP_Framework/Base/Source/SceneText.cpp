@@ -194,13 +194,17 @@ void SceneText::Init()
 
 void SceneText::Update(double dt)
 {
+
+	UIManager::GetInstance()->Update(dt);
+
+
+	if (GameStateManager::GetInstance()->getState() != GS_PLAYING) return;
+
 	m_inputtimer += dt;
 
 	Player::GetInstance()->Update(dt);
 	// Update our entities
 	EntityManager::GetInstance()->Update(dt);
-
-	UIManager::GetInstance()->Update(dt);
 
 	HUDManager::GetInstance()->UpdateHUD();
 
@@ -251,6 +255,8 @@ void SceneText::Update(double dt)
 	{
 		Create::Enemy(EnemyBase::ENEMY_TYPE::E_MAGGOT, Vector3((int)Player::GetInstance()->GetPosition().x, (int)Player::GetInstance()->GetPosition().y, (int)Player::GetInstance()->GetPosition().z), Vector3(1, 1, 1), true, false, false);
 		//Create::Enemy(EnemyBase::ENEMY_TYPE::E_BOMBER, Vector3((int)Player::GetInstance()->GetPosition().x + 1, (int)Player::GetInstance()->GetPosition().y, (int)Player::GetInstance()->GetPosition().z), Vector3(1, 1, 1), true, false, false);
+		
+		GameStateManager::GetInstance()->setState(GS_PAUSED);
 	}
 	if (KeyboardController::GetInstance()->IsKeyReleased('R'))
 	{
@@ -309,22 +315,35 @@ void SceneText::Render()
 
 	GraphicsManager::GetInstance()->UpdateLightUniforms();
 
-	// Setup 3D pipeline then render 3D
-	GraphicsManager::GetInstance()->SetPerspectiveProjection(45.0f, 4.0f / 3.0f, 0.1f, 10000.0f);
-	GraphicsManager::GetInstance()->AttachCamera(Player::GetInstance()->getCamera());
-	
-	EntityManager::GetInstance()->Render();
-	Player::GetInstance()->Render();
+	if (GameStateManager::GetInstance()->getState() != GS_PLAYING)
+	{
+		// Setup 2D pipeline then render 2D
+		int halfWindowWidth = Application::GetInstance().GetWindowWidth() / 2;
+		int halfWindowHeight = Application::GetInstance().GetWindowHeight() / 2;
+		GraphicsManager::GetInstance()->SetOrthographicProjection(-halfWindowWidth, halfWindowWidth, -halfWindowHeight, halfWindowHeight, -10, 10);
+		GraphicsManager::GetInstance()->DetachCamera();
 
-	// Setup 2D pipeline then render 2D
-	int halfWindowWidth = Application::GetInstance().GetWindowWidth() / 2;
-	int halfWindowHeight = Application::GetInstance().GetWindowHeight() / 2; 
-	GraphicsManager::GetInstance()->SetOrthographicProjection(-halfWindowWidth, halfWindowWidth, -halfWindowHeight, halfWindowHeight, -10, 10);
-	GraphicsManager::GetInstance()->DetachCamera();
+		UIManager::GetInstance()->RenderUI();
+	}
+	else
+	{
+		// Setup 3D pipeline then render 3D
+		GraphicsManager::GetInstance()->SetPerspectiveProjection(45.0f, 4.0f / 3.0f, 0.1f, 10000.0f);
+		GraphicsManager::GetInstance()->AttachCamera(Player::GetInstance()->getCamera());
 
-	UIManager::GetInstance()->RenderUI();
-	//EntityManager::GetInstance()->RenderUI();
-	HUDManager::GetInstance()->RenderHUD();
+		EntityManager::GetInstance()->Render();
+		Player::GetInstance()->Render();
+
+		// Setup 2D pipeline then render 2D
+		int halfWindowWidth = Application::GetInstance().GetWindowWidth() / 2;
+		int halfWindowHeight = Application::GetInstance().GetWindowHeight() / 2;
+		GraphicsManager::GetInstance()->SetOrthographicProjection(-halfWindowWidth, halfWindowWidth, -halfWindowHeight, halfWindowHeight, -10, 10);
+		GraphicsManager::GetInstance()->DetachCamera();
+
+		UIManager::GetInstance()->RenderUI();
+		//EntityManager::GetInstance()->RenderUI();
+		HUDManager::GetInstance()->RenderHUD();
+	}
 }
 
 void SceneText::Exit()

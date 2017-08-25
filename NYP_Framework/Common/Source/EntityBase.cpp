@@ -6,7 +6,7 @@ EntityBase::EntityBase()
 	, isDone(false)
 	, m_bCollider(false)
 	, IsParticleEmitter(false)
-	, tile_ID(0)
+	, tile_ID(-1)
 {
 }
 
