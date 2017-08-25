@@ -19,7 +19,6 @@ Runes::Runes()
 
 Runes::Runes(int level, RUNE_TYPE type)
 {
-	//TODO: Randomise stats based on constructor
 	switch (type)
 	{
 	case RT_OFFENSIVE:

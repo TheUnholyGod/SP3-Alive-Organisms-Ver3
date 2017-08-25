@@ -99,7 +99,7 @@ void Player::Update(double dt)
     if (m_interacted && m_interacttimer < 0)
         this->m_interacted = false;
 
-    std::cout << m_interacted << std::endl;
+   // std::cout << m_interacted << std::endl;
 
 	SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
 	

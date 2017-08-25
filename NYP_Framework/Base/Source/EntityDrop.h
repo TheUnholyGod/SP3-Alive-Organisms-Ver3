@@ -12,7 +12,7 @@ protected:
 public:
 	EntityDrop(int level, Mesh* tile_mesh) : GenericEntity(tile_mesh)
 	{
-		m_runeDrop = new Runes(level, static_cast<RUNE_TYPE>(Math::RandIntMinMax(0, 2)));
+		m_runeDrop = new Runes(level, static_cast<RUNE_TYPE>(Math::RandIntMinMax(0, RT_TOTAL)));
 	}
 
 	void Update(double _dt);
