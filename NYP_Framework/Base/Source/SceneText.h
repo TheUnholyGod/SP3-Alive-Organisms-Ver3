@@ -39,7 +39,6 @@ private:
 	GenericEntity* theCube;
 	Keyboard* keyboard;
 	static SceneText* sInstance; // The pointer to the object that gets registered
-	HUDManager* hudmanager;
 	double m_inputtimer;
 };
 
