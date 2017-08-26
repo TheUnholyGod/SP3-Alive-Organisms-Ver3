@@ -76,6 +76,6 @@ ParticleEffect * Create::Particle(
 	result->SetTileID(MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(result->GetPosition()));
 
 	//Adds it to entityManager
-	EntityManager::GetInstance()->AddEntity(result);
+	EntityManager::GetInstance()->AddEntity(result, is_boss_room);
 	return result;
 }
