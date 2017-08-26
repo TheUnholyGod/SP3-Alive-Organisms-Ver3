@@ -121,11 +121,7 @@ void Player::Update(double dt)
 	//std::cout << "Position: " << position << std::endl;
 	//std::cout << "Velocity: " << velocity << std::endl;
 	//std::cout << "Accleration: " << accleration << std::endl;
-	int temp_tile = 0;
-	if (!this->m_isFightingBoss)
-		temp_tile = MapManager::GetInstance()->GetLevel(m_iLevel)->ReturnTileViaPos(position);
-	else
-		temp_tile = 0;
+	int temp_tile = MapManager::GetInstance()->GetLevel(m_iLevel)->ReturnTileViaPos(position, Player::GetInstance()->GetIsFightingBoss());;
 
 	//std::cout << "X: " << position.x << " Y: " << position.y << " Z : " << position.z << std::endl;
 	if (temp_tile != tile_ID)

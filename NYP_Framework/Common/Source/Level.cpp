@@ -229,7 +229,7 @@ int Level::GetTotalTilesInLevel()
 	return level_layout.size();
 }
 
-int Level::ReturnTileViaPos(Vector3 pos)
+int Level::ReturnTileViaPos(Vector3 pos, bool is_fighting_boss)
 {
 	Vector3 temp;
 	double dividor = 1.0 / MAX_TILE_SIZE_XY;
@@ -237,7 +237,7 @@ int Level::ReturnTileViaPos(Vector3 pos)
 	temp.x = pos.x * dividor;
 	temp.y = pos.y * dividor;
 
-	return ((GetSizeOfLevel() * (((static_cast<int>(temp.y)) < 0) ? 0 : static_cast<int>(temp.y))) + static_cast<int>(temp.x));
+	return ((is_fighting_boss) ? 0 : ((GetSizeOfLevel() * (((static_cast<int>(temp.y)) < 0) ? 0 : static_cast<int>(temp.y))) + static_cast<int>(temp.x)));
 }
 
 vector<int> Level::ReturnSurroundingTilesViaCurrentTile(int tile)

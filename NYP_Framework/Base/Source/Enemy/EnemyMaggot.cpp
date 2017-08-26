@@ -21,7 +21,7 @@ EnemyMaggot::EnemyMaggot(Mesh * mesh,
 	this->SetPosition(_position);
 	this->SetScale(_scale);
 	this->SetSize(_scale);
-	this->SetTileID(MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(position));
+	this->SetTileID(MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(position, Player::GetInstance()->GetIsFightingBoss()));
 	this->SetCollider(have_collider);
 	this->SetPhysic(have_physic);
 	this->SetStatic(false);
@@ -42,7 +42,7 @@ void EnemyMaggot::Init(Vector3 pos)
 
 	this->position = pos;
 	this->SetActive(true);
-	this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(this->position);
+	this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(this->position, Player::GetInstance()->GetIsFightingBoss());
 }
 
 void EnemyMaggot::Update(double _dt)

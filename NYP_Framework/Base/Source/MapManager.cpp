@@ -158,7 +158,7 @@ void MapManager::GenerateBlocks(int level)
 	if (!set_boss_door)
 	{
 		std::cout << "X: " << temp_door_pos.x << " Y: " << temp_door_pos.y << std::endl;
-		Create::TileEntityCreator(TileEntity::BOSS_DOOR, Vector3(temp_door_pos.x, temp_door_pos.y + 0.2, 0.14), Vector3(1, 1.5, 1), true, true, false, GetLevel(level)->ReturnTileViaPos(temp_door_pos));
+		Create::TileEntityCreator(TileEntity::BOSS_DOOR, Vector3(temp_door_pos.x, temp_door_pos.y + 0.2, 0.14), Vector3(1, 1.5, 1), true, true, false, GetLevel(level)->ReturnTileViaPos(temp_door_pos, Player::GetInstance()->GetIsFightingBoss()));
 		Create::Entity("reference", temp_door_pos); // Reference
 	}
 
@@ -168,13 +168,13 @@ void MapManager::GenerateBlocks(int level)
 		{
 			if (y == 0 || y == (map_database[level]->GetSizeOfLevel() * map_database[level]->GetSizeOfTileSet()) - 1)
 			{
-				Create::TileEntityCreator(TileEntity::SOLID_BLOCK, Vector3(x, y + ((y == 0) ? -1 : 1), 0), Vector3(1, 1, 1), true, true, true, map_database[level]->ReturnTileViaPos(Vector3(x, y, 0)));
+				Create::TileEntityCreator(TileEntity::SOLID_BLOCK, Vector3(x, y + ((y == 0) ? -1 : 1), 0), Vector3(1, 1, 1), true, true, true, map_database[level]->ReturnTileViaPos(Vector3(x, y, 0), Player::GetInstance()->GetIsFightingBoss()));
 				if (x == 0 || x == (map_database[level]->GetSizeOfLevel() * map_database[level]->GetSizeOfTileSet()) - 1)
-					Create::TileEntityCreator(TileEntity::SOLID_BLOCK, Vector3(x + ((x == 0) ? -1 : 1), y, 0), Vector3(1, 1, 1), true, true, true, map_database[level]->ReturnTileViaPos(Vector3(x, y, 0)));
+					Create::TileEntityCreator(TileEntity::SOLID_BLOCK, Vector3(x + ((x == 0) ? -1 : 1), y, 0), Vector3(1, 1, 1), true, true, true, map_database[level]->ReturnTileViaPos(Vector3(x, y, 0), Player::GetInstance()->GetIsFightingBoss()));
 
 			}
 			else if (x == 0 || x == (map_database[level]->GetSizeOfLevel() * map_database[level]->GetSizeOfTileSet()) - 1)
-				Create::TileEntityCreator(TileEntity::SOLID_BLOCK, Vector3(x + ((x == 0) ? -1 : 1), y, 0), Vector3(1, 1, 1), true, true, true, map_database[level]->ReturnTileViaPos(Vector3(x, y, 0)));
+				Create::TileEntityCreator(TileEntity::SOLID_BLOCK, Vector3(x + ((x == 0) ? -1 : 1), y, 0), Vector3(1, 1, 1), true, true, true, map_database[level]->ReturnTileViaPos(Vector3(x, y, 0), Player::GetInstance()->GetIsFightingBoss()));
 
 		}
 	}
@@ -255,13 +255,13 @@ void MapManager::GenerateBossBlocks(int level)
 		{
 			if (y == 0 || y == (boss_map_database[level]->GetSizeOfLevel() * boss_map_database[level]->GetSizeOfTileSet()) - 1)
 			{
-				Create::TileEntityCreator(TileEntity::SOLID_BLOCK, Vector3(x + 100, (y + ((y == 0) ? -1 : 1)) + 100, 0), Vector3(1, 1, 1), true, true, true, boss_map_database[level]->ReturnTileViaPos(Vector3(x, y, 0)), true);
+				Create::TileEntityCreator(TileEntity::SOLID_BLOCK, Vector3(x + 100, (y + ((y == 0) ? -1 : 1)) + 100, 0), Vector3(1, 1, 1), true, true, true, boss_map_database[level]->ReturnTileViaPos(Vector3(x, y, 0), Player::GetInstance()->GetIsFightingBoss()), true);
 				if (x == 0 || x == (boss_map_database[level]->GetSizeOfLevel() * boss_map_database[level]->GetSizeOfTileSet()) - 1)
-					Create::TileEntityCreator(TileEntity::SOLID_BLOCK, Vector3((x + ((x == 0) ? -1 : 1)) + 100, y + 100, 0), Vector3(1, 1, 1), true, true, true, boss_map_database[level]->ReturnTileViaPos(Vector3(x, y, 0)), true);
+					Create::TileEntityCreator(TileEntity::SOLID_BLOCK, Vector3((x + ((x == 0) ? -1 : 1)) + 100, y + 100, 0), Vector3(1, 1, 1), true, true, true, boss_map_database[level]->ReturnTileViaPos(Vector3(x, y, 0), Player::GetInstance()->GetIsFightingBoss()), true);
 
 			}
 			else if (x == 0 || x == (boss_map_database[level]->GetSizeOfLevel() * boss_map_database[level]->GetSizeOfTileSet()) - 1)
-				Create::TileEntityCreator(TileEntity::SOLID_BLOCK, Vector3((x + ((x == 0) ? -1 : 1)) + 100, y + 100, 0), Vector3(1, 1, 1), true, true, true, boss_map_database[level]->ReturnTileViaPos(Vector3(x, y, 0)), true);
+				Create::TileEntityCreator(TileEntity::SOLID_BLOCK, Vector3((x + ((x == 0) ? -1 : 1)) + 100, y + 100, 0), Vector3(1, 1, 1), true, true, true, boss_map_database[level]->ReturnTileViaPos(Vector3(x, y, 0), Player::GetInstance()->GetIsFightingBoss()), true);
 
 		}
 	}

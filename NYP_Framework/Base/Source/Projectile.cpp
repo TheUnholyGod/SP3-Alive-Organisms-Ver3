@@ -40,7 +40,7 @@ void Projectile::Update(double _dt)
 	if (!m_active)
 		return;
 	this->position += velocity * _dt;
-	this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(this->position);
+	this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(this->position, Player::GetInstance()->GetIsFightingBoss());
 	this->GenerateAABB(this->position);
 }
 

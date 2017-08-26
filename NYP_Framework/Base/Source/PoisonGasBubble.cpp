@@ -37,7 +37,7 @@ void PoisonGasBubbles::Init(Vector3 _pos, Vector3 _vel, Vector3 _dir)
 	this->position = _pos;
 	this->velocity = _vel;
 	this->direction = _dir;
-	this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(this->position);
+	this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(this->position, Player::GetInstance()->GetIsFightingBoss());
 	this->isStatic = false;
 	this->m_bCollider = true;
 	this->type = PLAGUE_BUBBLE_OBJ;

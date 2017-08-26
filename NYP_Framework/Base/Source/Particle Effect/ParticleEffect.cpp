@@ -23,7 +23,7 @@ ParticleEffect::ParticleEffect(Vector3 pos, Vector3 vel, EFFECT_TYPE type, doubl
 
 void ParticleEffect::Update(double _dt)
 {
-	this->SetTileID(MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(position));  //now got position :D happy tiles
+	this->SetTileID(MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(position, Player::GetInstance()->GetIsFightingBoss()));  //now got position :D happy tiles
 
 	if (this->getEmitter()->getIsDone())
 		this->SetIsDone(true);
@@ -73,7 +73,7 @@ ParticleEffect * Create::Particle(
 	result->SetPhysic(false);
 	result->SetStatic(false);
 	result->SetIsParticleEmitter(true);
-	result->SetTileID(MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(result->GetPosition()));
+	result->SetTileID(MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(result->GetPosition(), Player::GetInstance()->GetIsFightingBoss()));
 
 	//Adds it to entityManager
 	EntityManager::GetInstance()->AddEntity(result, is_boss_room);
