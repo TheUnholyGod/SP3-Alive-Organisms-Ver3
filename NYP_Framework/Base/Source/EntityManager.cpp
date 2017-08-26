@@ -46,6 +46,7 @@ void EntityManager::Update(double _dt)
 	else
 	{
 		temp.clear();
+        temp.push_back(-1);
 		temp.push_back(0);
 		temp.push_back(1);
 		temp.push_back(2);
@@ -193,6 +194,7 @@ void EntityManager::Render()
 	else
 	{
 		temp.clear();
+        temp.push_back(-1);
 		temp.push_back(0);
 		temp.push_back(1);
 		temp.push_back(2);
@@ -316,6 +318,27 @@ void EntityManager::GetAllBlocksInTileSet(int tile_ID, vector<EntityBase*>& inpu
 	}
 }
 
+void EntityManager::ResetEntityBase()
+{
+	for (std::map<int, std::list<EntityBase*>>::iterator it = m_entity_map_base.begin(); it != m_entity_map_base.end(); ++it)
+	{
+		if (it->first == -1)
+			continue;
+
+		it->second.clear();
+	}
+
+	for (std::map<int, std::list<EntityBase*>>::iterator it = m_entity_boss_map_base.begin(); it != m_entity_boss_map_base.end(); ++it)
+	{
+		if (it->first == -1)
+			continue;
+
+		it->second.clear();
+	}
+
+	m_entity_map_base[-1] = m_entity_map_base[-1];
+	m_entity_boss_map_base[-1] = m_entity_boss_map_base[-1];
+}
 
 // Remove an entity from this EntityManager
 //bool EntityManager::RemoveEntity(EntityBase* _existingEntity)

@@ -20,6 +20,7 @@ private:
 
 	map<int, Level*> map_database;
 	map<int, Level*> boss_map_database;
+	vector<Vector3> player_starting_pos;
 	int** m_map_array; //Array view
 	//int** new_map_array; //Corrected map view
 
@@ -33,6 +34,7 @@ public:
 	int** getMapArray();
 	//Generate MapArray
 	void GenerateMapArray(int);
+	vector<Vector3> GetAllPlayerStartingPos();
 
 	Level* GetLevel(int);
 };

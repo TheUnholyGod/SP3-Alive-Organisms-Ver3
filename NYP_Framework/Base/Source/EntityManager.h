@@ -24,6 +24,7 @@ public:
 	void GetAllBlocksWithinTileRadius(int, vector<EntityBase*>&, bool);
 	void GetAllBlocks(vector<EntityBase*>&);
 	void GetAllBlocksInTileSet(int, vector<EntityBase*>&);
+	void ResetEntityBase();
 	/*bool RemoveEntity(EntityBase* _existingEntity);*/
 
 private:
