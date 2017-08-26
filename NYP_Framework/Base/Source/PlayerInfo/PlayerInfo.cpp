@@ -496,10 +496,11 @@ void Player::Render()
 
 void Player::MoveUp(double dt)
 {
+    this->direction.y = 1;
+
 	if (m_isClimbing)
 	{
 		last_direction.y = direction.y;
-		this->direction.y = 1;
 		this->velocity.y = 1;
 		this->accleration.y = 3.8;
 		m_movingtimer = m_defmov;
