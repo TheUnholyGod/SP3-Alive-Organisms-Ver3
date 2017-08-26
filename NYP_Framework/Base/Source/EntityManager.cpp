@@ -15,6 +15,7 @@ void EntityManager::Update(double _dt)
 	// Update all entities
 	Level *level = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel());
 	std::vector<int> temp = level->ReturnSurroundingTilesViaCurrentTile(Player::GetInstance()->GetTileID());
+	std::list<EntityBase*> entity_list_full;
 	for (int i = 0; i <= temp.size(); ++i)
 	{
 		if (i == temp.size())
@@ -149,13 +150,77 @@ void EntityManager::Update(double _dt)
 // Render all entities
 void EntityManager::Render()
 {
-	std::list<EntityBase*>::reverse_iterator it;
-
-	for (it = entity_list_full.rbegin(); it != entity_list_full.rend(); ++it)
+	// Render all entities
+	Level *level = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel());
+	std::vector<int> temp = level->ReturnSurroundingTilesViaCurrentTile(Player::GetInstance()->GetTileID());
+	for (int i = 0; i <= temp.size(); ++i)
 	{
-		(*it)->Render();
+		if (i == temp.size())
+		{
+			temp.push_back(-1);
+			break;
+		}
+
+		if (temp[i] == -1)
+			break;
 	}
 
+	std::list<EntityBase*>::iterator it;
+	std::list<EntityBase*>::reverse_iterator it2;
+
+	std::list<EntityBase*> entity_list_full;
+
+	if (!Player::GetInstance()->GetIsFightingBoss())
+	{
+		for (int i = 0; i < temp.size(); ++i)
+		{
+			for (it = m_entity_map_base[temp[i]].begin(); it != m_entity_map_base[temp[i]].end(); ++it)
+			{
+				if ((*it)->GetIsStatic())
+					entity_list_full.push_back(*it);
+				else
+					entity_list_full.push_front(*it);
+			}
+		}
+
+		for (it2 = entity_list_full.rbegin(); it2 != entity_list_full.rend(); ++it2)
+		{
+			(*it2)->Render();
+		}
+
+	}
+	else
+	{
+		temp.clear();
+		temp.push_back(-1);
+		temp.push_back(0);
+		temp.push_back(1);
+		temp.push_back(2);
+		temp.push_back(3);
+		for (int i = 0; i < temp.size(); ++i)
+		{
+			for (it = m_entity_boss_map_base[temp[i]].begin(); it != m_entity_boss_map_base[temp[i]].end(); ++it)
+			{
+				if ((*it)->GetIsStatic())
+					entity_list_full.push_back(*it);
+				else
+					entity_list_full.push_front(*it);
+			}
+		}
+
+		for (it = m_entity_map_base[-1].begin(); it != m_entity_map_base[-1].end(); ++it)
+		{
+			if ((*it)->GetIsStatic())
+				entity_list_full.push_back(*it);
+			else
+				entity_list_full.push_front(*it);
+		}
+
+		for (it2 = entity_list_full.rbegin(); it2 != entity_list_full.rend(); ++it2)
+		{
+			(*it2)->Render();
+		}
+	}
 	entity_list_full.clear();
 }
 
