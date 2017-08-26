@@ -301,7 +301,7 @@ void MapManager::GenerateMapArray(int level)
 
 	//Initialise new array
 	Level* l = GetLevel(level);
-	int size = (10 * 7) + (10 * 7);
+	int size = (16 * 7) + (16 * 7);
 
 	m_map_array = new int*[size];
 	for (int h = 0; h < size; ++h)
@@ -364,6 +364,16 @@ void MapManager::GenerateMapArray(int level)
 			++section;
 		}
 	}
+
+	//for (int i = 0; i < 16 * 7; ++i)
+	//{
+	//	for (int j = 0; j < 16 * 7; ++j)
+	//	{
+	//		std::cout << m_map_array[i][j];
+	//	}
+
+	//	std::cout << std::endl;
+	//}
 }
 
 vector<Vector3> MapManager::GetAllPlayerStartingPos()
