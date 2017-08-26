@@ -167,6 +167,7 @@ void SceneText::Init()
 	MapManager::GetInstance()->Init();
 	MapManager::GetInstance()->GenerateBlocks(Player::GetInstance()->GetCurrentLevel());
 	MapManager::GetInstance()->GenerateBossBlocks(Player::GetInstance()->GetCurrentLevel());
+	Player::GetInstance()->SetPosition(MapManager::GetInstance()->GetAllPlayerStartingPos()[Player::GetInstance()->GetCurrentLevel()]);
 
 	UIManager::GetInstance()->Init();
 

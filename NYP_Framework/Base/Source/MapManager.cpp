@@ -61,7 +61,7 @@ void MapManager::GenerateBlocks(int level)
 					Create::TileEntityCreator(TileEntity::TOP_PLATFORM, Vector3((x + (row * 7)), (y + (section * 7)) + 0.35, 0), Vector3(1, 0.3, 1), true, true, true, i);
 					if (i < (temp.size() - MapManager::GetInstance()->GetLevel(level)->GetSizeOfLevel()) && !set_boss_door)
 					{
-						temp_door_pos = Vector3((x + (row * 7)), (y + (section * 7)) + 1.4, 0);
+						temp_door_pos = Vector3((x + (row * 7)), (y + (section * 7)) + 1, 0.14);
 					}
 
 					if (i < (temp.size() - MapManager::GetInstance()->GetLevel(level)->GetSizeOfLevel()) && !set_player_pos)
@@ -106,7 +106,7 @@ void MapManager::GenerateBlocks(int level)
 				{
 					if (!set_player_pos && i >= (temp.size() - 10))
 					{
-						Player::GetInstance()->SetPosition(Vector3((x + (row * 7)), (y + (section * 7)) - 0.2, 0));
+						player_starting_pos.push_back(Vector3((x + (row * 7)), (y + (section * 7)) - 0.2, 0));
 						set_player_pos = true;
 					}
 
@@ -121,7 +121,7 @@ void MapManager::GenerateBlocks(int level)
 						{
 							std::cout << "X: " << (x + (row * 7)) << " Y: " << (y + (section * 7)) << std::endl;
 							set_boss_door = true;
-							Create::TileEntityCreator(TileEntity::BOSS_DOOR, Vector3((x + (row * 7)), (y + (section * 7)) + 0.4, 0), Vector3(1, 1.5, 1), true, true, true, i);
+							Create::TileEntityCreator(TileEntity::BOSS_DOOR, Vector3((x + (row * 7)), (y + (section * 7)) + 0.2, 0.14), Vector3(1, 1.5, 1), true, true, true, i);
 							Create::Entity("reference", Vector3((x + (row * 7)), (y + (section * 7)), 0)); // Reference
 						}
 					}
@@ -152,13 +152,13 @@ void MapManager::GenerateBlocks(int level)
 
 	if (!set_player_pos)
 	{
-		Player::GetInstance()->SetPosition(temp_player_pos);
+		player_starting_pos.push_back(temp_player_pos);
 	}
 
 	if (!set_boss_door)
 	{
 		std::cout << "X: " << temp_door_pos.x << " Y: " << temp_door_pos.y << std::endl;
-		Create::TileEntityCreator(TileEntity::BOSS_DOOR, Vector3(temp_door_pos.x, temp_door_pos.y - 0.2, 0), Vector3(1, 1.5, 1), true, true, false, GetLevel(level)->ReturnTileViaPos(temp_door_pos));
+		Create::TileEntityCreator(TileEntity::BOSS_DOOR, Vector3(temp_door_pos.x, temp_door_pos.y + 0.2, 0.14), Vector3(1, 1.5, 1), true, true, false, GetLevel(level)->ReturnTileViaPos(temp_door_pos));
 		Create::Entity("reference", temp_door_pos); // Reference
 	}
 
@@ -364,6 +364,11 @@ void MapManager::GenerateMapArray(int level)
 			++section;
 		}
 	}
+}
+
+vector<Vector3> MapManager::GetAllPlayerStartingPos()
+{
+	return player_starting_pos;
 }
 
 Level* MapManager::GetLevel(int level)
