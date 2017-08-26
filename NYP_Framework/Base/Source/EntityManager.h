@@ -33,7 +33,7 @@ private:
 
 	map<int, std::list<EntityBase*>> m_entity_map_base;
 	map<int, std::list<EntityBase*>> m_entity_boss_map_base;
-	vector<EntityBase*> m_all_blocks_storage;
+	std::list<EntityBase*> entity_list_full;
 
 
 };
