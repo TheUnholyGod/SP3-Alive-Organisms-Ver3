@@ -15,10 +15,10 @@ public:
 		bool is_static = false);
 	~EnemyMelee();
 
-	void Update(double _dt);
-	void Render();
+	virtual void Update(double _dt);
+	virtual void Render();
 
-	bool CollisionResponse(GenericEntity*);
+	virtual bool CollisionResponse(GenericEntity*);
 	
 	enum AI_STATES
 	{
