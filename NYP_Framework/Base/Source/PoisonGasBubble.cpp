@@ -15,6 +15,7 @@ PoisonGasBubbles * Create::CreatePoisonGasBubbles(const std::string & _meshName,
 	result->SetScale(_scale);
 	result->SetCollider(false);
 	EntityManager::GetInstance()->AddEntity(result, is_boss);
+    result->SetTileID(1);
 	return result;
 }
 
@@ -40,16 +41,14 @@ void PoisonGasBubbles::Init(Vector3 _pos, Vector3 _vel, Vector3 _dir)
 	this->isStatic = false;
 	this->m_bCollider = true;
 	this->type = PLAGUE_BUBBLE_OBJ;
-	//this->m_active = true;
+	this->m_active = true;
 	float sc = Math::RandIntMinMax(2, 5);
 	this->m_maxscale.Set(sc, sc, 1);
 	this->m_defbubbletimer = Math::RandFloatMinMax(15, 30);
 	this->m_bubbletimer = 0;
 	this->m_pop = false;
 	this->size.Set(0.25, 0.25, 0);
-	this->isStatic = false;
 	this->m_bCollider = true;
-	this->tile_ID = 0;
 
 }
 
