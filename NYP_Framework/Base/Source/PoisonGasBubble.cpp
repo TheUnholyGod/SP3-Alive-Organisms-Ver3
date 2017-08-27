@@ -87,7 +87,10 @@ bool PoisonGasBubbles::CollisionResponse(GenericEntity * ThatEntity)
 
 void PoisonGasBubbles::Pop()
 {
-    ToxicGas* tg = dynamic_cast<ToxicGas*>(this->m_parent->GetEntity(GenericEntity::PLAGUE_GAS_OBJ));
+    GenericEntity* ge = this->m_parent->GetEntity(GenericEntity::PLAGUE_GAS_OBJ);
+    if (!ge)
+        return;
+    ToxicGas* tg = dynamic_cast<ToxicGas*>(ge);
     if (tg) {}
-        //tg->Init(this);
+        tg->Init(this);
 }
