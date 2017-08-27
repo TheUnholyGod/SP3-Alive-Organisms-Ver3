@@ -188,7 +188,7 @@ void MapManager::GenerateBlocks(int level)
 		{
 			for (vector<Vector3>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
 			{
-				Create::Enemy(EnemyBase::ENEMY_TYPE::E_MELEE, Vector3(it2->x, it2->y, it2->z + 0.01), Vector3(1, 1, 1), true, false, false, it->first);
+				//Create::Enemy(EnemyBase::ENEMY_TYPE::E_MELEE, Vector3(it2->x, it2->y, it2->z + 0.01), Vector3(1, 1, 1), true, false, false, it->first);
 			}
 		}
 	}

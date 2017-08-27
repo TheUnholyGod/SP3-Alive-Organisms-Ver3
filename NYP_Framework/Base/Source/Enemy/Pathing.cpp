@@ -50,8 +50,10 @@ PathFinder::PathFinder()
 		{ 0, 1 },{ 1, 0 },{ 0, -1 },{ -1, 0 }, //UP,RIGHT,DOWN,LEFT
 		{ -1, -1 },{ 1, 1 },{ -1, 1 },{ 1, -1 }//SW,NE,NW,EW
 	};
-	worldSize.x = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->GetSizeOfLevel() * 7;
-	worldSize.y = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->GetSizeOfLevel() * 7;
+	//worldSize.x = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->GetSizeOfLevel() * 7;
+	//worldSize.y = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->GetSizeOfLevel() * 7;
+
+	worldSize = { 224,224 };
 }
 
 void PathFinder::setWorldSize(Coord2D worldSize_)
