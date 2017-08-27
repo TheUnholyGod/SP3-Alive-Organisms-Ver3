@@ -66,6 +66,9 @@ void PoisonGasBubbles::Update(double _dt)
 		m_active = false;
 		m_pop = true;
 	}
+    if (m_pop)
+        this->Pop();
+        
 	this->position += velocity * _dt;
 	GenerateAABB(this->position);
 }
@@ -78,4 +81,8 @@ void PoisonGasBubbles::Render()
 bool PoisonGasBubbles::CollisionResponse(GenericEntity * ThatEntity)
 {
 	return false;
+}
+
+void PoisonGasBubbles::Pop()
+{
 }

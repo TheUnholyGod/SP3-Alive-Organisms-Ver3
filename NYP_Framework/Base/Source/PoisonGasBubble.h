@@ -16,6 +16,8 @@ public:
     virtual void Render();
 
     virtual bool CollisionResponse(GenericEntity* ThatEntity);
+
+    void Pop();
 protected:
 	Vector3 m_maxscale;
 	double m_bubbletimer,m_defbubbletimer;

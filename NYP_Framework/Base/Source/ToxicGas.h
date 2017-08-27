@@ -3,17 +3,23 @@
 
 #include "Hitbox.h"
 
+class PosionGasBubble;
+
 class ToxicGas : public Hitbox
 {
 public:
     ToxicGas(Mesh* _modelMesh);
     virtual ~ToxicGas();
 
-    virtual void Init();
+    virtual void Init(PosionGasBubble* _parent);
     virtual void Update(double _dt);
     virtual void Render();
 
     virtual bool CollisionResponse(GenericEntity* ThatEntity);
+
+protected:
+    PosionGasBubble* m_parent;
+
 };
 
 namespace Create
