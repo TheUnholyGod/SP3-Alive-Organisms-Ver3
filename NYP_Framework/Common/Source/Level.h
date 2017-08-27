@@ -42,7 +42,7 @@ public:
 	int GetSizeOfTileSet();  //Returns size of one tile
 	int GetTotalTilesInLevel();  //Returns the number of tiles in one level
 
-	int ReturnTileViaPos(Vector3);  //Returns the tile via position of the entity/block/etc
+	int ReturnTileViaPos(Vector3, bool);  //Returns the tile via position of the entity/block/etc
 
 	vector<int> ReturnSurroundingTilesViaCurrentTile(int);  //Returns the surrounding tiles in a square of 3 by 3, around the given tile
 

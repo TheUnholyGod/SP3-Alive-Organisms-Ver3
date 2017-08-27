@@ -28,8 +28,6 @@ void EntityManager::Update(double _dt)
 	}
 	std::list<EntityBase*>::iterator it;
 
-	std::list<EntityBase*> entity_list_full;
-
 	if (!Player::GetInstance()->GetIsFightingBoss())
 	{
 		for (int i = 0; i < temp.size(); ++i)
@@ -46,7 +44,7 @@ void EntityManager::Update(double _dt)
 	else
 	{
 		temp.clear();
-        temp.push_back(-1);
+		temp.push_back(-1);
 		temp.push_back(0);
 		temp.push_back(1);
 		temp.push_back(2);
@@ -84,8 +82,6 @@ void EntityManager::Update(double _dt)
 
 	CollisionManager::GetInstance()->Update(entity_list_full);
 
-	entity_list_full.clear();
-
 	if (!Player::GetInstance()->GetIsFightingBoss())
 	{
 		for (int i = 0; i < temp.size(); ++i)
@@ -95,13 +91,26 @@ void EntityManager::Update(double _dt)
 			while (it != m_entity_map_base[temp[i]].end())
 			{
 				/*	if (dynamic_cast<TileEntity*>(*it) != nullptr)
-					{
-						++it;
-						continue;
-					}*/
+				{
+				++it;
+				continue;
+				}*/
 
 				if ((*it)->IsDone())
 				{
+					std::list<EntityBase*>::iterator it3;
+					it3 = entity_list_full.begin();
+
+					while (it3 != entity_list_full.end())
+					{
+						if (*it == *it3)
+						{
+							it3 = entity_list_full.erase(it3);
+							break;
+						}
+						++it3;
+					}
+
 					delete *it;
 					it = m_entity_map_base[temp[i]].erase(it);
 				}
@@ -122,6 +131,7 @@ void EntityManager::Update(double _dt)
 	else
 	{
 		temp.clear();
+		temp.push_back(-1);
 		temp.push_back(0);
 		temp.push_back(1);
 		temp.push_back(2);
@@ -140,6 +150,19 @@ void EntityManager::Update(double _dt)
 
 				if ((*it)->IsDone())
 				{
+					std::list<EntityBase*>::iterator it3;
+					it3 = entity_list_full.begin();
+
+					while (it3 != entity_list_full.end())
+					{
+						if (*it == *it3)
+						{
+							it3 = entity_list_full.erase(it3);
+							break;
+						}
+						++it3;
+					}
+
 					delete *it;
 					it = m_entity_boss_map_base[temp[i]].erase(it);
 				}
@@ -153,76 +176,14 @@ void EntityManager::Update(double _dt)
 // Render all entities
 void EntityManager::Render()
 {
-	// Render all entities
-	Level *level = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel());
-	std::vector<int> temp = level->ReturnSurroundingTilesViaCurrentTile(Player::GetInstance()->GetTileID());
-	for (int i = 0; i <= temp.size(); ++i)
-	{
-		if (i == temp.size())
-		{
-			temp.push_back(-1);
-			break;
-		}
+	std::list<EntityBase*>::reverse_iterator it;
 
-		if (temp[i] == -1)
-			break;
+	for (it = entity_list_full.rbegin(); it != entity_list_full.rend(); ++it)
+	{
+		(*it)->Render();
 	}
 
-	std::list<EntityBase*>::iterator it;
-	std::list<EntityBase*>::reverse_iterator it2;
-
-	std::list<EntityBase*> entity_list_full;
-
-	if (!Player::GetInstance()->GetIsFightingBoss())
-	{
-		for (int i = 0; i < temp.size(); ++i)
-		{
-			for (it = m_entity_map_base[temp[i]].begin(); it != m_entity_map_base[temp[i]].end(); ++it)
-			{
-				if ((*it)->GetIsStatic())
-					entity_list_full.push_back(*it);
-				else
-					entity_list_full.push_front(*it);
-			}
-		}
-
-		for (it2 = entity_list_full.rbegin(); it2 != entity_list_full.rend(); ++it2)
-		{
-			(*it2)->Render();
-		}
-	}
-	else
-	{
-		temp.clear();
-        temp.push_back(-1);
-		temp.push_back(0);
-		temp.push_back(1);
-		temp.push_back(2);
-		temp.push_back(3);
-		for (int i = 0; i < temp.size(); ++i)
-		{
-			for (it = m_entity_boss_map_base[temp[i]].begin(); it != m_entity_boss_map_base[temp[i]].end(); ++it)
-			{
-				if ((*it)->GetIsStatic())
-					entity_list_full.push_back(*it);
-				else
-					entity_list_full.push_front(*it);
-			}
-		}
-
-		for (it = m_entity_map_base[-1].begin(); it != m_entity_map_base[-1].end(); ++it)
-		{
-			if ((*it)->GetIsStatic())
-				entity_list_full.push_back(*it);
-			else
-				entity_list_full.push_front(*it);
-		}
-
-		for (it2 = entity_list_full.rbegin(); it2 != entity_list_full.rend(); ++it2)
-		{
-			(*it2)->Render();
-		}
-	}
+	entity_list_full.clear();
 }
 
 //// Render the UI entities
@@ -240,7 +201,7 @@ void EntityManager::Render()
 // Add an entity to this EntityManager
 void EntityManager::AddEntity(EntityBase* _newEntity, bool fighting_boss)
 {
-	if(!fighting_boss)
+	if (!fighting_boss)
 		m_entity_map_base[_newEntity->GetTileID()].push_back(_newEntity);
 	else
 		m_entity_boss_map_base[_newEntity->GetTileID()].push_back(_newEntity);
@@ -259,8 +220,8 @@ void EntityManager::GetAllBlocksWithinTileRadius(int tile_ID, vector<EntityBase*
 			{
 				/*if (cross_path && temp.size() > 8)
 				{
-					if (i == 0 || i == 2 || i == 6 || i == 8)
-						continue;
+				if (i == 0 || i == 2 || i == 6 || i == 8)
+				continue;
 				}*/
 
 				if ((*it)->GetIsStatic())
@@ -318,6 +279,27 @@ void EntityManager::GetAllBlocksInTileSet(int tile_ID, vector<EntityBase*>& inpu
 	}
 }
 
+void EntityManager::ResetEntityBase()
+{
+	for (std::map<int, std::list<EntityBase*>>::iterator it = m_entity_map_base.begin(); it != m_entity_map_base.end(); ++it)
+	{
+		if (it->first == -1)
+			continue;
+
+		it->second.clear();
+	}
+
+	for (std::map<int, std::list<EntityBase*>>::iterator it = m_entity_boss_map_base.begin(); it != m_entity_boss_map_base.end(); ++it)
+	{
+		if (it->first == -1)
+			continue;
+
+		it->second.clear();
+	}
+
+	m_entity_map_base[-1] = m_entity_map_base[-1];
+	m_entity_boss_map_base[-1] = m_entity_boss_map_base[-1];
+}
 
 // Remove an entity from this EntityManager
 //bool EntityManager::RemoveEntity(EntityBase* _existingEntity)

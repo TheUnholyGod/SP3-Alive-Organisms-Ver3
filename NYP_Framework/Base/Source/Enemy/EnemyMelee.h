@@ -15,16 +15,17 @@ public:
 		bool is_static = false);
 	~EnemyMelee();
 
-	void Update(double _dt);
-	void Render();
+	virtual void Update(double _dt);
+	virtual void Render();
 
-	bool CollisionResponse(GenericEntity*);
+	virtual bool CollisionResponse(GenericEntity*);
 	
 	enum AI_STATES
 	{
 		AI_PATROL, //Walks left & right
 		AI_CHASE,  //Follows path to player
 		AI_ATTACK, //Attacks the player
+		AI_RETURN, //Returns to original spawn
 
 		AI_TOTAL
 	}m_state;

@@ -167,6 +167,7 @@ void SceneText::Init()
 	MapManager::GetInstance()->Init();
 	MapManager::GetInstance()->GenerateBlocks(Player::GetInstance()->GetCurrentLevel());
 	MapManager::GetInstance()->GenerateBossBlocks(Player::GetInstance()->GetCurrentLevel());
+	Player::GetInstance()->SetPosition(MapManager::GetInstance()->GetAllPlayerStartingPos()[Player::GetInstance()->GetCurrentLevel()]);
 
 	UIManager::GetInstance()->Init();
 
@@ -264,8 +265,9 @@ void SceneText::Update(double dt)
 	}
 	if (KeyboardController::GetInstance()->IsKeyReleased('R'))
 	{
-		Create::Particle("particle", Player::GetInstance()->GetPosition(), Vector3(20, 0, 0), EFFECT_TYPE::ET_FIRE, 0.5, 0.3);
+		Create::Particle("particle", Player::GetInstance()->GetPosition(), Vector3(20, 0, 0), EFFECT_TYPE::ET_FIRE, 0.5, 0.3, true);
 		AudioPlayer::GetInstance()->playSoundThreaded("explosion");
+		Create::Enemy(EnemyBase::ENEMY_TYPE::E_MELEE, Vector3((int)Player::GetInstance()->GetPosition().x, (int)Player::GetInstance()->GetPosition().y, (int)Player::GetInstance()->GetPosition().z), Vector3(1, 1, 1), true, false, false, 0, true);
 	}
 	// if the left mouse button was released
 	if (MouseController::GetInstance()->IsButtonReleased(MouseController::LMB))

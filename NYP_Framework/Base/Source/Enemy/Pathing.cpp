@@ -88,7 +88,9 @@ void PathFinder::readMap(int ** grid_)
 			}
 			if (grid_[y][x] == 3 ||
 				grid_[y][x] == 4 ||
-				grid_[y][x] == 6) //Passable blocks
+				grid_[y][x] == 6 ||
+				grid_[y][x] == 7 ||
+				grid_[y][x] == 8) //Passable blocks
 			{
 				continue;
 			}

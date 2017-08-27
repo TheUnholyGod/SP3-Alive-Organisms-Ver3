@@ -21,7 +21,7 @@ EnemyMelee::EnemyMelee(Mesh * mesh,
 	this->SetPosition(_position);
 	this->SetScale(_scale);
 	this->SetSize(_scale);
-	this->SetTileID(MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(position));
+	this->SetTileID(MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(position, Player::GetInstance()->GetIsFightingBoss()));
 	this->SetCollider(have_collider);
 	this->SetPhysic(have_physic);
 	this->SetStatic(false);
@@ -81,7 +81,7 @@ void EnemyMelee::Update(double _dt)
 		Patrol();*/
 	
 	//Update tileID for spatial partition
-	this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(position);
+	this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(position, Player::GetInstance()->GetIsFightingBoss());
 }
 
 void EnemyMelee::Render()

@@ -104,7 +104,7 @@ void Player::Update(double dt)
 	SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
 	
 	//Update sprite position
-	animation->SetPosition(Vector3(position.x, position.y, 0.02));
+	animation->SetPosition(Vector3(position.x, position.y, 0.2));
 	animation->SetScale(Vector3(0.5, 0.5, 0.5));
 	animation->Update(dt);
 
@@ -121,11 +121,7 @@ void Player::Update(double dt)
 	//std::cout << "Position: " << position << std::endl;
 	//std::cout << "Velocity: " << velocity << std::endl;
 	//std::cout << "Accleration: " << accleration << std::endl;
-	int temp_tile = 0;
-	if (!this->m_isFightingBoss)
-		temp_tile = MapManager::GetInstance()->GetLevel(m_iLevel)->ReturnTileViaPos(position);
-	else
-		temp_tile = 0;
+	int temp_tile = MapManager::GetInstance()->GetLevel(m_iLevel)->ReturnTileViaPos(position, Player::GetInstance()->GetIsFightingBoss());;
 
 	//std::cout << "X: " << position.x << " Y: " << position.y << " Z : " << position.z << std::endl;
 	if (temp_tile != tile_ID)
@@ -512,6 +508,8 @@ void Player::MoveUp(double dt)
 
 void Player::MoveDown(double dt)
 {
+	this->direction.y = -1;
+
 	std::vector<EntityBase*> temp_blocks;
 	EntityManager::GetInstance()->GetAllBlocksWithinTileRadius(tile_ID, temp_blocks, Player::GetInstance()->GetIsFightingBoss());
 
@@ -542,7 +540,6 @@ void Player::MoveDown(double dt)
 	if (m_isClimbing)
 	{
 		last_direction.y = direction.y;
-		this->direction.y = -1;
 		this->velocity.y = -1;
 		this->accleration.y = -3.8;
 		m_movingtimer = m_defmov;
@@ -645,6 +642,14 @@ void Player::TakeDamage(int _dmg)
 int Player::GetHealth()
 {
 	return this->m_health;
+}
+
+Equipment * Player::GetWeaponInInventory(bool is_primary)
+{
+	if (is_primary)
+		return m_player_equipment[0];
+
+	return m_player_equipment[1];
 }
 
 FPSCamera * Player::getCamera()
