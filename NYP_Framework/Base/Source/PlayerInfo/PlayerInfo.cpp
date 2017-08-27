@@ -134,7 +134,7 @@ void Player::Update(double dt)
 	this->UpdateJump(dt);
 	this->UpdateMovement(dt);
     this->m_player_equipment[EQUIPMENT_MELEE]->Update(dt);
-	this->attachedCamera->SetCameraPos(Vector3(position.x, position.y, 7));
+	this->attachedCamera->SetCameraPos(Vector3(position.x, position.y, 20));
 	this->attachedCamera->SetCameraTarget(position);
 
 	if (!m_isOnFloor && !m_isClimbing)
