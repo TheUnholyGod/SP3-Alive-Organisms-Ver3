@@ -134,7 +134,7 @@ void Player::Update(double dt)
 	this->UpdateJump(dt);
 	this->UpdateMovement(dt);
     this->m_player_equipment[EQUIPMENT_MELEE]->Update(dt);
-	this->attachedCamera->SetCameraPos(Vector3(position.x, position.y, 7));
+	this->attachedCamera->SetCameraPos(Vector3(position.x, position.y, 20));
 	this->attachedCamera->SetCameraTarget(position);
 
 	if (!m_isOnFloor && !m_isClimbing)
@@ -381,7 +381,7 @@ void Player::UpdateMovement(double dt)
 					if (m_isClimbing)
 					{
 						bool move_X = false, move_Y = false;
-						if (temp.y < (MapManager::GetInstance()->GetLevel(m_iLevel)->GetSizeOfLevel() * MapManager::GetInstance()->GetLevel(m_iLevel)->GetSizeOfTileSet()) - 1)
+						if (temp.y < ((MapManager::GetInstance()->GetLevel(m_iLevel)->GetSizeOfLevel() * MapManager::GetInstance()->GetLevel(m_iLevel)->GetSizeOfTileSet()) - 1) + ((GetIsFightingBoss()) ? 100 : 0))
 						{
 							SetAABB(Vector3((temp.x + (maxBoundary.x * 0.5)) + 0.05, (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((temp.x + (minBoundary.x * 0.5)) - 0.05, (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
 							for (std::vector<EntityBase*>::iterator it2 = temp_blocks.begin(); it2 <= temp_blocks.end(); ++it2)
