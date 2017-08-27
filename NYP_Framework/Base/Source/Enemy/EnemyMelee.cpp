@@ -248,7 +248,7 @@ void EnemyMelee::Patrol()
 	}
 	while (!dir) //left
 	{
-		if (!m_path_finder.detectCollision(Coord2D((int)(position.x), std::floor(position.y + 0.5))))
+		if (!m_path_finder.detectCollision(Coord2D((int)(position.x), std::floor(position.y + 0.5))) && position.x > 0)
 		{
 			//std::cout << "Left no collision" << std::endl;
 			m_velocity = Vector3(-1, 0, 0);
