@@ -49,6 +49,12 @@ void EnemyMelee::Update(double _dt)
 	this->animation2->SetPosition(position);
 	this->animation2->Update(_dt);
 	
+	if (m_stunned_duration > 0)
+	{
+		m_stunned_duration -= _dt;
+		return;
+	}
+
 	Detect(_dt);
 
 	switch (m_state)
@@ -69,6 +75,15 @@ void EnemyMelee::Update(double _dt)
 	{
 		Attack();
 		//std::cout << "Attack" << std::endl;
+		break;
+	}
+	case EnemyMelee::AI_RETURN:
+	{
+		break;
+	}	
+	case EnemyMelee::AI_STUNNED:
+	{
+		m_stunned_duration = 2;
 		break;
 	}
 	default:

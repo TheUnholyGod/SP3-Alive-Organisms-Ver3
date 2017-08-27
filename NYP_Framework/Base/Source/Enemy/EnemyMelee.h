@@ -26,6 +26,7 @@ public:
 		AI_CHASE,  //Follows path to player
 		AI_ATTACK, //Attacks the player
 		AI_RETURN, //Returns to original spawn
+		AI_STUNNED,//Stops the AI From doing anything for a set period
 
 		AI_TOTAL
 	}m_state;
@@ -38,5 +39,5 @@ public:
 	void Attack();
 	
 private:
-
+	double m_stunned_duration;
 };
