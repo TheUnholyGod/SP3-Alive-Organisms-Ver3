@@ -232,6 +232,7 @@ void EntityManager::GetAllBlocksWithinTileRadius(int tile_ID, vector<EntityBase*
 	else
 	{
 		temp.clear();
+		temp.push_back(-1);
 		temp.push_back(0);
 		temp.push_back(1);
 		temp.push_back(2);
