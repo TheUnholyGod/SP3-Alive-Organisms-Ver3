@@ -10,7 +10,7 @@ ToxicGas::~ToxicGas()
 
 void ToxicGas::Init(PosionGasBubble * _parent)
 {
-    this->m_parent = _parent;
+
 }
 
 void ToxicGas::Update(double _dt)

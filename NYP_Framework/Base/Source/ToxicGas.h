@@ -17,9 +17,6 @@ public:
 
     virtual bool CollisionResponse(GenericEntity* ThatEntity);
 
-protected:
-    PosionGasBubble* m_parent;
-
 };
 
 namespace Create

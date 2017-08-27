@@ -3,6 +3,8 @@
 
 #include "Projectile.h"
 
+class PlagueBoss;
+
 class PoisonGasBubbles : public Projectile
 {
 public:
@@ -10,7 +12,7 @@ public:
     PoisonGasBubbles(Mesh* _mesh);
     virtual ~PoisonGasBubbles();
 
-    virtual void Init(Vector3 _pos = Vector3(0, 0, 0), Vector3 _vel = (0, 0, 0), Vector3 _dir = Vector3(0, 0, 0));
+    virtual void Init(Vector3 _pos = Vector3(), Vector3 _vel = Vector3(), Vector3 _dir = Vector3(1), PlagueBoss* _parent = nullptr);
 
     virtual void Update(double _dt);
     virtual void Render();
@@ -22,6 +24,7 @@ protected:
 	Vector3 m_maxscale;
 	double m_bubbletimer,m_defbubbletimer;
 	bool m_pop;
+    PlagueBoss* m_parent;
 };
 
 namespace Create

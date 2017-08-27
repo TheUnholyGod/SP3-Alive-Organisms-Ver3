@@ -3,6 +3,8 @@
 #include "PlayerInfo\PlayerInfo.h"
 #include "MeshList.h"
 #include "EntityManager.h"
+#include "PlagueBoss.h"
+#include "ToxicGas.h"
 
 PoisonGasBubbles * Create::CreatePoisonGasBubbles(const std::string & _meshName, const Vector3 & _position, const Vector3 & _scale, Ranged * _parent, bool is_boss)
 {
@@ -32,7 +34,7 @@ PoisonGasBubbles::~PoisonGasBubbles()
 {
 }
 
-void PoisonGasBubbles::Init(Vector3 _pos, Vector3 _vel, Vector3 _dir)
+void PoisonGasBubbles::Init(Vector3 _pos, Vector3 _vel, Vector3 _dir, PlagueBoss* _parent)
 {
 	this->position = _pos;
 	this->velocity = _vel;
@@ -49,7 +51,7 @@ void PoisonGasBubbles::Init(Vector3 _pos, Vector3 _vel, Vector3 _dir)
 	this->m_pop = false;
 	this->size.Set(0.25, 0.25, 0);
 	this->m_bCollider = true;
-
+    this->m_parent = _parent;
 }
 
 void PoisonGasBubbles::Update(double _dt)
@@ -85,4 +87,7 @@ bool PoisonGasBubbles::CollisionResponse(GenericEntity * ThatEntity)
 
 void PoisonGasBubbles::Pop()
 {
+    ToxicGas* tg = dynamic_cast<ToxicGas*>(this->m_parent->GetEntity(GenericEntity::PLAGUE_GAS_OBJ));
+    if (tg) {}
+        //tg->Init(this);
 }
