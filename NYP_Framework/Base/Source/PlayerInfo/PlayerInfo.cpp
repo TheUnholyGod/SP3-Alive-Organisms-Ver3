@@ -508,6 +508,8 @@ void Player::MoveUp(double dt)
 
 void Player::MoveDown(double dt)
 {
+	this->direction.y = -1;
+
 	std::vector<EntityBase*> temp_blocks;
 	EntityManager::GetInstance()->GetAllBlocksWithinTileRadius(tile_ID, temp_blocks, Player::GetInstance()->GetIsFightingBoss());
 
@@ -538,7 +540,6 @@ void Player::MoveDown(double dt)
 	if (m_isClimbing)
 	{
 		last_direction.y = direction.y;
-		this->direction.y = -1;
 		this->velocity.y = -1;
 		this->accleration.y = -3.8;
 		m_movingtimer = m_defmov;
@@ -641,6 +642,14 @@ void Player::TakeDamage(int _dmg)
 int Player::GetHealth()
 {
 	return this->m_health;
+}
+
+Equipment * Player::GetWeaponInInventory(bool is_primary)
+{
+	if (is_primary)
+		return m_player_equipment[0];
+
+	return m_player_equipment[1];
 }
 
 FPSCamera * Player::getCamera()

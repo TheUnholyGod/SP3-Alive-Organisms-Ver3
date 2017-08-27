@@ -48,6 +48,7 @@ public:
 
 	void TakeDamage(int _dmg);
 	int GetHealth();
+	Equipment*  GetWeaponInInventory(bool is_primary);
 
 	// Handling Camera
 	FPSCamera* getCamera();
