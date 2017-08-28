@@ -11,7 +11,7 @@ void UIManager::Init()
 
 	//Initialise UIElements
 	m_cursor = Create::UI("cursor", UI_CURSOR, GAMESTATE::GS_MAINMENU, 1, 1, 1, 1, 2, false);
-	m_selecter = Create::UI("selecter", UI_CURSOR, GAMESTATE::GS_MAINMENU, 1, 1, 1, 1, 3, false);
+	m_selecter = Create::UI("selecter", UI_CURSOR, GAMESTATE::GS_MAINMENU, 1, 1, 1, 1, 2, false);
 
 	//Main Menu
 	Create::UI("main_menu", UI_BACKGROUND, GAMESTATE::GS_MAINMENU, 1, 1, 0, 0, 0);
@@ -50,7 +50,7 @@ void UIManager::Update(double _dt)
 	float posX = (static_cast<float>(x) - halfWindowWidth);
 	float posY = (halfWindowHeight - static_cast<float>(y));
 
-	this->m_cursor->SetPosition(Vector3(posX, posY, 10.f));
+	this->m_cursor->SetPosition(Vector3(posX, posY, m_cursor->z_pos));
 	
 	//std::cout << "Window Size: " << halfWindowWidth * 2 << ", " << halfWindowHeight * 2 << std::endl;
 	//std::cout << "Cursor Pos: " << m_cursor->GetPosition() << std::endl;
@@ -105,6 +105,7 @@ void UIManager::RenderUI()
 			it->Render();
 	}
 
+	
 	m_cursor->Render();
 	m_selecter->Render();
 }

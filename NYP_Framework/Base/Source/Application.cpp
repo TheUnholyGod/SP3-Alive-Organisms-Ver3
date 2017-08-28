@@ -296,6 +296,9 @@ void Application::InitAllMeshes()
 		MeshList::GetInstance()->AddMesh("cursor", MeshBuilder::GetInstance()->GenerateQuad("cursor_icon", 1, 5.f));
 		MeshList::GetInstance()->GetMesh("cursor")->textureID = LoadTGA("Image//cursor.tga");
 
+		MeshList::GetInstance()->AddMesh("castle", MeshBuilder::GetInstance()->GenerateQuad("castle_scrn", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("castle")->textureID = LoadTGA("Image//castle.tga");
+
 		//Blocks
 		MeshList::GetInstance()->AddMesh("solid_block", MeshBuilder::GetInstance()->GenerateQuad("block", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("solid_block")->textureID = LoadTGA("Image//block.tga");

@@ -118,7 +118,8 @@ void UIElement::Response()
 	}
 	case UI_LEVEL_END:
 	{
-
+		std::cout << "UI_LEVEL_END" << std::endl;
+		
 	}
 	default:
 		std::cout << "Nothing!" << std::endl;
