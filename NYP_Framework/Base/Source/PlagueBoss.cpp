@@ -16,6 +16,12 @@ PlagueBoss::PlagueBoss() : m_strats(new PlagueStrategy*[NUM_STATES])
 
 }
 
+PlagueBoss::PlagueBoss(Mesh * _mesh) : m_strats(new PlagueStrategy*[NUM_STATES])
+{
+    this->modelMesh = _mesh;
+    this->isStatic = false;
+}
+
 PlagueBoss::~PlagueBoss()
 {
 }

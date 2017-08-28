@@ -395,6 +395,9 @@ void Application::InitAllMeshes()
 		MeshList::GetInstance()->AddMesh("normal_rune_item", MeshBuilder::GetInstance()->GenerateQuad("normal_rune", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("normal_rune_item")->textureID = LoadTGA("Image//normal_rune.tga");
 
+        MeshList::GetInstance()->AddMesh("plagueboss", MeshBuilder::GetInstance()->GenerateSpriteAnimation("plagueboss", 4, 6, 0));
+        MeshList::GetInstance()->GetMesh("plagueboss")->textureID = LoadTGA("Image//Plague.tga");
+
 		/*MeshBuilder::GetInstance()->GenerateQuad("GRASS_DARKGREEN", Color(1, 1, 1), 1.f);
 		MeshList::GetInstance()->GetMesh("GRASS_DARKGREEN")->textureID = LoadTGA("Image//grass_darkgreen.tga");
 		MeshBuilder::GetInstance()->GenerateQuad("GEO_GRASS_LIGHTGREEN", Color(1, 1, 1), 1.f);

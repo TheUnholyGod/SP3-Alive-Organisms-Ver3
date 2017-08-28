@@ -27,6 +27,7 @@ private:
 	double m_defchangestatetimer, m_changestatetimer;
 public:
     PlagueBoss();
+    PlagueBoss(Mesh* _mesh);
     ~PlagueBoss();
 
     virtual void Init();
