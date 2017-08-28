@@ -323,6 +323,9 @@ void Application::InitAllMeshes()
 		MeshList::GetInstance()->AddMesh("health_bar", MeshBuilder::GetInstance()->GenerateQuad("health", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("health_bar")->textureID = LoadTGA("Image//healthBar.tga");
 
+		MeshList::GetInstance()->AddMesh("hot_bar", MeshBuilder::GetInstance()->GenerateQuad("hotbar", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("hot_bar")->textureID = LoadTGA("Image//hotbar.tga");
+
 
 		MeshList::GetInstance()->AddMesh("fire_rune_item", MeshBuilder::GetInstance()->GenerateQuad("fire_rune", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("fire_rune_item")->textureID = LoadTGA("Image//fire_rune.tga"); 
