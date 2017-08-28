@@ -141,12 +141,12 @@ void Player::Update(double dt)
 
     if (m_invincible)
     {
-        std::cout <<"i"<< m_invincibletimer << std::endl;
+        //std::cout <<"i"<< m_invincibletimer << std::endl;
         this->m_invincibletimer -= dt;
     }
     if (m_invincible && m_invincibletimer < 0)
     {
-        std::cout << "no invis" << std::endl;
+        //std::cout << "no invis" << std::endl;
         this->m_invincible = false;
     }
 
@@ -767,7 +767,7 @@ void Player::AttachCamera(FPSCamera* _cameraPtr)
 	Vector3 target = position;
 	Vector3 up = Vector3(0, 1, 0);
 	attachedCamera->Init(Vector3(position.x, position.y, 10), target, up);
-	std::cout << up << std::endl;
+	//std::cout << up << std::endl;
 }
 
 void Player::DetachCamera()
