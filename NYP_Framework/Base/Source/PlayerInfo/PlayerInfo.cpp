@@ -142,23 +142,23 @@ void Player::Update(double dt)
 	SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
 	
 	//Update sprite position
-	animation->SetPosition(Vector3(position.x, position.y, 0.2));
-	animation->SetScale(Vector3(0.5, 0.5, 0.5));
+	animation->SetPosition(Vector3(position.x, position.y - 0.05, 0.2));
+	animation->SetScale(Vector3(0.42, 0.45, 0.5));
 	animation->Update(dt);
 
-	animationWalking->SetPosition(Vector3(position.x, position.y, 0.2));
+	animationWalking->SetPosition(Vector3(position.x, position.y - 0.05, 0.2));
 	animationWalking->SetScale(Vector3(0.5, 0.5, 0.5));
 	animationWalking->Update(dt);
 
-	animationWalkingLeft->SetPosition(Vector3(position.x, position.y, 0.2));
+	animationWalkingLeft->SetPosition(Vector3(position.x, position.y - 0.05, 0.2));
 	animationWalkingLeft->SetScale(Vector3(0.5, 0.5, 0.5));
 	animationWalkingLeft->Update(dt);
 
-	animationJumping->SetPosition(Vector3(position.x, position.y, 0.2));
+	animationJumping->SetPosition(Vector3(position.x, position.y - 0.05, 0.2));
 	animationJumping->SetScale(Vector3(0.5, 0.5, 0.5));
 	animationJumping->Update(dt);
 
-	animationClimbing->SetPosition(Vector3(position.x, position.y, 0.2));
+	animationClimbing->SetPosition(Vector3(position.x, position.y - 0.05, 0.2));
 	animationClimbing->SetScale(Vector3(0.5, 0.5, 0.5));
 	animationClimbing->Update(dt);
 
