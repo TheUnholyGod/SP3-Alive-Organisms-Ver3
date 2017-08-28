@@ -287,6 +287,7 @@ void Application::InitAllMeshes()
 		MeshList::GetInstance()->GetMesh("maggot")->textureID = LoadTGA("Image//Maggot.tga");
 
 		MeshBuilder::GetInstance()->GenerateQuad("player", Color(1, 0, 0), 0.5f);
+	
 
 		//UI
 		MeshList::GetInstance()->AddMesh("main_menu", MeshBuilder::GetInstance()->GenerateQuad("menu", 1, 1.f));

@@ -9,6 +9,7 @@
 #include "Mesh.h"
 #include "MatrixStack.h"
 #include "GenericEntity.h"
+#include "minimap.h"
 #include"../Source/Manager/HUDManager.h"
 class ShaderProgram;
 class SceneManager;
@@ -40,6 +41,9 @@ private:
 	Keyboard* keyboard;
 	static SceneText* sInstance; // The pointer to the object that gets registered
 	double m_inputtimer;
+
+
+	CMinimap* theMinimap;
 };
 
 #endif

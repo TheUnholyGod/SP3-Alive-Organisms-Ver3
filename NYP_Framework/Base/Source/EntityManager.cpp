@@ -258,11 +258,12 @@ void EntityManager::GetAllBlocksWithinTileRadius(int tile_ID, vector<EntityBase*
 void EntityManager::GetAllBlocks(vector<EntityBase*>& input_vector)
 {
 	std::list<EntityBase*>::iterator it;
-	for (int i = 0; i < m_entity_map_base.size(); ++i)
+	std::map<int, std::list<EntityBase*>>::iterator it2 = m_entity_map_base.begin();
+	for (; it2 != m_entity_map_base.end(); ++it2)
 	{
-		it = m_entity_map_base[i].begin();
+		it = it2->second.begin();
 
-		for (it = m_entity_map_base[i].begin(); it != m_entity_map_base[i].end(); ++it)
+		for (; it != it2->second.end(); ++it)
 		{
 			if ((*it)->GetIsStatic())
 				input_vector.push_back(*it);
@@ -301,6 +302,7 @@ void EntityManager::ResetEntityBase()
 	m_entity_map_base[-1] = m_entity_map_base[-1];
 	m_entity_boss_map_base[-1] = m_entity_boss_map_base[-1];
 }
+
 
 // Remove an entity from this EntityManager
 //bool EntityManager::RemoveEntity(EntityBase* _existingEntity)
