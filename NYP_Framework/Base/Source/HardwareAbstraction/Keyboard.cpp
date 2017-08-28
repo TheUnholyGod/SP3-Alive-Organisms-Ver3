@@ -59,7 +59,7 @@ int Keyboard::Read(const float deltaTime)
                     m_input_buffer.push(static_cast<CONTROLLER_STATES>(i));
                     m_inputchecker.insert(static_cast<CONTROLLER_STATES>(i));
                 }
-                else if (i <= CONTROLLER_PRIMARYATT || i >= CONTROLLER_DODGEROLL)
+                else if (i < CONTROLLER_PRIMARYATT || i > CONTROLLER_DODGEROLL)
                 {
                     m_input_buffer.push(static_cast<CONTROLLER_STATES>(i));
                     m_inputchecker.insert(static_cast<CONTROLLER_STATES>(i));
