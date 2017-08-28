@@ -51,6 +51,7 @@ protected:
 	bool m_active;
 	Mesh* modelMesh;
 	int m_dmg;
+    int m_health;
 };
 
 namespace Create

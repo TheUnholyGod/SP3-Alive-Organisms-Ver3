@@ -119,6 +119,8 @@ void Player::Init(void)
     m_interacted = false;
     m_interacttimer = 0;
     m_definteracttimer = 0.025f;
+    m_invincibletimer = 0;
+    m_definvincibletimer = 2;
 
 	SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
     this->m_player_equipment[EQUIPMENT_MELEE] = new ShortSword();
@@ -136,6 +138,12 @@ void Player::Update(double dt)
         this->m_interacttimer -= dt;
     if (m_interacted && m_interacttimer < 0)
         this->m_interacted = false;
+
+    if (m_invincible)
+        this->m_invincibletimer -= dt;
+    if (m_invincible && m_invincibletimer < 0)
+        this->m_invincible = false;
+
 
     //std::cout << m_interacted << std::endl;
 
@@ -681,6 +689,7 @@ void Player::DodgeRoll(double dt)
 	this->velocity.x = 20 * this->direction.x;
 	this->m_moving = true;
 	m_movingtimer = 0.125;
+    this->m_invincibletimer = this->m_definvincibletimer;
 }
 
 void Player::PrimaryAttack(double dt, int _combo)
@@ -720,7 +729,12 @@ void Player::SetInteracting(bool interacting)
 
 void Player::TakeDamage(int _dmg)
 {
+    if (this->m_invincible)
+        return;
 	this->m_health -= _dmg;
+    this->m_invincible = true;
+    this->m_invincibletimer = this->m_definteracttimer;
+
 }
 
 int Player::GetHealth()
