@@ -19,6 +19,7 @@ PoisonGasBubbles * Create::CreatePoisonGasBubbles(const std::string & _meshName,
 	EntityManager::GetInstance()->AddEntity(result, is_boss);
     result->SetTileID(1);
 	return result;
+
 }
 
 PoisonGasBubbles::PoisonGasBubbles()

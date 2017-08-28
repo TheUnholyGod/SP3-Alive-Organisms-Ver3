@@ -28,6 +28,7 @@
 #include "Enemy\Pathing.h"
 #include "Enemy\EnemyBase.h"
 #include "PlagueBoss.h"
+#include "FamineBoss.h"
 
 #include <future>
 #include <iostream>
@@ -189,7 +190,7 @@ void SceneText::Init()
 
    //<REMOVE THIS>
 	//Player::GetInstance()->SetIsFightingBoss(true);
-	PlagueBoss* pb = new PlagueBoss();
+	FamineBoss* pb = new FamineBoss();
 	pb->SetPosition(Vector3(111,102,0));
 	pb->SetTileID(0);
 	pb->Init();

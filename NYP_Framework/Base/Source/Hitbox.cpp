@@ -9,6 +9,7 @@ Hitbox::Hitbox(Mesh * _modelMesh) : GenericEntity(_modelMesh)
 {
 	type = HITBOX_OBJ;
 	this->tile_ID = -1;
+	this->m_active = false;
 }
 
 Hitbox::~Hitbox()
@@ -26,13 +27,13 @@ void Hitbox::Init(bool _isboss)
 
 void Hitbox::Update(double _dt)
 {
-	if (this->m_parent->GetCurrentHitbox() != this || !this->m_active)
+	if (!this->m_active)
 		return;
 }
 
 void Hitbox::Render()
 {
-	if (this->m_parent->GetCurrentHitbox() != this || !this->m_active)
+	if (!this->m_active)
 		return;
 
 	Collision::Render();
