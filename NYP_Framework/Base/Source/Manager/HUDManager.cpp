@@ -28,11 +28,11 @@ void HUDManager::RenderHUD()
 	modelStack.PopMatrix();*/
 
 	//HOTBAR
-	modelStack.PushMatrix();
+	/*modelStack.PushMatrix();
 	modelStack.Translate(Application::GetInstance().GetWindowWidth() *- 0.5, Application::GetInstance().GetWindowHeight()* 0.40, 0);
 	modelStack.Scale(200, 500, 1);
 	RenderHelper::RenderMesh(MeshList::GetInstance()->GetMesh("hot_bar"));
-	modelStack.PopMatrix();
+	modelStack.PopMatrix();*/
 
 }
 
