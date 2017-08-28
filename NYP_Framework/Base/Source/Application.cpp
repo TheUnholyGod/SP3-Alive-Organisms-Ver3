@@ -107,7 +107,7 @@ void Application::Init()
 	}
 
 	// Hide the cursor
-	//glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+	glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 	glfwSetMouseButtonCallback(m_window, &Application::MouseButtonCallbacks);
 	glfwSetScrollCallback(m_window, &Application::MouseScrollCallbacks);
 
@@ -279,7 +279,6 @@ void Application::InitAllMeshes()
 		MeshList::GetInstance()->GetMesh("option_button")->textureID = LoadTGA("Image//option_button.tga");
 		MeshList::GetInstance()->AddMesh("quit_button", MeshBuilder::GetInstance()->GenerateQuad("quit_btn", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("quit_button")->textureID = LoadTGA("Image//quit_button.tga");
-
 		MeshList::GetInstance()->AddMesh("pause_menu", MeshBuilder::GetInstance()->GenerateQuad("pause_scrn", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("pause_menu")->textureID = LoadTGA("Image//pause_menu.tga");
 		MeshList::GetInstance()->AddMesh("resume_button", MeshBuilder::GetInstance()->GenerateQuad("resume_btn", 1, 1.f));
@@ -294,6 +293,11 @@ void Application::InitAllMeshes()
 		MeshList::GetInstance()->GetMesh("volume_down")->textureID = LoadTGA("Image//volume_down.tga");
 		MeshList::GetInstance()->AddMesh("selecter", MeshBuilder::GetInstance()->GenerateQuad("select", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("selecter")->textureID = LoadTGA("Image//selecter.tga");
+		MeshList::GetInstance()->AddMesh("cursor", MeshBuilder::GetInstance()->GenerateQuad("cursor_icon", 1, 5.f));
+		MeshList::GetInstance()->GetMesh("cursor")->textureID = LoadTGA("Image//cursor.tga");
+
+		MeshList::GetInstance()->AddMesh("castle", MeshBuilder::GetInstance()->GenerateQuad("castle_scrn", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("castle")->textureID = LoadTGA("Image//castle.tga");
 
 		//Blocks
 		MeshList::GetInstance()->AddMesh("solid_block", MeshBuilder::GetInstance()->GenerateQuad("block", 1, 1.f));

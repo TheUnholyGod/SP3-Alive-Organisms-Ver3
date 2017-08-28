@@ -51,7 +51,7 @@ void PlagueBubbleStrategy::Update(double dt)
 		float dirx = Math::RandIntMinMax(-1, 1);
 		float diry = Math::RandFloatMinMax(-1, 1);
 		bubble->SetActive(true);
-		bubble->Init(this->m_parent->GetPosition(), Vector3(x * dirx, y * diry), Vector3());
+		bubble->Init(this->m_parent->GetPosition(), Vector3(x * dirx, y * diry), Vector3(), this->m_parent);
         bubble->SetTileID(0);
 		bubbles.pop_back();
 		this->action = false;
