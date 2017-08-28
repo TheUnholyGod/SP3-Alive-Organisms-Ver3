@@ -288,6 +288,14 @@ void EntityManager::GetAllBlocksInTileSet(int tile_ID, vector<EntityBase*>& inpu
 	}
 }
 
+void EntityManager::GetActiveEntity(vector<EntityBase*>& input_vector)
+{
+	for (auto &it : entity_list_full)
+	{
+		input_vector.push_back(it);
+	}
+}
+
 void EntityManager::ResetEntityBase()
 {
 	for (std::map<int, std::list<EntityBase*>>::iterator it = m_entity_map_base.begin(); it != m_entity_map_base.end(); ++it)

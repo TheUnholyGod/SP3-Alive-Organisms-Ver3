@@ -210,7 +210,7 @@ void SceneText::Init()
 void SceneText::Update(double dt)
 {
 	UIManager::GetInstance()->Update(dt);
-	theMinimap->Update(dt);
+	
 
 	if (GameStateManager::GetInstance()->getState() != GS_PLAYING) return;
 
@@ -219,6 +219,7 @@ void SceneText::Update(double dt)
 	Player::GetInstance()->Update(dt);
 	// Update our entities
 	EntityManager::GetInstance()->Update(dt);
+	theMinimap->Update(dt);
 
 	HUDManager::GetInstance()->UpdateHUD();
 

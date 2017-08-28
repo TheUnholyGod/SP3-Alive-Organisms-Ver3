@@ -26,7 +26,7 @@ EnemyFlying::EnemyFlying(Mesh * mesh,
 	this->SetPhysic(have_physic);
 	this->SetStatic(false);
 
-
+	this->GenerateAABB(this->position);
 	m_state = AI_STATES::AI_IDLE;
 	dir = true;
 }
