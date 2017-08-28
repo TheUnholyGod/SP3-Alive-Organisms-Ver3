@@ -108,12 +108,12 @@ void EnemyFlying::Move()
 	if (position.x > playerPos.x)
 	{
 		m_velocity += Vector3(-1, 0, 0);
-		this->animation->SetRotation(0, Vector3(0, 1, 0));
+		this->animation->SetRotation(180, Vector3(0, 1, 0));
 	}
 	if (position.x < playerPos.x)
 	{
 		m_velocity += Vector3(1, 0, 0);
-		this->animation->SetRotation(180, Vector3(0, 1, 0));
+		this->animation->SetRotation(0, Vector3(0, 1, 0));
 	}
 	if (position.y > playerPos.y)
 	{
