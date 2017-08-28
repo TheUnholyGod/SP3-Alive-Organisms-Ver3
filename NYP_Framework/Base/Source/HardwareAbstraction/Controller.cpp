@@ -71,7 +71,6 @@ void Controller::Update(double dt)
         m_curraction_timer += 0.15f;
 	else
 	{
-//		std::cout << "Action Complete" << std::endl;
 		m_is_free = true;
         m_inputchecker.clear();
 	}
@@ -97,7 +96,7 @@ void Controller::Update(double dt)
                 {
                     if (CancelPrevAction(dt, static_cast<CONTROLLER_STATES>(i)))
                     {
-                        m_curr_action = static_cast<CONTROLLER_STATES>(i);
+                        curr = static_cast<CONTROLLER_STATES>(i);
                         std::cout << "Action Canceled" << std::endl;
                         while (!m_input_buffer.empty())
                         {

@@ -846,7 +846,7 @@ void Player::AttachCamera(FPSCamera* _cameraPtr)
 	Vector3 target = position;
 	Vector3 up = Vector3(0, 1, 0);
 	attachedCamera->Init(Vector3(position.x, position.y, 10), target, up);
-	std::cout << up << std::endl;
+	//std::cout << up << std::endl;
 }
 
 void Player::DetachCamera()
