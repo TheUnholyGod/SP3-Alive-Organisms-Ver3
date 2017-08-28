@@ -50,6 +50,7 @@ public:
 protected:
 	bool m_active;
 	Mesh* modelMesh;
+	int m_dmg;
 };
 
 namespace Create
