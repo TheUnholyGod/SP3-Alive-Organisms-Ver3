@@ -190,11 +190,18 @@ void CMinimap::RenderUI()
 			continue;
 
 		modelStack.PushMatrix();
-		TileEntity::BLOCK_TYPE bt = TileEntity::SOLID_BLOCK;
+		TileEntity::BLOCK_TYPE bt = TileEntity::TOTAL;
 		if(dynamic_cast<TileEntity*>(entities[i]))
 			bt = dynamic_cast<TileEntity*>(entities[i])->block_type;
 		switch (bt)
 		{
+		case TileEntity::SOLID_BLOCK:
+		{
+			m_cMinimap_Target = MeshList::GetInstance()->GetMesh("solid_block");
+			modelStack.Translate((entities[i]->GetPosition().x - playerPos.x) / 10, (entities[i]->GetPosition().y - playerPos.y) / 10, 0.001);
+			modelStack.Scale(0.1, 0.1, 1);
+			break;
+		}	
 		case TileEntity::TOP_PLATFORM:
 		{
 			m_cMinimap_Target = MeshList::GetInstance()->GetMesh("platform_block");
@@ -231,9 +238,9 @@ void CMinimap::RenderUI()
 			break;
 		}
 		default:
-			m_cMinimap_Target = MeshList::GetInstance()->GetMesh("solid_block");
+			m_cMinimap_Target = MeshList::GetInstance()->GetMesh("redquad");
 			modelStack.Translate((entities[i]->GetPosition().x - playerPos.x) / 10, (entities[i]->GetPosition().y - playerPos.y) / 10, 0.001);
-			modelStack.Scale(0.1, 0.1, 1);
+			modelStack.Scale(0.05, 0.05, 1);
 			break;
 		}
 		//modelStack.Translate((entities[i]->GetPosition().x - playerPos.x) / 10, (entities[i]->GetPosition().y - playerPos.y) / 10, 0.01);
