@@ -50,7 +50,7 @@ void Emitter::update(double dt)
 		//Update particles based on type
 		switch (m_effect_type)
 		{
-		case ET_FIRE:
+		case EFT_FIRE:
 		{
 			p->m_velocity += Vector3(0, -9.8, 0) * dt;
 			p->m_position += p->m_velocity * dt;

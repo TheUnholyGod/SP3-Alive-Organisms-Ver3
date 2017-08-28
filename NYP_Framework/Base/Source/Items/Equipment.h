@@ -26,18 +26,19 @@ public:
     virtual void Update(double dt) = 0;
     virtual void Render() = 0;
 
-protected:
-	/*Returns this equipment's rune vector*/
-	std::vector<Runes*> getRunes();
-	/*Returns the max rune slot of this weapon*/
-	int getMaxRunes();
-	/*Sets the maximum rune slot of this weapon*/
-	void setMaxRunes(int num_slot);
-
 	/*Add to the runes of this weapon
 	Returns true if same type rune doesn't exist
 	Returns false if same type rune exists*/
 	bool addRune(Runes* new_rune);
+
+	/*Returns this equipment's rune vector*/
+	std::vector<Runes*> getRunes();
+
+protected:
+	/*Returns the max rune slot of this weapon*/
+	int getMaxRunes();
+	/*Sets the maximum rune slot of this weapon*/
+	void setMaxRunes(int num_slot);
 
 	/*Removes the same type runes
 	Returns true if removed successfully

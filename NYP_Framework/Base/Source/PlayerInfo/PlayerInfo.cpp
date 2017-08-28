@@ -36,6 +36,8 @@ Player::Player(void)
 	tile_ID = 0;
 	SetCollider(true);
 	this->m_health = 100;
+	m_maxHealth = m_health;
+	m_regenTimer = 0;
 }
 
 Player::~Player(void)
@@ -134,6 +136,14 @@ void Player::Init(void)
 
 void Player::Update(double dt)
 {
+	m_regenTimer += dt;
+
+	if (m_health < 0)
+	{
+		//DO GAME OVER HERE
+		m_health = 0;
+	}
+
     if (m_interacted)
         this->m_interacttimer -= dt;
     if (m_interacted && m_interacttimer < 0)
@@ -144,8 +154,65 @@ void Player::Update(double dt)
     if (m_invincible && m_invincibletimer < 0)
         this->m_invincible = false;
 
+	int health_up = 0, attack_up = 0, speed_up = 0;;
+	for (int i = 0; i < 2; ++i)
+	{
+		std::vector<Runes*> temp_rune_vector = m_player_equipment[i]->getRunes();
+		if (temp_rune_vector.size() > 0)
+		{
+			for (std::vector<Runes*>::iterator it = temp_rune_vector.begin(); it != temp_rune_vector.end(); ++it)
+			{
+				std::vector<Attribute*> temp_attribute_vector = (*it)->getAttribute();
+				for (std::vector<Attribute*>::iterator it2 = temp_attribute_vector.begin(); it2 != temp_attribute_vector.end(); ++it2)
+				{
+					switch ((*it2)->m_element)
+					{
+					case ET_FIRE:
+						++attack_up;
+						break;
+					case ET_EARTH:
+					case ET_WATER:
+						++health_up;
+						break;
+					case ET_AIR:
+					case ET_NONE:
+						++speed_up;
+						break;
+					default:
+						break;
+					}
+				}
+			}
+		}
+	}
 
-    //std::cout << m_interacted << std::endl;
+	if (health_up > 0 && m_maxHealth != (100 + (health_up * 10)))
+	{
+		m_maxHealth = 100 + (health_up * 10);
+		//std::cout << health_up << std::endl;
+	}
+
+	if (attack_up > 0)
+	{
+		//std::cout << attack_up << std::endl;
+	}
+
+	if (speed_up > 0)
+	{
+		m_dSpeed = 40 + (speed_up * 5);
+		//std::cout << speed_up << std::endl;
+	}
+
+	if (m_health < m_maxHealth && m_regenTimer > 1.5f)
+	{
+		m_health += 4;
+		m_regenTimer = 0;
+
+		if (m_health > m_maxHealth)
+			m_health = m_maxHealth;
+	}
+
+    //std::cout << m_health << std::endl;
 
 	SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
 	
@@ -745,9 +812,21 @@ int Player::GetHealth()
 Equipment * Player::GetWeaponInInventory(bool is_primary)
 {
 	if (is_primary)
-		return m_player_equipment[0];
+		return m_player_equipment[EQUIPMENT_MELEE];
 
-	return m_player_equipment[1];
+	return m_player_equipment[EQUIPMENT_RANGED];
+}
+
+void Player::SetRuneToWeapon(bool is_primary, Runes* rune)
+{
+	if (is_primary)
+	{
+		m_player_equipment[EQUIPMENT_MELEE]->addRune(rune);
+	}
+	else
+	{
+		m_player_equipment[EQUIPMENT_RANGED]->addRune(rune);
+	}
 }
 
 FPSCamera * Player::getCamera()
@@ -791,7 +870,12 @@ bool Player::GetIsFightingBoss()
 
 void Player::SetIsFightingBoss(bool is_fighting)
 {
-	if (is_fighting)
+	if (m_isFightingBoss != is_fighting)
+		m_isFightingBoss = is_fighting;
+	else
+		m_isFightingBoss = false;
+
+	if (m_isFightingBoss)
 	{
 		last_position = position;
 		m_isFightingBoss = is_fighting;
@@ -818,10 +902,17 @@ bool Player::GetIsKilledBoss()
 void Player::StartNextLevel()
 {
 	++m_iLevel;
-	EntityManager::GetInstance()->ResetEntityBase();
-	MapManager::GetInstance()->GenerateBlocks(Player::GetInstance()->GetCurrentLevel());
-	MapManager::GetInstance()->GenerateBossBlocks(Player::GetInstance()->GetCurrentLevel());
-	Player::GetInstance()->SetPosition(MapManager::GetInstance()->GetAllPlayerStartingPos()[Player::GetInstance()->GetCurrentLevel()]);
-	m_isKilledBoss = false;
-	m_isFightingBoss = false;
+	if (m_iLevel < 4)
+	{
+		EntityManager::GetInstance()->ResetEntityBase();
+		MapManager::GetInstance()->GenerateBlocks(Player::GetInstance()->GetCurrentLevel());
+		MapManager::GetInstance()->GenerateBossBlocks(Player::GetInstance()->GetCurrentLevel());
+		Player::GetInstance()->SetPosition(MapManager::GetInstance()->GetAllPlayerStartingPos()[Player::GetInstance()->GetCurrentLevel()]);
+		m_isKilledBoss = false;
+		m_isFightingBoss = false;
+	}
+	else
+	{
+		//VICTORY SCREEN
+	}
 }
