@@ -12,7 +12,7 @@ public:
 	Projectile(Mesh* _mesh);
 	virtual ~Projectile();
 
-	virtual void Init(Vector3 _pos = Vector3(0, 0, 0), Vector3 _vel = (0, 0, 0), Vector3 _dir = Vector3(0, 0, 0));
+	virtual void Init(Vector3 _pos = Vector3(0, 0, 0), Vector3 _vel = (0, 0, 0), Vector3 _dir = Vector3(0, 0, 0), bool _isplayer = true);
 
 	virtual void Update(double _dt);
 	virtual void Render();
@@ -23,6 +23,7 @@ public:
 	virtual bool GetActive();
 	virtual void SetActive(bool _active);
 protected:
+	bool m_isplayer;
 	double m_range;
 	Vector3 velocity;
 	Vector3 direction;

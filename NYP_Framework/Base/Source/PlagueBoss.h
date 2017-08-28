@@ -14,7 +14,6 @@ private:
         STATE_IDLE,
         STATE_SUMMON,
         STATE_BUBBLE,
-        STATE_PROJECTILE,
         STATE_CHARGE,
         NUM_STATES,
     }m_currstate;

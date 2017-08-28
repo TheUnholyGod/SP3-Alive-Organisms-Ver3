@@ -53,6 +53,7 @@ void PoisonGasBubbles::Init(Vector3 _pos, Vector3 _vel, Vector3 _dir, PlagueBoss
 	this->size.Set(0.25, 0.25, 0);
 	this->m_bCollider = true;
     this->m_parent = _parent;
+	m_dmg = 5;
 }
 
 void PoisonGasBubbles::Update(double _dt)
@@ -83,6 +84,12 @@ void PoisonGasBubbles::Render()
 
 bool PoisonGasBubbles::CollisionResponse(GenericEntity * ThatEntity)
 {
+	if (ThatEntity->type == PLAYER_OBJ)
+	{
+		this->Pop();
+		Player* ThatEntity1 = dynamic_cast<Player*>(ThatEntity);
+		ThatEntity1->TakeDamage(m_dmg);
+	}
 	return false;
 }
 
