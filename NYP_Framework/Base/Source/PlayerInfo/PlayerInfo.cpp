@@ -47,14 +47,51 @@ Player::~Player(void)
 void Player::Init(void)
 {
 	//Animate player
-	SpriteAnimation* sa = dynamic_cast<SpriteAnimation*>(MeshList::GetInstance()->GetMesh("GEO_SPRITE_ANIMATION"));
+	SpriteAnimation* sa = dynamic_cast<SpriteAnimation*>(MeshList::GetInstance()->GetMesh("Idle_Animation"));
 	if (sa)
 	{
 		sa->m_anim = new Animation();
-		sa->m_anim->Set(1, 4, 1, 1.0f, true);
+		sa->m_anim->Set(0, 2, 1, 1.0f, true);
 		animation = new SpriteEntity(sa); //Create new entity for the animiation
 		//EntityManager::GetInstance()->AddEntity(aSprite);
 	}
+
+	SpriteAnimation* sawalking = dynamic_cast<SpriteAnimation*>(MeshList::GetInstance()->GetMesh("Running_Animation"));
+	if (sawalking)
+	{
+		sawalking->m_anim = new Animation();
+		sawalking->m_anim->Set(0, 2, 1, 1.0f, true);
+		animationWalking = new SpriteEntity(sawalking); //Create new entity for the animiation
+		//EntityManager::GetInstance()->AddEntity(aSprite);
+	}
+
+	SpriteAnimation* sawalkingleft = dynamic_cast<SpriteAnimation*>(MeshList::GetInstance()->GetMesh("Running_Animationleft"));
+	if (sawalkingleft)
+	{
+		sawalkingleft->m_anim = new Animation();
+		sawalkingleft->m_anim->Set(0, 2, 1, 1.0f, true);
+		animationWalkingLeft = new SpriteEntity(sawalkingleft); //Create new entity for the animiation
+		//EntityManager::GetInstance()->AddEntity(aSprite);
+	}
+
+	SpriteAnimation* sajumping = dynamic_cast<SpriteAnimation*>(MeshList::GetInstance()->GetMesh("Jumping_Animation"));
+	if (sajumping)
+	{
+		sajumping->m_anim = new Animation();
+		sajumping->m_anim->Set(0, 1, 1, 1.0f, true);
+		animationJumping= new SpriteEntity(sajumping); //Create new entity for the animiation
+       //EntityManager::GetInstance()->AddEntity(aSprite);
+	}
+
+	SpriteAnimation* saclimbing = dynamic_cast<SpriteAnimation*>(MeshList::GetInstance()->GetMesh("Climbing_Animation"));
+	if (saclimbing)
+	{
+		saclimbing->m_anim = new Animation();
+		saclimbing->m_anim->Set(0, 1, 1, 1.0f, true);
+		animationClimbing = new SpriteEntity(saclimbing); //Create new entity for the animiation
+														//EntityManager::GetInstance()->AddEntity(aSprite);
+	}
+
 
 	// Set the default values
 	defaultPosition.Set(0,0,10);
@@ -108,6 +145,22 @@ void Player::Update(double dt)
 	animation->SetPosition(Vector3(position.x, position.y, 0.2));
 	animation->SetScale(Vector3(0.5, 0.5, 0.5));
 	animation->Update(dt);
+
+	animationWalking->SetPosition(Vector3(position.x, position.y, 0.2));
+	animationWalking->SetScale(Vector3(0.5, 0.5, 0.5));
+	animationWalking->Update(dt);
+
+	animationWalkingLeft->SetPosition(Vector3(position.x, position.y, 0.2));
+	animationWalkingLeft->SetScale(Vector3(0.5, 0.5, 0.5));
+	animationWalkingLeft->Update(dt);
+
+	animationJumping->SetPosition(Vector3(position.x, position.y, 0.2));
+	animationJumping->SetScale(Vector3(0.5, 0.5, 0.5));
+	animationJumping->Update(dt);
+
+	animationClimbing->SetPosition(Vector3(position.x, position.y, 0.2));
+	animationClimbing->SetScale(Vector3(0.5, 0.5, 0.5));
+	animationClimbing->Update(dt);
 
 
 	if (m_attacking)
@@ -297,7 +350,6 @@ void Player::Update(double dt)
 
 	//std::cout << "CLIMBING: " << m_isClimbing << std::endl;
 	//std::cout << "ON FLOOR: " << m_isOnFloor << std::endl;
-
 }
 
 void Player::UpdateMovement(double dt)
@@ -489,7 +541,7 @@ void Player::Render()
 {
     //Collision::Render();
 
-	this->animation->Render();
+	//this->animation->Render();
 
    /* this->m_player_equipment[EQUIPMENT_MELEE]->Render();
 	MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
@@ -497,6 +549,28 @@ void Player::Render()
 	modelStack.Translate(position.x, position.y, position.z);
 	RenderHelper::RenderMesh(modelMesh);
 	modelStack.PopMatrix();*/
+
+	if (!m_moving)
+	{
+		this->animation->Render();
+		//this->animationWalking->Render();
+	}
+	else if (this->direction.x == 1)
+	{
+		this->animationWalking->Render();
+	}
+	else if (this->direction.x == -1)
+	{
+		this->animationWalkingLeft->Render();
+	}
+	else if (this->direction.y == 1)
+	{
+		this->animationClimbing->Render();
+	}
+	else if (m_jump)
+	{
+		this->animationJumping->Render();
+	}
 }
 
 

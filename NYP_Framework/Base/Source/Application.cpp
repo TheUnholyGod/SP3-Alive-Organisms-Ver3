@@ -244,6 +244,21 @@ void Application::InitAllMeshes()
 		MeshBuilder::GetInstance()->GenerateSpriteAnimation("GEO_SPRITE_ANIMATION", 1, 6, 1.0f);
 		MeshList::GetInstance()->GetMesh("GEO_SPRITE_ANIMATION")->textureID = LoadTGA("Image//cat.tga");
 
+		MeshBuilder::GetInstance()->GenerateSpriteAnimation("Idle_Animation", 1, 3 , 1.0f);
+		MeshList::GetInstance()->GetMesh("Idle_Animation")->textureID = LoadTGA("Image//idle.tga");
+
+		MeshBuilder::GetInstance()->GenerateSpriteAnimation("Running_Animation", 1, 3, 1.0f);
+		MeshList::GetInstance()->GetMesh("Running_Animation")->textureID = LoadTGA("Image//running.tga");
+
+		MeshBuilder::GetInstance()->GenerateSpriteAnimation("Running_Animationleft", 1, 3, 1.0f);
+		MeshList::GetInstance()->GetMesh("Running_Animationleft")->textureID = LoadTGA("Image//runningleft.tga");
+
+		MeshBuilder::GetInstance()->GenerateSpriteAnimation("Jumping_Animation", 1, 1, 1.0f);
+		MeshList::GetInstance()->GetMesh("Jumping_Animation")->textureID = LoadTGA("Image//jumping.tga");
+
+		MeshBuilder::GetInstance()->GenerateSpriteAnimation("Climbing_Animation", 1, 1, 1.0f);
+		MeshList::GetInstance()->GetMesh("Climbing_Animation")->textureID = LoadTGA("Image//climbing.tga");
+
 		MeshBuilder::GetInstance()->GenerateSpriteAnimation("explosion", 5, 5, 1.0f);
 		MeshList::GetInstance()->GetMesh("explosion")->textureID = LoadTGA("Image//explosion.tga");
 
@@ -298,6 +313,18 @@ void Application::InitAllMeshes()
 
 		MeshList::GetInstance()->AddMesh("castle", MeshBuilder::GetInstance()->GenerateQuad("castle_scrn", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("castle")->textureID = LoadTGA("Image//castle.tga");
+
+		MeshList::GetInstance()->AddMesh("castle1", MeshBuilder::GetInstance()->GenerateQuad("castle_scrn_1", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("castle1")->textureID = LoadTGA("Image//castle_dark_1.tga");
+
+		MeshList::GetInstance()->AddMesh("castle2", MeshBuilder::GetInstance()->GenerateQuad("castle_scrn_2", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("castle2")->textureID = LoadTGA("Image//castle_dark_2.tga");
+
+		MeshList::GetInstance()->AddMesh("castle3", MeshBuilder::GetInstance()->GenerateQuad("castle_scrn_3", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("castle3")->textureID = LoadTGA("Image//castle_dark_3.tga");
+
+		MeshList::GetInstance()->AddMesh("castle4", MeshBuilder::GetInstance()->GenerateQuad("castle_scastle_scrn_4", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("castle4")->textureID = LoadTGA("Image//castle_dark_4.tga");
 
 		//Blocks
 		MeshList::GetInstance()->AddMesh("solid_block", MeshBuilder::GetInstance()->GenerateQuad("block", 1, 1.f));
