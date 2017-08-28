@@ -91,6 +91,7 @@ private:
 	bool m_bFallDownwards;
 	bool m_moving;
 	bool m_invincible;
+    double m_invincibletimer, m_definvincibletimer;
 
 	bool m_isOnFloor;
 	bool m_isClimbing;
