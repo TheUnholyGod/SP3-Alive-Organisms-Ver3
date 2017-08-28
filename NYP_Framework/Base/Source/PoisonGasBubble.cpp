@@ -59,7 +59,8 @@ void PoisonGasBubbles::Update(double _dt)
 	if (!this->m_active)
 		return;
 	
-	this->size += Vector3(0.5, 0.5) * _dt;
+	if(size.x < m_maxscale.x)
+		this->size += Vector3(0.1, 0.1) * _dt;
 
 
 	this->m_bubbletimer += _dt;
