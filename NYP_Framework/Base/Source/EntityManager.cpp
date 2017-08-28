@@ -27,6 +27,10 @@ void EntityManager::Update(double _dt)
 			break;
 	}
 	std::list<EntityBase*>::iterator it;
+	Vector3 original_player_MaxAABB = Player::GetInstance()->GetMaxAABB(), original_player_MinAABB = Player::GetInstance()->GetMinAABB();
+
+	Player::GetInstance()->SetAABB(Vector3(Player::GetInstance()->GetMaxAABB().x + 4, Player::GetInstance()->GetMaxAABB().y + 4, Player::GetInstance()->GetMaxAABB().z),
+		Vector3(Player::GetInstance()->GetMinAABB().x - 4, Player::GetInstance()->GetMinAABB().y - 4, Player::GetInstance()->GetMinAABB().z));
 
 	if (!Player::GetInstance()->GetIsFightingBoss())
 	{
@@ -34,10 +38,13 @@ void EntityManager::Update(double _dt)
 		{
 			for (it = m_entity_map_base[temp[i]].begin(); it != m_entity_map_base[temp[i]].end(); ++it)
 			{
-				if ((*it)->GetIsStatic())
-					entity_list_full.push_back(*it);
-				else
-					entity_list_full.push_front(*it);
+				if (temp[i] == -1 || CollisionManager::GetInstance()->CheckAABBCollision(Player::GetInstance(), *it))
+				{
+					if ((*it)->GetIsStatic())
+						entity_list_full.push_back(*it);
+					else
+						entity_list_full.push_front(*it);
+				}
 			}
 		}
 	}
@@ -54,11 +61,11 @@ void EntityManager::Update(double _dt)
 		{
 			for (it = m_entity_boss_map_base[temp[i]].begin(); it != m_entity_boss_map_base[temp[i]].end(); ++it)
 			{
-				if ((*it)->GetIsStatic())
-					entity_list_full.push_back(*it);
-				else
-					entity_list_full.push_front(*it);
-			}
+					if ((*it)->GetIsStatic())
+						entity_list_full.push_back(*it);
+					else
+						entity_list_full.push_front(*it);
+				}
 		}
 
 		for (it = m_entity_map_base[-1].begin(); it != m_entity_map_base[-1].end(); ++it)
@@ -70,7 +77,7 @@ void EntityManager::Update(double _dt)
 		}
 	}
 
-
+	Player::GetInstance()->SetAABB(original_player_MaxAABB, original_player_MinAABB);
 
 	for (it = entity_list_full.begin(); it != entity_list_full.end(); ++it)
 	{
