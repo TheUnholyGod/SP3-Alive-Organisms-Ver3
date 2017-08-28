@@ -49,6 +49,7 @@ void PlagueBoss::Init()
 	this->m_bCollider = true;
 	this->tile_ID = -1;
 	this->m_dmg = 10;
+    this->m_health = 100;
 }
 
 void PlagueBoss::Update(double _dt)

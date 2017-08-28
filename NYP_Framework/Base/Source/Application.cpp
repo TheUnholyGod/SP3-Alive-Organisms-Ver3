@@ -282,6 +282,9 @@ void Application::InitAllMeshes()
 		MeshBuilder::GetInstance()->GenerateSpriteAnimation("enemy_1", 1, 7, 1.0f);
 		MeshList::GetInstance()->GetMesh("enemy_1")->textureID = LoadTGA("Image//enemy_1.tga");
 
+		MeshBuilder::GetInstance()->GenerateSpriteAnimation("enemy_1_atk", 1, 6, 1.0f);
+		MeshList::GetInstance()->GetMesh("enemy_1_atk")->textureID = LoadTGA("Image//enemy_1_atk.tga");
+
 		MeshBuilder::GetInstance()->GenerateSpriteAnimation("enemy_2", 1, 4, 1.0f);
 		MeshList::GetInstance()->GetMesh("enemy_2")->textureID = LoadTGA("Image//enemy_2.tga");
 

@@ -56,11 +56,11 @@ EnemyBase * Create::Enemy(const EnemyBase::ENEMY_TYPE enemy_type,
 			sa->m_anim->Set(1, 6, 1, 1.0f, true);
 			result->animation = new SpriteEntity(sa);
 		}
-		SpriteAnimation* sa2 = new SpriteAnimation(*dynamic_cast<SpriteAnimation*>(MeshList::GetInstance()->GetMesh("explosion")));
+		SpriteAnimation* sa2 = new SpriteAnimation(*dynamic_cast<SpriteAnimation*>(MeshList::GetInstance()->GetMesh("enemy_1_atk")));
 		if (sa2)
 		{
 			sa2->m_anim = new Animation();
-			sa2->m_anim->Set(1, 24, 1, 1.0f, true);
+			sa2->m_anim->Set(1, 5, 1, 1.0f, true);
 			result->animation2 = new SpriteEntity(sa2);
 		}
 
