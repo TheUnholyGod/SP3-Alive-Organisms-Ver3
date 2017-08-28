@@ -49,6 +49,7 @@ public:
 		m_path_finder.readMap(MapManager::GetInstance()->getMapArray());
 		m_path_index = 0;
 		isPathFound = false;
+		m_attackCooldown = 0;
 	}
 	virtual ~EnemyBase() {};
 
@@ -69,7 +70,7 @@ protected:
 	std::vector<Coord2D> m_path;
 	int m_path_index;
 	bool isPathFound;
-
+	double m_attackCooldown;
 	//Movement
 	Vector3 m_velocity;
 	

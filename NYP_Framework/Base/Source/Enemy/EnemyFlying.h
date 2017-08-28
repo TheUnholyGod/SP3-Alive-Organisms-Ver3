@@ -24,6 +24,7 @@ public:
 	{
 		AI_CHASE,  //Fly to player
 		AI_ATTACK, //Attacks the player
+		AI_ATTACKING, //Attacks the player
 		AI_STUNNED,//Stops the AI From doing anything for a set period
 		AI_IDLE,
 

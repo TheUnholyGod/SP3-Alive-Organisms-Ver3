@@ -56,6 +56,12 @@ void EnemyFlying::Update(double _dt)
 	}
 
 	Detect(_dt);
+	
+	if (m_state == AI_ATTACKING)
+	{
+		m_attackCooldown -= _dt;
+		std::cout << "Attack Cooldown: " << m_attackCooldown << std::endl;
+	}
 
 	switch (m_state)
 	{
@@ -65,6 +71,12 @@ void EnemyFlying::Update(double _dt)
 		break;
 	}
 	case EnemyFlying::AI_ATTACK:
+	{
+		m_attackCooldown = 1;
+		m_state = AI_ATTACKING;
+		break;
+	}	
+	case EnemyFlying::AI_ATTACKING:
 	{
 		Attack();
 		break;
@@ -130,9 +142,12 @@ void EnemyFlying::Detect(double dt)
 {
 	float dist = (Player::GetInstance()->GetPosition() - position).Length();
 
+	if (m_state == AI_ATTACKING) return;
+
 	if (dist < 0.8)
 	{
 		m_state = AI_ATTACK;
+		return;
 	}
 	else if (dist > 3)
 	{
@@ -149,9 +164,11 @@ void EnemyFlying::Attack()
 {
 	m_velocity.SetZero();
 	//Do damage to player
-	std::cout << "Deal dmg to player" << std::endl;
-
-	//Go back to chase
-	m_state = AI_CHASE;
-	return;
+	if (m_attackCooldown <= 0)
+	{
+		std::cout << "Dealt 20 damage to player" << std::endl;
+		Player::GetInstance()->ApplyDamage(20);
+		m_state = AI_CHASE;
+		return;
+	}
 }
