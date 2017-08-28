@@ -29,7 +29,7 @@
 #include "Enemy\EnemyBase.h"
 #include "PlagueBoss.h"
 #include "FamineBoss.h"
-
+#include "timer.h"
 #include <future>
 #include <iostream>
 
@@ -182,7 +182,7 @@ void SceneText::Init()
 	//}
 
 	theMinimap = Create::Minimap(false);
-	theMinimap->SetBackground(MeshBuilder::GetInstance()->GenerateQuad("MINIMAP", Color(1, 0, 0), 1.f));
+	theMinimap->SetBackground(MeshBuilder::GetInstance()->GenerateQuad("MINIMAP", Color(0, 0, 0), 1.f));
 	//theMinimap->GetBackground()->textureID = LoadTGA("Image//minimap_square.tga");
 	theMinimap->SetBorder(MeshBuilder::GetInstance()->GenerateCircle("MINIMAPBORDER", Color(0, 0, 1), 1.05f));
 	theMinimap->SetAvatar(MeshBuilder::GetInstance()->GenerateQuad("avatar", Color(0.8, 0.8, 0.8), 0.1f));
@@ -348,8 +348,14 @@ void SceneText::Render()
 		// Setup 3D pipeline then render 3D
 		GraphicsManager::GetInstance()->SetPerspectiveProjection(45.0f, 4.0f / 3.0f, 0.1f, 10000.0f);
 		GraphicsManager::GetInstance()->AttachCamera(Player::GetInstance()->getCamera());
+		
+		StopWatch timer2;
+		timer2.startTimer();
 
 		EntityManager::GetInstance()->Render();
+
+		std::cout << "Time taken to run entity: " << timer2.getElapsedTime() << "ms" << std::endl;
+
 		Player::GetInstance()->Render();
 
 		// Setup 2D pipeline then render 2D
@@ -358,7 +364,12 @@ void SceneText::Render()
 		GraphicsManager::GetInstance()->SetOrthographicProjection(-halfWindowWidth, halfWindowWidth, -halfWindowHeight, halfWindowHeight, -10, 10);
 		GraphicsManager::GetInstance()->DetachCamera();
 
-		theMinimap->RenderUI();
+		StopWatch timer;
+		timer.startTimer();
+		
+		theMinimap->RenderUI(); 
+		
+		std::cout << "Time taken to run minimap: " << timer.getElapsedTime() << "ms"<< std::endl;
 		UIManager::GetInstance()->RenderUI();
 		HUDManager::GetInstance()->RenderHUD();
 	}

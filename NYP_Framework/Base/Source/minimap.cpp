@@ -5,6 +5,7 @@
 #include "EntityManager.h"
 #include "PlayerInfo\PlayerInfo.h"
 #include "EntityManager.h"
+#include "TileEntity.h"
 #include "GL\glew.h"
 
 CMinimap::CMinimap()
@@ -17,7 +18,6 @@ CMinimap::CMinimap()
 	, mode(MODE_2D)
 {
 	Init();
-	EntityManager::GetInstance()->GetAllBlocks(entities);
 }
 CMinimap::~CMinimap(void)
 {
@@ -191,8 +191,54 @@ void CMinimap::RenderUI()
 			continue;
 
 		modelStack.PushMatrix();
-		modelStack.Translate((entities[i]->GetPosition().x - playerPos.x) / 50, (entities[i]->GetPosition().y - playerPos.y) / 50, 0.01);
-		modelStack.Scale(0.01, 0.01, 0.01);
+		TileEntity::BLOCK_TYPE bt = TileEntity::SOLID_BLOCK;
+		if(dynamic_cast<TileEntity*>(entities[i]))
+			bt = dynamic_cast<TileEntity*>(entities[i])->block_type;
+		switch (bt)
+		{
+		case TileEntity::TOP_PLATFORM:
+		{
+			m_cMinimap_Target = MeshList::GetInstance()->GetMesh("platform_block");
+			modelStack.Translate((entities[i]->GetPosition().x - playerPos.x) / 10, (entities[i]->GetPosition().y - playerPos.y) / 9.9, 0.001); 
+			modelStack.Scale(0.1, 0.03, 1);
+			break;
+		}
+		case TileEntity::LADDER:
+		{
+			m_cMinimap_Target = MeshList::GetInstance()->GetMesh("ladder_block");
+			modelStack.Translate((entities[i]->GetPosition().x - playerPos.x) / 10, (entities[i]->GetPosition().y - playerPos.y) / 10, 0.001);
+			modelStack.Scale(0.1, 0.1, 1);
+			break;
+		}				
+		case TileEntity::LADDERWITHPLATFORM:
+		{
+			m_cMinimap_Target = MeshList::GetInstance()->GetMesh("platform_ladder_block");
+			modelStack.Translate((entities[i]->GetPosition().x - playerPos.x) / 10, (entities[i]->GetPosition().y - playerPos.y) / 10, 0.001);
+			modelStack.Scale(0.1, 0.1, 1);
+			break;
+		}
+		case TileEntity::RUNE_SPAWNER:
+		{
+			m_cMinimap_Target = MeshList::GetInstance()->GetMesh("rune_spawner_block");
+			modelStack.Translate((entities[i]->GetPosition().x - playerPos.x) / 10, (entities[i]->GetPosition().y - playerPos.y) / 10, 0.001);
+			modelStack.Scale(0.1, 0.1, 1);
+			break;
+		}		
+		case TileEntity::BOSS_DOOR:
+		{
+			m_cMinimap_Target = MeshList::GetInstance()->GetMesh("door_block");
+			modelStack.Translate((entities[i]->GetPosition().x - playerPos.x) / 10, (entities[i]->GetPosition().y - playerPos.y) / 10, 0.001);
+			modelStack.Scale(0.1, 0.2, 1);
+			break;
+		}
+		default:
+			m_cMinimap_Target = MeshList::GetInstance()->GetMesh("solid_block");
+			modelStack.Translate((entities[i]->GetPosition().x - playerPos.x) / 10, (entities[i]->GetPosition().y - playerPos.y) / 10, 0.001);
+			modelStack.Scale(0.1, 0.1, 1);
+			break;
+		}
+		//modelStack.Translate((entities[i]->GetPosition().x - playerPos.x) / 10, (entities[i]->GetPosition().y - playerPos.y) / 10, 0.01);
+		//modelStack.Scale(0.1, 0.1, 1);
 		RenderHelper::RenderMesh(m_cMinimap_Target);
 		modelStack.PopMatrix();
 	}
@@ -218,6 +264,12 @@ void CMinimap::RenderUI()
 		RenderHelper::RenderMesh(m_cMinimap_Border);
 
 	modelStack.PopMatrix();
+}
+
+void CMinimap::Update(double dt)
+{
+	entities.clear();
+	EntityManager::GetInstance()->GetAllBlocksInTileSet(Player::GetInstance()->GetTileID(), entities);
 }
 
 CMinimap* Create::Minimap(const bool m_bAddToLibrary)
