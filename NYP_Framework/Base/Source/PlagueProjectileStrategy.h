@@ -3,6 +3,10 @@
 
 #include "PlagueStrategy.h"
 
+#include <vector>
+
+class PoisonProjectile;
+
 class PlagueProjectileStrategy : public PlagueStrategy
 {
 public:
@@ -11,6 +15,8 @@ public:
 
     virtual void Init();
     virtual void Update(double dt);
+protected:
+	std::vector<PoisonProjectile*> m_poisonproj;
 };
 
 #endif

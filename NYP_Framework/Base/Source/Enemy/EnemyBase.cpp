@@ -13,6 +13,7 @@ cpp file for EnemyBase.
 
 #include "EnemyMelee.h"
 #include "EnemyMaggot.h"
+#include "EnemyFlying.h"
 
 
 void EnemyBase::Update(double _dt)
@@ -52,7 +53,7 @@ EnemyBase * Create::Enemy(const EnemyBase::ENEMY_TYPE enemy_type,
 		if (sa)
 		{
 			sa->m_anim = new Animation();
-			sa->m_anim->Set(1, 9, 1, 1.0f, true);
+			sa->m_anim->Set(1, 6, 1, 1.0f, true);
 			result->animation = new SpriteEntity(sa);
 		}
 		SpriteAnimation* sa2 = new SpriteAnimation(*dynamic_cast<SpriteAnimation*>(MeshList::GetInstance()->GetMesh("explosion")));
@@ -87,6 +88,33 @@ EnemyBase * Create::Enemy(const EnemyBase::ENEMY_TYPE enemy_type,
 		{
 			sa2->m_anim = new Animation();
 			sa2->m_anim->Set(1, 12, 1, 1.0f, true);
+			result->animation2 = new SpriteEntity(sa2);
+		}
+
+		EntityManager::GetInstance()->AddEntity(result, is_boss_room);
+		return result;
+	}
+	case EnemyBase::ENEMY_TYPE::E_FLYING:
+	{
+		Mesh* modelMesh = MeshList::GetInstance()->GetMesh("enemy_2");
+		if (modelMesh == nullptr)
+			return nullptr;
+
+		EnemyFlying* result = new EnemyFlying(modelMesh, enemy_type, _position, _scale);
+
+		//Animation
+		SpriteAnimation* sa = new SpriteAnimation(*dynamic_cast<SpriteAnimation*>(MeshList::GetInstance()->GetMesh("enemy_2")));
+		if (sa)
+		{
+			sa->m_anim = new Animation();
+			sa->m_anim->Set(1, 3, 1, 1.0f, true);
+			result->animation = new SpriteEntity(sa);
+		}
+		SpriteAnimation* sa2 = new SpriteAnimation(*dynamic_cast<SpriteAnimation*>(MeshList::GetInstance()->GetMesh("explosion")));
+		if (sa2)
+		{
+			sa2->m_anim = new Animation();
+			sa2->m_anim->Set(1, 24, 1, 1.0f, true);
 			result->animation2 = new SpriteEntity(sa2);
 		}
 

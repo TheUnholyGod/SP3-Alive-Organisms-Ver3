@@ -10,6 +10,7 @@ PlagueProjectileStrategy::~PlagueProjectileStrategy()
 
 void PlagueProjectileStrategy::Init()
 {
+
 }
 
 void PlagueProjectileStrategy::Update(double dt)

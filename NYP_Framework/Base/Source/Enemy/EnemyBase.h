@@ -35,6 +35,7 @@ public:
 		E_RANGED,
 		E_BOMBER,
 		E_MAGGOT,
+		E_FLYING,
 		E_TOTAL
 	} m_enemyType;
 

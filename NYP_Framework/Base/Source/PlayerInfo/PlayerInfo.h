@@ -102,6 +102,11 @@ private:
 	FPSCamera* attachedCamera;
 
 	SpriteEntity* animation;
+	SpriteEntity* animationWalking;
+	SpriteEntity* animationWalkingLeft;
+	SpriteEntity* animationClimbing;
+	SpriteEntity* animationJumping;
+
 	
 	Equipment* m_player_equipment[NUM_EQUIPMENT];
 };

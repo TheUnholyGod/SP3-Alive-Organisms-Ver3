@@ -8,6 +8,7 @@
 #include "PoisonProjectile.h"
 #include "ToxicGas.h"
 #include "Enemy\EnemyMaggot.h"
+#include "MapManager.h"
 
 PlagueBoss::PlagueBoss() : m_strats(new PlagueStrategy*[NUM_STATES])
 {
@@ -36,7 +37,7 @@ void PlagueBoss::Init()
 		this->m_entitylist.push_back(Create::CreatePoisonGasBubbles("quad", Vector3(),Vector3(1,1,0),nullptr,true));
 		//this->m_entitylist.push_back(Create::CreatePoisonHitbox("quad",Vector3()));
 		//this->m_entitylist.push_back(Create::CreatePoisonProjectile("quad",Vector3()));
-		//this->m_entitylist.push_back(Create::CreateToxicGas("quad", Vector3()));
+		this->m_entitylist.push_back(Create::CreateToxicGas("quad", Vector3(), Vector3(1, 1, 1), true));
 		this->m_entitylist.push_back(Create::Enemy(EnemyBase::E_MAGGOT, Vector3(), Vector3(1, 1, 1), true, false, false, 0, true));
 	}
 	m_changestatetimer = 0;
@@ -79,15 +80,15 @@ void PlagueBoss::Render()
 	Collision::Render();
 }
 
-bool PlagueBoss::CollisionResponse(GenericEntity *)
+bool PlagueBoss::CollisionResponse(GenericEntity * ThatEntity)
 {
-    return false;
+	return true;
 }
 
 bool PlagueBoss::GetNextState()
 {
 	//m_currstate = static_cast<PLAGUESTATES>(Math::RandIntMinMax(STATE_SUMMON, STATE_CHARGE));
-	m_currstate = STATE_BUBBLE;
+	m_currstate = STATE_CHARGE;
 	this->m_strats[m_currstate]->Init();
 	return false;
 }

@@ -244,6 +244,21 @@ void Application::InitAllMeshes()
 		MeshBuilder::GetInstance()->GenerateSpriteAnimation("GEO_SPRITE_ANIMATION", 1, 6, 1.0f);
 		MeshList::GetInstance()->GetMesh("GEO_SPRITE_ANIMATION")->textureID = LoadTGA("Image//cat.tga");
 
+		MeshBuilder::GetInstance()->GenerateSpriteAnimation("Idle_Animation", 1, 3 , 1.0f);
+		MeshList::GetInstance()->GetMesh("Idle_Animation")->textureID = LoadTGA("Image//idle.tga");
+
+		MeshBuilder::GetInstance()->GenerateSpriteAnimation("Running_Animation", 1, 3, 1.0f);
+		MeshList::GetInstance()->GetMesh("Running_Animation")->textureID = LoadTGA("Image//running.tga");
+
+		MeshBuilder::GetInstance()->GenerateSpriteAnimation("Running_Animationleft", 1, 3, 1.0f);
+		MeshList::GetInstance()->GetMesh("Running_Animationleft")->textureID = LoadTGA("Image//runningleft.tga");
+
+		MeshBuilder::GetInstance()->GenerateSpriteAnimation("Jumping_Animation", 1, 1, 1.0f);
+		MeshList::GetInstance()->GetMesh("Jumping_Animation")->textureID = LoadTGA("Image//jumping.tga");
+
+		MeshBuilder::GetInstance()->GenerateSpriteAnimation("Climbing_Animation", 1, 1, 1.0f);
+		MeshList::GetInstance()->GetMesh("Climbing_Animation")->textureID = LoadTGA("Image//climbing.tga");
+
 		MeshBuilder::GetInstance()->GenerateSpriteAnimation("explosion", 5, 5, 1.0f);
 		MeshList::GetInstance()->GetMesh("explosion")->textureID = LoadTGA("Image//explosion.tga");
 
@@ -262,8 +277,11 @@ void Application::InitAllMeshes()
 		MeshBuilder::GetInstance()->GenerateSpriteAnimation("normal_rune_item", 4, 3, 1.0f);
 		MeshList::GetInstance()->GetMesh("normal_rune_item")->textureID = LoadTGA("Image//normal_rune.tga");*/
 
-		MeshBuilder::GetInstance()->GenerateSpriteAnimation("enemy_1", 3, 5, 1.0f);
+		MeshBuilder::GetInstance()->GenerateSpriteAnimation("enemy_1", 1, 7, 1.0f);
 		MeshList::GetInstance()->GetMesh("enemy_1")->textureID = LoadTGA("Image//enemy_1.tga");
+
+		MeshBuilder::GetInstance()->GenerateSpriteAnimation("enemy_2", 1, 4, 1.0f);
+		MeshList::GetInstance()->GetMesh("enemy_2")->textureID = LoadTGA("Image//enemy_2.tga");
 
 		MeshBuilder::GetInstance()->GenerateSpriteAnimation("maggot", 2, 8, 1.0f);
 		MeshList::GetInstance()->GetMesh("maggot")->textureID = LoadTGA("Image//Maggot.tga");

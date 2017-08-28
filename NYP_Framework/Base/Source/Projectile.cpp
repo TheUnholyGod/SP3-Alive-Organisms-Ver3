@@ -58,6 +58,10 @@ void Projectile::Render()
 	modelStack.PopMatrix();
 }
 
+void Projectile::Exit()
+{
+}
+
 bool Projectile::CollisionResponse(GenericEntity * ThatEntity)
 {
 	if (ThatEntity->type == ENEMY_OBJ)

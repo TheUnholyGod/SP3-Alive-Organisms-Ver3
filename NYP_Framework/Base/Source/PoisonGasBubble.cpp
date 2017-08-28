@@ -47,7 +47,7 @@ void PoisonGasBubbles::Init(Vector3 _pos, Vector3 _vel, Vector3 _dir, PlagueBoss
 	this->m_active = true;
 	float sc = Math::RandIntMinMax(2, 5);
 	this->m_maxscale.Set(sc, sc, 1);
-	this->m_defbubbletimer = Math::RandFloatMinMax(15, 30);
+	this->m_defbubbletimer = Math::RandFloatMinMax(5, 10);
 	this->m_bubbletimer = 0;
 	this->m_pop = false;
 	this->size.Set(0.25, 0.25, 0);
@@ -60,13 +60,13 @@ void PoisonGasBubbles::Update(double _dt)
 	if (!this->m_active)
 		return;
 	
-	this->size += Vector3(0.5, 0.5) * _dt;
+	if(size.x < m_maxscale.x)
+		this->size += Vector3(0.1, 0.1) * _dt;
 
 
 	this->m_bubbletimer += _dt;
 	if (m_bubbletimer > m_defbubbletimer)
 	{
-		m_active = false;
 		m_pop = true;
 	}
     if (m_pop)
@@ -88,10 +88,14 @@ bool PoisonGasBubbles::CollisionResponse(GenericEntity * ThatEntity)
 
 void PoisonGasBubbles::Pop()
 {
+	this->m_active = false;
     GenericEntity* ge = this->m_parent->GetEntity(GenericEntity::PLAGUE_GAS_OBJ);
     if (!ge)
         return;
     ToxicGas* tg = dynamic_cast<ToxicGas*>(ge);
-    if (tg) {}
-        tg->Init(this);
+	if (tg)
+	{
+		std::cout << "POP!" << std::endl;
+		tg->Init(this);
+	}
 }

@@ -48,7 +48,7 @@ void UIElement::Update(double _dt)
 
 void UIElement::Render()
 {
-	if (GameStateManager::GetInstance()->getState() == GS_LEVELCOMPLETE)
+	if (this->m_parent_state == GS_LEVELCOMPLETE)
 	{
 		switch (Player::GetInstance()->GetCurrentLevel())
 		{
