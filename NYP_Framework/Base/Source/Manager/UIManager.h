@@ -18,6 +18,7 @@ various game screens: Menu, Options, Gameover etc.
 #include "MouseController.h"
 
 #include "../UIElement.h"
+#include "../SpriteEntity.h"
 
 class GameStateManager;
 
@@ -38,12 +39,15 @@ public:
 	//Returns the element that is on the mouse
 	UIElement* GetElementOnCursor();
 
+	double m_explosionTime = 0;
 private:
 	UIManager() {};
 	virtual ~UIManager() {};
 
 	//Vector to store all UIElements
 	std::vector<EntityBase*> m_UIElements;
+
+	SpriteEntity* explosion;
 
 	//State of the game
 	GAMESTATE m_gameState;
