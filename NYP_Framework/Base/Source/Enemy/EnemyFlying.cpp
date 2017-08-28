@@ -167,7 +167,7 @@ void EnemyFlying::Attack()
 	if (m_attackCooldown <= 0)
 	{
 		std::cout << "Dealt 20 damage to player" << std::endl;
-		Player::GetInstance()->ApplyDamage(20);
+		Player::GetInstance()->TakeDamage(20);
 		m_state = AI_CHASE;
 		return;
 	}
