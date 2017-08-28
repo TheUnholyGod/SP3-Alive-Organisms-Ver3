@@ -132,8 +132,15 @@ void Application::Run()
 		if (dt > 0.016666666667f)
 			dt = 0.016666666667;
 
+		/*StopWatch timer;
+		timer.startTimer();*/
 		SceneManager::GetInstance()->Update(dt);
+		/*std::cout << "Time for update: " << timer.getElapsedTime() << std::endl;*/
+
+		/*StopWatch timer2;
+		timer2.startTimer();*/
 		SceneManager::GetInstance()->Render();
+		/*std::cout << "Time for render: " << timer2.getElapsedTime() << std::endl;*/
 
 		//Swap buffers
 		glfwSwapBuffers(m_window);

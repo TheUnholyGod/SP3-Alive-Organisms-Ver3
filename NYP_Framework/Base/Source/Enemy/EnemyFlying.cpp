@@ -97,7 +97,10 @@ void EnemyFlying::Update(double _dt)
 
 void EnemyFlying::Render()
 {
-	this->animation->Render();
+	if(m_state == AI_ATTACKING)
+		this->animation2->Render();
+	else
+		this->animation->Render();
 }
 
 bool EnemyFlying::CollisionResponse(GenericEntity *ThatEntity)
@@ -144,7 +147,7 @@ void EnemyFlying::Detect(double dt)
 
 	if (m_state == AI_ATTACKING) return;
 
-	if (dist < 0.8)
+	if (dist < 0.5)
 	{
 		m_state = AI_ATTACK;
 		return;
