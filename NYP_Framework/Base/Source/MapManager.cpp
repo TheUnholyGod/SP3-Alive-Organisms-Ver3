@@ -107,6 +107,8 @@ void MapManager::GenerateBlocks(int level)
 					if (!set_player_pos && i >= (temp.size() - 10))
 					{
 						player_starting_pos.push_back(Vector3((x + (row * 7)), (y + (section * 7)) - 0.2, 0));
+						Create::TileEntityCreator(TileEntity::DOOR_EXIT, Vector3((x + (row * 7)), (y + (section * 7)) + 0.2, 0.14), Vector3(1, 1.5, 1), true, true, true, i);
+
 						set_player_pos = true;
 					}
 
@@ -131,7 +133,7 @@ void MapManager::GenerateBlocks(int level)
 				break;
 				case 8:
 				{
-					if (Math::RandIntMinMax(0, 100) < 40)
+					if (Math::RandIntMinMax(0, 100) < 20)
 						enemy_temp_list[i].push_back(Vector3((x + (row * 7)), y + (section * 7), 0));
 				}
 				break;
@@ -153,6 +155,7 @@ void MapManager::GenerateBlocks(int level)
 	if (!set_player_pos)
 	{
 		player_starting_pos.push_back(temp_player_pos);
+		Create::TileEntityCreator(TileEntity::DOOR_EXIT, Vector3(temp_player_pos.x, temp_player_pos.y + 0.2, 0.14), Vector3(1, 1.5, 1), true, true, true, MapManager::GetInstance()->GetLevel(level)->ReturnTileViaPos(Vector3(temp_player_pos.x, temp_player_pos.y + 0.2, 0.14), false));
 	}
 
 	if (!set_boss_door)
@@ -188,7 +191,7 @@ void MapManager::GenerateBlocks(int level)
 		{
 			for (vector<Vector3>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
 			{
-				//Create::Enemy(EnemyBase::ENEMY_TYPE::E_MELEE, Vector3(it2->x, it2->y, it2->z + 0.01), Vector3(1, 1, 1), true, false, false, it->first);
+				Create::Enemy(EnemyBase::ENEMY_TYPE::E_MELEE, Vector3(it2->x, it2->y, it2->z + 0.01), Vector3(1, 1, 1), true, false, false, it->first);
 			}
 		}
 	}
@@ -473,6 +476,17 @@ TileEntity* Create::TileEntityCreator(const TileEntity::BLOCK_TYPE block_type,
 	case TileEntity::BOSS_DOOR:
 	{
 		Mesh* modelMesh = MeshList::GetInstance()->GetMesh("door_block");
+		if (modelMesh == nullptr)
+			return nullptr;
+
+		TileEntitySolidBlock* result = new TileEntitySolidBlock(modelMesh, _position, _scale, have_collider, have_physic, current_tile_ID, is_static, block_type);
+		EntityManager::GetInstance()->AddEntity(result, is_boss_room);
+
+		return result;
+	}
+	case TileEntity::DOOR_EXIT:
+	{
+		Mesh* modelMesh = MeshList::GetInstance()->GetMesh("exit_door_block");
 		if (modelMesh == nullptr)
 			return nullptr;
 

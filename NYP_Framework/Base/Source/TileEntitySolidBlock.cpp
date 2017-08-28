@@ -1,5 +1,8 @@
 #include "TileEntitySolidBlock.h"
 #include "PlayerInfo\PlayerInfo.h"
+#include "GraphicsManager.h"
+#include "RenderHelper.h"
+
 #include <iostream>
 
 TileEntitySolidBlock::TileEntitySolidBlock(Mesh* mesh, Vector3 pos, Vector3 size, bool have_collider, bool have_physic, int current_tile_ID, bool is_static, TileEntity::BLOCK_TYPE type) : TileEntity(mesh)
@@ -25,6 +28,31 @@ void TileEntitySolidBlock::Update(double dt)
 {
 }
 
+void TileEntitySolidBlock::Render()
+{
+	if (block_type != DOOR_EXIT)
+	{
+		MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
+		modelStack.PushMatrix();
+		modelStack.Translate(position.x, position.y, position.z);
+		modelStack.Scale(scale.x, scale.y, scale.z);
+		RenderHelper::RenderMesh(modelMesh);
+		modelStack.PopMatrix();
+	}
+	else
+	{
+		if (Player::GetInstance()->GetIsKilledBoss())
+		{
+			MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
+			modelStack.PushMatrix();
+			modelStack.Translate(position.x, position.y, position.z);
+			modelStack.Scale(scale.x, scale.y, scale.z);
+			RenderHelper::RenderMesh(modelMesh);
+			modelStack.PopMatrix();
+		}
+	}
+}
+
 bool TileEntitySolidBlock::CollisionResponse(GenericEntity* entity)
 {
 	if (entity->type == GenericEntity::PLAYER_OBJ && this->type == GenericEntity::ENVIORNMENT_OBJ)
@@ -32,11 +60,21 @@ bool TileEntitySolidBlock::CollisionResponse(GenericEntity* entity)
 		switch(block_type)
 		{
 		case BOSS_DOOR:
+		{
 			if (Player::GetInstance()->IsInteracting())
 			{
 				Player::GetInstance()->SetIsFightingBoss(true);
 			}
 			return true;
+		}
+		case DOOR_EXIT:
+		{
+			if (Player::GetInstance()->IsInteracting() && Player::GetInstance()->GetIsKilledBoss())
+			{
+				Player::GetInstance()->StartNextLevel();
+			}
+			return true;
+		}
 		default:
 			return false;
 		}

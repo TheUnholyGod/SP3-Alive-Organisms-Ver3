@@ -317,6 +317,9 @@ void Application::InitAllMeshes()
 		MeshList::GetInstance()->AddMesh("door_block", MeshBuilder::GetInstance()->GenerateQuad("door", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("door_block")->textureID = LoadTGA("Image//door.tga");
 
+		MeshList::GetInstance()->AddMesh("exit_door_block", MeshBuilder::GetInstance()->GenerateQuad("door_exit", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("exit_door_block")->textureID = LoadTGA("Image//door_exit.tga");
+
 		MeshList::GetInstance()->AddMesh("arrow_projectile", MeshBuilder::GetInstance()->GenerateQuad("arrow", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("arrow_projectile")->textureID = LoadTGA("Image//arrow.tga");
 
