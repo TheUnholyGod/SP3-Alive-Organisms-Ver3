@@ -120,7 +120,7 @@ void Player::Init(void)
     m_interacttimer = 0;
     m_definteracttimer = 0.025f;
     m_invincibletimer = 0;
-    m_definvincibletimer = 0.1f;
+    m_definvincibletimer = 2;
 
 	SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
     this->m_player_equipment[EQUIPMENT_MELEE] = new ShortSword();
