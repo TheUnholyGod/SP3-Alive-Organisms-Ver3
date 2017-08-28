@@ -36,7 +36,7 @@ void PlagueBoss::Init()
 		this->m_entitylist.push_back(Create::CreatePoisonGasBubbles("quad", Vector3(),Vector3(1,1,0),nullptr,true));
 		//this->m_entitylist.push_back(Create::CreatePoisonHitbox("quad",Vector3()));
 		//this->m_entitylist.push_back(Create::CreatePoisonProjectile("quad",Vector3()));
-		this->m_entitylist.push_back(Create::CreateToxicGas("quad", Vector3()));
+		this->m_entitylist.push_back(Create::CreateToxicGas("quad", Vector3(), Vector3(1, 1, 1), true));
 		this->m_entitylist.push_back(Create::Enemy(EnemyBase::E_MAGGOT, Vector3(), Vector3(1, 1, 1), true, false, false, 0, true));
 	}
 	m_changestatetimer = 0;
