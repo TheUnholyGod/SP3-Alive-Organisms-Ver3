@@ -16,6 +16,8 @@ public:
 
 	virtual void Update(double _dt);
 	virtual void Render();
+	virtual void Exit();
+
 
 	virtual bool CollisionResponse(GenericEntity* ThatEntity);
 	virtual bool GetActive();

@@ -46,8 +46,8 @@ void PlagueBubbleStrategy::Update(double dt)
 	if (action && bubbles.size())
 	{
 		PoisonGasBubbles* bubble = bubbles[bubbles.size() - 1];
-		float x = Math::RandFloatMinMax(1, 5);
-		float y = Math::RandFloatMinMax(1, 5);
+		float x = Math::RandFloatMinMax(0.1, 0.5);
+		float y = Math::RandFloatMinMax(0.1, 0.5);
 		float dirx = Math::RandIntMinMax(-1, 1);
 		float diry = Math::RandFloatMinMax(-1, 1);
 		bubble->SetActive(true);

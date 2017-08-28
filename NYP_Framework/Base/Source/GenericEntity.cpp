@@ -32,6 +32,10 @@ void GenericEntity::Render()
 	modelStack.PopMatrix();
 }
 
+void GenericEntity::Exit()
+{
+}
+
 bool GenericEntity::CollisionResponse(GenericEntity * ThatEntity)
 {
 	return false;
