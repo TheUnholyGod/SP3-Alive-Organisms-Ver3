@@ -60,7 +60,6 @@ void UIManager::Update(double _dt)
 		this->explosion->SetScale(Vector3(500, 500, 500));
 		this->explosion->Update(_dt);
 		m_explosionTime -= _dt;
-
 		if (m_explosionTime <= 0)
 			GameStateManager::GetInstance()->setState(GS_PLAYING);
 	}

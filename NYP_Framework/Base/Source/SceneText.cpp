@@ -278,6 +278,7 @@ void SceneText::Update(double dt)
 	{
 		GameStateManager::GetInstance()->setState(GS_LEVELCOMPLETE);
 		UIManager::GetInstance()->m_explosionTime = 1;
+		AudioPlayer::GetInstance()->playSoundThreaded("explosion");
 		std::cout << "Right Mouse Button was released!" << std::endl;
 	}
 	if (MouseController::GetInstance()->IsButtonReleased(MouseController::MMB))
