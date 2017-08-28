@@ -25,6 +25,7 @@ public:
 		AI_PATROL, //Walks left & right
 		AI_CHASE,  //Follows path to player
 		AI_ATTACK, //Attacks the player
+		AI_ATTACKING,
 		AI_RETURN, //Returns to original spawn
 		AI_STUNNED,//Stops the AI From doing anything for a set period
 

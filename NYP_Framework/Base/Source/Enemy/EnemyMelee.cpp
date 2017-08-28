@@ -55,6 +55,11 @@ void EnemyMelee::Update(double _dt)
 		return;
 	}
 
+	if (m_state == AI_ATTACKING)
+	{
+		m_attackCooldown -= _dt;
+	}
+
 	Detect(_dt);
 
 	switch (m_state)
@@ -73,8 +78,14 @@ void EnemyMelee::Update(double _dt)
 	}
 	case EnemyMelee::AI_ATTACK:
 	{
-		Attack();
+		m_attackCooldown = 1;
+		m_state = AI_ATTACKING;
 		//std::cout << "Attack" << std::endl;
+		break;
+	}
+	case EnemyMelee::AI_ATTACKING:
+	{
+		Attack();
 		break;
 	}
 	case EnemyMelee::AI_RETURN:
@@ -105,13 +116,6 @@ void EnemyMelee::Render()
 		this->animation2->Render();
 	else
 		this->animation->Render();
-	//Collision::Render();
-	//MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
-	//modelStack.PushMatrix();
-	//modelStack.Translate(position.x, position.y, position.z);
-	//modelStack.Scale(scale.x, scale.y, scale.z);
-	//RenderHelper::RenderMesh(modelMesh);
-	//modelStack.PopMatrix();
 }
 
 bool EnemyMelee::CollisionResponse(GenericEntity *ThatEntity)
@@ -267,10 +271,15 @@ void EnemyMelee::Detect(double dt)
 {
 	float dist = (Player::GetInstance()->GetPosition() - position).Length();
 
+	if (m_state == AI_ATTACKING) return;
+
+	m_attackCooldown -= dt;
+
 	if (dist < 0.8)
 	{
 		//isPathFound = false;
 		//m_path.clear();
+		m_attackCooldown = 1;
 		m_state = AI_ATTACK;
 	}
 	else if (dist > 10)
@@ -334,11 +343,13 @@ void EnemyMelee::Attack()
 {
 	m_velocity.SetZero();
 	//Do damage to player
-	std::cout << "Deal dmg to player" << std::endl;
-
-	//Go back to chase
-	m_state = AI_CHASE;
-	return;
+	if (m_attackCooldown <= 0)
+	{
+		std::cout << "Dealt 20 damage to player" << std::endl;
+		Player::GetInstance()->ApplyDamage(20);
+		m_state = AI_CHASE;
+		return;
+	}
 }
 
 void EnemyMelee::FindPath(Coord2D _src, Coord2D _end)
