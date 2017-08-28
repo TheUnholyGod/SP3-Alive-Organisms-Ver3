@@ -20,7 +20,7 @@ void HUDManager::RenderHUD()
 	modelStack.PopMatrix();
 
 	modelStack.PushMatrix();
-	modelStack.Translate(Application::GetInstance().GetWindowWidth() *0.0011, Application::GetInstance().GetWindowHeight() * 0.45, 0);
+	modelStack.Translate(Application::GetInstance().GetWindowWidth() *-0.25, Application::GetInstance().GetWindowHeight()* 0.30, 6);
 	modelStack.Scale(50, 50, 1);
 	RenderHelper::RenderMesh(MeshList::GetInstance()->GetMesh("bow"));
 	modelStack.PopMatrix();
@@ -41,11 +41,11 @@ void HUDManager::RenderHUD()
 	modelStack.PopMatrix();*/
 
 	//HOTBAR
-	//modelStack.PushMatrix();
-	//modelStack.Translate(Application::GetInstance().GetWindowWidth() *- 0.2, Application::GetInstance().GetWindowHeight()* -0.00005, 0);
-	//modelStack.Scale(180, 450, 1);
-	//RenderHelper::RenderMesh(MeshList::GetInstance()->GetMesh("hot_bar"));
-	//modelStack.PopMatrix();
+	modelStack.PushMatrix();
+	modelStack.Translate(Application::GetInstance().GetWindowWidth() *- 0.345, Application::GetInstance().GetWindowHeight()* 0.30, 5);
+	modelStack.Scale(250, 250, 1);
+	RenderHelper::RenderMesh(MeshList::GetInstance()->GetMesh("hot_bar"));
+	modelStack.PopMatrix();
 
 }
 

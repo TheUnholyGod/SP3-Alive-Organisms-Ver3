@@ -48,7 +48,7 @@ void PlagueBoss::Init()
 	this->isStatic = false;
 	this->m_bCollider = true;
 	this->tile_ID = -1;
-	this->m_dmg = 10;
+	this->m_dmg = 0.1f;
     this->m_health = 100;
 }
 
@@ -85,7 +85,10 @@ bool PlagueBoss::CollisionResponse(GenericEntity * ThatEntity)
 	if (ThatEntity->type == PLAYER_OBJ)
 	{
 		Player* ThatEntity1 = dynamic_cast<Player*>(ThatEntity);
-		ThatEntity1->TakeDamage(m_dmg);
+        if(this->m_currstate == STATE_CHARGE)
+            ThatEntity1->TakeDamage(5);
+        else
+    		ThatEntity1->TakeDamage(m_dmg);
 	}
 	return false;
 }
