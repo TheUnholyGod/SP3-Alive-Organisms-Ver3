@@ -9,6 +9,7 @@
 
 class CMinimap : public EntityBase, public Singleton<CMinimap>
 {
+	friend Singleton<CMinimap>;
 public:
 	enum SPRITE_RENDERMODE
 	{
@@ -77,6 +78,7 @@ public:
 	//int GetSize_y(void) const;
 
 	virtual void RenderUI();
+	virtual void Update(double dt);
 
 protected:
 	// Rotation from First Angle
