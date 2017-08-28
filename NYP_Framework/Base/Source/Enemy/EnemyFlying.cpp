@@ -134,7 +134,7 @@ void EnemyFlying::Detect(double dt)
 	{
 		m_state = AI_ATTACK;
 	}
-	else if (dist > 2)
+	else if (dist > 3)
 	{
 		m_state = AI_IDLE;
 		m_velocity.SetZero();

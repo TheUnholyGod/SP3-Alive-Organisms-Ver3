@@ -18,7 +18,7 @@ bool EntityDrop::CollisionResponse(GenericEntity * ThatEntity)
 	{
 		if (Player::GetInstance()->IsInteracting())
 		{
-			//Set Rune into player weapon
+			// Open UI interface
 		}
 	}
 

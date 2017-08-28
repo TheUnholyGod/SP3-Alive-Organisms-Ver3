@@ -181,6 +181,15 @@ void SceneText::Init()
 	//	std::cout << std::endl;
 	//}
 
+	theMinimap = Create::Minimap(false);
+	theMinimap->SetBackground(MeshBuilder::GetInstance()->GenerateQuad("MINIMAP", Color(1, 0, 0), 1.f));
+	//theMinimap->GetBackground()->textureID = LoadTGA("Image//minimap_square.tga");
+	theMinimap->SetBorder(MeshBuilder::GetInstance()->GenerateCircle("MINIMAPBORDER", Color(0, 0, 1), 1.05f));
+	theMinimap->SetAvatar(MeshBuilder::GetInstance()->GenerateQuad("avatar", Color(0.8, 0.8, 0.8), 0.1f));
+	theMinimap->SetStencil(MeshBuilder::GetInstance()->GenerateCircle("MINIMAP_STENCIL", Color(1, 1, 1), 1.0f));
+	theMinimap->SetTarget(MeshBuilder::GetInstance()->GenerateQuad("MINIMAP_TARGET", Color(0, 0, 1), 1.f));
+	//theMinimap->GetTarget()->textureID = LoadTGA("Image//Pointer_tohdj.tga");
+
 	AudioPlayer::GetInstance()->addSound("explosion", "Assets//Sound//explosion.wav"); //Move somewhere to run only once
 	AudioPlayer::GetInstance()->addSound("menubgm", "Assets//Sound//menubgm.mp3"); //Move somewhere to run only once
 	AudioPlayer::GetInstance()->addSound("gamebgm", "Assets//Sound//gamebgm.mp3"); //Move somewhere to run only once
@@ -190,7 +199,7 @@ void SceneText::Init()
 
    //<REMOVE THIS>
 	//Player::GetInstance()->SetIsFightingBoss(true);
-	FamineBoss* pb = new FamineBoss();
+	PlagueBoss* pb = new PlagueBoss();
 	pb->SetPosition(Vector3(111,102,0));
 	pb->SetTileID(0);
 	pb->Init();
@@ -200,9 +209,8 @@ void SceneText::Init()
 
 void SceneText::Update(double dt)
 {
-
 	UIManager::GetInstance()->Update(dt);
-
+	theMinimap->Update(dt);
 
 	if (GameStateManager::GetInstance()->getState() != GS_PLAYING) return;
 
@@ -350,8 +358,8 @@ void SceneText::Render()
 		GraphicsManager::GetInstance()->SetOrthographicProjection(-halfWindowWidth, halfWindowWidth, -halfWindowHeight, halfWindowHeight, -10, 10);
 		GraphicsManager::GetInstance()->DetachCamera();
 
+		theMinimap->RenderUI();
 		UIManager::GetInstance()->RenderUI();
-		//EntityManager::GetInstance()->RenderUI();
 		HUDManager::GetInstance()->RenderHUD();
 	}
 }

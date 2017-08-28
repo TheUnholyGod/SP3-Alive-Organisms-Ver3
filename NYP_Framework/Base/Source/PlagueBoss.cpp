@@ -26,8 +26,6 @@ void PlagueBoss::Init()
 	this->m_strats[STATE_SUMMON]->SetParent(this);
     this->m_strats[STATE_BUBBLE] = new PlagueBubbleStrategy;
 	this->m_strats[STATE_BUBBLE]->SetParent(this);
-    this->m_strats[STATE_PROJECTILE] = new PlagueProjectileStrategy;
-	this->m_strats[STATE_PROJECTILE]->SetParent(this);
     this->m_strats[STATE_CHARGE] = new PlagueChargeStrategy;
 	this->m_strats[STATE_CHARGE]->SetParent(this);
 
@@ -50,6 +48,7 @@ void PlagueBoss::Init()
 	this->isStatic = false;
 	this->m_bCollider = true;
 	this->tile_ID = 0;
+	this->m_dmg = 10;
 }
 
 void PlagueBoss::Update(double _dt)
@@ -82,13 +81,17 @@ void PlagueBoss::Render()
 
 bool PlagueBoss::CollisionResponse(GenericEntity * ThatEntity)
 {
-	return true;
+	if (ThatEntity->type == PLAYER_OBJ)
+	{
+		Player* ThatEntity1 = dynamic_cast<Player*>(ThatEntity);
+		ThatEntity1->TakeDamage(m_dmg);
+	}
+	return false;
 }
 
 bool PlagueBoss::GetNextState()
 {
-	//m_currstate = static_cast<PLAGUESTATES>(Math::RandIntMinMax(STATE_SUMMON, STATE_CHARGE));
-	m_currstate = STATE_CHARGE;
+	m_currstate = static_cast<PLAGUESTATES>(Math::RandIntMinMax(STATE_SUMMON, STATE_CHARGE));
 	this->m_strats[m_currstate]->Init();
 	return false;
 }

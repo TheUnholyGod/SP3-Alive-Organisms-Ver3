@@ -46,6 +46,7 @@
     <ClCompile Include="Source\Manager\HUDManager.cpp" />
     <ClCompile Include="Source\Manager\UIManager.cpp" />
     <ClCompile Include="Source\MapManager.cpp" />
+    <ClCompile Include="Source\minimap.cpp" />
     <ClCompile Include="Source\OBJMesh.cpp" />
     <ClCompile Include="Source\Organism.cpp" />
     <ClCompile Include="Source\Particle Effect\Emitter.cpp" />
@@ -112,6 +113,7 @@
     <ClInclude Include="Source\Manager\HUDManager.h" />
     <ClInclude Include="Source\Manager\UIManager.h" />
     <ClInclude Include="Source\MapManager.h" />
+    <ClInclude Include="Source\minimap.h" />
     <ClInclude Include="Source\OBJMesh.h" />
     <ClInclude Include="Source\Organism.h" />
     <ClInclude Include="Source\Particle Effect\Emitter.h" />

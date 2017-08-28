@@ -22,7 +22,7 @@ void Hitbox::Init(bool _isboss)
 	this->m_bCollider = true;
 	this->isStatic = false;
 	this->m_active = true;
-	
+	this->m_dmg = 5;
 }
 
 void Hitbox::Update(double _dt)
@@ -41,10 +41,21 @@ void Hitbox::Render()
 
 bool Hitbox::CollisionResponse(GenericEntity * ThatEntity)
 {
-	if (ThatEntity->type == ENEMY_OBJ)
+	if (this->m_parent)
 	{
-		ThatEntity->SetIsDone(true);
-		this->m_active = false;
+		if (ThatEntity->type == ENEMY_OBJ)
+		{
+			ThatEntity->ApplyDamage(m_dmg);
+			this->m_active = false;
+		}
+	}
+	else
+	{
+		if (ThatEntity->type == PLAYER_OBJ)
+		{
+			Player* ThatEntity1 = dynamic_cast<Player*>(ThatEntity);
+			ThatEntity1->TakeDamage(m_dmg);
+		}
 	}
 	return false;
 }

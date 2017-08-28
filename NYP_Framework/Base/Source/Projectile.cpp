@@ -22,7 +22,7 @@ Projectile::~Projectile()
 
 }
 
-void Projectile::Init(Vector3 _pos, Vector3 _vel, Vector3 _dir)
+void Projectile::Init(Vector3 _pos, Vector3 _vel, Vector3 _dir,bool _isplayer)
 {
 	this->position = _pos;
 	this->velocity = _vel;
@@ -33,6 +33,8 @@ void Projectile::Init(Vector3 _pos, Vector3 _vel, Vector3 _dir)
 	this->size.Set(0.5f, 0.5f, 1);
 	this->type = PROJECTILE_OBJ;
 	this->m_active = true;
+	this->m_isplayer = _isplayer;
+	this->m_dmg = 5;
 }
 
 void Projectile::Update(double _dt)
@@ -64,10 +66,23 @@ void Projectile::Exit()
 
 bool Projectile::CollisionResponse(GenericEntity * ThatEntity)
 {
-	if (ThatEntity->type == ENEMY_OBJ)
+	if (m_isplayer)
 	{
-		ThatEntity->SetIsDone(true);
+		if (ThatEntity->type == ENEMY_OBJ)
+		{
+			ThatEntity->ApplyDamage(m_dmg);
+			this->m_active = false;
+		}
 	}
+	else
+	{
+		if (ThatEntity->type == PLAYER_OBJ)
+		{
+			Player* ThatEntity1 = dynamic_cast<Player*>(ThatEntity);
+			ThatEntity1->TakeDamage(m_dmg);
+		}
+	}
+	return false;
 
 	this->m_active = false;
 	this->m_bCollider = false;
