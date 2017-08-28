@@ -11,10 +11,12 @@ private:
 public:
 	ArchProjectile(Mesh* _mesh) : Projectile(_mesh)
 	{
-		m_gravity = 9.8f;
+		m_gravity = .8f;
 	}
 
 	void Update(double dt);
+
+	bool CollisionResponse(GenericEntity*);
 };
 
 #endif
