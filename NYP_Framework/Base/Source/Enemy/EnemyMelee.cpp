@@ -8,6 +8,7 @@
 #include "../MapManager.h"
 #include "../PlayerInfo/PlayerInfo.h"
 #include "RenderHelper.h"
+#include "../CollisionManager.h"
 #include "../SpriteEntity.h"
 
 EnemyMelee::EnemyMelee(Mesh * mesh, 
@@ -349,8 +350,11 @@ void EnemyMelee::Attack()
 	//Do damage to player
 	if (m_attackCooldown <= 0)
 	{
-		std::cout << "Dealt 20 damage to player" << std::endl;
-		Player::GetInstance()->TakeDamage(20);
+		if (CollisionManager::GetInstance()->CheckAABBCollision(this, Player::GetInstance()))
+		{
+			std::cout << "Dealt 20 damage to player" << std::endl;
+			Player::GetInstance()->TakeDamage(20);
+		}
 		m_state = AI_CHASE;
 		return;
 	}
