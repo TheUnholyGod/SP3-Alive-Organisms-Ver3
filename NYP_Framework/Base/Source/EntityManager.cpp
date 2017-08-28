@@ -297,9 +297,6 @@ void EntityManager::ResetEntityBase()
 
 		it->second.clear();
 	}
-
-	m_entity_map_base[-1] = m_entity_map_base[-1];
-	m_entity_boss_map_base[-1] = m_entity_boss_map_base[-1];
 }
 
 // Remove an entity from this EntityManager
