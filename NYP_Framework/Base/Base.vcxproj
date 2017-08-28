@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp" />
+    <ClCompile Include="Source\ArchProjectile.cpp" />
     <ClCompile Include="Source\CollisionManager.cpp" />
     <ClCompile Include="Source\Enemy\EnemyBase.cpp" />
     <ClCompile Include="Source\Enemy\EnemyBossBase.cpp" />
@@ -22,6 +23,10 @@
     <ClCompile Include="Source\Enemy\StrategyBase.cpp" />
     <ClCompile Include="Source\EntityDrop.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
+    <ClCompile Include="Source\FamineBoss.cpp" />
+    <ClCompile Include="Source\FamineMeleeStrategy.cpp" />
+    <ClCompile Include="Source\FamineProjectileStrategy.cpp" />
+    <ClCompile Include="Source\FamineStrategy.cpp" />
     <ClCompile Include="Source\FPSCamera.cpp" />
     <ClCompile Include="Source\GenericEntity.cpp" />
     <ClCompile Include="Source\GroundEntity.cpp" />
@@ -71,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />
+    <ClInclude Include="Source\ArchProjectile.h" />
     <ClInclude Include="Source\Bow.h" />
     <ClInclude Include="Source\CollisionManager.h" />
     <ClInclude Include="Source\Enemy\EnemyBase.h" />
@@ -82,6 +88,10 @@
     <ClInclude Include="Source\Enemy\StrategyBase.h" />
     <ClInclude Include="Source\EntityDrop.h" />
     <ClInclude Include="Source\EntityManager.h" />
+    <ClInclude Include="Source\FamineBoss.h" />
+    <ClInclude Include="Source\FamineMeleeStrategy.h" />
+    <ClInclude Include="Source\FamineProjectileStrategy.h" />
+    <ClInclude Include="Source\FamineStrategy.h" />
     <ClInclude Include="Source\FPSCamera.h" />
     <ClInclude Include="Source\GenericEntity.h" />
     <ClInclude Include="Source\GroundEntity.h" />

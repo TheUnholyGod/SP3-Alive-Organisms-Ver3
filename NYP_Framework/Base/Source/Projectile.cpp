@@ -1,4 +1,4 @@
-#include "Projectile.h"
+#include "ArchProjectile.h"
 #include "MeshList.h"
 #include "EntityManager.h"
 #include "GraphicsManager.h"
@@ -93,7 +93,7 @@ Projectile * Create::CreateProjectile(const std::string & _meshName, const Vecto
 	if (modelMesh == nullptr)
 		return nullptr;
 
-	Projectile* result = new Projectile(modelMesh);
+	ArchProjectile* result = new ArchProjectile(modelMesh);
 	result->SetPosition(_position);
 	result->SetScale(_scale);
 	result->SetCollider(false);
