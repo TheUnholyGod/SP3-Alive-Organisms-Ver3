@@ -135,6 +135,7 @@ void Player::Update(double dt)
 	this->UpdateJump(dt);
 	this->UpdateMovement(dt);
     this->m_player_equipment[EQUIPMENT_MELEE]->Update(dt);
+
 	if (!m_isKilledBoss)
 	{
 		this->attachedCamera->SetCameraPos(Vector3(position.x, position.y, 7));
@@ -145,7 +146,6 @@ void Player::Update(double dt)
 		this->attachedCamera->SetCameraPos(Vector3(position.x + Math::RandFloatMinMax(-.1, .1), position.y + Math::RandFloatMinMax(-.1, .1), 7));
 		this->attachedCamera->SetCameraTarget(Vector3(position.x + Math::RandFloatMinMax(-.1, .1), position.y + Math::RandFloatMinMax(-.1, .1), 0));
 	}
-
 
 	if (!m_isOnFloor && !m_isClimbing)
 		accleration.y = -9.8;

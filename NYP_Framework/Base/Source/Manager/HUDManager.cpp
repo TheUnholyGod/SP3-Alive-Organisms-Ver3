@@ -12,12 +12,6 @@ void HUDManager::RenderHUD()
 	RenderHelper::RenderMesh(MeshList::GetInstance()->GetMesh("health_bar"));
 	modelStack.PopMatrix();
 
-	//STAMINA BAR
-	/*modelStack.PushMatrix();
-	modelStack.Translate(0, 0, 0);
-	modelStack.Scale(1, 1, 1);
-	RenderHelper::RenderMesh(MeshList::GetInstance()->GetMesh("GEO_SPRITE_ANIMATION"));
-	modelStack.PopMatrix();*/
 
 	//WEAPONS
 	/*modelStack.PushMatrix();
@@ -26,6 +20,19 @@ void HUDManager::RenderHUD()
 	RenderHelper::RenderMesh(MeshList::GetInstance()->GetMesh("GEO_SPRITE_ANIMATION"));
 	modelStack.PopMatrix();*/
 
+	//MINIMAP
+	/*modelStack.PushMatrix();
+	modelStack.Translate(0, 0, 0);
+	modelStack.Scale(1, 1, 1);
+	RenderHelper::RenderMesh(MeshList::GetInstance()->GetMesh("GEO_SPRITE_ANIMATION"));
+	modelStack.PopMatrix();*/
+
+	//HOTBAR
+	modelStack.PushMatrix();
+	modelStack.Translate(Application::GetInstance().GetWindowWidth() *- 0.5, Application::GetInstance().GetWindowHeight()* 0.40, 0);
+	modelStack.Scale(200, 500, 1);
+	RenderHelper::RenderMesh(MeshList::GetInstance()->GetMesh("hot_bar"));
+	modelStack.PopMatrix();
 
 }
 

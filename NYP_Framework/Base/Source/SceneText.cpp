@@ -276,6 +276,7 @@ void SceneText::Update(double dt)
 	}
 	if (MouseController::GetInstance()->IsButtonReleased(MouseController::RMB))
 	{
+		GameStateManager::GetInstance()->setState(GS_LEVELCOMPLETE);
 		std::cout << "Right Mouse Button was released!" << std::endl;
 	}
 	if (MouseController::GetInstance()->IsButtonReleased(MouseController::MMB))
