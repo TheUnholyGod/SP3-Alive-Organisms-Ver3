@@ -274,8 +274,8 @@ void CMinimap::RenderUI()
 
 void CMinimap::Update(double dt)
 {
-	position.Set(Application::GetInstance().GetWindowWidth() * 0.4, Application::GetInstance().GetWindowHeight() * 0.3, 0.0f);
-	scale.Set(Application::GetInstance().GetWindowWidth() * 0.3, Application::GetInstance().GetWindowHeight() * 0.4, 10.0f);
+	position.Set(Application::GetInstance().GetWindowWidth() * 0.35, Application::GetInstance().GetWindowHeight() * 0.3, 0.0f);
+	scale.Set(Application::GetInstance().GetWindowWidth() * 0.2, Application::GetInstance().GetWindowHeight() * 0.3, 10.0f);
 	entities.clear();
 	EntityManager::GetInstance()->GetActiveEntity(entities);
 }
