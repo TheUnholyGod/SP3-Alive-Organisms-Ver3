@@ -191,7 +191,7 @@ void Player::Update(double dt)
 
 	if (!m_isKilledBoss)
 	{
-		this->attachedCamera->SetCameraPos(Vector3(position.x, position.y, 7));
+		this->attachedCamera->SetCameraPos(Vector3(position.x, position.y, 20));
 		this->attachedCamera->SetCameraTarget(position);
 	}
 	else
