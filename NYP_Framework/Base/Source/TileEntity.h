@@ -18,6 +18,7 @@ public:
 		RUNE_SPAWNER,
 		SOLID_SPAWNER,
 		BOSS_DOOR,
+		DOOR_EXIT,
 
 		TOTAL
 	} block_type;
@@ -31,6 +32,7 @@ public:
 
 	Vector3 GetDir();
 	virtual void Update(double);
+	virtual void Render();
 	virtual bool CollisionResponse(GenericEntity*);
 
 };

@@ -18,6 +18,10 @@ void TileEntity::Update(double dt)
 {
 }
 
+void TileEntity::Render()
+{
+}
+
 bool TileEntity::CollisionResponse(GenericEntity* other)
 {
 	return false;

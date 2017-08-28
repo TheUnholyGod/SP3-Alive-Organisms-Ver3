@@ -9,6 +9,7 @@ public:
 	TileEntitySolidBlock(Mesh*, Vector3, Vector3, bool, bool, int, bool, TileEntity::BLOCK_TYPE);
 
 	void Update(double);
+	void Render();
 	bool CollisionResponse(GenericEntity*);
 };
 

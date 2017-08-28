@@ -2,6 +2,8 @@
 #include "../Application.h"
 #include "../CollisionManager.h"
 #include "Audio/AudioPlayer.h"
+#include "SpriteAnimation.h"
+#include "MeshList.h"
 
 void UIManager::Init()
 {
@@ -9,6 +11,16 @@ void UIManager::Init()
 	this->m_gameState = GAMESTATE::GS_MAINMENU;
 	GameStateManager::GetInstance()->setState(GS_MAINMENU);
 
+	SpriteAnimation* sa = new SpriteAnimation(*dynamic_cast<SpriteAnimation*>(MeshList::GetInstance()->GetMesh("explosion")));
+	if (sa)
+	{
+		sa->m_anim = new Animation();
+		sa->m_anim->Set(1, 24, 1, 1.0f, true);
+
+		this->explosion = new SpriteEntity(sa);
+	}
+
+	
 	//Initialise UIElements
 	m_cursor = Create::UI("cursor", UI_CURSOR, GAMESTATE::GS_MAINMENU, 1, 1, 1, 1, 2, false);
 	m_selecter = Create::UI("selecter", UI_CURSOR, GAMESTATE::GS_MAINMENU, 1, 1, 1, 1, 2, false);
@@ -41,7 +53,18 @@ void UIManager::Update(double _dt)
 {
 	//Get the state of the game from the manager
 	this->m_gameState = GameStateManager::GetInstance()->getState();
-	//std::cout << m_gameState << std::endl;
+
+	if (m_gameState == GS_LEVELCOMPLETE)
+	{
+		this->explosion->SetPosition(Vector3(0,0,10));
+		this->explosion->SetScale(Vector3(500, 500, 500));
+		this->explosion->Update(_dt);
+		m_explosionTime -= _dt;
+		if (m_explosionTime <= 0)
+			GameStateManager::GetInstance()->setState(GS_PLAYING);
+	}
+
+
 	//Update cursor position
 	double x, y;
 	MouseController::GetInstance()->GetMousePosition(x, y);
@@ -108,6 +131,8 @@ void UIManager::RenderUI()
 	
 	m_cursor->Render();
 	m_selecter->Render();
+	if(m_gameState == GS_LEVELCOMPLETE)
+		explosion->Render();
 }
 
 void UIManager::addElement(EntityBase * element)
