@@ -61,6 +61,10 @@ public:
 	Vector3 GetPlayerVelocity();
 	bool GetIsFightingBoss();
 	void SetIsFightingBoss(bool);
+	void SetIsKilledBoss(bool);
+	bool GetIsKilledBoss();
+
+	void StartNextLevel();
 
 private:
 	Vector3 defaultPosition;
@@ -92,7 +96,7 @@ private:
 	bool m_isClimbing;
     bool m_interacted;
     double m_interacttimer, m_definteracttimer;
-	bool m_isFightingBoss;
+	bool m_isFightingBoss, m_isKilledBoss;
 	bool m_canDoubleJump;
 
 	FPSCamera* attachedCamera;

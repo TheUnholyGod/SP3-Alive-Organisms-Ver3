@@ -15,6 +15,7 @@ cpp file for UIElement.
 #include "RenderHelper.h"
 #include "Application.h"
 #include "Audio\AudioPlayer.h"
+#include "PlayerInfo\PlayerInfo.h"
 
 void UIElement::Init()
 {
@@ -47,6 +48,38 @@ void UIElement::Update(double _dt)
 
 void UIElement::Render()
 {
+	if (this->m_parent_state == GS_LEVELCOMPLETE)
+	{
+		switch (Player::GetInstance()->GetCurrentLevel())
+		{
+		case 0:
+			modelMesh = MeshList::GetInstance()->GetMesh("castle");
+			break;
+		case 1:
+			modelMesh = MeshList::GetInstance()->GetMesh("castle1");
+			break;
+		case 2:
+			modelMesh = MeshList::GetInstance()->GetMesh("castle2");
+			break;
+		case 3:
+			modelMesh = MeshList::GetInstance()->GetMesh("castle3");
+			break;
+		case 4:
+			modelMesh = MeshList::GetInstance()->GetMesh("castle4");
+			break;
+		default:
+			modelMesh = MeshList::GetInstance()->GetMesh("castle");
+			break;
+		}
+
+		MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
+		modelStack.PushMatrix();
+		modelStack.Translate(position.x, position.y, position.z);
+		modelStack.Scale(scale.x, scale.y, scale.z);
+		RenderHelper::RenderMesh(modelMesh);
+		modelStack.PopMatrix();
+	}
+
 	MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
 	modelStack.PushMatrix();
 	modelStack.Translate(position.x, position.y, position.z);
@@ -115,11 +148,6 @@ void UIElement::Response()
 		std::cout << "UI_OM_EXIT_TO_PAUSE" << std::endl;
 		GameStateManager::GetInstance()->setState(GS_PAUSED);
 		break;
-	}
-	case UI_LEVEL_END:
-	{
-		std::cout << "UI_LEVEL_END" << std::endl;
-		
 	}
 	default:
 		std::cout << "Nothing!" << std::endl;
