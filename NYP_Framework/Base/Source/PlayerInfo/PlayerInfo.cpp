@@ -151,12 +151,12 @@ void Player::Update(double dt)
 
     if (m_invincible)
     {
-        std::cout <<"i"<< m_invincibletimer << std::endl;
+        //std::cout <<"i"<< m_invincibletimer << std::endl;
         this->m_invincibletimer -= dt;
     }
     if (m_invincible && m_invincibletimer < 0)
     {
-        std::cout << "no invis" << std::endl;
+        //std::cout << "no invis" << std::endl;
         this->m_invincible = false;
     }
 

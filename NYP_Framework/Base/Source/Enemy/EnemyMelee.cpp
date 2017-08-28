@@ -280,7 +280,7 @@ void EnemyMelee::Detect(double dt)
 
 	m_attackCooldown -= dt;
 
-	if (dist < 0.8)
+	if (dist < 0.5)
 	{
 		//isPathFound = false;
 		//m_path.clear();

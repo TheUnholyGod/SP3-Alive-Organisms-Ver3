@@ -212,12 +212,16 @@ void SceneText::Update(double dt)
 	if (GameStateManager::GetInstance()->getState() != GS_PLAYING) return;
 
 	m_inputtimer += dt;
-
+	StopWatch timer2;
+	timer2.startTimer();
 	Player::GetInstance()->Update(dt);
+	//std::cout << "Time for update player: " << timer2.getElapsedTime() << std::endl;
 	// Update our entities
+	StopWatch timer;
+	timer.startTimer();
 	EntityManager::GetInstance()->Update(dt);
 	theMinimap->Update(dt);
-
+	//std::cout << "Time for update loop: " << timer.getElapsedTime() << std::endl;
 	HUDManager::GetInstance()->UpdateHUD();
 
 	keyboard->Read(dt);
@@ -356,8 +360,7 @@ void SceneText::Render()
 		GraphicsManager::GetInstance()->SetOrthographicProjection(-halfWindowWidth, halfWindowWidth, -halfWindowHeight, halfWindowHeight, -10, 10);
 		GraphicsManager::GetInstance()->DetachCamera();
 
-		theMinimap->RenderUI(); 
-		
+		theMinimap->RenderUI();
 		UIManager::GetInstance()->RenderUI();
 		HUDManager::GetInstance()->RenderHUD();
 	}
