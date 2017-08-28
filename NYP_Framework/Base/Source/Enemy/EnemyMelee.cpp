@@ -112,7 +112,7 @@ void EnemyMelee::Update(double _dt)
 
 void EnemyMelee::Render()
 {
-	if (m_state == AI_ATTACK)
+	if (m_state == AI_ATTACKING)
 		this->animation2->Render();
 	else
 		this->animation->Render();
@@ -203,24 +203,28 @@ void EnemyMelee::Move()
 	{
 		this->m_velocity += Vector3(0, speed, 0);
 		this->animation->SetRotation(0, Vector3(0, 1, 0));
+		this->animation2->SetRotation(0, Vector3(0, 1, 0));
 		return;
 	}
 	else if (dir == Coord2D(0, 1)) //Down
 	{
 		this->m_velocity += Vector3(0, -speed, 0);
 		this->animation->SetRotation(0, Vector3(0, 1, 0));
+		this->animation2->SetRotation(0, Vector3(0, 1, 0));
 		return;
 	}
 	else if (dir == Coord2D(1, 0)) //Left
 	{
 		this->m_velocity += Vector3(-speed, 0, 0);
 		this->animation->SetRotation(0, Vector3(0, 1, 0));
+		this->animation2->SetRotation(0, Vector3(0, 1, 0));
 		return;
 	}
 	else if (dir == Coord2D(-1, 0)) //Right
 	{
 		this->m_velocity += Vector3(speed, 0, 0);
 		this->animation->SetRotation(180, Vector3(0, 1, 0));
+		this->animation2->SetRotation(180, Vector3(0, 1, 0));
 		return;
 	}
 }
