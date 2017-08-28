@@ -201,7 +201,6 @@ void SceneText::Init()
 	//Player::GetInstance()->SetIsFightingBoss(true);
 	PlagueBoss* pb = new PlagueBoss();
 	pb->SetPosition(Vector3(111,102,0));
-	pb->SetTileID(0);
 	pb->Init();
 	EntityManager::GetInstance()->AddEntity(pb, true);
 	//</REMOVE>
