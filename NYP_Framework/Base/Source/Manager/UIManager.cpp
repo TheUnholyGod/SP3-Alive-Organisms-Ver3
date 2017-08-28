@@ -10,8 +10,8 @@ void UIManager::Init()
 	GameStateManager::GetInstance()->setState(GS_MAINMENU);
 
 	//Initialise UIElements
-	m_cursor = Create::UI("quad", UI_CURSOR, GAMESTATE::GS_MAINMENU, 1, 1, 1, 1, 10, false);
-	m_selecter = Create::UI("selecter", UI_CURSOR, GAMESTATE::GS_MAINMENU, 1, 1, 1, 1, 2, false);
+	m_cursor = Create::UI("cursor", UI_CURSOR, GAMESTATE::GS_MAINMENU, 1, 1, 1, 1, 2, false);
+	m_selecter = Create::UI("selecter", UI_CURSOR, GAMESTATE::GS_MAINMENU, 1, 1, 1, 1, 3, false);
 
 	//Main Menu
 	Create::UI("main_menu", UI_BACKGROUND, GAMESTATE::GS_MAINMENU, 1, 1, 0, 0, 0);
@@ -32,6 +32,9 @@ void UIManager::Init()
 	Create::UI("volume_button", UI_CURSOR, GAMESTATE::GS_OPTIONS, 0.25, 0.1, 0, 0.2, 1);
 	Create::UI("volume_down", UI_OM_VOL_DOWN, GAMESTATE::GS_OPTIONS, 0.1, 0.04, -0.25, 0, 1);
 	Create::UI("back_button", UI_OM_EXIT_TO_PAUSE, GAMESTATE::GS_OPTIONS, 0.15, 0.1, 0, -0.22, 1);
+
+	//Level complete screen
+	Create::UI("castle", UI_BACKGROUND, GAMESTATE::GS_LEVELCOMPLETE, 1, 1, 0, 0, 0);
 }
 
 void UIManager::Update(double _dt)

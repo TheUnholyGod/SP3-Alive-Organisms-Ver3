@@ -116,6 +116,10 @@ void UIElement::Response()
 		GameStateManager::GetInstance()->setState(GS_PAUSED);
 		break;
 	}
+	case UI_LEVEL_END:
+	{
+
+	}
 	default:
 		std::cout << "Nothing!" << std::endl;
 		break;
