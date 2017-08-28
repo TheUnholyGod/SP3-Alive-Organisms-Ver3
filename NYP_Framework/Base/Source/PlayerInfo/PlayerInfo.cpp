@@ -150,9 +150,15 @@ void Player::Update(double dt)
         this->m_interacted = false;
 
     if (m_invincible)
+    {
+        std::cout <<"i"<< m_invincibletimer << std::endl;
         this->m_invincibletimer -= dt;
+    }
     if (m_invincible && m_invincibletimer < 0)
+    {
+        std::cout << "no invis" << std::endl;
         this->m_invincible = false;
+    }
 
 	int health_up = 0, attack_up = 0, speed_up = 0;;
 	for (int i = 0; i < 2; ++i)
@@ -800,7 +806,7 @@ void Player::TakeDamage(int _dmg)
         return;
 	this->m_health -= _dmg;
     this->m_invincible = true;
-    this->m_invincibletimer = this->m_definteracttimer;
+    this->m_invincibletimer = this->m_definvincibletimer;
 
 }
 
