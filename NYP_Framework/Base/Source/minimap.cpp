@@ -6,6 +6,7 @@
 #include "PlayerInfo\PlayerInfo.h"
 #include "EntityManager.h"
 #include "TileEntity.h"
+#include "Application.h"
 #include "GL\glew.h"
 
 CMinimap::CMinimap()
@@ -47,8 +48,6 @@ CMinimap::~CMinimap(void)
 bool CMinimap::Init(void)
 {
 	m_iAngle = 0;
-	position.Set(335.f, 235.f, 0.0f);
-	scale.Set(100.0f, 100.0f, 100.0f);
 
 	return true;
 }
@@ -268,6 +267,8 @@ void CMinimap::RenderUI()
 
 void CMinimap::Update(double dt)
 {
+	position.Set(Application::GetInstance().GetWindowWidth() * 0.4, Application::GetInstance().GetWindowHeight() * 0.3, 0.0f);
+	scale.Set(Application::GetInstance().GetWindowWidth() * 0.3, Application::GetInstance().GetWindowHeight() * 0.4, 10.0f);
 	entities.clear();
 	EntityManager::GetInstance()->GetAllBlocksInTileSet(Player::GetInstance()->GetTileID(), entities);
 }

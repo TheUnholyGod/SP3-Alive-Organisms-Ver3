@@ -349,13 +349,7 @@ void SceneText::Render()
 		GraphicsManager::GetInstance()->SetPerspectiveProjection(45.0f, 4.0f / 3.0f, 0.1f, 10000.0f);
 		GraphicsManager::GetInstance()->AttachCamera(Player::GetInstance()->getCamera());
 		
-		StopWatch timer2;
-		timer2.startTimer();
-
 		EntityManager::GetInstance()->Render();
-
-		std::cout << "Time taken to run entity: " << timer2.getElapsedTime() << "ms" << std::endl;
-
 		Player::GetInstance()->Render();
 
 		// Setup 2D pipeline then render 2D
@@ -364,12 +358,8 @@ void SceneText::Render()
 		GraphicsManager::GetInstance()->SetOrthographicProjection(-halfWindowWidth, halfWindowWidth, -halfWindowHeight, halfWindowHeight, -10, 10);
 		GraphicsManager::GetInstance()->DetachCamera();
 
-		StopWatch timer;
-		timer.startTimer();
-		
 		theMinimap->RenderUI(); 
 		
-		std::cout << "Time taken to run minimap: " << timer.getElapsedTime() << "ms"<< std::endl;
 		UIManager::GetInstance()->RenderUI();
 		HUDManager::GetInstance()->RenderHUD();
 	}

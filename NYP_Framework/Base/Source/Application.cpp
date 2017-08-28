@@ -128,6 +128,7 @@ void Application::Run()
 		glfwPollEvents();
 		UpdateInput();
 		
+		std::cout << "FPS: " << 1/dt << std::endl;
 		if (dt > 0.016666666667f)
 			dt = 0.016666666667;
 
