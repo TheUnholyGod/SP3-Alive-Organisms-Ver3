@@ -182,13 +182,11 @@ void SceneText::Init()
 	//}
 
 	theMinimap = Create::Minimap(false);
-	theMinimap->SetBackground(MeshBuilder::GetInstance()->GenerateQuad("MINIMAP", Color(0, 0, 0), 1.f));
-	//theMinimap->GetBackground()->textureID = LoadTGA("Image//minimap_square.tga");
-	theMinimap->SetBorder(MeshBuilder::GetInstance()->GenerateCircle("MINIMAPBORDER", Color(0, 0, 1), 1.05f));
+	theMinimap->SetBackground(MeshBuilder::GetInstance()->GenerateQuad("minimap", Color(0, 0, 0), 1.f));
+	theMinimap->SetBorder(MeshBuilder::GetInstance()->GenerateQuad("minimapborder", Color(0, 0, 1), 1.05f));
 	theMinimap->SetAvatar(MeshBuilder::GetInstance()->GenerateQuad("avatar", Color(0.8, 0.8, 0.8), 0.1f));
-	theMinimap->SetStencil(MeshBuilder::GetInstance()->GenerateCircle("MINIMAP_STENCIL", Color(1, 1, 1), 1.0f));
-	theMinimap->SetTarget(MeshBuilder::GetInstance()->GenerateQuad("MINIMAP_TARGET", Color(0, 0, 1), 1.f));
-	//theMinimap->GetTarget()->textureID = LoadTGA("Image//Pointer_tohdj.tga");
+	theMinimap->SetStencil(MeshBuilder::GetInstance()->GenerateQuad("minimap_stencil", Color(1, 1, 1), 1.0f));
+	theMinimap->SetTarget(MeshBuilder::GetInstance()->GenerateQuad("minimap_target", Color(0, 0, 1), 1.f));
 
 	AudioPlayer::GetInstance()->addSound("explosion", "Assets//Sound//explosion.wav"); //Move somewhere to run only once
 	AudioPlayer::GetInstance()->addSound("menubgm", "Assets//Sound//menubgm.mp3"); //Move somewhere to run only once
