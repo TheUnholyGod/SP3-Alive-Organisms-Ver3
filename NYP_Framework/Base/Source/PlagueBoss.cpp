@@ -47,7 +47,7 @@ void PlagueBoss::Init()
 	this->scale = Vector3(1, 1, 1);
 	this->isStatic = false;
 	this->m_bCollider = true;
-	this->tile_ID = 0;
+	this->tile_ID = -1;
 	this->m_dmg = 10;
 }
 
