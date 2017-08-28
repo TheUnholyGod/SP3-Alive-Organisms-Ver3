@@ -28,7 +28,7 @@ void UIManager::Init()
 	//Main Menu
 	Create::UI("main_menu", UI_BACKGROUND, GAMESTATE::GS_MAINMENU, 1, 1, 0, 0, 0);
 	Create::UI("start_button", UI_MM_START, GAMESTATE::GS_MAINMENU, 0.15, 0.1, -0.2, 0.11, 1);
-	//Create::UI("option_button", UI_MM_OPTION, GAMESTATE::GS_MAINMENU, 0.25, 0.1, -0.2, 0, 1);
+	Create::UI("instruction_button", UI_MM_INTRUCTION, GAMESTATE::GS_MAINMENU, 0.35, 0.1, -0.2, 0, 1);
 	Create::UI("quit_button", UI_MM_EXIT, GAMESTATE::GS_MAINMENU, 0.12, 0.1, -0.2, -0.11, 1);
 
 	//Pause Menu
@@ -44,6 +44,10 @@ void UIManager::Init()
 	Create::UI("volume_button", UI_CURSOR, GAMESTATE::GS_OPTIONS, 0.25, 0.1, 0, 0.2, 1);
 	Create::UI("volume_down", UI_OM_VOL_DOWN, GAMESTATE::GS_OPTIONS, 0.1, 0.04, -0.25, 0, 1);
 	Create::UI("back_button", UI_OM_EXIT_TO_PAUSE, GAMESTATE::GS_OPTIONS, 0.15, 0.1, 0, -0.22, 1);
+
+	//Instructions
+	Create::UI("instruction_menu", UI_BACKGROUND, GAMESTATE::GS_INSTRUCTION, 1, 1, 0, 0, 0);
+	Create::UI("back_button", UI_IM_EXIT_TO_MENU, GAMESTATE::GS_INSTRUCTION, 0.25, 0.1, 0, -0.35, 1);
 
 	//Level complete screen
 	Create::UI("castle", UI_BACKGROUND, GAMESTATE::GS_LEVELCOMPLETE, 1, 1, 0, 0, 0);

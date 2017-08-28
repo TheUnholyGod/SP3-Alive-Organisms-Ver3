@@ -23,7 +23,7 @@ public:
 		isStatic = false;
 		m_floating_timer = 0;
 
-		SetAABB(Vector3((position.x + (size.x * 0.5)), (position.y + (size.y * 0.5)), (position.z + (size.z * 0.5))), Vector3((position.x - (size.x * 0.5)), (position.y - (size.y * 0.5)), (position.z - (size.z * 0.5))));
+		SetAABB(Vector3((position.x + (size.x * 0.5)), (position.y + (size.y)) + 1, (position.z + (size.z * 0.5))), Vector3((position.x - (size.x * 0.5)), (position.y - (size.y)) - 1, (position.z - (size.z * 0.5))));
 
 	}
 

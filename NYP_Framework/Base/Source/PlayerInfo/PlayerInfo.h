@@ -7,9 +7,9 @@
 #include "../GroundEntity.h"
 #include "SingletonTemplate.h"
 #include "../GenericEntity.h"
+#include "../Items/Equipment.h"
 
 class SpriteEntity;
-class Equipment;
 
 class Player : public Singleton<Player> , public GenericEntity
 {
@@ -48,7 +48,8 @@ public:
 
 	void TakeDamage(int _dmg);
 	int GetHealth();
-	Equipment*  GetWeaponInInventory(bool is_primary);
+	Equipment*  GetWeaponInInventory(bool);
+	void SetRuneToWeapon(bool, Runes*);
 
 	// Handling Camera
 	FPSCamera* getCamera();
@@ -75,12 +76,13 @@ private:
 
 	int m_iLevel;
 	double m_combotimer;
+	double m_regenTimer;
 	bool m_attacking;
 	int m_combo;
 	double m_dSpeed;
 	double m_dAcceleration;
 
-	int m_health;
+	int m_health, m_maxHealth;
 
 	bool m_jump;
 	double m_dJumpSpeed;

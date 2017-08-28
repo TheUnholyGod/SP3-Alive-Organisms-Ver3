@@ -63,7 +63,10 @@ bool TileEntitySolidBlock::CollisionResponse(GenericEntity* entity)
 		{
 			if (Player::GetInstance()->IsInteracting())
 			{
-				Player::GetInstance()->SetIsFightingBoss(true);
+				if(Player::GetInstance()->GetCurrentLevel() == 2 || Player::GetInstance()->GetCurrentLevel() == 3)
+					Player::GetInstance()->SetIsFightingBoss(true);
+				else
+					Player::GetInstance()->StartNextLevel();
 			}
 			return true;
 		}
