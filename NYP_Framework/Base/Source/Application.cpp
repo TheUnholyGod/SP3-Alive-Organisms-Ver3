@@ -363,6 +363,12 @@ void Application::InitAllMeshes()
 		MeshList::GetInstance()->AddMesh("hot_bar", MeshBuilder::GetInstance()->GenerateQuad("hotbar", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("hot_bar")->textureID = LoadTGA("Image//hotbar.tga");
 
+		MeshList::GetInstance()->AddMesh("HP", MeshBuilder::GetInstance()->GenerateQuad("HPtext", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("HP")->textureID = LoadTGA("Image//HP.tga");
+
+		MeshList::GetInstance()->AddMesh("bow", MeshBuilder::GetInstance()->GenerateQuad("bowweapon", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("bow")->textureID = LoadTGA("Image//bow.tga");
+
 
 		MeshList::GetInstance()->AddMesh("fire_rune_item", MeshBuilder::GetInstance()->GenerateQuad("fire_rune", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("fire_rune_item")->textureID = LoadTGA("Image//fire_rune.tga"); 
