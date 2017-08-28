@@ -183,17 +183,17 @@ Mesh* MeshBuilder::GenerateQuadBackground(const std::string &meshName, Color col
 	v.pos.Set(0.5f * length, -0.5f * length, 0);
 	v.color = color;
 	v.normal.Set(0, 0, 1);
-	v.texCoord.Set(10, 0);
+	v.texCoord.Set(25, 0);
 	vertex_buffer_data.push_back(v);
 	v.pos.Set(0.5f * length, 0.5f * length, 0);
 	v.color = color;
 	v.normal.Set(0, 0, 1);
-	v.texCoord.Set(10, 10);
+	v.texCoord.Set(25, 50);
 	vertex_buffer_data.push_back(v);
 	v.pos.Set(-0.5f * length, 0.5f * length, 0);
 	v.color = color;
 	v.normal.Set(0, 0, 1);
-	v.texCoord.Set(0, 10);
+	v.texCoord.Set(0, 50);
 	vertex_buffer_data.push_back(v);
 
 	index_buffer_data.push_back(3);

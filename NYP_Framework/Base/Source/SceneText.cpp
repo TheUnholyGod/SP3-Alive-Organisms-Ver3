@@ -190,7 +190,7 @@ void SceneText::Init()
 
    //<REMOVE THIS>
 	//Player::GetInstance()->SetIsFightingBoss(true);
-	FamineBoss* pb = new FamineBoss();
+	PlagueBoss* pb = new PlagueBoss();
 	pb->SetPosition(Vector3(111,102,0));
 	pb->SetTileID(0);
 	pb->Init();

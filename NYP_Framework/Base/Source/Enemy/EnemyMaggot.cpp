@@ -109,6 +109,10 @@ bool EnemyMaggot::CollisionResponse(GenericEntity *ThatEntity)
 		ThatEntity->SetActive(false);
 		this->SetIsDone(true);
 	}
+	if (ThatEntity->type == PLAGUE_MAGGOT_OBJ)
+	{
+		this->m_velocity = 0;
+	}
 	return false;
 }
 
