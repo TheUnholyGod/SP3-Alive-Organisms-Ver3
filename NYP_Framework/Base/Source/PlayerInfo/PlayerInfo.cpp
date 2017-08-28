@@ -68,6 +68,7 @@ void Player::Init(void)
 	m_isOnFloor = false;
 	m_isClimbing = false;
 	m_isFightingBoss = false;
+	m_isKilledBoss = false;
 	m_canDoubleJump = false;
 
 	// Set Boundary
@@ -134,8 +135,17 @@ void Player::Update(double dt)
 	this->UpdateJump(dt);
 	this->UpdateMovement(dt);
     this->m_player_equipment[EQUIPMENT_MELEE]->Update(dt);
-	this->attachedCamera->SetCameraPos(Vector3(position.x, position.y, 7));
-	this->attachedCamera->SetCameraTarget(position);
+
+	if (!m_isKilledBoss)
+	{
+		this->attachedCamera->SetCameraPos(Vector3(position.x, position.y, 7));
+		this->attachedCamera->SetCameraTarget(position);
+	}
+	else
+	{
+		this->attachedCamera->SetCameraPos(Vector3(position.x + Math::RandFloatMinMax(-.1, .1), position.y + Math::RandFloatMinMax(-.1, .1), 7));
+		this->attachedCamera->SetCameraTarget(Vector3(position.x + Math::RandFloatMinMax(-.1, .1), position.y + Math::RandFloatMinMax(-.1, .1), 0));
+	}
 
 	if (!m_isOnFloor && !m_isClimbing)
 		accleration.y = -9.8;
@@ -703,5 +713,27 @@ void Player::SetIsFightingBoss(bool is_fighting)
 	{
 		m_isFightingBoss = false;
 		position.Set(last_position.x, last_position.y + 0.01, last_position.z);
+		m_isKilledBoss = true;
 	}
+}
+
+void Player::SetIsKilledBoss(bool killed_boss)
+{
+	m_isKilledBoss = true;
+}
+
+bool Player::GetIsKilledBoss()
+{
+	return m_isKilledBoss;
+}
+
+void Player::StartNextLevel()
+{
+	++m_iLevel;
+	EntityManager::GetInstance()->ResetEntityBase();
+	MapManager::GetInstance()->GenerateBlocks(Player::GetInstance()->GetCurrentLevel());
+	MapManager::GetInstance()->GenerateBossBlocks(Player::GetInstance()->GetCurrentLevel());
+	Player::GetInstance()->SetPosition(MapManager::GetInstance()->GetAllPlayerStartingPos()[Player::GetInstance()->GetCurrentLevel()]);
+	m_isKilledBoss = false;
+	m_isFightingBoss = false;
 }
