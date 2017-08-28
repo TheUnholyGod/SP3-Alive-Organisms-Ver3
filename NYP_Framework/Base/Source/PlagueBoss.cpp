@@ -8,6 +8,7 @@
 #include "PoisonProjectile.h"
 #include "ToxicGas.h"
 #include "Enemy\EnemyMaggot.h"
+#include "MapManager.h"
 
 PlagueBoss::PlagueBoss() : m_strats(new PlagueStrategy*[NUM_STATES])
 {
@@ -79,15 +80,15 @@ void PlagueBoss::Render()
 	Collision::Render();
 }
 
-bool PlagueBoss::CollisionResponse(GenericEntity *)
+bool PlagueBoss::CollisionResponse(GenericEntity * ThatEntity)
 {
-    return false;
+	return true;
 }
 
 bool PlagueBoss::GetNextState()
 {
 	//m_currstate = static_cast<PLAGUESTATES>(Math::RandIntMinMax(STATE_SUMMON, STATE_CHARGE));
-	m_currstate = STATE_BUBBLE;
+	m_currstate = STATE_CHARGE;
 	this->m_strats[m_currstate]->Init();
 	return false;
 }

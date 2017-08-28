@@ -20,13 +20,16 @@ void ToxicGas::Init(PoisonGasBubbles * _parent)
     this->m_bCollider = true;
     this->isStatic = false;
 	this->size = _parent->GetScale();
-
 	this->GenerateAABB(this->position);
-
+	m_hbtimer = 0;
+	m_hbdeftimer = Math::RandFloatMinMax(2, 5);
 }
 
 void ToxicGas::Update(double _dt)
 {
+	this->m_hbtimer += _dt;
+	if (this->m_hbtimer > this->m_hbdeftimer)
+		this->Exit();
 }
 
 void ToxicGas::Render()
@@ -34,6 +37,14 @@ void ToxicGas::Render()
 	if (!m_active)
 		return;
 	Collision::Render();
+}
+
+void ToxicGas::Exit()
+{
+	std::cout << "UNPOP" << std::endl;
+	this->m_active = false;
+	this->isStatic = true;
+	this->m_bCollider = false;
 }
 
 bool ToxicGas::CollisionResponse(GenericEntity * ThatEntity)

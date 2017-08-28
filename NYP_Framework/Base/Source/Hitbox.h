@@ -19,7 +19,7 @@ public:
 	virtual void SetParent(Melee* _parent);
 protected:
 	Melee* m_parent;
-
+	double m_hbtimer, m_hbdeftimer;
 };
 
 namespace Create
