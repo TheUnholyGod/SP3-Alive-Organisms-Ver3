@@ -56,8 +56,8 @@ void UIManager::Update(double _dt)
 
 	if (m_gameState == GS_LEVELCOMPLETE)
 	{
-		this->explosion->SetPosition(Vector3(0,0,10));
-		this->explosion->SetScale(Vector3(500, 500, 500));
+		this->explosion->SetPosition(Vector3(Math::RandFloatMinMax(-100, 100), Math::RandFloatMinMax(-100, 100), 10));
+		this->explosion->SetScale(Vector3(200, 200, 200));
 		this->explosion->Update(_dt);
 		m_explosionTime -= _dt;
 		if (m_explosionTime <= 0)
