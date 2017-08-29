@@ -66,7 +66,7 @@ public:
 	bool GetIsKilledBoss();
 
 	void StartNextLevel();
-
+	void ResetGame();
 private:
 	Vector3 defaultPosition;
 	Vector3 direction,velocity,accleration;

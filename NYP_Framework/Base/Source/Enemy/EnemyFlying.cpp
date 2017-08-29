@@ -160,7 +160,7 @@ void EnemyFlying::Detect(double dt)
 
 	if (m_state == AI_ATTACKING) return;
 
-	if (dist < 0.5)
+	if (dist < 0.3)
 	{
 		m_state = AI_ATTACK;
 		return;

@@ -920,6 +920,8 @@ void Player::StartNextLevel()
 		MapManager::GetInstance()->GenerateBlocks(Player::GetInstance()->GetCurrentLevel());
 		MapManager::GetInstance()->GenerateBossBlocks(Player::GetInstance()->GetCurrentLevel());
 		Player::GetInstance()->SetPosition(MapManager::GetInstance()->GetAllPlayerStartingPos()[Player::GetInstance()->GetCurrentLevel()]);
+
+		GameStateManager::GetInstance()->setState(GS_LEVELCOMPLETE);
 		m_isKilledBoss = false;
 		m_isFightingBoss = false;
 	}
@@ -928,4 +930,9 @@ void Player::StartNextLevel()
 		//VICTORY SCREEN
 		GameStateManager::GetInstance()->setState(GS_LEVELCOMPLETE);
 	}
+}
+
+void Player::ResetGame()
+{
+	this->m_health = 100;
 }
