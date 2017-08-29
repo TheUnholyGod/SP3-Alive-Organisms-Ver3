@@ -5,6 +5,7 @@
 #include <vector>
 
 class PlagueStrategy;
+class SpriteEntity;
 
 class PlagueBoss : public EnemyBossBase
 {
@@ -15,6 +16,7 @@ private:
         STATE_SUMMON,
         STATE_BUBBLE,
         STATE_CHARGE,
+		STATE_DIE,
         NUM_STATES,
     }m_currstate;
 
@@ -25,6 +27,11 @@ private:
 
 	bool m_freestate;
 	double m_defchangestatetimer, m_changestatetimer;
+	SpriteEntity* idle;
+	SpriteEntity* charge;
+	SpriteEntity* action;
+	SpriteEntity* die;
+
 public:
     PlagueBoss();
     PlagueBoss(Mesh* _mesh);

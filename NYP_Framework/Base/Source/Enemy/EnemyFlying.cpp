@@ -9,6 +9,8 @@
 #include "../PlayerInfo/PlayerInfo.h"
 #include "RenderHelper.h"
 #include "../SpriteEntity.h"
+#include "../Particle Effect/ParticleEffect.h"
+#include "../CollisionManager.h"
 
 EnemyFlying::EnemyFlying(Mesh * mesh,
 	EnemyBase::ENEMY_TYPE enemy_type,
@@ -25,7 +27,7 @@ EnemyFlying::EnemyFlying(Mesh * mesh,
 	this->SetCollider(have_collider);
 	this->SetPhysic(have_physic);
 	this->SetStatic(false);
-
+	this->m_health = 30;
 	this->GenerateAABB(this->position);
 	m_state = AI_STATES::AI_IDLE;
 	dir = true;
@@ -37,6 +39,17 @@ EnemyFlying::~EnemyFlying()
 
 void EnemyFlying::Update(double _dt)
 {
+	//Despawn when 0 hp
+	if (this->m_health <= 0)
+	{
+		Create::Particle("particle",
+			position,
+			Vector3(0, 0, 0),
+			EFFECT_TYPE::EFT_HIT, 0.3, 0.3,
+			Player::GetInstance()->GetIsFightingBoss());
+
+		this->SetIsDone(true);
+	}
 	//Create AABB for collision
 	this->GenerateAABB(this->position);
 
@@ -72,7 +85,7 @@ void EnemyFlying::Update(double _dt)
 	}
 	case EnemyFlying::AI_ATTACK:
 	{
-		m_attackCooldown = 1;
+		m_attackCooldown = 0.8;
 		m_state = AI_ATTACKING;
 		break;
 	}	
@@ -169,9 +182,24 @@ void EnemyFlying::Attack()
 	//Do damage to player
 	if (m_attackCooldown <= 0)
 	{
-		std::cout << "Dealt 20 damage to player" << std::endl;
-		Player::GetInstance()->TakeDamage(20);
-		m_state = AI_CHASE;
-		return;
+		if (CollisionManager::GetInstance()->CheckAABBCollision(this, Player::GetInstance()))
+		{
+			std::cout << "Dealt 20 damage to player" << std::endl;
+			Player::GetInstance()->TakeDamage(20);
+
+			Create::Particle("particle",
+				Player::GetInstance()->GetPosition(),
+				Vector3(0, 0, 0),
+				EFFECT_TYPE::EFT_HIT, 0.3, 0.3,
+				Player::GetInstance()->GetIsFightingBoss());
+		}
+		Create::Particle("particle",
+			position,
+			Vector3(0, 0, 0),
+			EFFECT_TYPE::EFT_HIT, 0.3, 0.3,
+			Player::GetInstance()->GetIsFightingBoss());
+
+		this->SetIsDone(true);
+
 	}
 }
