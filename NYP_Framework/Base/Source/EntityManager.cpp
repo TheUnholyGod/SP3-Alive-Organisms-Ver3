@@ -188,12 +188,17 @@ void EntityManager::Render()
 {
 	std::list<EntityBase*>::reverse_iterator it;
 
-	for (it = entity_list_full.rbegin(); it != entity_list_full.rend(); ++it)
+	if (entity_list_full.size())
 	{
-		(*it)->Render();
+		for (it = entity_list_full.rbegin(); it != entity_list_full.rend(); ++it)
+		{
+			(*it)->Render();
+		}
+
 	}
 
 	entity_list_full.clear();
+	std::list<EntityBase*>().swap(entity_list_full);
 }
 
 //// Render the UI entities
@@ -306,10 +311,11 @@ void EntityManager::ResetEntityBase()
 		if (it->first == -1)
 			continue;
 
-		/*for (std::list<EntityBase*>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
-		{
-			delete *it2;
-		}*/
+		//for (std::list<EntityBase*>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
+		//{
+		//	delete *it2;
+		//	//free(&it2);
+		//}
 
 		it->second.clear();
 	}
@@ -319,10 +325,11 @@ void EntityManager::ResetEntityBase()
 		if (it->first == -1)
 			continue;
 
-		/*for (std::list<EntityBase*>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
-		{
-			delete *it2;
-		}*/
+		//for (std::list<EntityBase*>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
+		//{
+		//	delete *it2;
+		////	free(&it2);
+		//}
 
 		it->second.clear();
 	}
