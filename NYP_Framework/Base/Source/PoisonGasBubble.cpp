@@ -82,6 +82,9 @@ void PoisonGasBubbles::Update(double _dt)
 
 void PoisonGasBubbles::Render()
 {
+	if (!this->m_active)
+		return;
+
 	MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
 	modelStack.PushMatrix();
 	modelStack.Translate(position.x, position.y, position.z + 0.14);
@@ -92,6 +95,9 @@ void PoisonGasBubbles::Render()
 
 bool PoisonGasBubbles::CollisionResponse(GenericEntity * ThatEntity)
 {
+	if (!this->m_active)
+		return false;
+
 	if (ThatEntity->type == PLAYER_OBJ)
 	{
 		this->Pop();
@@ -104,6 +110,8 @@ bool PoisonGasBubbles::CollisionResponse(GenericEntity * ThatEntity)
 void PoisonGasBubbles::Pop()
 {
 	this->m_active = false;
+	this->m_bCollider = false;
+	this->isStatic = true;
     GenericEntity* ge = this->m_parent->GetEntity(GenericEntity::PLAGUE_GAS_OBJ);
     if (!ge)
         return;
