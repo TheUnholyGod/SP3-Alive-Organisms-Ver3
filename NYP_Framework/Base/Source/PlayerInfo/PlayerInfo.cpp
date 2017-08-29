@@ -147,7 +147,7 @@ void Player::Init(void)
 	{
 		this->m_player_equipment[i]->Init(this);
 	}
-	this->m_dmg = 5;
+	this->m_dmg = 100;
 }
 
 void Player::Update(double dt)

@@ -24,7 +24,7 @@ public:
 	virtual void SetActive(bool _active);
 protected:
 	bool m_isplayer;
-	double m_range;
+	Vector3 m_range, m_dist;
 	Vector3 velocity;
 	Vector3 direction;
 };

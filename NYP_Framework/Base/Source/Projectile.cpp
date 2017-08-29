@@ -24,17 +24,20 @@ Projectile::~Projectile()
 
 void Projectile::Init(Vector3 _pos, Vector3 _vel, Vector3 _dir,bool _isplayer)
 {
+	this->scale.Set(2, 2,0);
 	this->position = _pos;
 	this->velocity = _vel;
 	this->direction = _dir;
 	this->tile_ID = -1;
 	this->isStatic = false;
 	this->m_bCollider = true;
-	this->size.Set(0.5f, 0.5f, 1);
+	this->size.Set(0.25f, 0.25f, 0.25f);
 	this->type = PROJECTILE_OBJ;
 	this->m_active = true;
 	this->m_isplayer = _isplayer;
 	this->m_dmg = 5;
+	this->m_dist.SetZero();
+	this->m_range.Set(25,25,0);
 }
 
 void Projectile::Update(double _dt)
@@ -42,7 +45,15 @@ void Projectile::Update(double _dt)
 	if (!m_active)
 		return;
 	this->position += velocity * _dt;
-	this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(this->position, Player::GetInstance()->GetIsFightingBoss());
+	this->m_dist += velocity * _dt;
+	if (this->m_dist.x > this->m_range.x || this->m_dist.y > this->m_range.y)
+	{
+		this->m_active = false;
+		this->m_bCollider = false;
+		this->isStatic = true;
+		this->tile_ID = 0;
+	}
+	//this->tile_ID = MapManager::GetInstance()->GetLevel(Player::GetInstance()->GetCurrentLevel())->ReturnTileViaPos(this->position, Player::GetInstance()->GetIsFightingBoss());
 	this->GenerateAABB(this->position);
 }
 
@@ -51,7 +62,7 @@ void Projectile::Render()
 	if (!m_active)
 		return;
 
-	Collision::Render();
+	//Collision::Render();
 	MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
 	modelStack.PushMatrix();
 	modelStack.Translate(this->position.x, this->position.y, this->position.z);
@@ -73,6 +84,10 @@ bool Projectile::CollisionResponse(GenericEntity * ThatEntity)
 			ThatEntity->ApplyDamage(Player::GetInstance()->GetDamage());
 			this->m_active = false;
 		}
+		if (ThatEntity->type == PLAYER_OBJ)
+		{
+			return false;
+		}
 	}
 	else
 	{
@@ -83,8 +98,10 @@ bool Projectile::CollisionResponse(GenericEntity * ThatEntity)
 		}
 	}
 
+
 	this->m_active = false;
 	this->m_bCollider = false;
+	this->isStatic = true;
 	this->tile_ID = 0;
 
 	return false;

@@ -428,6 +428,9 @@ void Application::InitAllMeshes()
         MeshList::GetInstance()->AddMesh("plagueboss", MeshBuilder::GetInstance()->GenerateSpriteAnimation("plagueboss_anim", 4, 6, 0));
         MeshList::GetInstance()->GetMesh("plagueboss")->textureID = LoadTGA("Image//Plague.tga");
 
+
+		MeshList::GetInstance()->AddMesh("att", MeshBuilder::GetInstance()->GenerateQuad("atackt", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("att")->textureID = LoadTGA("Image//hitbox.tga");
 		/*MeshBuilder::GetInstance()->GenerateQuad("GRASS_DARKGREEN", Color(1, 1, 1), 1.f);
 		MeshList::GetInstance()->GetMesh("GRASS_DARKGREEN")->textureID = LoadTGA("Image//grass_darkgreen.tga");
 		MeshBuilder::GetInstance()->GenerateQuad("GEO_GRASS_LIGHTGREEN", Color(1, 1, 1), 1.f);
