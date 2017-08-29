@@ -14,6 +14,7 @@
 PlagueBoss::PlagueBoss() : m_strats(new PlagueStrategy*[NUM_STATES])
 {
 	this->isStatic = false;
+	type = ENEMY_OBJ;
 
 }
 
