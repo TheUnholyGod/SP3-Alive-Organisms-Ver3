@@ -25,7 +25,8 @@ EnemyMaggot::EnemyMaggot(Mesh * mesh,
 	this->SetCollider(have_collider);
 	this->SetPhysic(have_physic);
 	this->SetStatic(false);
-	this->SetActive(false);
+	this->SetActive(false);	
+	this->type = GenericEntity::ENEMY_OBJ;
 
 	m_state = AI_STATES::AI_CHASE;
 	this->type = GenericEntity::PLAGUE_MAGGOT_OBJ;

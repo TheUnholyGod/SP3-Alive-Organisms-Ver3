@@ -55,6 +55,7 @@ private:
 
 public:
 	PathFinder();
+	~PathFinder();
 
 	//Some helper functions
 	bool isOutOfBounds(Coord2D coordinates_);

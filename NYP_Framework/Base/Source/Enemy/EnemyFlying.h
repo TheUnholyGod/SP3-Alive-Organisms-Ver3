@@ -13,7 +13,7 @@ public:
 		bool have_collider = true,
 		bool have_physic = true,
 		bool is_static = false);
-	~EnemyFlying();
+	virtual ~EnemyFlying();
 
 	virtual void Update(double _dt);
 	virtual void Render();
