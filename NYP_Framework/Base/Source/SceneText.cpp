@@ -374,9 +374,22 @@ void SceneText::Exit()
 {
 	// Detach camera from other entities
 	GraphicsManager::GetInstance()->DetachCamera();
-	Player::Destroy();
-	TileMaker::Destroy();
+
 	MeshList::GetInstance()->DeleteAllMesh();
+
+	//Singleton destruction
+	Player::Destroy();
+	EntityManager::Destroy();
+
+	TileMaker::Destroy();
+	MapManager::Destroy();
+
+	UIManager::Destroy();
+	GameStateManager::Destroy();
+	CMinimap::Destroy();
+
+	MeshList::Destroy();
+
 	// Delete the lights
 	delete lights[0];
 	delete lights[1];

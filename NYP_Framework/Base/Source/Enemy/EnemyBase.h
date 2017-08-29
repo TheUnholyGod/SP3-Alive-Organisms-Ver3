@@ -51,7 +51,9 @@ public:
 		isPathFound = false;
 		m_attackCooldown = 0;
 	}
-	virtual ~EnemyBase() {};
+	virtual ~EnemyBase() 
+	{
+	};
 
 	virtual void Update(double _dt);
 	virtual void Render();

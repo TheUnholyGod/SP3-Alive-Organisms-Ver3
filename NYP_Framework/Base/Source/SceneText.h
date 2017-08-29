@@ -12,6 +12,8 @@
 #include "minimap.h"
 #include "../Source/Manager/HUDManager.h"
 #include "EntityManager.h"
+#include "MapManager.h"
+
 class ShaderProgram;
 class SceneManager;
 class TextEntity;
@@ -40,7 +42,6 @@ private:
 	TextEntity* textObj[3];
 	Light* lights[2];
 
-	GenericEntity* theCube;
 	Keyboard* keyboard;
 	static SceneText* sInstance; // The pointer to the object that gets registered
 	double m_inputtimer;

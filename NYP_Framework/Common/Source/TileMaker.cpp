@@ -15,6 +15,8 @@ TileMaker::~TileMaker()
 {
 	this->tile_set_base->Exit();
 	delete tile_set_base;
+
+	tile_set_base = nullptr;
 }
 
 /*
@@ -134,6 +136,15 @@ Tiles::Tiles()
 			level_tiles[y][x] = 0;
 		}
 	}
+}
+
+Tiles::~Tiles()
+{
+	for (int i = 0; i < 5; ++i) 
+	{
+		delete[] level_tiles[i];
+	}
+	delete[] level_tiles;
 }
 
 int** Tiles::GetTilesArray()

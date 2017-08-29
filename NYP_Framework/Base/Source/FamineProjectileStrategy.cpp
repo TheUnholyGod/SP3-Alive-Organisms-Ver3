@@ -43,6 +43,7 @@ void FamineProjectileStrategy::Update(double dt)
 	}
 	if (action && projectile.size())
 	{
+
 		ArchProjectile* proj = projectile[projectile.size() - 1];
 		proj->SetActive(true);
 		proj->Init(this->m_parent->GetPosition(), Vector3(), Vector3(), this->m_parent);

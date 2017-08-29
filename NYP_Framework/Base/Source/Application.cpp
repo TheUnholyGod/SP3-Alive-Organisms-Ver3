@@ -6,7 +6,7 @@
 #include "MapManager.h"
 #include "MeshBuilder.h"
 #include "MeshList.h"
-
+#include "Manager\UIManager.h"
 //Include GLEW
 #include <GL/glew.h>
 
@@ -18,7 +18,7 @@
 #include <stdlib.h>
 
 //Memory leak checking
-//#include <vld.h>
+#include <vld.h>
 
 #include "LoadTGA.h"
 #include "Utility.h"
@@ -154,6 +154,7 @@ void Application::Run()
         m_timer.waitUntil(frameTime);       // Frame rate limiter. Limits each frame to a specified time in ms.   
 		
 	}
+
 	SceneManager::GetInstance()->Exit();
 	EntityManager::GetInstance()->Exit();
 	MapManager::GetInstance()->DeleteAllLevels();
@@ -289,17 +290,19 @@ void Application::InitAllMeshes()
 		//UI
 		MeshBuilder::GetInstance()->GenerateQuad("main_menu", 1, 1.f);
 		MeshList::GetInstance()->GetMesh("main_menu")->textureID = LoadTGA("Image//menu.tga");
-		MeshBuilder::GetInstance()->GenerateQuad("gameover_screen", 1, 1.f);
+
+		MeshList::GetInstance()->AddMesh("gameover_screen", MeshBuilder::GetInstance()->GenerateQuad("gameover_scrn", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("gameover_screen")->textureID = LoadTGA("Image//gameover_screen.tga");
-		MeshBuilder::GetInstance()->GenerateQuad("instruction_menu", 1, 1.f);
+		MeshList::GetInstance()->AddMesh("instruction_menu", MeshBuilder::GetInstance()->GenerateQuad("instruction", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("instruction_menu")->textureID = LoadTGA("Image//instruction_menu.tga");
 		MeshBuilder::GetInstance()->GenerateQuad("instruction_button", 1, 1.f);
 		MeshList::GetInstance()->GetMesh("instruction_button")->textureID = LoadTGA("Image//instruction_button.tga");
 		MeshBuilder::GetInstance()->GenerateQuad("start_button", 1, 1.f);
 		MeshList::GetInstance()->GetMesh("start_button")->textureID = LoadTGA("Image//start_button.tga");
-		MeshBuilder::GetInstance()->GenerateQuad("restart_button", 1, 1.f);
+
+		MeshList::GetInstance()->AddMesh("restart_button", MeshBuilder::GetInstance()->GenerateQuad("restart_btn", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("restart_button")->textureID = LoadTGA("Image//restart_button.tga");
-		MeshBuilder::GetInstance()->GenerateQuad("option_button", 1, 1.f);
+		MeshList::GetInstance()->AddMesh("option_button", MeshBuilder::GetInstance()->GenerateQuad("option_btn", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("option_button")->textureID = LoadTGA("Image//option_button.tga");
 		MeshBuilder::GetInstance()->GenerateQuad("quit_button", 1, 1.f);
 		MeshList::GetInstance()->GetMesh("quit_button")->textureID = LoadTGA("Image//quit_button.tga");

@@ -15,8 +15,8 @@ class MapManager : public Singleton<MapManager>
 private:
 	friend Singleton <MapManager>;
 
-	MapManager() {}
-	~MapManager() {}
+	MapManager();
+	~MapManager();
 
 	map<int, Level*> map_database;
 	map<int, Level*> boss_map_database;

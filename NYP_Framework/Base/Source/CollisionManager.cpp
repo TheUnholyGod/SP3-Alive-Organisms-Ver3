@@ -113,7 +113,6 @@ bool CollisionManager::CheckPlayerDirCollision(EntityBase * tile_entity)
 
 void CollisionManager::Update(std::list<EntityBase*> collisionList)
 {
-	int i = 0;
 	std::list<EntityBase*>::iterator it, it2;
 
 	for (it = collisionList.begin(); it != collisionList.end(); ++it)
@@ -124,7 +123,6 @@ void CollisionManager::Update(std::list<EntityBase*> collisionList)
 
 		for (it2 = std::next(it, 1); it2 != collisionList.end(); ++it2)
 		{
-			++i;
 			if (!(*it)->HasCollider() || !(*it2)->HasCollider())
 			{
 				continue;
