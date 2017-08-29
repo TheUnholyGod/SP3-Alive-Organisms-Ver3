@@ -27,7 +27,7 @@ EnemyFlying::EnemyFlying(Mesh * mesh,
 	this->SetCollider(have_collider);
 	this->SetPhysic(have_physic);
 	this->SetStatic(false);
-	this->m_health = 30;
+	this->m_health = 10;
 	this->GenerateAABB(this->position);
 	m_state = AI_STATES::AI_IDLE;
 	dir = true;
@@ -185,7 +185,7 @@ void EnemyFlying::Attack()
 		if (CollisionManager::GetInstance()->CheckAABBCollision(this, Player::GetInstance()))
 		{
 			std::cout << "Dealt 20 damage to player" << std::endl;
-			Player::GetInstance()->TakeDamage(20);
+			Player::GetInstance()->TakeDamage(50);
 
 			Create::Particle("particle",
 				Player::GetInstance()->GetPosition(),
