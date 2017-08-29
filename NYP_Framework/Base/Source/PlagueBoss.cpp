@@ -76,7 +76,7 @@ void PlagueBoss::Init()
 		this->m_entitylist.push_back(Create::Enemy(EnemyBase::E_MAGGOT, Vector3(), Vector3(1, 1, 1), true, false, false, 0, true));
 	}
 	m_changestatetimer = 0;
-	m_defchangestatetimer = 5;
+	m_defchangestatetimer = 2.5;
 	m_currstate = STATE_IDLE;
 	this->size.Set(2, 2, 1);
 

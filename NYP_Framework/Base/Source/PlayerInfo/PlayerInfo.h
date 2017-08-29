@@ -102,6 +102,8 @@ private:
 	bool m_isFightingBoss, m_isKilledBoss;
 	bool m_canDoubleJump;
 
+	Equipment* m_player_equipment[NUM_EQUIPMENT];
+
 	FPSCamera* attachedCamera;
 
 	SpriteEntity* animation;
@@ -109,7 +111,4 @@ private:
 	SpriteEntity* animationWalkingLeft;
 	SpriteEntity* animationClimbing;
 	SpriteEntity* animationJumping;
-
-	
-	Equipment* m_player_equipment[NUM_EQUIPMENT];
 };

@@ -45,6 +45,17 @@ Player::Player(void)
 Player::~Player(void)
 {
 	m_pTerrain = NULL;
+	delete animation;
+	delete animationWalking;
+	delete animationWalkingLeft;
+	delete animationClimbing;
+	delete animationJumping;
+	delete attachedCamera;
+	
+	for (int i = 0; i < 2; ++i)
+	{
+		delete m_player_equipment[i];
+	}
 }
 
 // Initialise this class instance
@@ -814,7 +825,7 @@ void Player::TakeDamage(int _dmg)
         return;
 	this->m_health -= _dmg;
     this->m_invincible = true;
-    this->m_invincibletimer = this->m_definvincibletimer;
+    this->m_invincibletimer = 0.2f;
 
 }
 
