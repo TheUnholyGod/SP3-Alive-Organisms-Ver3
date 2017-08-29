@@ -32,6 +32,16 @@ inline void BaseDatabase<Key, Object>::init()
 	DataBaseManager::GetInstance()->AddDatabase(this->k_name,this);
 }
 
+template<class Key, class Object>
+void BaseDatabase<Key, Object>::Exit()
+{
+	for (std::map<Key, Object*>::iterator it = this->m_database.begin(); it != this->m_database.end(); ++it)
+	{
+		delete it->second;
+	}
+	this->m_database.clear();
+}
+
 template <class Key, class Object>
 inline Object* BaseDatabase<Key, Object>::getObject(Key id)
 {
