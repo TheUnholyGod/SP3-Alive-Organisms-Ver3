@@ -9,6 +9,7 @@
 #include "Application.h"
 #include "Hitbox.h"
 #include "GL\glew.h"
+#include "Projectile.h"
 
 CMinimap::CMinimap()
 	: m_cMinimap_Background(NULL)
@@ -241,6 +242,7 @@ void CMinimap::RenderUI()
 		default:
 		{
 			if (dynamic_cast<Hitbox*>(entities[i]))break;
+			if (dynamic_cast<Projectile*>(entities[i]))break;
 			m_cMinimap_Target = MeshList::GetInstance()->GetMesh("redquad");
 			modelStack.Translate((entities[i]->GetPosition().x - playerPos.x) / 10, (entities[i]->GetPosition().y - playerPos.y) / 10, 0.001);
 			modelStack.Scale(0.05, 0.05, 1);
