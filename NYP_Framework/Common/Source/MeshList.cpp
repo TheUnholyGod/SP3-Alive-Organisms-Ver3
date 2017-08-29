@@ -39,3 +39,13 @@ bool MeshList::IsMeshEmpty()
 
 	return true;
 }
+
+MeshList::~MeshList()
+{
+	for (auto &it : meshMap)
+	{
+		delete it.second;
+		it.second = nullptr;
+	}
+	meshMap.clear();
+}

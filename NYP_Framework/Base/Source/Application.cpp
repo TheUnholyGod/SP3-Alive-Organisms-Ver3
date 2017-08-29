@@ -5,7 +5,7 @@
 #include "GraphicsManager.h"
 #include "MeshBuilder.h"
 #include "MeshList.h"
-
+#include "Manager\UIManager.h"
 //Include GLEW
 #include <GL/glew.h>
 
@@ -156,6 +156,8 @@ void Application::Run()
 	SceneManager::GetInstance()->Exit();
 	EntityManager::GetInstance()->Exit();
 	MapManager::GetInstance()->DeleteAllLevels();
+	UIManager::GetInstance()->Exit();
+	UIManager::GetInstance()->Destroy();
 }
 
 void Application::Exit()
