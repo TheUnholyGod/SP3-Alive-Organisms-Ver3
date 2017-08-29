@@ -15,7 +15,7 @@ cpp file for ParticleEffect class.
 #include "RenderHelper.h"
 #include "../PlayerInfo/PlayerInfo.h"
 
-ParticleEffect::ParticleEffect(Vector3 pos, Vector3 vel, EFFECT_TYPE type, double effect_life_span, double particle_life_span)
+ParticleEffect::ParticleEffect(Vector3 pos, Vector3 vel, EFFECT_TYPE type, double effect_life_span, double particle_life_span) : GenericEntity(MeshList::GetInstance()->GetMesh("quad"))
 {
 	this->m_emitter = new Emitter(type, pos, vel, effect_life_span, particle_life_span);
 	position = pos;
@@ -27,6 +27,8 @@ void ParticleEffect::Update(double _dt)
 
 	if (this->getEmitter()->getIsDone())
 		this->SetIsDone(true);
+
+	this->GenerateAABB(position);
 
 	this->m_emitter->update(_dt);
 	/*std::cout << "TILEID PARTILE: " << tile_ID << std::endl;
@@ -69,7 +71,7 @@ ParticleEffect * Create::Particle(
 
 	ParticleEffect* result = new ParticleEffect(pos, vel, type, effect_life_span, particle_life_span);
 	result->getEmitter()->setMesh(modelMesh);
-	result->SetCollider(false); //Disable collision for this
+	result->SetCollider(true); //Disable collision for this
 	result->SetPhysic(false);
 	result->SetStatic(false);
 	result->SetIsParticleEmitter(true);

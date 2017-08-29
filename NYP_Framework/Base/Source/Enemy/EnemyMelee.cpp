@@ -10,6 +10,7 @@
 #include "RenderHelper.h"
 #include "../CollisionManager.h"
 #include "../SpriteEntity.h"
+#include "../Particle Effect/ParticleEffect.h"
 
 EnemyMelee::EnemyMelee(Mesh * mesh, 
 	EnemyBase::ENEMY_TYPE enemy_type, 
@@ -354,6 +355,12 @@ void EnemyMelee::Attack()
 		{
 			std::cout << "Dealt 20 damage to player" << std::endl;
 			Player::GetInstance()->TakeDamage(20);
+			Create::Particle("particle", 
+				Player::GetInstance()->GetPosition(), 
+				Vector3(20, 0, 0), 
+				EFFECT_TYPE::EFT_FIRE, 0.5, 0.3, 
+				Player::GetInstance()->GetIsFightingBoss());
+			
 		}
 		m_state = AI_CHASE;
 		return;
