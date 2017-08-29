@@ -319,6 +319,22 @@ void MapManager::DeleteAllLevels()
 		delete map_database[i];
 		map_database[i] = nullptr;
 	}
+
+	for (int i = 0; i < boss_map_database.size(); ++i)
+	{
+		delete boss_map_database[i];
+		boss_map_database[i] = nullptr;
+	}
+
+	map_database.clear();
+	boss_map_database.clear();
+
+	for (int i = 0; i < (16 * 7) + (16 * 7); ++i)
+	{
+		delete m_map_array[i];
+	}
+
+	delete m_map_array;
 }
 
 int ** MapManager::getMapArray()

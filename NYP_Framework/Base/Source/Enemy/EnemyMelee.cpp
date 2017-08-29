@@ -36,6 +36,10 @@ EnemyMelee::EnemyMelee(Mesh * mesh,
 
 EnemyMelee::~EnemyMelee()
 {
+	if (animation)
+		delete animation;
+	if (animation2)
+		delete animation2;
 }
 
 void EnemyMelee::Update(double _dt)

@@ -17,7 +17,7 @@
 #include <stdlib.h>
 
 //Memory leak checking
-//#include <vld.h>
+#include <vld.h>
 
 #include "LoadTGA.h"
 #include "Utility.h"

@@ -55,7 +55,7 @@ public:
 	{
 		if (animation)
 			delete animation;
-		if(animation2)
+		if (animation2)
 			delete animation2;
 	};
 

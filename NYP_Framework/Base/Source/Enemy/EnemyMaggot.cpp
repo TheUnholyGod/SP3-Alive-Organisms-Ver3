@@ -9,6 +9,8 @@
 #include "../PlayerInfo/PlayerInfo.h"
 #include "RenderHelper.h"
 #include "../SpriteEntity.h"
+#include "../CollisionManager.h"
+#include "../Particle Effect/ParticleEffect.h"
 
 EnemyMaggot::EnemyMaggot(Mesh * mesh,
 	EnemyBase::ENEMY_TYPE enemy_type,
@@ -28,6 +30,7 @@ EnemyMaggot::EnemyMaggot(Mesh * mesh,
 	this->SetActive(false);	
 	this->type = GenericEntity::ENEMY_OBJ;
 
+	this->m_health = 30;
 	m_state = AI_STATES::AI_CHASE;
 	this->type = GenericEntity::PLAGUE_MAGGOT_OBJ;
 	dir = true;
@@ -35,6 +38,10 @@ EnemyMaggot::EnemyMaggot(Mesh * mesh,
 
 EnemyMaggot::~EnemyMaggot()
 {
+	if (animation)
+		delete animation;
+	if (animation2)
+		delete animation2;
 }
 
 void EnemyMaggot::Init(Vector3 pos)
@@ -50,6 +57,9 @@ void EnemyMaggot::Update(double _dt)
 {
 	if (!(this->m_active))
 		return;
+
+	if (this->m_state == AI_ATTACKING)
+		m_attackCooldown -= _dt;
 
 	//Create AABB for collision
 	this->GenerateAABB(this->position);
@@ -78,9 +88,13 @@ void EnemyMaggot::Update(double _dt)
 	}
 	case EnemyMaggot::AI_ATTACK:
 	{
-		Attack();
+		m_attackCooldown = 1;
 		//std::cout << "Attack" << std::endl;
 		break;
+	}
+	case EnemyMaggot::AI_ATTACKING:
+	{
+		Attack();
 	}
 	default:
 		break;
@@ -163,11 +177,20 @@ void EnemyMaggot::Attack()
 {
 	m_velocity.SetZero();
 	//Do damage to player
-	std::cout << "Deal dmg to player 100 " << std::endl;
+	if (m_attackCooldown <= 0)
+	{
+		if (CollisionManager::GetInstance()->CheckAABBCollision(this, Player::GetInstance()))
+		{
+			std::cout << "Dealt 20 damage to player" << std::endl;
+			Player::GetInstance()->TakeDamage(10);
+			Create::Particle("particle",
+				Player::GetInstance()->GetPosition(),
+				Vector3(0, 0, 0),
+				EFFECT_TYPE::EFT_HIT, 0.3, 0.3,
+				Player::GetInstance()->GetIsFightingBoss());
 
-	Player::GetInstance()->TakeDamage(100);
-	std::cout << "player hp: "<< Player::GetInstance()->GetHealth() << std::endl;
-	//Go back to chase
-	m_state = AI_CHASE;
-	return;
+		}
+		m_state = AI_CHASE;
+		return;
+	}
 }

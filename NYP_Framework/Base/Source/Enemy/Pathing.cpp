@@ -58,10 +58,6 @@ PathFinder::PathFinder()
 
 PathFinder::~PathFinder()
 {
-	if(heuristic)
-		heuristic.~function();
-	direction.clear();
-	walls.clear();
 }
 
 void PathFinder::setWorldSize(Coord2D worldSize_)
@@ -264,7 +260,7 @@ std::vector<Coord2D> PathFinder::findPath(Coord2D source_, Coord2D target_)
 		std::cout << "Failed to find the full path." << std::endl;
 		DeleteNodeSet(openSet);
 		DeleteNodeSet(closedSet);
-		delete current;
+		//delete current;
 		return path;
 	}
 }

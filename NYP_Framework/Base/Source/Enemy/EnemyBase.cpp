@@ -55,6 +55,7 @@ EnemyBase * Create::Enemy(const EnemyBase::ENEMY_TYPE enemy_type,
 			sa->m_anim = new Animation();
 			sa->m_anim->Set(1, 6, 1, 1.0f, true);
 			result->animation = new SpriteEntity(sa);
+			delete sa;
 		}
 		SpriteAnimation* sa2 = new SpriteAnimation(*dynamic_cast<SpriteAnimation*>(MeshList::GetInstance()->GetMesh("enemy_1_atk")));
 		if (sa2)
@@ -62,10 +63,12 @@ EnemyBase * Create::Enemy(const EnemyBase::ENEMY_TYPE enemy_type,
 			sa2->m_anim = new Animation();
 			sa2->m_anim->Set(1, 5, 1, 1.0f, true);
 			result->animation2 = new SpriteEntity(sa2);
+			delete sa2;
 		}
 
 		EntityManager::GetInstance()->AddEntity(result, is_boss_room);
 		return result;
+		break;
 	}
 	case EnemyBase::ENEMY_TYPE::E_MAGGOT:
 	{
@@ -82,6 +85,7 @@ EnemyBase * Create::Enemy(const EnemyBase::ENEMY_TYPE enemy_type,
 			sa->m_anim = new Animation();
 			sa->m_anim->Set(1, 12, 1, 0.6f, true);
 			result->animation = new SpriteEntity(sa);
+			delete sa;
 		}
 		SpriteAnimation* sa2 = new SpriteAnimation(*dynamic_cast<SpriteAnimation*>(MeshList::GetInstance()->GetMesh("maggot")));
 		if (sa2)
@@ -89,10 +93,12 @@ EnemyBase * Create::Enemy(const EnemyBase::ENEMY_TYPE enemy_type,
 			sa2->m_anim = new Animation();
 			sa2->m_anim->Set(1, 12, 1, 1.0f, true);
 			result->animation2 = new SpriteEntity(sa2);
+			delete sa2;
 		}
-
+		result->SetTileID(-1);
 		EntityManager::GetInstance()->AddEntity(result, is_boss_room);
 		return result;
+		break;
 	}
 	case EnemyBase::ENEMY_TYPE::E_FLYING:
 	{
@@ -109,6 +115,7 @@ EnemyBase * Create::Enemy(const EnemyBase::ENEMY_TYPE enemy_type,
 			sa->m_anim = new Animation();
 			sa->m_anim->Set(1, 3, 1, 1.0f, true);
 			result->animation = new SpriteEntity(sa);
+			delete sa;
 		}
 		SpriteAnimation* sa2 = new SpriteAnimation(*dynamic_cast<SpriteAnimation*>(MeshList::GetInstance()->GetMesh("explosion")));
 		if (sa2)
@@ -116,10 +123,12 @@ EnemyBase * Create::Enemy(const EnemyBase::ENEMY_TYPE enemy_type,
 			sa2->m_anim = new Animation();
 			sa2->m_anim->Set(1, 24, 1, 1.0f, true);
 			result->animation2 = new SpriteEntity(sa2);
+			delete sa2;
 		}
 
 		EntityManager::GetInstance()->AddEntity(result, is_boss_room);
 		return result;
+		break;
 	}
 	default:
 		break;

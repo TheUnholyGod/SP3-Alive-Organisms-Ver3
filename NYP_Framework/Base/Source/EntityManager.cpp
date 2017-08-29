@@ -306,10 +306,10 @@ void EntityManager::ResetEntityBase()
 		if (it->first == -1)
 			continue;
 
-		for (std::list<EntityBase*>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
+		/*for (std::list<EntityBase*>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
 		{
 			delete *it2;
-		}
+		}*/
 
 		it->second.clear();
 	}
@@ -319,10 +319,10 @@ void EntityManager::ResetEntityBase()
 		if (it->first == -1)
 			continue;
 
-		for (std::list<EntityBase*>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
+		/*for (std::list<EntityBase*>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
 		{
 			delete *it2;
-		}
+		}*/
 
 		it->second.clear();
 	}
