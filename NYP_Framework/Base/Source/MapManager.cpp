@@ -18,15 +18,18 @@ MapManager::~MapManager()
 	for (std::map<int, Level*>::iterator it = map_database.begin(); it != map_database.end(); ++it)
 	{
 		delete it->second;
+		it->second = nullptr;
 	}
 	map_database.clear();
 
 	for (std::map<int, Level*>::iterator it = boss_map_database.begin(); it != boss_map_database.end(); ++it)
 	{
 		delete it->second;
+		it->second = nullptr;
 	}
 	boss_map_database.clear();
 
+	
 	delete[] m_map_array;
 }
 

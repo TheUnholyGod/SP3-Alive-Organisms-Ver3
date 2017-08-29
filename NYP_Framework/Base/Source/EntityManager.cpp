@@ -393,7 +393,7 @@ EntityManager::~EntityManager()
 
 		it->second.clear();
 	}
-
+	m_entity_map_base.clear();
 
 	for (std::map<int, std::list<EntityBase*>>::iterator it = m_entity_boss_map_base.begin(); it != m_entity_boss_map_base.end(); ++it)
 	{
@@ -406,4 +406,5 @@ EntityManager::~EntityManager()
 
 		it->second.clear();
 	}
+	m_entity_boss_map_base.clear();
 }
