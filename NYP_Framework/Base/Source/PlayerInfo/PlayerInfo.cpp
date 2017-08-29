@@ -209,9 +209,9 @@ void Player::Update(double dt)
 		//std::cout << speed_up << std::endl;
 	}
 
-	if (m_health < m_maxHealth && m_regenTimer > 1.5f)
+	if (m_health < m_maxHealth && m_regenTimer > 1.7f)
 	{
-		m_health += 4;
+		m_health += 2;
 		m_regenTimer = 0;
 
 		if (m_health > m_maxHealth)
