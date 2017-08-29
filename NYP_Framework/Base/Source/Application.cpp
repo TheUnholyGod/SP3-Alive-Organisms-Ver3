@@ -409,7 +409,13 @@ void Application::InitAllMeshes()
 		MeshList::GetInstance()->AddMesh("normal_rune_item", MeshBuilder::GetInstance()->GenerateQuad("normal_rune", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("normal_rune_item")->textureID = LoadTGA("Image//normal_rune.tga");
 
-        MeshList::GetInstance()->AddMesh("plagueboss", MeshBuilder::GetInstance()->GenerateSpriteAnimation("plagueboss", 4, 6, 0));
+		MeshList::GetInstance()->AddMesh("bubble_projectile", MeshBuilder::GetInstance()->GenerateQuad("bubble", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("bubble_projectile")->textureID = LoadTGA("Image//bubble.tga");
+
+		MeshList::GetInstance()->AddMesh("bubble_gas", MeshBuilder::GetInstance()->GenerateQuad("gas_bubble", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("bubble_gas")->textureID = LoadTGA("Image//gas_bubble.tga");
+
+        MeshList::GetInstance()->AddMesh("plagueboss", MeshBuilder::GetInstance()->GenerateSpriteAnimation("plagueboss_anim", 4, 6, 0));
         MeshList::GetInstance()->GetMesh("plagueboss")->textureID = LoadTGA("Image//Plague.tga");
 
 		/*MeshBuilder::GetInstance()->GenerateQuad("GRASS_DARKGREEN", Color(1, 1, 1), 1.f);

@@ -3,10 +3,14 @@
 #include "MeshList.h"
 #include "EntityManager.h"
 
+#include "GraphicsManager.h"
+#include "RenderHelper.h"
+
 ToxicGas::ToxicGas(Mesh * _modelMesh) : Hitbox(m_mesh)
 {
 	this->type = PLAGUE_GAS_OBJ;
 	this->m_active = false;
+	modelMesh = _modelMesh;
 }
 
 ToxicGas::~ToxicGas()
@@ -36,7 +40,13 @@ void ToxicGas::Render()
 {
 	if (!m_active)
 		return;
-	Collision::Render();
+
+	MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
+	modelStack.PushMatrix();
+	modelStack.Translate(position.x, position.y, position.z + 0.14);
+	modelStack.Scale(scale.x, scale.y, scale.z);
+	RenderHelper::RenderMesh(modelMesh);
+	modelStack.PopMatrix();
 }
 
 void ToxicGas::Exit()
