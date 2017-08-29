@@ -19,26 +19,19 @@ void HUDManager::RenderHUD()
 	RenderHelper::RenderMesh(MeshList::GetInstance()->GetMesh("HP"));
 	modelStack.PopMatrix();
 
+	//WEAPONS
 	modelStack.PushMatrix();
-	modelStack.Translate(Application::GetInstance().GetWindowWidth() *-0.25, Application::GetInstance().GetWindowHeight()* 0.30, 6);
-	modelStack.Scale(50, 50, 1);
+	modelStack.Translate(Application::GetInstance().GetWindowWidth() *-0.26, Application::GetInstance().GetWindowHeight()* 0.30, 6);
+	modelStack.Scale(100, 100, 1);
 	RenderHelper::RenderMesh(MeshList::GetInstance()->GetMesh("bow"));
 	modelStack.PopMatrix();
 
+	modelStack.PushMatrix();
+	modelStack.Translate(Application::GetInstance().GetWindowWidth() *-0.43, Application::GetInstance().GetWindowHeight()* 0.30, 6);
+	modelStack.Scale(100, 100, 1);
+	RenderHelper::RenderMesh(MeshList::GetInstance()->GetMesh("sword"));
+	modelStack.PopMatrix();
 
-	//WEAPONS
-	/*modelStack.PushMatrix();
-	modelStack.Translate(0, 0, 0);
-	modelStack.Scale(1, 1, 1);
-	RenderHelper::RenderMesh(MeshList::GetInstance()->GetMesh("GEO_SPRITE_ANIMATION"));
-	modelStack.PopMatrix();*/
-
-	//MINIMAP
-	/*modelStack.PushMatrix();
-	modelStack.Translate(0, 0, 0);
-	modelStack.Scale(1, 1, 1);
-	RenderHelper::RenderMesh(MeshList::GetInstance()->GetMesh("GEO_SPRITE_ANIMATION"));
-	modelStack.PopMatrix();*/
 
 	//HOTBAR
 	modelStack.PushMatrix();
