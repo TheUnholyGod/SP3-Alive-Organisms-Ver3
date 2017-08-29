@@ -67,13 +67,16 @@ void Controller::Update(double dt)
 {
     std::list<CONTROLLER_STATES> prevthree;
 
-    if (m_curraction_animationtime > m_curraction_timer && !m_is_free)
-        m_curraction_timer += 0.15f;
+	if (m_curraction_animationtime > m_curraction_timer && !m_is_free)
+		m_curraction_timer += 0.15f;
+	else if ((m_curr_action >= CONTROLLER_JUMP && m_curr_action <= CONTROLLER_DODGEROLL) && m_curraction_animationtime > m_curraction_canceltime && !m_is_free)
+		this->m_curr_action = CONTROLLER_MOVELEFT;
 	else
 	{
 		m_is_free = true;
         m_inputchecker.clear();
 	}
+
     CONTROLLER_STATES curr = CONTROLLER_MOVELEFT;
 
     while (!m_input_buffer.empty())
