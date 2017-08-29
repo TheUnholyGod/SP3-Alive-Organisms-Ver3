@@ -44,7 +44,7 @@ public:
 	double m_explosionTime = 0;
 private:
 	UIManager() {};
-	virtual ~UIManager() {};
+	virtual ~UIManager() { Exit(); };
 
 	//Vector to store all UIElements
 	std::vector<EntityBase*> m_UIElements;

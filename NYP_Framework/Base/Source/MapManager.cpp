@@ -9,6 +9,27 @@
 #include "Enemy\EnemyBase.h"
 #include "EntityDrop.h"
 
+MapManager::MapManager()
+{
+}
+
+MapManager::~MapManager()
+{
+	for (std::map<int, Level*>::iterator it = map_database.begin(); it != map_database.end(); ++it)
+	{
+		delete it->second;
+	}
+	map_database.clear();
+
+	for (std::map<int, Level*>::iterator it = boss_map_database.begin(); it != boss_map_database.end(); ++it)
+	{
+		delete it->second;
+	}
+	boss_map_database.clear();
+
+	delete[] m_map_array;
+}
+
 void MapManager::Init()
 {
 	for (int i = 0; i < 5; ++i)
@@ -22,6 +43,17 @@ void MapManager::Init()
 		level->GenerateBossLevel();
 
 		boss_map_database[i] = level;
+	}
+
+	int size = (16 * 7) + (16 * 7);
+	m_map_array = new int*[size];
+	for (int h = 0; h < size; ++h)
+	{
+		m_map_array[h] = new int[size];
+		for (int w = 0; w < size; ++w)
+		{
+			m_map_array[h][w] = 0;
+		}
 	}
 }
 
@@ -347,19 +379,7 @@ void MapManager::GenerateMapArray(int level)
 	map<int, Tiles*> temp;
 	map_database[level]->GetLevelLayOut(temp);
 
-	//Initialise new array
-	Level* l = GetLevel(level);
-	int size = (16 * 7) + (16 * 7);
-
-	m_map_array = new int*[size];
-	for (int h = 0; h < size; ++h)
-	{
-		m_map_array[h] = new int[size];
-		for (int w = 0; w < size; ++w)
-		{
-			m_map_array[h][w] = 0;
-		}
-	}
+	//Level* l = GetLevel(level);
 
 	int section = 0, row = 0;
 	for (int i = 0; i < temp.size(); ++i)
@@ -412,16 +432,6 @@ void MapManager::GenerateMapArray(int level)
 			++section;
 		}
 	}
-
-	//for (int i = 0; i < 16 * 7; ++i)
-	//{
-	//	for (int j = 0; j < 16 * 7; ++j)
-	//	{
-	//		std::cout << m_map_array[i][j];
-	//	}
-
-	//	std::cout << std::endl;
-	//}
 }
 
 vector<Vector3> MapManager::GetAllPlayerStartingPos()
