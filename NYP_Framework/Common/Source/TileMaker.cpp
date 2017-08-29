@@ -9,12 +9,19 @@ TileMaker::TileMaker()
 {
 	tile_set_base = new BaseDatabase<int, Tiles>("tile_set_base", "Assets//LevelGenerators.txt");
 	tile_set_base->init();
+	tiles_set = nullptr;
 }
 
 TileMaker::~TileMaker()
 {
 	this->tile_set_base->Exit();
 	delete tile_set_base;
+
+	/*if (tiles_set)
+	{
+		delete tiles_set;
+		tiles_set = nullptr;
+	}*/
 }
 
 /*
@@ -71,6 +78,7 @@ Tiles* TileMaker::GenerateRoom(TILE_SET_GENERATOR generator)
 Tiles::Tiles(string input_file)
 {
 	m_file_path = input_file;
+	
 	level_tiles = new int*[MAX_TILE_SIZE_XY];
 	
 	for (int i = 0; i < MAX_TILE_SIZE_XY; ++i)
@@ -107,15 +115,6 @@ Tiles::Tiles(string input_file)
 	}
 
 	Loader::GetInstance()->ClearData();
-
-	//for (int y = 0; y < MAX_TILE_SIZE_XY; ++y)
-	//{
-	//	for (int x = 0; x < MAX_TILE_SIZE_XY; ++x)
-	//	{
-	//		std::cout << level_tiles[y][x];
-	//	}
-	//	std::cout << std::endl;
-	//}
 }
 
 Tiles::Tiles()
@@ -134,6 +133,15 @@ Tiles::Tiles()
 			level_tiles[y][x] = 0;
 		}
 	}
+}
+
+Tiles::~Tiles()
+{
+	/*for (int i = 0; i < MAX_TILE_SIZE_XY; ++i)
+	{
+		delete[] level_tiles[i];
+	}
+	delete[] level_tiles;*/
 }
 
 int** Tiles::GetTilesArray()

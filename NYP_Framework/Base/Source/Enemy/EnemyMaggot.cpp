@@ -38,6 +38,17 @@ EnemyMaggot::EnemyMaggot(Mesh * mesh,
 
 EnemyMaggot::~EnemyMaggot()
 {
+	if (animation)
+	{
+		delete animation;
+		animation = nullptr;
+	}
+	if (animation2)
+	{
+		delete animation2;
+		animation2 = nullptr;
+	}
+	this->m_result.~future();
 }
 
 void EnemyMaggot::Init(Vector3 pos)

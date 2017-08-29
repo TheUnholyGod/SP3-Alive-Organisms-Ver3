@@ -5,10 +5,8 @@ void MeshList::DeleteAllMesh()
 {
 	for (map<string, Mesh*>::iterator it = meshMap.begin(); it != meshMap.end(); ++it)
 	{
-		Mesh* m = it->second;
-		if(m != nullptr)
-			delete m;
-		m = nullptr;
+		delete it->second;
+		it->second = nullptr;
 	}
 	meshMap.clear();
 }
@@ -50,4 +48,13 @@ bool MeshList::IsMeshEmpty()
 		return false;
 
 	return true;
+}
+
+MeshList::MeshList()
+{
+}
+
+MeshList::~MeshList()
+{
+	DeleteAllMesh();
 }

@@ -15,6 +15,7 @@ using std::map;
 
 class MeshList : public Singleton<MeshList>
 {
+	friend Singleton<MeshList>;
 public:
 	void DeleteAllMesh();
 	Mesh* GetMesh(const string& _meshName);
@@ -22,6 +23,8 @@ public:
 	void RemoveMesh(const string& _meshName);
 	bool IsMeshEmpty();
 private:
+	MeshList();
+	~MeshList();
 	map<string, Mesh*> meshMap;
 };
 

@@ -24,11 +24,11 @@ Level::Level(int size_of_map_xy)
 
 Level::~Level()
 {
-	/*for (std::map<int, Tiles*>::iterator it = level_layout.begin(); it != level_layout.end(); ++it)
-	{
-		delete (*it).second;
-	}*/
-	level_layout.clear();
+	//for (std::map<int, Tiles*>::iterator it = level_layout.begin(); it != level_layout.end(); ++it)
+	//{
+	//	delete (*it).second;
+	//}
+	//level_layout.clear();
 
 	for (int i = 0; i < GetSizeOfLevel(); ++i)
 		delete[] level_set[i];

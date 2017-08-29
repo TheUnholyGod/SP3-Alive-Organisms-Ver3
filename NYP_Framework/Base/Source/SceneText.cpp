@@ -179,11 +179,11 @@ void SceneText::Init()
 	//}
 
 	theMinimap = Create::Minimap(false);
-	theMinimap->SetBackground(MeshBuilder::GetInstance()->GenerateQuad("minimap", Color(0, 0, 0), 1.f));
-	theMinimap->SetBorder(MeshBuilder::GetInstance()->GenerateQuad("minimapborder", Color(0, 0, 1), 1.05f));
-	theMinimap->SetAvatar(MeshBuilder::GetInstance()->GenerateQuad("avatar", Color(0.8, 0.8, 0.8), 0.1f));
-	theMinimap->SetStencil(MeshBuilder::GetInstance()->GenerateQuad("minimap_stencil", Color(1, 1, 1), 1.0f));
-	theMinimap->SetTarget(MeshBuilder::GetInstance()->GenerateQuad("minimap_target", Color(0, 0, 1), 1.f));
+	theMinimap->SetBackground(MeshList::GetInstance()->GetMesh("minimap"));
+	theMinimap->SetBorder(MeshList::GetInstance()->GetMesh("minimapborder"));
+	theMinimap->SetAvatar(MeshList::GetInstance()->GetMesh("avatar"));
+	theMinimap->SetStencil(MeshList::GetInstance()->GetMesh("minimap_stencil"));
+	theMinimap->SetTarget(MeshList::GetInstance()->GetMesh("minimap_target"));
 
 	AudioPlayer::GetInstance()->addSound("explosion", "Assets//Sound//explosion.wav"); //Move somewhere to run only once
 	AudioPlayer::GetInstance()->addSound("menubgm", "Assets//Sound//menubgm.mp3"); //Move somewhere to run only once
@@ -376,7 +376,10 @@ void SceneText::Exit()
 	GraphicsManager::GetInstance()->DetachCamera();
 	Player::Destroy();
 	TileMaker::Destroy();
-	MeshList::GetInstance()->DeleteAllMesh();
+	EntityManager::Destroy();
+	MapManager::Destroy();
+	MeshList::Destroy();
+	theMinimap->Destroy();
 	// Delete the lights
 	delete lights[0];
 	delete lights[1];

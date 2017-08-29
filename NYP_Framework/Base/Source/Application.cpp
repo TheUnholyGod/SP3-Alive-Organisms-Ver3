@@ -18,7 +18,7 @@
 #include <stdlib.h>
 
 //Memory leak checking
-//#include <vld.h>
+#include <vld.h>
 
 #include "LoadTGA.h"
 #include "Utility.h"
@@ -155,12 +155,6 @@ void Application::Run()
 		
 	}
 	SceneManager::GetInstance()->Exit();
-	EntityManager::GetInstance()->Exit();
-	MapManager::GetInstance()->DeleteAllLevels();
-
-	SceneManager::GetInstance()->Destroy();
-	EntityManager::GetInstance()->Destroy();
-	MapManager::GetInstance()->Destroy();
 }
 
 void Application::Exit()
@@ -285,6 +279,12 @@ void Application::InitAllMeshes()
 
 		MeshBuilder::GetInstance()->GenerateQuad("player", Color(1, 0, 0), 0.5f);
 	
+		//minimap
+		MeshBuilder::GetInstance()->GenerateQuad("minimap", Color(0, 0, 0), 1.f);
+		MeshBuilder::GetInstance()->GenerateQuad("minimapborder", Color(0, 0, 1), 1.05f);
+		MeshBuilder::GetInstance()->GenerateQuad("avatar", Color(0.8, 0.8, 0.8), 0.1f);
+		MeshBuilder::GetInstance()->GenerateQuad("minimap_stencil", Color(1, 1, 1), 1.0f);
+		MeshBuilder::GetInstance()->GenerateQuad("minimap_target", Color(0, 0, 1), 1.f);
 
 		//UI
 		MeshBuilder::GetInstance()->GenerateQuad("main_menu", 1, 1.f);

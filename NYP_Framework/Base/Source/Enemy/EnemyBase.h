@@ -50,6 +50,9 @@ public:
 		m_path_index = 0;
 		isPathFound = false;
 		m_attackCooldown = 0;
+
+		animation = nullptr;
+		animation2 = nullptr;
 	}
 	virtual ~EnemyBase() {};
 

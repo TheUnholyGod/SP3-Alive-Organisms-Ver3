@@ -411,6 +411,7 @@ EntityManager::~EntityManager()
 		for (std::list<EntityBase*>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
 		{
 			delete *it2;
+			*it2 = nullptr;
 		}
 
 		it->second.clear();
@@ -422,6 +423,7 @@ EntityManager::~EntityManager()
 		for (std::list<EntityBase*>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
 		{
 			delete *it2;
+			*it2 = nullptr;
 		}
 
 		it->second.clear();
