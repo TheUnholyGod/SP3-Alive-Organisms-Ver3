@@ -318,6 +318,11 @@ void EntityManager::ResetEntityBase()
 	}
 }
 
+void EntityManager::Exit()
+{
+	
+}
+
 
 // Remove an entity from this EntityManager
 //bool EntityManager::RemoveEntity(EntityBase* _existingEntity)

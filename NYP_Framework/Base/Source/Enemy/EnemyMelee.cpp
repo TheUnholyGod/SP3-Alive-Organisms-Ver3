@@ -29,6 +29,7 @@ EnemyMelee::EnemyMelee(Mesh * mesh,
 	this->SetStatic(false);
 	this->m_health = 30;
 	this->GenerateAABB(this->position);
+	this->type = GenericEntity::ENEMY_OBJ;
 	m_state = AI_STATES::AI_PATROL;
 	dir = true;
 }
