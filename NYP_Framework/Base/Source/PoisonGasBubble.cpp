@@ -6,6 +6,9 @@
 #include "PlagueBoss.h"
 #include "ToxicGas.h"
 
+#include "GraphicsManager.h"
+#include "RenderHelper.h"
+
 PoisonGasBubbles * Create::CreatePoisonGasBubbles(const std::string & _meshName, const Vector3 & _position, const Vector3 & _scale, Ranged * _parent, bool is_boss)
 {
 	Mesh* modelMesh = MeshList::GetInstance()->GetMesh(_meshName);
@@ -79,7 +82,12 @@ void PoisonGasBubbles::Update(double _dt)
 
 void PoisonGasBubbles::Render()
 {
-	Collision::Render();
+	MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
+	modelStack.PushMatrix();
+	modelStack.Translate(position.x, position.y, position.z + 0.14);
+	modelStack.Scale(scale.x, scale.y, scale.z);
+	RenderHelper::RenderMesh(modelMesh);
+	modelStack.PopMatrix();
 }
 
 bool PoisonGasBubbles::CollisionResponse(GenericEntity * ThatEntity)

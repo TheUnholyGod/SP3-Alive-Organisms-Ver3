@@ -9,10 +9,11 @@ private:
 	float m_gravity;
 
 public:
-	ArchProjectile(Mesh* _mesh) : Projectile(_mesh)
+	ArchProjectile(Mesh* _mesh, Vector3 _velocity) : Projectile(_mesh)
 	{
-		m_gravity = .8f;
 	}
+
+	void Init(Vector3 _pos = Vector3(0, 0, 0), Vector3 _vel = (0, 0, 0), Vector3 _dir = Vector3(0, 0, 0), bool _isplayer = true);
 
 	void Update(double dt);
 
