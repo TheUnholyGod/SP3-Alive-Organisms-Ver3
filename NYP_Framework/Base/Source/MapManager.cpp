@@ -334,7 +334,7 @@ void MapManager::DeleteAllLevels()
 		delete m_map_array[i];
 	}
 
-	delete m_map_array
+	delete m_map_array;
 }
 
 int ** MapManager::getMapArray()
