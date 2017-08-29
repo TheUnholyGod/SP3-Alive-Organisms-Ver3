@@ -123,7 +123,9 @@ void Player::Init(void)
     m_interacttimer = 0;
     m_definteracttimer = 0.025f;
     m_invincibletimer = 0;
-    m_definvincibletimer = 2;
+    m_definvincibletimer = 0.5;
+	maxofthemaxvelocity.Set(20, 20, 0);
+	maxvelocity.Set(10, 10, 0);
 
 	SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
     this->m_player_equipment[EQUIPMENT_MELEE] = new ShortSword();
@@ -133,6 +135,7 @@ void Player::Init(void)
 	{
 		this->m_player_equipment[i]->Init(this);
 	}
+	this->m_dmg = 5;
 }
 
 void Player::Update(double dt)
@@ -166,7 +169,7 @@ void Player::Update(double dt)
         this->m_invincible = false;
     }
 
-	int health_up = 0, attack_up = 0, speed_up = 0;;
+	int health_up = 0, attack_up = 0, speed_up = 0;
 	for (int i = 0; i < 2; ++i)
 	{
 		std::vector<Runes*> temp_rune_vector = m_player_equipment[i]->getRunes();
@@ -201,18 +204,16 @@ void Player::Update(double dt)
 	if (health_up > 0 && m_maxHealth != (100 + (health_up * 10)))
 	{
 		m_maxHealth = 100 + (health_up * 10);
-		//std::cout << health_up << std::endl;
 	}
 
 	if (attack_up > 0)
 	{
-		//std::cout << attack_up << std::endl;
+		this->m_dmg += 5 + (attack_up * 2);
 	}
 
 	if (speed_up > 0)
 	{
-		m_dSpeed = 40 + (speed_up * 5);
-		//std::cout << speed_up << std::endl;
+		this->maxvelocity.x = Math::Min(velocity.x + 40 + (speed_up * 5), maxofthemaxvelocity.x);
 	}
 
 	if (m_health < m_maxHealth && m_regenTimer > 1.7f)
@@ -605,7 +606,7 @@ void Player::UpdateMovement(double dt)
 			if (velocity.x > -0.01f && velocity.x < 0.01f)
 				velocity.x = 0;
 			else
-				velocity.x = direction.x * Math::Clamp(std::abs(velocity.x), Math::EPSILON, 10.0f);
+				velocity.x = direction.x * Math::Clamp(std::abs(velocity.x), Math::EPSILON, maxvelocity.x);
 		}
 	}
 	this->accleration.x = 0;

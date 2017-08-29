@@ -45,7 +45,7 @@ bool Hitbox::CollisionResponse(GenericEntity * ThatEntity)
 	{
 		if (ThatEntity->type == ENEMY_OBJ)
 		{
-			ThatEntity->ApplyDamage(m_dmg);
+			ThatEntity->ApplyDamage(Player::GetInstance()->GetDamage());
 			this->m_active = false;
 			this->m_bCollider = false;
 		}
