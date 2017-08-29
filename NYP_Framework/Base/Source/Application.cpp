@@ -3,6 +3,7 @@
 #include "KeyboardController.h"
 #include "SceneManager.h"
 #include "GraphicsManager.h"
+#include "MapManager.h"
 #include "MeshBuilder.h"
 #include "MeshList.h"
 
@@ -155,6 +156,11 @@ void Application::Run()
 	}
 	SceneManager::GetInstance()->Exit();
 	EntityManager::GetInstance()->Exit();
+	MapManager::GetInstance()->DeleteAllLevels();
+
+	SceneManager::GetInstance()->Destroy();
+	EntityManager::GetInstance()->Destroy();
+	MapManager::GetInstance()->Destroy();
 }
 
 void Application::Exit()

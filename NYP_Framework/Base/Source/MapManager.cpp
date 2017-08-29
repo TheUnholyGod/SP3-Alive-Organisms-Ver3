@@ -331,8 +331,10 @@ void MapManager::DeleteAllLevels()
 
 	for (int i = 0; i < (16 * 7) + (16 * 7); ++i)
 	{
-		delete [i]m_map_array;
+		delete m_map_array[i];
 	}
+
+	delete m_map_array
 }
 
 int ** MapManager::getMapArray()
