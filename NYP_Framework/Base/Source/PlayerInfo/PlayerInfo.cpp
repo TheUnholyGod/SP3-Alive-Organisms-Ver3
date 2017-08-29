@@ -18,6 +18,7 @@
 #include "../CollisionManager.h"
 #include "../ShortSword.h"
 #include "../Bow.h"
+#include "../Manager/GameStateManager.h"
 
 Player::Player(void)
 	: GenericEntity(MeshList::GetInstance()->GetMesh("player"))
@@ -137,6 +138,11 @@ void Player::Init(void)
 void Player::Update(double dt)
 {
 	m_regenTimer += dt;
+
+	if (this->m_health <= 0)
+	{
+		GameStateManager::GetInstance()->setState(GS_GAMEOVER);
+	}
 
 	if (m_health < 0)
 	{
@@ -920,5 +926,6 @@ void Player::StartNextLevel()
 	else
 	{
 		//VICTORY SCREEN
+		GameStateManager::GetInstance()->setState(GS_LEVELCOMPLETE);
 	}
 }
