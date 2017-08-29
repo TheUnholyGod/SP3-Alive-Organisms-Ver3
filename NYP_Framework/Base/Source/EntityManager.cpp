@@ -306,6 +306,11 @@ void EntityManager::ResetEntityBase()
 		if (it->first == -1)
 			continue;
 
+		for (std::list<EntityBase*>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
+		{
+			delete *it2;
+		}
+
 		it->second.clear();
 	}
 
@@ -313,6 +318,11 @@ void EntityManager::ResetEntityBase()
 	{
 		if (it->first == -1)
 			continue;
+
+		for (std::list<EntityBase*>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
+		{
+			delete *it2;
+		}
 
 		it->second.clear();
 	}
@@ -351,4 +361,34 @@ EntityManager::EntityManager()
 // Destructor
 EntityManager::~EntityManager()
 {
+	/*map<int, std::list<EntityBase*>>::iterator it;
+
+	for (it = m_entity_map_base.begin(); it != m_entity_map_base.end(); ++it)
+	{
+
+	}*/
+
+	ResetEntityBase();
+
+	for (std::map<int, std::list<EntityBase*>>::iterator it = m_entity_map_base.begin(); it != m_entity_map_base.end(); ++it)
+	{
+
+		for (std::list<EntityBase*>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
+		{
+			delete *it2;
+		}
+
+		it->second.clear();
+	}
+
+	for (std::map<int, std::list<EntityBase*>>::iterator it = m_entity_boss_map_base.begin(); it != m_entity_boss_map_base.end(); ++it)
+	{
+
+		for (std::list<EntityBase*>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
+		{
+			delete *it2;
+		}
+
+		it->second.clear();
+	}
 }
