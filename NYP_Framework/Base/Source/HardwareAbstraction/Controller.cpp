@@ -198,8 +198,8 @@ bool Controller::Jump(double dt)
 bool Controller::DodgeRoll(double dt)
 {
 	this->m_curraction_timer = 0;
-	this->m_curraction_canceltime = 0.5f;
-	this->m_curraction_animationtime = 1;
+	this->m_curraction_canceltime = 0.25f;
+	this->m_curraction_animationtime = 0.45f;
 	this->thePlayerInfo->DodgeRoll(dt);
     m_is_free = false;
  //   std::cout << "Dodgeroll" << std::endl;
@@ -209,8 +209,8 @@ bool Controller::DodgeRoll(double dt)
 bool Controller::PrimaryAtt(double dt)
 {
 	this->m_curraction_timer = 0;
-	this->m_curraction_canceltime = 0.5f;
-	this->m_curraction_animationtime = 1;
+	this->m_curraction_canceltime = 0.25f;
+	this->m_curraction_animationtime = 0.5f;
 	this->thePlayerInfo->PrimaryAttack(dt, Melee::COMBO_BASIC1);
     m_is_free = false;
 
@@ -221,8 +221,8 @@ bool Controller::PrimaryAtt(double dt)
 bool Controller::SecondaryAtt(double dt)
 {
 	this->m_curraction_timer = 0;
-	this->m_curraction_canceltime = 0.5f;
-	this->m_curraction_animationtime = 1;
+	this->m_curraction_canceltime = 0.15f;
+	this->m_curraction_animationtime = 0.25f;
 	this->thePlayerInfo->SecondaryAttack(dt);
     m_is_free = false;
 
@@ -239,8 +239,8 @@ bool Controller::Interact(double dt)
 bool Controller::PrimaryUpperAtt(double dt)
 {
 	this->m_curraction_timer = 0;
-	this->m_curraction_canceltime = 0.5f;
-	this->m_curraction_animationtime = 1;
+	this->m_curraction_canceltime = 0.15f;
+	this->m_curraction_animationtime = 0.25f;
     m_is_free = false;
 
 	this->thePlayerInfo->PrimaryAttack(dt, Melee::COMBO_UP1);
@@ -252,8 +252,8 @@ bool Controller::PrimaryUpperAtt(double dt)
 bool Controller::PrimaryLowerAtt(double dt)
 {
 	this->m_curraction_timer = 0;
-	this->m_curraction_canceltime = 0.5f;
-	this->m_curraction_animationtime = 1;
+	this->m_curraction_canceltime = 0.15f;
+	this->m_curraction_animationtime = 0.25f;
     m_is_free = false;
 
 	this->thePlayerInfo->PrimaryAttack(dt, Melee::COMBO_DOWN1);
@@ -265,8 +265,8 @@ bool Controller::PrimaryLowerAtt(double dt)
 bool Controller::PrimaryBackAtt(double dt)
 {
 	this->m_curraction_timer = 0;
-	this->m_curraction_canceltime = 0.5f;
-	this->m_curraction_animationtime = 1;
+	this->m_curraction_canceltime = 0.15f;
+	this->m_curraction_animationtime = 0.25f;
     m_is_free = false;
 
 	this->thePlayerInfo->PrimaryAttack(dt, Melee::COMBO_BACK1);
@@ -278,8 +278,8 @@ bool Controller::PrimaryBackAtt(double dt)
 bool Controller::PrimaryFrontAtt(double dt)
 {
 	this->m_curraction_timer = 0;
-	this->m_curraction_canceltime = 0.5f;
-	this->m_curraction_animationtime = 1;
+	this->m_curraction_canceltime = 0.15f;
+	this->m_curraction_animationtime = 0.25f;
     m_is_free = false;
 
 	this->thePlayerInfo->PrimaryAttack(dt, Melee::COMBO_FRONT1);
@@ -291,8 +291,8 @@ bool Controller::PrimaryFrontAtt(double dt)
 bool Controller::SecondaryUpperAtt(double dt)
 {
 	this->m_curraction_timer = 0;
-	this->m_curraction_canceltime = 0.5f;
-	this->m_curraction_animationtime = 1;
+	this->m_curraction_canceltime = 0.15f;
+	this->m_curraction_animationtime = 0.25f;
     m_is_free = false;
 	this->thePlayerInfo->SecondaryAttack(dt, Ranged::DIR_UP);
 
@@ -303,8 +303,8 @@ bool Controller::SecondaryUpperAtt(double dt)
 bool Controller::SecondaryLowerAtt(double dt)
 {
 	this->m_curraction_timer = 0;
-	this->m_curraction_canceltime = 0.5f;
-	this->m_curraction_animationtime = 1;
+	this->m_curraction_canceltime = 0.15f;
+	this->m_curraction_animationtime = 0.25f;
     m_is_free = false;
 	this->thePlayerInfo->SecondaryAttack(dt, Ranged::DIR_DOWN);
 
@@ -315,8 +315,8 @@ bool Controller::SecondaryLowerAtt(double dt)
 bool Controller::SecondaryBackAtt(double dt)
 {
 	this->m_curraction_timer = 0;
-	this->m_curraction_canceltime = 0.5f;
-	this->m_curraction_animationtime = 1;
+	this->m_curraction_canceltime = 0.15f;
+	this->m_curraction_animationtime = 0.25f;
     m_is_free = false;
 	this->thePlayerInfo->SecondaryAttack(dt, Ranged::DIR_LEFT);
 
@@ -327,8 +327,8 @@ bool Controller::SecondaryBackAtt(double dt)
 bool Controller::SecondaryFrontAtt(double dt)
 {
 	this->m_curraction_timer = 0;
-	this->m_curraction_canceltime = 0.5f;
-	this->m_curraction_animationtime = 1;
+	this->m_curraction_canceltime = 0.15f;
+	this->m_curraction_animationtime = 0.25f;
     m_is_free = false;
 
 	//std::cout << "Front Ranged" << std::endl;

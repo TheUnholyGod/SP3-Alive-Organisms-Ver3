@@ -813,7 +813,7 @@ void Player::TakeDamage(int _dmg)
         return;
 	this->m_health -= _dmg;
     this->m_invincible = true;
-    this->m_invincibletimer = this->m_definvincibletimer;
+    this->m_invincibletimer = 0.2f;
 
 }
 

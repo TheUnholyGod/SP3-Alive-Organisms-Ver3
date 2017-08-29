@@ -82,7 +82,6 @@ bool Projectile::CollisionResponse(GenericEntity * ThatEntity)
 			ThatEntity1->TakeDamage(m_dmg);
 		}
 	}
-	return false;
 
 	this->m_active = false;
 	this->m_bCollider = false;
