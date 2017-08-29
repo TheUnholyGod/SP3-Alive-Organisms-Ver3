@@ -42,7 +42,7 @@ void EnemyMelee::Update(double _dt)
 	if (this->m_health <= 0)
 	{
 		Create::Particle("particle",
-			Player::GetInstance()->GetPosition(),
+			position,
 			Vector3(0, 0, 0),
 			EFFECT_TYPE::EFT_HIT, 0.5, 0.5,
 			Player::GetInstance()->GetIsFightingBoss());
