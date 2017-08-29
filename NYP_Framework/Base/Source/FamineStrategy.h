@@ -3,7 +3,7 @@
 
 #include "Enemy\StrategyBase.h"
 
-class FamineBoss;
+#include "FamineBoss.h"
 
 class FamineStrategy : public StrategyBase
 {
