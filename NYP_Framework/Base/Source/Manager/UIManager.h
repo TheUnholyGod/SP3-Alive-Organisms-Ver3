@@ -39,12 +39,10 @@ public:
 	//Returns the element that is on the mouse
 	UIElement* GetElementOnCursor();
 
-	void Exit();
-
 	double m_explosionTime = 0;
 private:
 	UIManager() {};
-	virtual ~UIManager() { Exit(); };
+	virtual ~UIManager() {};
 
 	//Vector to store all UIElements
 	std::vector<EntityBase*> m_UIElements;

@@ -17,7 +17,6 @@ private:
 public:
 	Tiles(string);
 	Tiles();
-	~Tiles();
 
 	int** GetTilesArray();
 	void SetTilesInArray(int, int, int);

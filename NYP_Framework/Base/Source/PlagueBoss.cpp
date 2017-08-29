@@ -42,7 +42,6 @@ void PlagueBoss::Init()
 	{
 		sa->m_anim = new Animation();
 		sa->m_anim->Set(0, 4, 1, 1.f, true);
-
 		this->idle = new SpriteEntity(sa);
 	}
 	SpriteAnimation* sa2 = new SpriteAnimation(*dynamic_cast<SpriteAnimation*>(MeshList::GetInstance()->GetMesh("plagueboss")));

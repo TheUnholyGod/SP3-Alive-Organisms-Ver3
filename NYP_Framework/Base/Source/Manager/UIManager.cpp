@@ -166,32 +166,3 @@ UIElement * UIManager::GetElementOnCursor()
 	return nullptr;
 }
 
-void UIManager::Exit()
-{
-	for (auto it : m_UIElements)
-	{
-		if (it)
-		{
-			delete it;
-			it = NULL;
-		}
-	}
-	m_UIElements.clear();
-
-	if (m_cursor)
-	{
-		delete m_cursor;
-		m_cursor = NULL;
-	}
-	if (m_selecter)
-	{
-		delete m_selecter;
-		m_selecter = NULL;
-	}	
-	if (explosion)
-	{
-		delete explosion;
-		explosion = NULL;
-	}
-}
-

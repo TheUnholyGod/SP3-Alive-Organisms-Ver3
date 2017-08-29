@@ -51,20 +51,3 @@ bool MeshList::IsMeshEmpty()
 
 	return true;
 }
-
-MeshList::MeshList()
-{
-}
-
-MeshList::~MeshList()
-{
-	for (std::map<std::string, Mesh*>::iterator it = meshMap.begin(); it != meshMap.end(); ++it)
-	{
-		if (it->second)
-		{
-			delete it->second;
-			it->second = nullptr;
-		}
-	}
-	meshMap.clear();
-}

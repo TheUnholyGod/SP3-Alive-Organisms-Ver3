@@ -68,7 +68,6 @@ void FamineBoss::Init()
 		sa3->m_anim->Set(6, 8, 1, 1.0f, true);
 		this->throwing = new SpriteEntity(sa3);
 	}
-
 }
 
 void FamineBoss::Update(double _dt)

@@ -317,12 +317,12 @@ void EntityManager::ResetEntityBase()
 		for (std::list<EntityBase*>::iterator it2 = local_list.begin(); it2 != local_list.end(); ++it2)
 		{
 			EntityBase* e = *it2;
-				//	std::cout<<"B:" << e << std::endl;
+					std::cout<<"B:" << e << std::endl;
 			if (e != nullptr)
 			{
 				delete e;
 				e = nullptr;
-				//std::cout << "A:" << e << std::endl;
+				std::cout << "A:" << e << std::endl;
 			}
 		}
 		local_list.clear();
@@ -335,19 +335,18 @@ void EntityManager::ResetEntityBase()
 			continue;
 
 
-
 		std::list<EntityBase*> local_list(it->second.begin(), it->second.end());
 		it->second.clear();
 
 		for (std::list<EntityBase*>::iterator it2 = local_list.begin(); it2 != local_list.end(); ++it2)
 		{
 			EntityBase* e = *it2;
-			//std::cout << "B:" << e << std::endl;
+			std::cout << "B:" << e << std::endl;
 			if (e != nullptr)
 			{
 				delete e;
 				e = nullptr;
-				//std::cout << "A:" << e << std::endl;
+				std::cout << "A:" << e << std::endl;
 
 			}
 		}
@@ -363,6 +362,7 @@ void EntityManager::Exit()
 {
 	
 }
+
 
 // Remove an entity from this EntityManager
 //bool EntityManager::RemoveEntity(EntityBase* _existingEntity)
@@ -410,32 +410,20 @@ EntityManager::~EntityManager()
 
 		for (std::list<EntityBase*>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
 		{
-
-			if (*it2) 
-			{
-				delete *it2;
-				*it2 = nullptr;
-			}
+			delete *it2;
 		}
 
 		it->second.clear();
 	}
-	m_entity_map_base.clear();
 
 	for (std::map<int, std::list<EntityBase*>>::iterator it = m_entity_boss_map_base.begin(); it != m_entity_boss_map_base.end(); ++it)
 	{
 
 		for (std::list<EntityBase*>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
 		{
-			if (*it2)
-			{
-				delete *it2;
-				*it2 = nullptr;
-			}
+			delete *it2;
 		}
 
 		it->second.clear();
 	}
-
-	m_entity_boss_map_base.clear();
 }

@@ -37,17 +37,6 @@ EnemyFlying::EnemyFlying(Mesh * mesh,
 
 EnemyFlying::~EnemyFlying()
 {
-	if (animation)
-	{
-		delete animation;
-		animation = nullptr;
-	}
-	if (animation2)
-	{
-		delete animation2;
-		animation2 = nullptr;
-	}
-	this->m_result.~future();
 }
 
 void EnemyFlying::Update(double _dt)

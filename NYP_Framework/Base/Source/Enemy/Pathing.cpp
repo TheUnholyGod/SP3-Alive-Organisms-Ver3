@@ -62,7 +62,6 @@ PathFinder::~PathFinder()
 		heuristic.~function();
 	direction.clear();
 	walls.clear();
-
 }
 
 void PathFinder::setWorldSize(Coord2D worldSize_)
