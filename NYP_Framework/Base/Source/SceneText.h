@@ -10,7 +10,8 @@
 #include "MatrixStack.h"
 #include "GenericEntity.h"
 #include "minimap.h"
-#include"../Source/Manager/HUDManager.h"
+#include "../Source/Manager/HUDManager.h"
+#include "EntityManager.h"
 class ShaderProgram;
 class SceneManager;
 class TextEntity;
@@ -27,6 +28,8 @@ public:
 	virtual void Update(double dt);
 	virtual void Render();
 	virtual void Exit();
+
+	static bool s_ischangelvl;
 
 private:
 	SceneText(SceneManager* _sceneMgr); // This is used to register to SceneManager

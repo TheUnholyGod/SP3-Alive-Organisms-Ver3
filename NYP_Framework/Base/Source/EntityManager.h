@@ -28,6 +28,8 @@ public:
 	void ResetEntityBase();
 	/*bool RemoveEntity(EntityBase* _existingEntity);*/
 
+	void Exit();
+
 private:
 	EntityManager();
 	virtual ~EntityManager();

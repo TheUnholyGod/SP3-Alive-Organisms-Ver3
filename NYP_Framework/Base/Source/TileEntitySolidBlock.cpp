@@ -2,6 +2,9 @@
 #include "PlayerInfo\PlayerInfo.h"
 #include "GraphicsManager.h"
 #include "RenderHelper.h"
+#include "Audio\AudioPlayer.h"
+#include "Manager\UIManager.h"
+#include "Manager\GameStateManager.h"
 
 #include <iostream>
 
@@ -63,10 +66,17 @@ bool TileEntitySolidBlock::CollisionResponse(GenericEntity* entity)
 		{
 			if (Player::GetInstance()->IsInteracting())
 			{
-				if(Player::GetInstance()->GetCurrentLevel() == 2 || Player::GetInstance()->GetCurrentLevel() == 3)
+				if (Player::GetInstance()->GetCurrentLevel() == 1 || Player::GetInstance()->GetCurrentLevel() == 3)
+				{
 					Player::GetInstance()->SetIsFightingBoss(true);
+					this->SetIsDone(true);
+					Player::GetInstance()->SetInteracting(false);
+				}
 				else
+				{
 					Player::GetInstance()->StartNextLevel();
+					Player::GetInstance()->SetInteracting(false);
+				}
 			}
 			return true;
 		}
@@ -74,7 +84,17 @@ bool TileEntitySolidBlock::CollisionResponse(GenericEntity* entity)
 		{
 			if (Player::GetInstance()->IsInteracting() && Player::GetInstance()->GetIsKilledBoss())
 			{
-				Player::GetInstance()->StartNextLevel();
+				if (Player::GetInstance()->GetCurrentLevel() != 3)
+				{
+					Player::GetInstance()->StartNextLevel();
+					Player::GetInstance()->SetInteracting(false);
+				}
+				else
+				{
+					GameStateManager::GetInstance()->setState(GS_LEVELCOMPLETE);
+					UIManager::GetInstance()->m_explosionTime = 1;
+					AudioPlayer::GetInstance()->playSoundThreaded("explosion");
+				}
 			}
 			return true;
 		}

@@ -9,14 +9,26 @@ private:
 	float m_gravity;
 
 public:
-	ArchProjectile(Mesh* _mesh) : Projectile(_mesh)
+	ArchProjectile(Mesh* _mesh, Vector3 _velocity) : Projectile(_mesh)
 	{
-		m_gravity = .8f;
+		type = FAMINE_PROJECTILE_OBJ;
 	}
 
+	void Init(Vector3 _pos = Vector3(0, 0, 0), Vector3 _vel = (0, 0, 0), Vector3 _dir = Vector3(0, 0, 0), bool _isplayer = true);
+
 	void Update(double dt);
+	void Render();
 
 	bool CollisionResponse(GenericEntity*);
+};
+
+namespace Create
+{
+	ArchProjectile* CreateArchProjectile(const std::string& _meshName,
+		const Vector3& _position,
+		const Vector3& _scale = Vector3(1.0f, 1.0f, 1.0f),
+		Ranged* _parent = nullptr,
+		bool is_boss_room = false);
 };
 
 #endif

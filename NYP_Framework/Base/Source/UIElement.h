@@ -32,6 +32,8 @@ enum UI_TYPE
 
 	UI_IM_EXIT_TO_MENU,
 
+	UI_GO_RESTART,
+
 	UI_TOTAL
 };
 

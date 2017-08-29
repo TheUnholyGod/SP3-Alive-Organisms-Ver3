@@ -6,7 +6,7 @@
 class EnemyBossBase :public GenericEntity
 {
 protected:
-
+	bool done_dead;
 public:
 	enum TYPE
 	{
@@ -20,6 +20,7 @@ public:
     virtual void Update(double _dt);
     virtual void Render();
     virtual bool CollisionResponse(GenericEntity*);
+	virtual void OnDead();
 };
 
 #endif

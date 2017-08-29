@@ -10,6 +10,7 @@
 #include "RenderHelper.h"
 #include "../CollisionManager.h"
 #include "../SpriteEntity.h"
+#include "../Particle Effect/ParticleEffect.h"
 
 EnemyMelee::EnemyMelee(Mesh * mesh, 
 	EnemyBase::ENEMY_TYPE enemy_type, 
@@ -26,8 +27,9 @@ EnemyMelee::EnemyMelee(Mesh * mesh,
 	this->SetCollider(have_collider);
 	this->SetPhysic(have_physic);
 	this->SetStatic(false);
-
+	this->m_health = 30;
 	this->GenerateAABB(this->position);
+	this->type = GenericEntity::ENEMY_OBJ;
 	m_state = AI_STATES::AI_PATROL;
 	dir = true;
 }
@@ -38,6 +40,17 @@ EnemyMelee::~EnemyMelee()
 
 void EnemyMelee::Update(double _dt)
 {
+	if (this->m_health <= 0)
+	{
+		Create::Particle("particle",
+			position,
+			Vector3(0, 0, 0),
+			EFFECT_TYPE::EFT_HIT, 0.3, 0.3,
+			Player::GetInstance()->GetIsFightingBoss());
+
+		this->SetIsDone(true);
+	}
+
 	//Create AABB for collision
 	this->GenerateAABB(this->position);
 
@@ -79,7 +92,7 @@ void EnemyMelee::Update(double _dt)
 	}
 	case EnemyMelee::AI_ATTACK:
 	{
-		m_attackCooldown = 1;
+		m_attackCooldown = 1.0;
 		m_state = AI_ATTACKING;
 		//std::cout << "Attack" << std::endl;
 		break;
@@ -151,7 +164,7 @@ void EnemyMelee::Move()
 	}
 	else //At the end of the path
 	{
-		std::cout << "Reached the Destination! & cleared path!" << std::endl;
+		//std::cout << "Reached the Destination! & cleared path!" << std::endl;
 		m_state = AI_PATROL;
 		m_path.clear();
 		isPathFound = false;
@@ -174,17 +187,17 @@ void EnemyMelee::Move()
 	//std::cout << "Distance to:" << m_path[m_path_index].x << ", " << m_path[m_path_index].y << ": " << dist << std::endl;
 	if (dist <= 0.1)
 	{
-		std::cout << "Reached: (" << m_path[m_path_index].x << ", " << m_path[m_path_index].y << ")" << std::endl;
+		//std::cout << "Reached: (" << m_path[m_path_index].x << ", " << m_path[m_path_index].y << ")" << std::endl;
 		//If theres more nodes, set the next destination
 		if (m_path_index + 1 < m_path.size())
 		{
-			std::cout << "Traveling towards: (" << m_path[m_path_index + 1].x << ", " << m_path[m_path_index + 1].y << ")" << std::endl;
-			std::cout << "Current Pos: (" << position.x << ", " << position.y << ")" << std::endl;
+			//std::cout << "Traveling towards: (" << m_path[m_path_index + 1].x << ", " << m_path[m_path_index + 1].y << ")" << std::endl;
+			//std::cout << "Current Pos: (" << position.x << ", " << position.y << ")" << std::endl;
 			++m_path_index;
 		}
 		else
 		{
-			std::cout << "Reached the Destination!" << std::endl;
+			//std::cout << "Reached the Destination!" << std::endl;
 			m_path.clear();
 			isPathFound = false;
 			return;
@@ -278,13 +291,10 @@ void EnemyMelee::Detect(double dt)
 
 	if (m_state == AI_ATTACKING) return;
 
-	m_attackCooldown -= dt;
-
-	if (dist < 0.8)
+	if (dist < 0.5)
 	{
 		//isPathFound = false;
 		//m_path.clear();
-		m_attackCooldown = 1;
 		m_state = AI_ATTACK;
 	}
 	else if (dist > 10)
@@ -304,7 +314,7 @@ void EnemyMelee::Detect(double dt)
 		//Find the path every 5 sec
 		if (m_timeSinceLastUpdate > 1 && !isPathFound && m_path.empty())
 		{
-			std::cout << "Calling pathfinder!" << std::endl;
+			//std::cout << "Calling pathfinder!" << std::endl;
 			FindPath({ (int)(position.x + 0.5), (int)(position.y + 0.5) },
 			{ (int)std::floor(playerpos.x + 0.5), (int)std::floor(playerpos.y + 0.5) });
 			m_timeSinceLastUpdate = 0;
@@ -323,8 +333,8 @@ void EnemyMelee::Detect(double dt)
 					isPathFound = true;
 
 					//Print the route out for debug
-					std::cout << "Route: " << std::endl;
-					for (int i = 0; i < m_path.size(); ++i)
+					//std::cout << "Route: " << std::endl;
+					/*for (int i = 0; i < m_path.size(); ++i)
 					{
 						if (i == 0)
 							std::cout << "Start";
@@ -332,7 +342,7 @@ void EnemyMelee::Detect(double dt)
 						if (i == m_path.size() - 1)
 							std::cout << "->End";
 					}
-					std::cout << std::endl;
+					std::cout << std::endl;*/
 				}
 				else
 				{
@@ -353,7 +363,13 @@ void EnemyMelee::Attack()
 		if (CollisionManager::GetInstance()->CheckAABBCollision(this, Player::GetInstance()))
 		{
 			std::cout << "Dealt 20 damage to player" << std::endl;
-			Player::GetInstance()->TakeDamage(20);
+			Player::GetInstance()->TakeDamage(10);
+			Create::Particle("particle", 
+				Player::GetInstance()->GetPosition(), 
+				Vector3(0, 0, 0), 
+				EFFECT_TYPE::EFT_HIT, 0.3, 0.3, 
+				Player::GetInstance()->GetIsFightingBoss());
+			
 		}
 		m_state = AI_CHASE;
 		return;

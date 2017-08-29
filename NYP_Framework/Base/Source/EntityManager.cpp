@@ -5,6 +5,7 @@
 #include "MeshBuilder.h"
 #include "MapManager.h"
 #include "PlayerInfo\PlayerInfo.h"
+#include "minimap.h"
 
 #include <iostream>
 using namespace std;
@@ -188,12 +189,17 @@ void EntityManager::Render()
 {
 	std::list<EntityBase*>::reverse_iterator it;
 
-	for (it = entity_list_full.rbegin(); it != entity_list_full.rend(); ++it)
+	if (entity_list_full.size())
 	{
-		(*it)->Render();
+		for (it = entity_list_full.rbegin(); it != entity_list_full.rend(); ++it)
+		{
+			(*it)->Render();
+		}
+
 	}
 
 	entity_list_full.clear();
+	std::list<EntityBase*>().swap(entity_list_full);
 }
 
 //// Render the UI entities
@@ -305,17 +311,56 @@ void EntityManager::ResetEntityBase()
 	{
 		if (it->first == -1)
 			continue;
-
+		std::list<EntityBase*> local_list(it->second.begin(), it->second.end());
 		it->second.clear();
-	}
 
+		for (std::list<EntityBase*>::iterator it2 = local_list.begin(); it2 != local_list.end(); ++it2)
+		{
+			EntityBase* e = *it2;
+				//	std::cout<<"B:" << e << std::endl;
+			if (e != nullptr)
+			{
+				delete e;
+				e = nullptr;
+				//std::cout << "A:" << e << std::endl;
+			}
+		}
+		local_list.clear();
+	}
+	std::map<int, std::list<EntityBase*>>::iterator it = ++m_entity_map_base.begin();
+	m_entity_map_base.erase(it, m_entity_map_base.end());
 	for (std::map<int, std::list<EntityBase*>>::iterator it = m_entity_boss_map_base.begin(); it != m_entity_boss_map_base.end(); ++it)
 	{
 		if (it->first == -1)
 			continue;
 
+
+		std::list<EntityBase*> local_list(it->second.begin(), it->second.end());
 		it->second.clear();
+
+		for (std::list<EntityBase*>::iterator it2 = local_list.begin(); it2 != local_list.end(); ++it2)
+		{
+			EntityBase* e = *it2;
+			//std::cout << "B:" << e << std::endl;
+			if (e != nullptr)
+			{
+				delete e;
+				e = nullptr;
+				//std::cout << "A:" << e << std::endl;
+
+			}
+		}
+		local_list.clear();
 	}
+	it = ++m_entity_boss_map_base.begin();
+	m_entity_boss_map_base.erase(it, m_entity_boss_map_base.end());
+	this->entity_list_full.clear();
+	CMinimap::GetInstance()->entities.clear();
+}
+
+void EntityManager::Exit()
+{
+	
 }
 
 
@@ -351,4 +396,34 @@ EntityManager::EntityManager()
 // Destructor
 EntityManager::~EntityManager()
 {
+	/*map<int, std::list<EntityBase*>>::iterator it;
+
+	for (it = m_entity_map_base.begin(); it != m_entity_map_base.end(); ++it)
+	{
+
+	}*/
+
+	ResetEntityBase();
+
+	for (std::map<int, std::list<EntityBase*>>::iterator it = m_entity_map_base.begin(); it != m_entity_map_base.end(); ++it)
+	{
+
+		for (std::list<EntityBase*>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
+		{
+			delete *it2;
+		}
+
+		it->second.clear();
+	}
+
+	for (std::map<int, std::list<EntityBase*>>::iterator it = m_entity_boss_map_base.begin(); it != m_entity_boss_map_base.end(); ++it)
+	{
+
+		for (std::list<EntityBase*>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
+		{
+			delete *it2;
+		}
+
+		it->second.clear();
+	}
 }

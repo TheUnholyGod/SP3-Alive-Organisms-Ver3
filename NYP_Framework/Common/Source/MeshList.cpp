@@ -1,6 +1,18 @@
 #include "MeshList.h"
 #include "Mesh.h"
 
+void MeshList::DeleteAllMesh()
+{
+	for (map<string, Mesh*>::iterator it = meshMap.begin(); it != meshMap.end(); ++it)
+	{
+		Mesh* m = it->second;
+		if(m != nullptr)
+			delete m;
+		m = nullptr;
+	}
+	meshMap.clear();
+}
+
 Mesh* MeshList::GetMesh(const string& _meshName)
 {
 	if (meshMap.count(_meshName) != 0)

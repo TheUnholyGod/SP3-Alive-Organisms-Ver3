@@ -120,9 +120,6 @@ void SceneText::Init()
 	
 	// Create the playerinfo instance, which manages all information about the player
 
-	std::cout << _DEBUG << std::endl;
-	int a;
-
 	// Create and attach the camera to the scene
 	//camera.Init(Vector3(0, 0, 10), Vector3(0, 0, 0), Vector3(0, 1, 0));
 
@@ -146,13 +143,13 @@ void SceneText::Init()
 	// Setup the 2D entities
 	float halfWindowWidth = Application::GetInstance().GetWindowWidth() / 2.0f;
 	float halfWindowHeight = Application::GetInstance().GetWindowHeight() / 2.0f;
-	float fontSize = 25.0f;
-	float halfFontSize = fontSize / 2.0f;
-	for (int i = 0; i < 3; ++i)
-	{
-		textObj[i] = Create::Text2DObject("text", Vector3(-halfWindowWidth, -halfWindowHeight + fontSize*i + halfFontSize, 0.0f), "", Vector3(fontSize, fontSize, fontSize), Color(0.0f,1.0f,0.0f));
-	}
-	textObj[0]->SetText("HELLO WORLD");
+	//float fontSize = 25.0f;
+	//float halfFontSize = fontSize / 2.0f;
+	//for (int i = 0; i < 3; ++i)
+	//{
+	//	textObj[i] = Create::Text2DObject("text", Vector3(-halfWindowWidth, -halfWindowHeight + fontSize*i + halfFontSize, 0.0f), "", Vector3(fontSize, fontSize, fontSize), Color(0.0f,1.0f,0.0f));
+	//}
+	//textObj[0]->SetText("HELLO WORLD");
 
 	//theEditor = new Editor();
 
@@ -207,17 +204,20 @@ void SceneText::Init()
 void SceneText::Update(double dt)
 {
 	UIManager::GetInstance()->Update(dt);
-	
 
 	if (GameStateManager::GetInstance()->getState() != GS_PLAYING) return;
 
 	m_inputtimer += dt;
-
+	StopWatch timer2;
+	timer2.startTimer();
 	Player::GetInstance()->Update(dt);
+	//std::cout << "Time for update player: " << timer2.getElapsedTime() << std::endl;
 	// Update our entities
+	StopWatch timer;
+	timer.startTimer();
 	EntityManager::GetInstance()->Update(dt);
 	theMinimap->Update(dt);
-
+	//std::cout << "Time for update loop: " << timer.getElapsedTime() << std::endl;
 	HUDManager::GetInstance()->UpdateHUD();
 
 	keyboard->Read(dt);
@@ -237,31 +237,31 @@ void SceneText::Update(double dt)
 	if (KeyboardController::GetInstance()->IsKeyDown('4'))
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	if (KeyboardController::GetInstance()->IsKeyDown('5'))
-	{
-		lights[0]->type = Light::LIGHT_POINT;
-	}
-	else if (KeyboardController::GetInstance()->IsKeyDown('6'))
-	{
-		lights[0]->type = Light::LIGHT_DIRECTIONAL;
-	}
-	else if (KeyboardController::GetInstance()->IsKeyDown('7'))
-	{
-		lights[0]->type = Light::LIGHT_SPOT;
-	}
+	//if (KeyboardController::GetInstance()->IsKeyDown('5'))
+	//{
+	//	lights[0]->type = Light::LIGHT_POINT;
+	//}
+	//else if (KeyboardController::GetInstance()->IsKeyDown('6'))
+	//{
+	//	lights[0]->type = Light::LIGHT_DIRECTIONAL;
+	//}
+	//else if (KeyboardController::GetInstance()->IsKeyDown('7'))
+	//{
+	//	lights[0]->type = Light::LIGHT_SPOT;
+	//}
 
-	if (KeyboardController::GetInstance()->IsKeyDown('I'))
-		lights[0]->position.z -= (float)(10.f * dt);
-	if (KeyboardController::GetInstance()->IsKeyDown('K'))
-		lights[0]->position.z += (float)(10.f * dt);
-	if (KeyboardController::GetInstance()->IsKeyDown('J'))
-		lights[0]->position.x -= (float)(10.f * dt);
-	if (KeyboardController::GetInstance()->IsKeyDown('L'))
-		lights[0]->position.x += (float)(10.f * dt);
-	if (KeyboardController::GetInstance()->IsKeyDown('O'))
-		lights[0]->position.y -= (float)(10.f * dt);
-	if (KeyboardController::GetInstance()->IsKeyDown('P'))
-		lights[0]->position.y += (float)(10.f * dt);
+	//if (KeyboardController::GetInstance()->IsKeyDown('I'))
+	//	lights[0]->position.z -= (float)(10.f * dt);
+	//if (KeyboardController::GetInstance()->IsKeyDown('K'))
+	//	lights[0]->position.z += (float)(10.f * dt);
+	//if (KeyboardController::GetInstance()->IsKeyDown('J'))
+	//	lights[0]->position.x -= (float)(10.f * dt);
+	//if (KeyboardController::GetInstance()->IsKeyDown('L'))
+	//	lights[0]->position.x += (float)(10.f * dt);
+	//if (KeyboardController::GetInstance()->IsKeyDown('O'))
+	//	lights[0]->position.y -= (float)(10.f * dt);
+	//if (KeyboardController::GetInstance()->IsKeyDown('P'))
+	//	lights[0]->position.y += (float)(10.f * dt);
 
 	if (KeyboardController::GetInstance()->IsKeyReleased('P'))
 	{
@@ -273,33 +273,41 @@ void SceneText::Update(double dt)
 	if (KeyboardController::GetInstance()->IsKeyReleased('R'))
 	{
 		Create::Particle("particle", Player::GetInstance()->GetPosition(), Vector3(20, 0, 0), EFFECT_TYPE::EFT_FIRE, 0.5, 0.3, Player::GetInstance()->GetIsFightingBoss());
-		AudioPlayer::GetInstance()->playSoundThreaded("explosion");
 		Create::Enemy(EnemyBase::ENEMY_TYPE::E_FLYING, Vector3((int)Player::GetInstance()->GetPosition().x, (int)Player::GetInstance()->GetPosition().y, (int)Player::GetInstance()->GetPosition().z), Vector3(1, 1, 1), true, false, false, 0, Player::GetInstance()->GetIsFightingBoss());
+		
+		if (Player::GetInstance()->GetCurrentLevel() == 3)
+		{
+			GameStateManager::GetInstance()->setState(GS_LEVELCOMPLETE);
+			UIManager::GetInstance()->m_explosionTime = 1;
+			AudioPlayer::GetInstance()->playSoundThreaded("explosion");
+		}
+		else
+			Player::GetInstance()->StartNextLevel();
 	}
 	// if the left mouse button was released
 	if (MouseController::GetInstance()->IsButtonReleased(MouseController::LMB))
 	{
-		std::cout << "Left Mouse Button was released!" << std::endl;
+		//std::cout << "Left Mouse Button was released!" << std::endl;
 	}
 	if (MouseController::GetInstance()->IsButtonReleased(MouseController::RMB))
 	{
-		GameStateManager::GetInstance()->setState(GS_LEVELCOMPLETE);
+		GameStateManager::GetInstance()->setState(GS_GAMEOVER);
 		UIManager::GetInstance()->m_explosionTime = 1;
 		AudioPlayer::GetInstance()->playSoundThreaded("explosion");
-		std::cout << "Right Mouse Button was released!" << std::endl;
+		//std::cout << "Right Mouse Button was released!" << std::endl;
 	}
-	if (MouseController::GetInstance()->IsButtonReleased(MouseController::MMB))
-	{
-		std::cout << "Middle Mouse Button was released!" << std::endl;
-	}
-	if (MouseController::GetInstance()->GetMouseScrollStatus(MouseController::SCROLL_TYPE_XOFFSET) != 0.0)
-	{
-		std::cout << "Mouse Wheel has offset in X-axis of " << MouseController::GetInstance()->GetMouseScrollStatus(MouseController::SCROLL_TYPE_XOFFSET) << std::endl;
-	}
-	if (MouseController::GetInstance()->GetMouseScrollStatus(MouseController::SCROLL_TYPE_YOFFSET) != 0.0)
-	{
-		std::cout << "Mouse Wheel has offset in Y-axis of " << MouseController::GetInstance()->GetMouseScrollStatus(MouseController::SCROLL_TYPE_YOFFSET) << std::endl;
-	}
+	//if (MouseController::GetInstance()->IsButtonReleased(MouseController::MMB))
+	//{
+	//	//std::cout << "Middle Mouse Button was released!" << std::endl;
+	//}
+	//if (MouseController::GetInstance()->GetMouseScrollStatus(MouseController::SCROLL_TYPE_XOFFSET) != 0.0)
+	//{
+	//	//std::cout << "Mouse Wheel has offset in X-axis of " << MouseController::GetInstance()->GetMouseScrollStatus(MouseController::SCROLL_TYPE_XOFFSET) << std::endl;
+	//}
+	//if (MouseController::GetInstance()->GetMouseScrollStatus(MouseController::SCROLL_TYPE_YOFFSET) != 0.0)
+	//{
+	//	//std::cout << "Mouse Wheel has offset in Y-axis of " << MouseController::GetInstance()->GetMouseScrollStatus(MouseController::SCROLL_TYPE_YOFFSET) << std::endl;
+	//}
 	// <THERE>
 
 	// Update the player position and other details based on keyboard and mouse inputs
@@ -307,22 +315,22 @@ void SceneText::Update(double dt)
 
 	//camera.Update(dt); // Can put the camera into an entity rather than here (Then we don't have to write this)
 
-	GraphicsManager::GetInstance()->UpdateLights(dt);
+	//GraphicsManager::GetInstance()->UpdateLights(dt);
 
 	// Update the 2 text object values. NOTE: Can do this in their own class but i'm lazy to do it now :P
 	// Eg. FPSRenderEntity or inside RenderUI for LightEntity
-	std::ostringstream ss;
-	ss.precision(5);
-	float fps = (float)(1.f / dt);
-	ss << "FPS: " << fps;
-	textObj[1]->SetText(ss.str());
-	//std::cout << "FPS: " << fps << std::endl;
+	//std::ostringstream ss;
+	//ss.precision(5);
+	//float fps = (float)(1.f / dt);
+	//ss << "FPS: " << fps;
+	//textObj[1]->SetText(ss.str());
+	////std::cout << "FPS: " << fps << std::endl;
 
-	// Update the player position into textObj[2]
-	std::ostringstream ss1;
-	ss1.precision(4);
-	ss1 << "Player:";
-	textObj[2]->SetText(ss1.str());
+	//// Update the player position into textObj[2]
+	//std::ostringstream ss1;
+	//ss1.precision(4);
+	//ss1 << "Player:";
+	//textObj[2]->SetText(ss1.str());
 }
 
 void SceneText::Render()
@@ -356,8 +364,7 @@ void SceneText::Render()
 		GraphicsManager::GetInstance()->SetOrthographicProjection(-halfWindowWidth, halfWindowWidth, -halfWindowHeight, halfWindowHeight, -10, 10);
 		GraphicsManager::GetInstance()->DetachCamera();
 
-		theMinimap->RenderUI(); 
-		
+		theMinimap->RenderUI();
 		UIManager::GetInstance()->RenderUI();
 		HUDManager::GetInstance()->RenderHUD();
 	}
@@ -367,7 +374,9 @@ void SceneText::Exit()
 {
 	// Detach camera from other entities
 	GraphicsManager::GetInstance()->DetachCamera();
-
+	Player::Destroy();
+	TileMaker::Destroy();
+	MeshList::GetInstance()->DeleteAllMesh();
 	// Delete the lights
 	delete lights[0];
 	delete lights[1];

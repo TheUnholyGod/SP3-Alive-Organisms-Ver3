@@ -11,7 +11,7 @@
 
 void MapManager::Init()
 {
-	for (int i = 0; i < 5; ++i)
+	for (int i = 0; i < 6; ++i)
 	{
 		Level *level = new Level(3 * (i + 1));
 		level->GenerateLevel();
@@ -39,7 +39,7 @@ void MapManager::Init()
 void MapManager::GenerateBlocks(int level)
 {
 	map<int, Tiles*> temp;
-	map<int, vector<Vector3>> enemy_temp_list;
+	map<int, vector<Vector3>> enemy_temp_list, flying_temp_list;
 	Vector3 temp_player_pos(0, 0, 0), temp_door_pos(0, 0, 0);
 	map_database[level]->GetLevelLayOut(temp);
 	int section = 0, row = 0;
@@ -135,6 +135,11 @@ void MapManager::GenerateBlocks(int level)
 				{
 					if (Math::RandIntMinMax(0, 100) < 20)
 						enemy_temp_list[i].push_back(Vector3((x + (row * 7)), y + (section * 7), 0));
+					else
+					{
+						if (Math::RandIntMinMax(0, 100) < 60)
+							flying_temp_list[i].push_back(Vector3((x + (row * 7)), y + (section * 7), 0));
+					}
 				}
 				break;
 				default:
@@ -192,6 +197,17 @@ void MapManager::GenerateBlocks(int level)
 			for (vector<Vector3>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
 			{
 				Create::Enemy(EnemyBase::ENEMY_TYPE::E_MELEE, Vector3(it2->x, it2->y, it2->z + 0.01), Vector3(1, 1, 1), true, false, false, it->first);
+			}
+		}
+	}
+
+	if (flying_temp_list.size() > 0)
+	{
+		for (map<int, vector<Vector3>>::iterator it = flying_temp_list.begin(); it != flying_temp_list.end(); ++it)
+		{
+			for (vector<Vector3>::iterator it2 = it->second.begin(); it2 != it->second.end(); ++it2)
+			{
+				Create::Enemy(EnemyBase::ENEMY_TYPE::E_FLYING, Vector3(it2->x, it2->y, it2->z + 0.01), Vector3(1, 1, 1), true, false, false, it->first);
 			}
 		}
 	}
@@ -303,6 +319,22 @@ void MapManager::DeleteAllLevels()
 		delete map_database[i];
 		map_database[i] = nullptr;
 	}
+
+	for (int i = 0; i < boss_map_database.size(); ++i)
+	{
+		delete boss_map_database[i];
+		boss_map_database[i] = nullptr;
+	}
+
+	map_database.clear();
+	boss_map_database.clear();
+
+	for (int i = 0; i < (16 * 7) + (16 * 7); ++i)
+	{
+		delete m_map_array[i];
+	}
+
+	delete m_map_array;
 }
 
 int ** MapManager::getMapArray()

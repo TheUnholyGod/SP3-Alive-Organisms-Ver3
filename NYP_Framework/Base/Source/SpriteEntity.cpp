@@ -56,7 +56,7 @@ void SpriteEntity::Render()
 		glEnable(GL_ALPHA_TEST);*/
         MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
         modelStack.PushMatrix();
-        modelStack.Translate(position.x, position.y, position.z);
+        modelStack.Translate(position.x, position.y, position.z + 0.01);
         modelStack.Scale(scale.x, scale.y, scale.z);
 		modelStack.Rotate(rotateAngle, rotateAxis.x, rotateAxis.y, rotateAxis.z);
         RenderHelper::RenderSpriteAnnimation(sa);

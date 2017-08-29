@@ -26,6 +26,7 @@ public:
 	{
 		AI_CHASE,  //Follow player
 		AI_ATTACK, //Attack the player
+		AI_ATTACKING,
 
 		AI_TOTAL
 	}m_state;

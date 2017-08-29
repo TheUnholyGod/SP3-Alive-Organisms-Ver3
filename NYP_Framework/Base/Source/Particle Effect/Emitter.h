@@ -19,6 +19,8 @@ that releases multiple particles.
 enum EFFECT_TYPE
 {
 	EFT_FIRE = 0,
+	EFT_HIT,
+	EFT_DEATH,
 	EFT_TOTAL
 };
 

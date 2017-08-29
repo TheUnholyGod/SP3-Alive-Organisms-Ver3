@@ -18,6 +18,8 @@
 #include "../CollisionManager.h"
 #include "../ShortSword.h"
 #include "../Bow.h"
+#include "../Manager/GameStateManager.h"
+#include "../FamineBoss.h"
 
 Player::Player(void)
 	: GenericEntity(MeshList::GetInstance()->GetMesh("player"))
@@ -43,6 +45,17 @@ Player::Player(void)
 Player::~Player(void)
 {
 	m_pTerrain = NULL;
+	delete animation;
+	delete animationWalking;
+	delete animationWalkingLeft;
+	delete animationClimbing;
+	delete animationJumping;
+	delete attachedCamera;
+	
+	for (int i = 0; i < 2; ++i)
+	{
+		delete m_player_equipment[i];
+	}
 }
 
 // Initialise this class instance
@@ -120,9 +133,11 @@ void Player::Init(void)
 
     m_interacted = false;
     m_interacttimer = 0;
-    m_definteracttimer = 0.025f;
+    m_definteracttimer = 1.f;
     m_invincibletimer = 0;
-    m_definvincibletimer = 2;
+    m_definvincibletimer = 0.5;
+	maxofthemaxvelocity.Set(20, 20, 0);
+	maxvelocity.Set(10, 10, 0);
 
 	SetAABB(Vector3((position.x + (maxBoundary.x * 0.5)), (position.y + (maxBoundary.y * 0.5)), (position.z + (maxBoundary.z * 0.5))), Vector3((position.x + (minBoundary.x * 0.5)), (position.y + (minBoundary.y * 0.5)), (position.z + (minBoundary.z * 0.5))));
     this->m_player_equipment[EQUIPMENT_MELEE] = new ShortSword();
@@ -132,11 +147,17 @@ void Player::Init(void)
 	{
 		this->m_player_equipment[i]->Init(this);
 	}
+	this->m_dmg = 100;
 }
 
 void Player::Update(double dt)
 {
 	m_regenTimer += dt;
+
+	if (this->m_health <= 0)
+	{
+		GameStateManager::GetInstance()->setState(GS_GAMEOVER);
+	}
 
 	if (m_health < 0)
 	{
@@ -151,16 +172,16 @@ void Player::Update(double dt)
 
     if (m_invincible)
     {
-        std::cout <<"i"<< m_invincibletimer << std::endl;
+        //std::cout <<"i"<< m_invincibletimer << std::endl;
         this->m_invincibletimer -= dt;
     }
     if (m_invincible && m_invincibletimer < 0)
     {
-        std::cout << "no invis" << std::endl;
+        //std::cout << "no invis" << std::endl;
         this->m_invincible = false;
     }
 
-	int health_up = 0, attack_up = 0, speed_up = 0;;
+	int health_up = 0, attack_up = 0, speed_up = 0;
 	for (int i = 0; i < 2; ++i)
 	{
 		std::vector<Runes*> temp_rune_vector = m_player_equipment[i]->getRunes();
@@ -195,23 +216,21 @@ void Player::Update(double dt)
 	if (health_up > 0 && m_maxHealth != (100 + (health_up * 10)))
 	{
 		m_maxHealth = 100 + (health_up * 10);
-		//std::cout << health_up << std::endl;
 	}
 
 	if (attack_up > 0)
 	{
-		//std::cout << attack_up << std::endl;
+		this->m_dmg += 5 + (attack_up * 2);
 	}
 
 	if (speed_up > 0)
 	{
-		m_dSpeed = 40 + (speed_up * 5);
-		//std::cout << speed_up << std::endl;
+		this->maxvelocity.x = Math::Min(velocity.x + 40 + (speed_up * 5), maxofthemaxvelocity.x);
 	}
 
-	if (m_health < m_maxHealth && m_regenTimer > 1.5f)
+	if (m_health < m_maxHealth && m_regenTimer > 1.7f)
 	{
-		m_health += 4;
+		m_health += 2;
 		m_regenTimer = 0;
 
 		if (m_health > m_maxHealth)
@@ -599,7 +618,7 @@ void Player::UpdateMovement(double dt)
 			if (velocity.x > -0.01f && velocity.x < 0.01f)
 				velocity.x = 0;
 			else
-				velocity.x = direction.x * Math::Clamp(std::abs(velocity.x), Math::EPSILON, 10.0f);
+				velocity.x = direction.x * Math::Clamp(std::abs(velocity.x), Math::EPSILON, maxvelocity.x);
 		}
 	}
 	this->accleration.x = 0;
@@ -806,7 +825,7 @@ void Player::TakeDamage(int _dmg)
         return;
 	this->m_health -= _dmg;
     this->m_invincible = true;
-    this->m_invincibletimer = this->m_definvincibletimer;
+    this->m_invincibletimer = 0.2f;
 
 }
 
@@ -846,7 +865,7 @@ void Player::AttachCamera(FPSCamera* _cameraPtr)
 	Vector3 target = position;
 	Vector3 up = Vector3(0, 1, 0);
 	attachedCamera->Init(Vector3(position.x, position.y, 10), target, up);
-	std::cout << up << std::endl;
+	//std::cout << up << std::endl;
 }
 
 void Player::DetachCamera()
@@ -892,6 +911,10 @@ void Player::SetIsFightingBoss(bool is_fighting)
 		m_isFightingBoss = false;
 		position.Set(last_position.x, last_position.y + 0.01, last_position.z);
 		m_isKilledBoss = true;
+		FamineBoss* pb = new FamineBoss();
+		pb->SetPosition(Vector3(111, 102, 0));
+		pb->Init();
+		EntityManager::GetInstance()->AddEntity(pb, true);
 	}
 }
 
@@ -914,11 +937,18 @@ void Player::StartNextLevel()
 		MapManager::GetInstance()->GenerateBlocks(Player::GetInstance()->GetCurrentLevel());
 		MapManager::GetInstance()->GenerateBossBlocks(Player::GetInstance()->GetCurrentLevel());
 		Player::GetInstance()->SetPosition(MapManager::GetInstance()->GetAllPlayerStartingPos()[Player::GetInstance()->GetCurrentLevel()]);
+
 		m_isKilledBoss = false;
 		m_isFightingBoss = false;
 	}
 	else
 	{
 		//VICTORY SCREEN
+		GameStateManager::GetInstance()->setState(GS_LEVELCOMPLETE);
 	}
+}
+
+void Player::ResetGame()
+{
+	this->m_health = 100;
 }

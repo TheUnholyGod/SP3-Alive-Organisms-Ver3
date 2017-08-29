@@ -2,7 +2,10 @@
 #define _FAMINEBOSS_H
 
 #include "Enemy\EnemyBossBase.h"
+#include "SpriteEntity.h"
 #include <vector>
+
+class ArchProjectile;
 
 class FamineStrategy;
 
@@ -24,6 +27,11 @@ private:
 
 	bool m_freestate;	
 	double m_defchangestatetimer, m_changestatetimer;
+
+	SpriteEntity* idle;
+	SpriteEntity* throwing;
+	SpriteEntity* melee;
+
 public:
 	FamineBoss();
 	~FamineBoss();

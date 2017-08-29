@@ -16,6 +16,7 @@ public:
 	BaseDatabase(const std::string& name,const std::string& filePath);
 	virtual ~BaseDatabase();
 	virtual void init();
+	virtual void Exit();
 	Object* getObject(Key id);
 };
 

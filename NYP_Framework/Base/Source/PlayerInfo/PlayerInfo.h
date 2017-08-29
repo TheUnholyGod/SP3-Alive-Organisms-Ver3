@@ -66,10 +66,10 @@ public:
 	bool GetIsKilledBoss();
 
 	void StartNextLevel();
-
+	void ResetGame();
 private:
 	Vector3 defaultPosition;
-	Vector3 direction,velocity,accleration;
+	Vector3 direction, velocity, accleration, maxvelocity, maxofthemaxvelocity;
 	Vector3 last_direction, last_position;
 	Vector3 maxBoundary, minBoundary;
 	GroundEntity* m_pTerrain;
@@ -102,6 +102,8 @@ private:
 	bool m_isFightingBoss, m_isKilledBoss;
 	bool m_canDoubleJump;
 
+	Equipment* m_player_equipment[NUM_EQUIPMENT];
+
 	FPSCamera* attachedCamera;
 
 	SpriteEntity* animation;
@@ -109,7 +111,4 @@ private:
 	SpriteEntity* animationWalkingLeft;
 	SpriteEntity* animationClimbing;
 	SpriteEntity* animationJumping;
-
-	
-	Equipment* m_player_equipment[NUM_EQUIPMENT];
 };
