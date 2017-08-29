@@ -29,7 +29,7 @@
 #include "Enemy\EnemyBase.h"
 #include "PlagueBoss.h"
 #include "FamineBoss.h"
-
+#include "timer.h"
 #include <future>
 #include <iostream>
 
@@ -181,6 +181,13 @@ void SceneText::Init()
 	//	std::cout << std::endl;
 	//}
 
+	theMinimap = Create::Minimap(false);
+	theMinimap->SetBackground(MeshBuilder::GetInstance()->GenerateQuad("minimap", Color(0, 0, 0), 1.f));
+	theMinimap->SetBorder(MeshBuilder::GetInstance()->GenerateQuad("minimapborder", Color(0, 0, 1), 1.05f));
+	theMinimap->SetAvatar(MeshBuilder::GetInstance()->GenerateQuad("avatar", Color(0.8, 0.8, 0.8), 0.1f));
+	theMinimap->SetStencil(MeshBuilder::GetInstance()->GenerateQuad("minimap_stencil", Color(1, 1, 1), 1.0f));
+	theMinimap->SetTarget(MeshBuilder::GetInstance()->GenerateQuad("minimap_target", Color(0, 0, 1), 1.f));
+
 	AudioPlayer::GetInstance()->addSound("explosion", "Assets//Sound//explosion.wav"); //Move somewhere to run only once
 	AudioPlayer::GetInstance()->addSound("menubgm", "Assets//Sound//menubgm.mp3"); //Move somewhere to run only once
 	AudioPlayer::GetInstance()->addSound("gamebgm", "Assets//Sound//gamebgm.mp3"); //Move somewhere to run only once
@@ -192,7 +199,6 @@ void SceneText::Init()
 	//Player::GetInstance()->SetIsFightingBoss(true);
 	PlagueBoss* pb = new PlagueBoss();
 	pb->SetPosition(Vector3(111,102,0));
-	pb->SetTileID(0);
 	pb->Init();
 	EntityManager::GetInstance()->AddEntity(pb, true);
 	//</REMOVE>
@@ -200,18 +206,22 @@ void SceneText::Init()
 
 void SceneText::Update(double dt)
 {
-
 	UIManager::GetInstance()->Update(dt);
-
+	
 
 	if (GameStateManager::GetInstance()->getState() != GS_PLAYING) return;
 
 	m_inputtimer += dt;
-
+	StopWatch timer2;
+	timer2.startTimer();
 	Player::GetInstance()->Update(dt);
+	//std::cout << "Time for update player: " << timer2.getElapsedTime() << std::endl;
 	// Update our entities
+	StopWatch timer;
+	timer.startTimer();
 	EntityManager::GetInstance()->Update(dt);
-
+	theMinimap->Update(dt);
+	//std::cout << "Time for update loop: " << timer.getElapsedTime() << std::endl;
 	HUDManager::GetInstance()->UpdateHUD();
 
 	keyboard->Read(dt);
@@ -266,7 +276,7 @@ void SceneText::Update(double dt)
 	}
 	if (KeyboardController::GetInstance()->IsKeyReleased('R'))
 	{
-		Create::Particle("particle", Player::GetInstance()->GetPosition(), Vector3(20, 0, 0), EFFECT_TYPE::ET_FIRE, 0.5, 0.3, Player::GetInstance()->GetIsFightingBoss());
+		Create::Particle("particle", Player::GetInstance()->GetPosition(), Vector3(20, 0, 0), EFFECT_TYPE::EFT_FIRE, 0.5, 0.3, Player::GetInstance()->GetIsFightingBoss());
 		AudioPlayer::GetInstance()->playSoundThreaded("explosion");
 		Create::Enemy(EnemyBase::ENEMY_TYPE::E_FLYING, Vector3((int)Player::GetInstance()->GetPosition().x, (int)Player::GetInstance()->GetPosition().y, (int)Player::GetInstance()->GetPosition().z), Vector3(1, 1, 1), true, false, false, 0, Player::GetInstance()->GetIsFightingBoss());
 	}
@@ -277,7 +287,7 @@ void SceneText::Update(double dt)
 	}
 	if (MouseController::GetInstance()->IsButtonReleased(MouseController::RMB))
 	{
-		GameStateManager::GetInstance()->setState(GS_LEVELCOMPLETE);
+		GameStateManager::GetInstance()->setState(GS_GAMEOVER);
 		UIManager::GetInstance()->m_explosionTime = 1;
 		AudioPlayer::GetInstance()->playSoundThreaded("explosion");
 		std::cout << "Right Mouse Button was released!" << std::endl;
@@ -340,7 +350,7 @@ void SceneText::Render()
 		// Setup 3D pipeline then render 3D
 		GraphicsManager::GetInstance()->SetPerspectiveProjection(45.0f, 4.0f / 3.0f, 0.1f, 10000.0f);
 		GraphicsManager::GetInstance()->AttachCamera(Player::GetInstance()->getCamera());
-
+		
 		EntityManager::GetInstance()->Render();
 		Player::GetInstance()->Render();
 
@@ -350,8 +360,8 @@ void SceneText::Render()
 		GraphicsManager::GetInstance()->SetOrthographicProjection(-halfWindowWidth, halfWindowWidth, -halfWindowHeight, halfWindowHeight, -10, 10);
 		GraphicsManager::GetInstance()->DetachCamera();
 
+		theMinimap->RenderUI();
 		UIManager::GetInstance()->RenderUI();
-		//EntityManager::GetInstance()->RenderUI();
 		HUDManager::GetInstance()->RenderHUD();
 	}
 }

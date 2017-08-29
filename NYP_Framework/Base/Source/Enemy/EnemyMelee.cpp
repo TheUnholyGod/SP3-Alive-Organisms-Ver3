@@ -8,7 +8,9 @@
 #include "../MapManager.h"
 #include "../PlayerInfo/PlayerInfo.h"
 #include "RenderHelper.h"
+#include "../CollisionManager.h"
 #include "../SpriteEntity.h"
+#include "../Particle Effect/ParticleEffect.h"
 
 EnemyMelee::EnemyMelee(Mesh * mesh, 
 	EnemyBase::ENEMY_TYPE enemy_type, 
@@ -26,7 +28,7 @@ EnemyMelee::EnemyMelee(Mesh * mesh,
 	this->SetPhysic(have_physic);
 	this->SetStatic(false);
 
-
+	this->GenerateAABB(this->position);
 	m_state = AI_STATES::AI_PATROL;
 	dir = true;
 }
@@ -55,6 +57,11 @@ void EnemyMelee::Update(double _dt)
 		return;
 	}
 
+	if (m_state == AI_ATTACKING)
+	{
+		m_attackCooldown -= _dt;
+	}
+
 	Detect(_dt);
 
 	switch (m_state)
@@ -73,8 +80,14 @@ void EnemyMelee::Update(double _dt)
 	}
 	case EnemyMelee::AI_ATTACK:
 	{
-		Attack();
+		m_attackCooldown = 1;
+		m_state = AI_ATTACKING;
 		//std::cout << "Attack" << std::endl;
+		break;
+	}
+	case EnemyMelee::AI_ATTACKING:
+	{
+		Attack();
 		break;
 	}
 	case EnemyMelee::AI_RETURN:
@@ -101,17 +114,10 @@ void EnemyMelee::Update(double _dt)
 
 void EnemyMelee::Render()
 {
-	if (m_state == AI_ATTACK)
+	if (m_state == AI_ATTACKING)
 		this->animation2->Render();
 	else
 		this->animation->Render();
-	//Collision::Render();
-	//MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
-	//modelStack.PushMatrix();
-	//modelStack.Translate(position.x, position.y, position.z);
-	//modelStack.Scale(scale.x, scale.y, scale.z);
-	//RenderHelper::RenderMesh(modelMesh);
-	//modelStack.PopMatrix();
 }
 
 bool EnemyMelee::CollisionResponse(GenericEntity *ThatEntity)
@@ -199,24 +205,28 @@ void EnemyMelee::Move()
 	{
 		this->m_velocity += Vector3(0, speed, 0);
 		this->animation->SetRotation(0, Vector3(0, 1, 0));
+		this->animation2->SetRotation(0, Vector3(0, 1, 0));
 		return;
 	}
 	else if (dir == Coord2D(0, 1)) //Down
 	{
 		this->m_velocity += Vector3(0, -speed, 0);
 		this->animation->SetRotation(0, Vector3(0, 1, 0));
+		this->animation2->SetRotation(0, Vector3(0, 1, 0));
 		return;
 	}
 	else if (dir == Coord2D(1, 0)) //Left
 	{
 		this->m_velocity += Vector3(-speed, 0, 0);
 		this->animation->SetRotation(0, Vector3(0, 1, 0));
+		this->animation2->SetRotation(0, Vector3(0, 1, 0));
 		return;
 	}
 	else if (dir == Coord2D(-1, 0)) //Right
 	{
 		this->m_velocity += Vector3(speed, 0, 0);
 		this->animation->SetRotation(180, Vector3(0, 1, 0));
+		this->animation2->SetRotation(180, Vector3(0, 1, 0));
 		return;
 	}
 }
@@ -267,10 +277,15 @@ void EnemyMelee::Detect(double dt)
 {
 	float dist = (Player::GetInstance()->GetPosition() - position).Length();
 
-	if (dist < 0.8)
+	if (m_state == AI_ATTACKING) return;
+
+	m_attackCooldown -= dt;
+
+	if (dist < 0.5)
 	{
 		//isPathFound = false;
 		//m_path.clear();
+		m_attackCooldown = 1;
 		m_state = AI_ATTACK;
 	}
 	else if (dist > 10)
@@ -334,11 +349,22 @@ void EnemyMelee::Attack()
 {
 	m_velocity.SetZero();
 	//Do damage to player
-	std::cout << "Deal dmg to player" << std::endl;
-
-	//Go back to chase
-	m_state = AI_CHASE;
-	return;
+	if (m_attackCooldown <= 0)
+	{
+		if (CollisionManager::GetInstance()->CheckAABBCollision(this, Player::GetInstance()))
+		{
+			std::cout << "Dealt 20 damage to player" << std::endl;
+			Player::GetInstance()->TakeDamage(20);
+			Create::Particle("particle", 
+				Player::GetInstance()->GetPosition(), 
+				Vector3(20, 0, 0), 
+				EFFECT_TYPE::EFT_FIRE, 0.5, 0.3, 
+				Player::GetInstance()->GetIsFightingBoss());
+			
+		}
+		m_state = AI_CHASE;
+		return;
+	}
 }
 
 void EnemyMelee::FindPath(Coord2D _src, Coord2D _end)

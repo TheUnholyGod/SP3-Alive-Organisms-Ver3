@@ -18,8 +18,8 @@ that releases multiple particles.
 
 enum EFFECT_TYPE
 {
-	ET_FIRE = 0,
-	ET_TOTAL
+	EFT_FIRE = 0,
+	EFT_TOTAL
 };
 
 class Emitter
@@ -28,7 +28,7 @@ class Emitter
 public:
 	Emitter() : 
 		m_particle_mesh(nullptr),
-		m_effect_type(EFFECT_TYPE::ET_FIRE),
+		m_effect_type(EFFECT_TYPE::EFT_FIRE),
 		m_position(Vector3(0, 0, 0)),
 		m_velocity(Vector3(0, 0, 0)),
 		m_age(0),

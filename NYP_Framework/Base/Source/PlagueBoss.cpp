@@ -16,6 +16,12 @@ PlagueBoss::PlagueBoss() : m_strats(new PlagueStrategy*[NUM_STATES])
 
 }
 
+PlagueBoss::PlagueBoss(Mesh * _mesh) : m_strats(new PlagueStrategy*[NUM_STATES])
+{
+    this->modelMesh = _mesh;
+    this->isStatic = false;
+}
+
 PlagueBoss::~PlagueBoss()
 {
 }
@@ -47,8 +53,9 @@ void PlagueBoss::Init()
 	this->scale = Vector3(1, 1, 1);
 	this->isStatic = false;
 	this->m_bCollider = true;
-	this->tile_ID = 0;
-	this->m_dmg = 10;
+	this->tile_ID = -1;
+	this->m_dmg = 0.1f;
+    this->m_health = 100;
 }
 
 void PlagueBoss::Update(double _dt)
@@ -84,7 +91,10 @@ bool PlagueBoss::CollisionResponse(GenericEntity * ThatEntity)
 	if (ThatEntity->type == PLAYER_OBJ)
 	{
 		Player* ThatEntity1 = dynamic_cast<Player*>(ThatEntity);
-		ThatEntity1->TakeDamage(m_dmg);
+        if(this->m_currstate == STATE_CHARGE)
+            ThatEntity1->TakeDamage(5);
+        else
+    		ThatEntity1->TakeDamage(m_dmg);
 	}
 	return false;
 }

@@ -128,11 +128,19 @@ void Application::Run()
 		glfwPollEvents();
 		UpdateInput();
 		
+		//std::cout << "FPS: " << 1/dt << std::endl;
 		if (dt > 0.016666666667f)
 			dt = 0.016666666667;
 
+		/*StopWatch timer;
+		timer.startTimer();*/
 		SceneManager::GetInstance()->Update(dt);
+		/*std::cout << "Time for update: " << timer.getElapsedTime() << std::endl;*/
+
+		/*StopWatch timer2;
+		timer2.startTimer();*/
 		SceneManager::GetInstance()->Render();
+		/*std::cout << "Time for render: " << timer2.getElapsedTime() << std::endl;*/
 
 		//Swap buffers
 		glfwSwapBuffers(m_window);
@@ -223,6 +231,7 @@ void Application::InitAllMeshes()
 		MeshBuilder::GetInstance()->GenerateAxes("reference");
 		MeshBuilder::GetInstance()->GenerateCrossHair("crosshair");
 		MeshBuilder::GetInstance()->GenerateQuad("quad", Color(1, 1, 1), 1.f);
+		MeshBuilder::GetInstance()->GenerateQuad("redquad", Color(1, 0, 0), 1.f);
         MeshBuilder::GetInstance()->GenerateQuad("q", Color(0, 1, 0), 1.f);
 		MeshBuilder::GetInstance()->GenerateQuad("particle", Color(0.6, 0.6, 1), 1.f);
 		MeshBuilder::GetInstance()->GenerateQuad("enemy", Color(1, 0, 0), 1.f);
@@ -280,6 +289,9 @@ void Application::InitAllMeshes()
 		MeshBuilder::GetInstance()->GenerateSpriteAnimation("enemy_1", 1, 7, 1.0f);
 		MeshList::GetInstance()->GetMesh("enemy_1")->textureID = LoadTGA("Image//enemy_1.tga");
 
+		MeshBuilder::GetInstance()->GenerateSpriteAnimation("enemy_1_atk", 1, 6, 1.0f);
+		MeshList::GetInstance()->GetMesh("enemy_1_atk")->textureID = LoadTGA("Image//enemy_1_atk.tga");
+
 		MeshBuilder::GetInstance()->GenerateSpriteAnimation("enemy_2", 1, 4, 1.0f);
 		MeshList::GetInstance()->GetMesh("enemy_2")->textureID = LoadTGA("Image//enemy_2.tga");
 
@@ -287,12 +299,21 @@ void Application::InitAllMeshes()
 		MeshList::GetInstance()->GetMesh("maggot")->textureID = LoadTGA("Image//Maggot.tga");
 
 		MeshBuilder::GetInstance()->GenerateQuad("player", Color(1, 0, 0), 0.5f);
+	
 
 		//UI
 		MeshList::GetInstance()->AddMesh("main_menu", MeshBuilder::GetInstance()->GenerateQuad("menu", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("main_menu")->textureID = LoadTGA("Image//menu.tga");
+		MeshList::GetInstance()->AddMesh("gameover_screen", MeshBuilder::GetInstance()->GenerateQuad("gameover_scrn", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("gameover_screen")->textureID = LoadTGA("Image//gameover_screen.tga");
+		MeshList::GetInstance()->AddMesh("instruction_menu", MeshBuilder::GetInstance()->GenerateQuad("instruction", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("instruction_menu")->textureID = LoadTGA("Image//instruction_menu.tga");
+		MeshList::GetInstance()->AddMesh("instruction_button", MeshBuilder::GetInstance()->GenerateQuad("instruction_btn", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("instruction_button")->textureID = LoadTGA("Image//instruction_button.tga");
 		MeshList::GetInstance()->AddMesh("start_button", MeshBuilder::GetInstance()->GenerateQuad("start_btn", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("start_button")->textureID = LoadTGA("Image//start_button.tga");
+		MeshList::GetInstance()->AddMesh("restart_button", MeshBuilder::GetInstance()->GenerateQuad("restart_btn", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("restart_button")->textureID = LoadTGA("Image//restart_button.tga");
 		MeshList::GetInstance()->AddMesh("option_button", MeshBuilder::GetInstance()->GenerateQuad("option_btn", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("option_button")->textureID = LoadTGA("Image//option_button.tga");
 		MeshList::GetInstance()->AddMesh("quit_button", MeshBuilder::GetInstance()->GenerateQuad("quit_btn", 1, 1.f));
@@ -363,6 +384,15 @@ void Application::InitAllMeshes()
 		MeshList::GetInstance()->AddMesh("hot_bar", MeshBuilder::GetInstance()->GenerateQuad("hotbar", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("hot_bar")->textureID = LoadTGA("Image//hotbar.tga");
 
+		MeshList::GetInstance()->AddMesh("HP", MeshBuilder::GetInstance()->GenerateQuad("HPtext", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("HP")->textureID = LoadTGA("Image//HP.tga");
+
+		MeshList::GetInstance()->AddMesh("bow", MeshBuilder::GetInstance()->GenerateQuad("bowweapon", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("bow")->textureID = LoadTGA("Image//bow.tga");
+
+		MeshList::GetInstance()->AddMesh("sword", MeshBuilder::GetInstance()->GenerateQuad("meleeweapon", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("sword")->textureID = LoadTGA("Image//swordpic.tga");
+
 
 		MeshList::GetInstance()->AddMesh("fire_rune_item", MeshBuilder::GetInstance()->GenerateQuad("fire_rune", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("fire_rune_item")->textureID = LoadTGA("Image//fire_rune.tga"); 
@@ -378,6 +408,9 @@ void Application::InitAllMeshes()
 
 		MeshList::GetInstance()->AddMesh("normal_rune_item", MeshBuilder::GetInstance()->GenerateQuad("normal_rune", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("normal_rune_item")->textureID = LoadTGA("Image//normal_rune.tga");
+
+        MeshList::GetInstance()->AddMesh("plagueboss", MeshBuilder::GetInstance()->GenerateSpriteAnimation("plagueboss", 4, 6, 0));
+        MeshList::GetInstance()->GetMesh("plagueboss")->textureID = LoadTGA("Image//Plague.tga");
 
 		/*MeshBuilder::GetInstance()->GenerateQuad("GRASS_DARKGREEN", Color(1, 1, 1), 1.f);
 		MeshList::GetInstance()->GetMesh("GRASS_DARKGREEN")->textureID = LoadTGA("Image//grass_darkgreen.tga");

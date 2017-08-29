@@ -101,10 +101,10 @@ void UIElement::Response()
 		AudioPlayer::GetInstance()->playSoundThreaded("gamebgm");
 		break;
 	}
-	case UI_MM_OPTION:
+	case UI_MM_INTRUCTION:
 	{
 		std::cout << "UI_MM_OPTION" << std::endl;
-		GameStateManager::GetInstance()->setState(GS_OPTIONS);
+		GameStateManager::GetInstance()->setState(GS_INSTRUCTION);
 		break;
 	}
 	case UI_MM_EXIT:
@@ -148,6 +148,18 @@ void UIElement::Response()
 		std::cout << "UI_OM_EXIT_TO_PAUSE" << std::endl;
 		GameStateManager::GetInstance()->setState(GS_PAUSED);
 		break;
+	}
+	case UI_IM_EXIT_TO_MENU:
+	{
+		std::cout << "UI_IM_EXIT_TO_MENU" << std::endl;
+		GameStateManager::GetInstance()->setState(GS_MAINMENU);
+		break;
+	}
+	case UI_GO_RESTART:
+	{
+		std::cout << "UI_GO_RESTART" << std::endl;
+		//TODO: reset game
+		GameStateManager::GetInstance()->setState(GS_PLAYING);
 	}
 	default:
 		std::cout << "Nothing!" << std::endl;

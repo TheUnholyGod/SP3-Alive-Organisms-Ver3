@@ -108,7 +108,7 @@ Projectile * Create::CreateProjectile(const std::string & _meshName, const Vecto
 	if (modelMesh == nullptr)
 		return nullptr;
 
-	ArchProjectile* result = new ArchProjectile(modelMesh);
+	Projectile* result = new Projectile(modelMesh);
 	result->SetPosition(_position);
 	result->SetScale(_scale);
 	result->SetCollider(false);

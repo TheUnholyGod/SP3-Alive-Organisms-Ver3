@@ -27,6 +27,10 @@ void EntityManager::Update(double _dt)
 			break;
 	}
 	std::list<EntityBase*>::iterator it;
+	Vector3 original_player_MaxAABB = Player::GetInstance()->GetMaxAABB(), original_player_MinAABB = Player::GetInstance()->GetMinAABB();
+
+	Player::GetInstance()->SetAABB(Vector3(Player::GetInstance()->GetMaxAABB().x + 4, Player::GetInstance()->GetMaxAABB().y + 4, Player::GetInstance()->GetMaxAABB().z),
+		Vector3(Player::GetInstance()->GetMinAABB().x - 4, Player::GetInstance()->GetMinAABB().y - 4, Player::GetInstance()->GetMinAABB().z));
 
 	if (!Player::GetInstance()->GetIsFightingBoss())
 	{
@@ -34,10 +38,13 @@ void EntityManager::Update(double _dt)
 		{
 			for (it = m_entity_map_base[temp[i]].begin(); it != m_entity_map_base[temp[i]].end(); ++it)
 			{
-				if ((*it)->GetIsStatic())
-					entity_list_full.push_back(*it);
-				else
-					entity_list_full.push_front(*it);
+				if (temp[i] == -1 || CollisionManager::GetInstance()->CheckAABBCollision(Player::GetInstance(), *it))
+				{
+					if ((*it)->GetIsStatic())
+						entity_list_full.push_back(*it);
+					else
+						entity_list_full.push_front(*it);
+				}
 			}
 		}
 	}
@@ -54,10 +61,13 @@ void EntityManager::Update(double _dt)
 		{
 			for (it = m_entity_boss_map_base[temp[i]].begin(); it != m_entity_boss_map_base[temp[i]].end(); ++it)
 			{
-				if ((*it)->GetIsStatic())
-					entity_list_full.push_back(*it);
-				else
-					entity_list_full.push_front(*it);
+				if (temp[i] == -1 || CollisionManager::GetInstance()->CheckAABBCollision(Player::GetInstance(), *it))
+				{
+					if ((*it)->GetIsStatic())
+						entity_list_full.push_back(*it);
+					else
+						entity_list_full.push_front(*it);
+				}
 			}
 		}
 
@@ -70,7 +80,7 @@ void EntityManager::Update(double _dt)
 		}
 	}
 
-
+	Player::GetInstance()->SetAABB(original_player_MaxAABB, original_player_MinAABB);
 
 	for (it = entity_list_full.begin(); it != entity_list_full.end(); ++it)
 	{
@@ -258,11 +268,12 @@ void EntityManager::GetAllBlocksWithinTileRadius(int tile_ID, vector<EntityBase*
 void EntityManager::GetAllBlocks(vector<EntityBase*>& input_vector)
 {
 	std::list<EntityBase*>::iterator it;
-	for (int i = 0; i < m_entity_map_base.size(); ++i)
+	std::map<int, std::list<EntityBase*>>::iterator it2 = m_entity_map_base.begin();
+	for (; it2 != m_entity_map_base.end(); ++it2)
 	{
-		it = m_entity_map_base[i].begin();
+		it = it2->second.begin();
 
-		for (it = m_entity_map_base[i].begin(); it != m_entity_map_base[i].end(); ++it)
+		for (; it != it2->second.end(); ++it)
 		{
 			if ((*it)->GetIsStatic())
 				input_vector.push_back(*it);
@@ -277,6 +288,14 @@ void EntityManager::GetAllBlocksInTileSet(int tile_ID, vector<EntityBase*>& inpu
 	{
 		if ((*it)->GetIsStatic())
 			input_vector.push_back(*it);
+	}
+}
+
+void EntityManager::GetActiveEntity(vector<EntityBase*>& input_vector)
+{
+	for (auto &it : entity_list_full)
+	{
+		input_vector.push_back(it);
 	}
 }
 
@@ -297,10 +316,8 @@ void EntityManager::ResetEntityBase()
 
 		it->second.clear();
 	}
-
-	m_entity_map_base[-1] = m_entity_map_base[-1];
-	m_entity_boss_map_base[-1] = m_entity_boss_map_base[-1];
 }
+
 
 // Remove an entity from this EntityManager
 //bool EntityManager::RemoveEntity(EntityBase* _existingEntity)

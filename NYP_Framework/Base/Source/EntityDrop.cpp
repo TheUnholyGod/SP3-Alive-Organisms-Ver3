@@ -19,6 +19,9 @@ bool EntityDrop::CollisionResponse(GenericEntity * ThatEntity)
 		if (Player::GetInstance()->IsInteracting())
 		{
 			// Open UI interface
+			Player::GetInstance()->SetRuneToWeapon(true, m_runeDrop);
+			SetIsDone(true);
+		 
 		}
 	}
 

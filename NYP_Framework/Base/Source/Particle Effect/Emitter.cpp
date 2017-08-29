@@ -14,7 +14,6 @@ void Emitter::update(double dt)
 	/*Age the emitter*/
 	this->m_age += dt;
 	this->m_position += this->m_velocity * dt;
-
 	if (this->m_age > this->m_emitterLifeSpan)
 		this->m_isActive = false;
 
@@ -50,7 +49,7 @@ void Emitter::update(double dt)
 		//Update particles based on type
 		switch (m_effect_type)
 		{
-		case ET_FIRE:
+		case EFT_FIRE:
 		{
 			p->m_velocity += Vector3(0, -9.8, 0) * dt;
 			p->m_position += p->m_velocity * dt;

@@ -53,6 +53,7 @@ bool GenericEntity::GetActive()
 
 void GenericEntity::ApplyDamage(int _dmg)
 {
+    this->m_health -= _dmg;
 }
 
 // Set the maxAABB and minAABB

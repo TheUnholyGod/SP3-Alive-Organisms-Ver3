@@ -8,6 +8,7 @@ cpp file for Equipment class.
 */
 ///////////////////////////////////////////////////////////////////////////////
 #include "Equipment.h"
+#include "../PlayerInfo/PlayerInfo.h"
 
 Equipment::Equipment()
 {

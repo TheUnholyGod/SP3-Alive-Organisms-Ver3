@@ -26,7 +26,7 @@ EnemyFlying::EnemyFlying(Mesh * mesh,
 	this->SetPhysic(have_physic);
 	this->SetStatic(false);
 
-
+	this->GenerateAABB(this->position);
 	m_state = AI_STATES::AI_IDLE;
 	dir = true;
 }
@@ -56,6 +56,12 @@ void EnemyFlying::Update(double _dt)
 	}
 
 	Detect(_dt);
+	
+	if (m_state == AI_ATTACKING)
+	{
+		m_attackCooldown -= _dt;
+		//std::cout << "Attack Cooldown: " << m_attackCooldown << std::endl;
+	}
 
 	switch (m_state)
 	{
@@ -65,6 +71,12 @@ void EnemyFlying::Update(double _dt)
 		break;
 	}
 	case EnemyFlying::AI_ATTACK:
+	{
+		m_attackCooldown = 1;
+		m_state = AI_ATTACKING;
+		break;
+	}	
+	case EnemyFlying::AI_ATTACKING:
 	{
 		Attack();
 		break;
@@ -85,7 +97,10 @@ void EnemyFlying::Update(double _dt)
 
 void EnemyFlying::Render()
 {
-	this->animation->Render();
+	if(m_state == AI_ATTACKING)
+		this->animation2->Render();
+	else
+		this->animation->Render();
 }
 
 bool EnemyFlying::CollisionResponse(GenericEntity *ThatEntity)
@@ -130,11 +145,14 @@ void EnemyFlying::Detect(double dt)
 {
 	float dist = (Player::GetInstance()->GetPosition() - position).Length();
 
-	if (dist < 0.8)
+	if (m_state == AI_ATTACKING) return;
+
+	if (dist < 0.5)
 	{
 		m_state = AI_ATTACK;
+		return;
 	}
-	else if (dist > 2)
+	else if (dist > 3)
 	{
 		m_state = AI_IDLE;
 		m_velocity.SetZero();
@@ -149,9 +167,11 @@ void EnemyFlying::Attack()
 {
 	m_velocity.SetZero();
 	//Do damage to player
-	std::cout << "Deal dmg to player" << std::endl;
-
-	//Go back to chase
-	m_state = AI_CHASE;
-	return;
+	if (m_attackCooldown <= 0)
+	{
+		std::cout << "Dealt 20 damage to player" << std::endl;
+		Player::GetInstance()->TakeDamage(20);
+		m_state = AI_CHASE;
+		return;
+	}
 }
