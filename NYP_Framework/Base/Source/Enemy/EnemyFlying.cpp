@@ -60,7 +60,7 @@ void EnemyFlying::Update(double _dt)
 	if (m_state == AI_ATTACKING)
 	{
 		m_attackCooldown -= _dt;
-		std::cout << "Attack Cooldown: " << m_attackCooldown << std::endl;
+		//std::cout << "Attack Cooldown: " << m_attackCooldown << std::endl;
 	}
 
 	switch (m_state)

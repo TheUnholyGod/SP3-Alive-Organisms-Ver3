@@ -14,7 +14,6 @@ void Emitter::update(double dt)
 	/*Age the emitter*/
 	this->m_age += dt;
 	this->m_position += this->m_velocity * dt;
-
 	if (this->m_age > this->m_emitterLifeSpan)
 		this->m_isActive = false;
 

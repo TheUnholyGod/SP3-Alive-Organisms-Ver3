@@ -390,6 +390,9 @@ void Application::InitAllMeshes()
 		MeshList::GetInstance()->AddMesh("bow", MeshBuilder::GetInstance()->GenerateQuad("bowweapon", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("bow")->textureID = LoadTGA("Image//bow.tga");
 
+		MeshList::GetInstance()->AddMesh("sword", MeshBuilder::GetInstance()->GenerateQuad("meleeweapon", 1, 1.f));
+		MeshList::GetInstance()->GetMesh("sword")->textureID = LoadTGA("Image//swordpic.tga");
+
 
 		MeshList::GetInstance()->AddMesh("fire_rune_item", MeshBuilder::GetInstance()->GenerateQuad("fire_rune", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("fire_rune_item")->textureID = LoadTGA("Image//fire_rune.tga"); 
