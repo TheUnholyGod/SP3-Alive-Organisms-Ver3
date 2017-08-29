@@ -10,6 +10,7 @@ Hitbox::Hitbox(Mesh * _modelMesh) : GenericEntity(_modelMesh)
 	type = HITBOX_OBJ;
 	this->tile_ID = -1;
 	this->m_active = false;
+	this->m_hbdeftimer = 0.25;
 }
 
 Hitbox::~Hitbox()
@@ -23,12 +24,16 @@ void Hitbox::Init(bool _isboss)
 	this->isStatic = false;
 	this->m_active = true;
 	this->m_dmg = 5;
+	this->m_hbtimer = m_hbdeftimer;
 }
 
 void Hitbox::Update(double _dt)
 {
 	if (!this->m_active)
 		return;
+	m_hbtimer += _dt;
+	if (m_hbtimer > m_hbdeftimer)
+		this->SetActive(false);
 }
 
 void Hitbox::Render()
@@ -45,7 +50,7 @@ bool Hitbox::CollisionResponse(GenericEntity * ThatEntity)
 	{
 		if (ThatEntity->type == ENEMY_OBJ)
 		{
-			ThatEntity->ApplyDamage(m_dmg);
+			ThatEntity->ApplyDamage(Player::GetInstance()->GetDamage());
 			this->m_active = false;
 			this->m_bCollider = false;
 		}

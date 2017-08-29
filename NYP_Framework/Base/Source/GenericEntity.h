@@ -46,7 +46,7 @@ public:
 	virtual void ApplyDamage(int _dmg);
 	// Set the maxAABB and minAABB
 	//void SetAABB(Vector3 maxAABB, Vector3 minAABB);
-
+	virtual int GetDamage() { return this->m_dmg; }
 protected:
 	bool m_active;
 	Mesh* modelMesh;

@@ -158,7 +158,7 @@ void UIElement::Response()
 	case UI_GO_RESTART:
 	{
 		std::cout << "UI_GO_RESTART" << std::endl;
-		//TODO: reset game
+		Player::GetInstance()->ResetGame();
 		GameStateManager::GetInstance()->setState(GS_PLAYING);
 	}
 	default:
