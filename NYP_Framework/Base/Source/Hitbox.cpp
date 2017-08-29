@@ -47,6 +47,7 @@ bool Hitbox::CollisionResponse(GenericEntity * ThatEntity)
 		{
 			ThatEntity->ApplyDamage(m_dmg);
 			this->m_active = false;
+			this->m_bCollider = false;
 		}
 	}
 	else
@@ -55,6 +56,8 @@ bool Hitbox::CollisionResponse(GenericEntity * ThatEntity)
 		{
 			Player* ThatEntity1 = dynamic_cast<Player*>(ThatEntity);
 			ThatEntity1->TakeDamage(m_dmg);
+			this->m_active = false;
+			this->m_bCollider = false;
 		}
 	}
 	return false;
