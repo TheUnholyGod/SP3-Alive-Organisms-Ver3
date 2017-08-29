@@ -75,6 +75,7 @@ GenericEntity* Create::Entity(	const std::string& _meshName,
 	result->SetPosition(_position);
 	result->SetScale(_scale);
 	result->SetCollider(false);
+	result->SetTileID(-1);
 	EntityManager::GetInstance()->AddEntity(result);
 	return result;
 }

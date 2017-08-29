@@ -28,7 +28,7 @@ public:
 		type = GenericEntity::ENVIORNMENT_OBJ;
 	}
 
-	~TileEntity();
+	virtual ~TileEntity();
 
 	Vector3 GetDir();
 	virtual void Update(double);

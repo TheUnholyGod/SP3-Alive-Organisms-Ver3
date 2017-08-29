@@ -15,10 +15,10 @@ system.
 #include "Particle.h"
 #include "MeshList.h"
 
-class ParticleEffect : public GenericEntity
+class ParticleEffect : public EntityBase
 {
 public:
-	ParticleEffect() : GenericEntity(MeshList::GetInstance()->GetMesh("quad")) {};
+	ParticleEffect();// : GenericEntity(MeshList::GetInstance()->GetMesh("quad")) {};
 	ParticleEffect(Vector3 pos, Vector3 vel, EFFECT_TYPE type, double effect_life_span, double particle_life_span);
 	virtual ~ParticleEffect() 
 	{

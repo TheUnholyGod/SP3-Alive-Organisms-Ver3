@@ -120,11 +120,10 @@ void CollisionManager::Update(std::list<EntityBase*> collisionList)
 
 		if ((*it)->GetIsStatic())
 			break;
-		if ((*it)->GetIsParticleEmitter())
-			continue;
 
 		for (it2 = std::next(it, 1); it2 != collisionList.end(); ++it2)
 		{
+
 			if (!(*it)->HasCollider() || !(*it2)->HasCollider())
 			{
 				continue;
