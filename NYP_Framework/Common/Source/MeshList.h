@@ -16,6 +16,7 @@ using std::map;
 class MeshList : public Singleton<MeshList>
 {
 public:
+	friend Singleton<MeshList>;
 
 	Mesh* GetMesh(const string& _meshName);
 	void AddMesh(const string& _meshName, Mesh* _newMesh);

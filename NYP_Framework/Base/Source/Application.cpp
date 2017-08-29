@@ -153,11 +153,8 @@ void Application::Run()
         m_timer.waitUntil(frameTime);       // Frame rate limiter. Limits each frame to a specified time in ms.   
 		
 	}
+
 	SceneManager::GetInstance()->Exit();
-	EntityManager::GetInstance()->Exit();
-	MapManager::GetInstance()->DeleteAllLevels();
-	UIManager::GetInstance()->Exit();
-	UIManager::GetInstance()->Destroy();
 }
 
 void Application::Exit()
@@ -390,9 +387,9 @@ void Application::InitAllMeshes()
 
 		MeshList::GetInstance()->AddMesh("hot_bar", MeshBuilder::GetInstance()->GenerateQuad("hotbar", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("hot_bar")->textureID = LoadTGA("Image//hotbar.tga");
-
+/*
 		MeshList::GetInstance()->AddMesh("HP", MeshBuilder::GetInstance()->GenerateQuad("HPtext", 1, 1.f));
-		MeshList::GetInstance()->GetMesh("HP")->textureID = LoadTGA("Image//HP.tga");
+		MeshList::GetInstance()->GetMesh("HP")->textureID = LoadTGA("Image//HP.tga");*/
 
 		MeshList::GetInstance()->AddMesh("bow", MeshBuilder::GetInstance()->GenerateQuad("bowweapon", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("bow")->textureID = LoadTGA("Image//bow.tga");

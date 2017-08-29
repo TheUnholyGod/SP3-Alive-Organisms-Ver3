@@ -53,10 +53,6 @@ public:
 	}
 	virtual ~EnemyBase() 
 	{
-		if (animation)
-			delete animation;
-		if (animation2)
-			delete animation2;
 	};
 
 	virtual void Update(double _dt);
