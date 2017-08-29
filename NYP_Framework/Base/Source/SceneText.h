@@ -10,7 +10,8 @@
 #include "MatrixStack.h"
 #include "GenericEntity.h"
 #include "minimap.h"
-#include"../Source/Manager/HUDManager.h"
+#include "../Source/Manager/HUDManager.h"
+#include "EntityManager.h"
 class ShaderProgram;
 class SceneManager;
 class TextEntity;

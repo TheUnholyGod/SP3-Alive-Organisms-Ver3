@@ -16,6 +16,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+//Memory leak checking
+#include <vld.h>
+
 #include "LoadTGA.h"
 #include "Utility.h"
 
@@ -151,6 +154,7 @@ void Application::Run()
 		
 	}
 	SceneManager::GetInstance()->Exit();
+	EntityManager::GetInstance()->Exit();
 }
 
 void Application::Exit()
