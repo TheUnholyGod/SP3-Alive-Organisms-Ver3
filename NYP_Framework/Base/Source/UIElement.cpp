@@ -155,6 +155,12 @@ void UIElement::Response()
 		GameStateManager::GetInstance()->setState(GS_MAINMENU);
 		break;
 	}
+	case UI_GO_RESTART:
+	{
+		std::cout << "UI_GO_RESTART" << std::endl;
+		//TODO: reset game
+		GameStateManager::GetInstance()->setState(GS_PLAYING);
+	}
 	default:
 		std::cout << "Nothing!" << std::endl;
 		break;
