@@ -4,6 +4,9 @@
 #include "EntityManager.h"
 #include "PlayerInfo\PlayerInfo.h"
 #include "MapManager.h"
+#include "GraphicsManager.h"
+#include "Mtx44.h"
+#include "RenderHelper.h"
 
 Hitbox::Hitbox(Mesh * _modelMesh) : GenericEntity(_modelMesh)
 {
@@ -33,7 +36,7 @@ void Hitbox::Update(double _dt)
 		return;
 	m_hbtimer += _dt;
 	if (m_hbtimer > m_hbdeftimer)
-		this->SetActive(false);
+		this->m_active = false;
 }
 
 void Hitbox::Render()
@@ -41,7 +44,13 @@ void Hitbox::Render()
 	if (!this->m_active)
 		return;
 
-	Collision::Render();
+	MS& modelStack = GraphicsManager::GetInstance()->GetModelStack();
+	modelStack.PushMatrix();
+	modelStack.Translate(this->position.x, this->position.y, this->position.z);
+	modelStack.Scale(this->scale.x, this->scale.y, this->scale.z);
+	RenderHelper::RenderMesh(this->modelMesh);
+	modelStack.PopMatrix();
+	
 }
 
 bool Hitbox::CollisionResponse(GenericEntity * ThatEntity)

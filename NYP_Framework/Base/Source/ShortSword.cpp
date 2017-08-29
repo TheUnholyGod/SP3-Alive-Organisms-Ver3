@@ -21,7 +21,7 @@ void ShortSword::Init(Player * _owner)
     this->m_owner = _owner;
     for (int i = COMBO_BASIC1; i < NUM_COMBO; ++i)
     {
-		this->m_hitbox[i] = Create::HitboxEntity("q", Vector3(), Vector3(0.5, 0.5, 1), this);
+		this->m_hitbox[i] = Create::HitboxEntity("att", Vector3(), Vector3(0.5, 0.5, 1), this);
         this->m_hitbox[i]->SetSize(Vector3(1, 1, 1));
     }
 	m_curr_combo = 0;
