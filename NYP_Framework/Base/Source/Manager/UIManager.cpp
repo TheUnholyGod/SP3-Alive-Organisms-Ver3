@@ -52,7 +52,10 @@ void UIManager::Init()
 	//Gamover
 	Create::UI("gameover_screen", UI_BACKGROUND, GAMESTATE::GS_GAMEOVER, 1, 1, 0, 0, 0);
 	Create::UI("restart_button", UI_GO_RESTART, GAMESTATE::GS_GAMEOVER, 0.25, 0.1, 0, -0.33, 1);
-	
+
+	//loading screen
+	Create::UI("gameover_screen", UI_BACKGROUND, GAMESTATE::GS_LOADING, 1, 1, 0, 0, 0);
+
 	//Level complete screen
 	Create::UI("castle", UI_BACKGROUND, GAMESTATE::GS_LEVELCOMPLETE, 1, 1, 0, 0, 0);
 }

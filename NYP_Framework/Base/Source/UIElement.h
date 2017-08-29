@@ -34,6 +34,8 @@ enum UI_TYPE
 
 	UI_GO_RESTART,
 
+	UI_LOAD,
+
 	UI_TOTAL
 };
 
