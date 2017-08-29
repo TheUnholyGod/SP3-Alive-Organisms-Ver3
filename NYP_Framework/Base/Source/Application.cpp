@@ -262,10 +262,10 @@ void Application::InitAllMeshes()
 		MeshBuilder::GetInstance()->GenerateSpriteAnimation("Running_Animationleft", 1, 3, 1.0f);
 		MeshList::GetInstance()->GetMesh("Running_Animationleft")->textureID = LoadTGA("Image//runningleft.tga");
 
-		MeshBuilder::GetInstance()->GenerateSpriteAnimation("Jumping_Animation", 1, 1, 1.0f);
+		MeshBuilder::GetInstance()->GenerateSpriteAnimation("Jumping_Animation", 1, 2, 1.0f);
 		MeshList::GetInstance()->GetMesh("Jumping_Animation")->textureID = LoadTGA("Image//jumping.tga");
 
-		MeshBuilder::GetInstance()->GenerateSpriteAnimation("Climbing_Animation", 1, 1, 1.0f);
+		MeshBuilder::GetInstance()->GenerateSpriteAnimation("Climbing_Animation", 1, 2, 1.0f);
 		MeshList::GetInstance()->GetMesh("Climbing_Animation")->textureID = LoadTGA("Image//climbing.tga");
 
 		MeshBuilder::GetInstance()->GenerateSpriteAnimation("explosion", 5, 5, 1.0f);

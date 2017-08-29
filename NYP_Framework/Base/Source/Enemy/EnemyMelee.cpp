@@ -44,7 +44,7 @@ void EnemyMelee::Update(double _dt)
 		Create::Particle("particle",
 			position,
 			Vector3(0, 0, 0),
-			EFFECT_TYPE::EFT_HIT, 0.5, 0.5,
+			EFFECT_TYPE::EFT_HIT, 0.3, 0.3,
 			Player::GetInstance()->GetIsFightingBoss());
 
 		this->SetIsDone(true);
@@ -369,7 +369,7 @@ void EnemyMelee::Attack()
 			Create::Particle("particle", 
 				Player::GetInstance()->GetPosition(), 
 				Vector3(0, 0, 0), 
-				EFFECT_TYPE::EFT_HIT, 0.5, 0.5, 
+				EFFECT_TYPE::EFT_HIT, 0.3, 0.3, 
 				Player::GetInstance()->GetIsFightingBoss());
 			
 		}
