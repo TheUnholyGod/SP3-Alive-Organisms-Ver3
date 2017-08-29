@@ -56,10 +56,10 @@ void PlagueChargeStrategy::Update(double dt)
 	{
 		Vector3 temp_pos = this->m_parent->GetPosition() + this->m_velocity * dt;
 		//this->m_parent->SetPosition(this->m_parent->GetPosition() + this->m_velocity * dt);
-		if (temp_pos.x > 101 && temp_pos.x < 112)
+		if (temp_pos.x > 100.5 && temp_pos.x < 111.5)
 		{
 			this->m_parent->SetPosition(Vector3(temp_pos.x, this->m_parent->GetPosition().y, this->m_parent->GetPosition().z));
-			if (temp_pos.y > 101 && temp_pos.y < 112)
+			if (temp_pos.y > 100.5 && temp_pos.y < 111.5)
 			{
 				this->m_parent->SetPosition(Vector3(this->m_parent->GetPosition().x, temp_pos.y, this->m_parent->GetPosition().z));
 			}
