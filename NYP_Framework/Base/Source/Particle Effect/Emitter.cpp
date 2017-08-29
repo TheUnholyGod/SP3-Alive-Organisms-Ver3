@@ -27,7 +27,7 @@ void Emitter::update(double dt)
 		particle->m_isActive = true;
 		particle->m_scale = Vector3(.1, .1, .1);
 		/*REDO: Based on velocity user input.*/
-		particle->m_velocity = Vector3(Math::RandFloatMinMax(-1, 1), 5, Math::RandFloatMinMax(-1, 1));
+		particle->m_velocity = Vector3(Math::RandFloatMinMax(-1, 1), Math::RandFloatMinMax(-1, 1), Math::RandFloatMinMax(-1, 1));
 		++m_liveParticleCount;
 	}
 	/*Update particles*/
@@ -46,6 +46,7 @@ void Emitter::update(double dt)
 			p->m_position = this->m_position;
 			--m_liveParticleCount;
 		}
+
 		//Update particles based on type
 		switch (m_effect_type)
 		{
@@ -54,7 +55,13 @@ void Emitter::update(double dt)
 			p->m_velocity += Vector3(0, -9.8, 0) * dt;
 			p->m_position += p->m_velocity * dt;
 			continue;
-		}	
+		}
+		case EFT_HIT:
+		{
+			p->m_velocity += Vector3(0, -9.8, 0) * dt;
+			p->m_position += p->m_velocity * dt;
+			continue;
+		}
 		/*Add more particle types here*/
 		default:
 			continue;

@@ -27,7 +27,7 @@ EnemyMelee::EnemyMelee(Mesh * mesh,
 	this->SetCollider(have_collider);
 	this->SetPhysic(have_physic);
 	this->SetStatic(false);
-
+	this->m_health = 100;
 	this->GenerateAABB(this->position);
 	m_state = AI_STATES::AI_PATROL;
 	dir = true;
@@ -39,6 +39,17 @@ EnemyMelee::~EnemyMelee()
 
 void EnemyMelee::Update(double _dt)
 {
+	if (this->m_health <= 0)
+	{
+		Create::Particle("particle",
+			Player::GetInstance()->GetPosition(),
+			Vector3(0, 0, 0),
+			EFFECT_TYPE::EFT_HIT, 0.5, 0.5,
+			Player::GetInstance()->GetIsFightingBoss());
+
+		this->SetIsDone(true);
+	}
+
 	//Create AABB for collision
 	this->GenerateAABB(this->position);
 
@@ -285,7 +296,7 @@ void EnemyMelee::Detect(double dt)
 	{
 		//isPathFound = false;
 		//m_path.clear();
-		m_attackCooldown = 1;
+		m_attackCooldown = 0.8;
 		m_state = AI_ATTACK;
 	}
 	else if (dist > 10)
@@ -357,8 +368,8 @@ void EnemyMelee::Attack()
 			Player::GetInstance()->TakeDamage(20);
 			Create::Particle("particle", 
 				Player::GetInstance()->GetPosition(), 
-				Vector3(20, 0, 0), 
-				EFFECT_TYPE::EFT_FIRE, 0.5, 0.3, 
+				Vector3(0, 0, 0), 
+				EFFECT_TYPE::EFT_HIT, 0.5, 0.5, 
 				Player::GetInstance()->GetIsFightingBoss());
 			
 		}

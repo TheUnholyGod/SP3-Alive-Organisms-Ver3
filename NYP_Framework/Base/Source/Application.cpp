@@ -233,7 +233,7 @@ void Application::InitAllMeshes()
 		MeshBuilder::GetInstance()->GenerateQuad("quad", Color(1, 1, 1), 1.f);
 		MeshBuilder::GetInstance()->GenerateQuad("redquad", Color(1, 0, 0), 1.f);
         MeshBuilder::GetInstance()->GenerateQuad("q", Color(0, 1, 0), 1.f);
-		MeshBuilder::GetInstance()->GenerateQuad("particle", Color(0.6, 0.6, 1), 1.f);
+		MeshBuilder::GetInstance()->GenerateQuad("particle", Color(1, 0, 0), 1.f);
 		MeshBuilder::GetInstance()->GenerateQuad("enemy", Color(1, 0, 0), 1.f);
 		MeshBuilder::GetInstance()->GenerateQuadBackground("background", Color(1, 1, 1), 1.f);
 		MeshList::GetInstance()->GetMesh("background")->textureID = LoadTGA("Image//background.tga");
