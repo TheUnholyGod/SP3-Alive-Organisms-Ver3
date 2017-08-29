@@ -7,7 +7,7 @@
 FamineBoss::FamineBoss() : m_strats(new FamineStrategy*[NUM_STATES])
 {
 	this->isStatic = false;
-
+	type = ENEMY_OBJ;
 }
 
 FamineBoss::~FamineBoss()

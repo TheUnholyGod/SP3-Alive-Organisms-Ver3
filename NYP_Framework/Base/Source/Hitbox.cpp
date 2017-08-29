@@ -48,7 +48,7 @@ bool Hitbox::CollisionResponse(GenericEntity * ThatEntity)
 {
 	if (this->m_parent)
 	{
-		if (ThatEntity->type == ENEMY_OBJ)
+		if (ThatEntity->type == ENEMY_OBJ || ThatEntity->type == PLAGUE_MAGGOT_OBJ)
 		{
 			ThatEntity->ApplyDamage(Player::GetInstance()->GetDamage());
 			this->m_active = false;
