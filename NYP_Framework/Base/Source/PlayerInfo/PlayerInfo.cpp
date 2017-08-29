@@ -44,6 +44,17 @@ Player::Player(void)
 Player::~Player(void)
 {
 	m_pTerrain = NULL;
+	delete animation;
+	delete animationWalking;
+	delete animationWalkingLeft;
+	delete animationClimbing;
+	delete animationJumping;
+	delete attachedCamera;
+	
+	for (int i = 0; i < 2; ++i)
+	{
+		delete m_player_equipment[i];
+	}
 }
 
 // Initialise this class instance
