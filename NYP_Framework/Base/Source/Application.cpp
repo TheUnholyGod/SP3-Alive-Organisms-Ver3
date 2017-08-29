@@ -155,6 +155,7 @@ void Application::Run()
 	}
 	SceneManager::GetInstance()->Exit();
 	EntityManager::GetInstance()->Exit();
+	MapManager::GetInstance()->DeleteAllLevels();
 }
 
 void Application::Exit()

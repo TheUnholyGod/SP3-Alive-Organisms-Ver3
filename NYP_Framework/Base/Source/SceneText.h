@@ -12,6 +12,8 @@
 #include "minimap.h"
 #include "../Source/Manager/HUDManager.h"
 #include "EntityManager.h"
+#include "MapManager.h"
+
 class ShaderProgram;
 class SceneManager;
 class TextEntity;
