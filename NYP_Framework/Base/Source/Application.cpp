@@ -308,6 +308,7 @@ void Application::InitAllMeshes()
 		//UI
 		MeshList::GetInstance()->AddMesh("main_menu", MeshBuilder::GetInstance()->GenerateQuad("menu", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("main_menu")->textureID = LoadTGA("Image//menu.tga");
+
 		MeshList::GetInstance()->AddMesh("gameover_screen", MeshBuilder::GetInstance()->GenerateQuad("gameover_scrn", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("gameover_screen")->textureID = LoadTGA("Image//gameover_screen.tga");
 		MeshList::GetInstance()->AddMesh("instruction_menu", MeshBuilder::GetInstance()->GenerateQuad("instruction", 1, 1.f));
@@ -379,7 +380,7 @@ void Application::InitAllMeshes()
 		MeshList::GetInstance()->AddMesh("exit_door_block", MeshBuilder::GetInstance()->GenerateQuad("door_exit", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("exit_door_block")->textureID = LoadTGA("Image//door_exit.tga");
 
-		MeshList::GetInstance()->AddMesh("arrow_projectile", MeshBuilder::GetInstance()->GenerateQuad("arrow", 1, 1.f));
+		MeshList::GetInstance()->AddMesh("arrow_projectile", MeshBuilder::GetInstance()->GenerateQuad("arrow_proj", 1, 1.f));
 		MeshList::GetInstance()->GetMesh("arrow_projectile")->textureID = LoadTGA("Image//arrow.tga");
 
 		MeshList::GetInstance()->AddMesh("health_bar", MeshBuilder::GetInstance()->GenerateQuad("health", 1, 1.f));
