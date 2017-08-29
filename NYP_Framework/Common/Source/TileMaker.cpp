@@ -13,6 +13,8 @@ TileMaker::TileMaker()
 
 TileMaker::~TileMaker()
 {
+	this->tile_set_base->Exit();
+	delete tile_set_base;
 }
 
 /*

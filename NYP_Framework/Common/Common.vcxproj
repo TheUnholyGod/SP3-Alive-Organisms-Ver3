@@ -43,8 +43,6 @@
     <ClCompile Include="Source\Win32Input.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Database.h" />
-    <ClInclude Include="DatabaseManager.h" />
     <ClInclude Include="Source\Audio\AudioPlayer.h" />
     <ClInclude Include="Source\Audio\sound.h" />
     <ClInclude Include="Source\CameraBase.h" />
