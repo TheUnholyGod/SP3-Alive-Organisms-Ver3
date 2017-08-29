@@ -27,7 +27,7 @@ EnemyMelee::EnemyMelee(Mesh * mesh,
 	this->SetCollider(have_collider);
 	this->SetPhysic(have_physic);
 	this->SetStatic(false);
-	this->m_health = 100;
+	this->m_health = 30;
 	this->GenerateAABB(this->position);
 	m_state = AI_STATES::AI_PATROL;
 	dir = true;
@@ -362,7 +362,7 @@ void EnemyMelee::Attack()
 		if (CollisionManager::GetInstance()->CheckAABBCollision(this, Player::GetInstance()))
 		{
 			std::cout << "Dealt 20 damage to player" << std::endl;
-			Player::GetInstance()->TakeDamage(20);
+			Player::GetInstance()->TakeDamage(10);
 			Create::Particle("particle", 
 				Player::GetInstance()->GetPosition(), 
 				Vector3(0, 0, 0), 
