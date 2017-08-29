@@ -7,6 +7,7 @@
 #include "EntityManager.h"
 #include "TileEntity.h"
 #include "Application.h"
+#include "Hitbox.h"
 #include "GL\glew.h"
 
 CMinimap::CMinimap()
@@ -201,11 +202,11 @@ void CMinimap::RenderUI()
 			modelStack.Translate((entities[i]->GetPosition().x - playerPos.x) / 10, (entities[i]->GetPosition().y - playerPos.y) / 10, 0.001);
 			modelStack.Scale(0.1, 0.1, 1);
 			break;
-		}	
+		}
 		case TileEntity::TOP_PLATFORM:
 		{
 			m_cMinimap_Target = MeshList::GetInstance()->GetMesh("platform_block");
-			modelStack.Translate((entities[i]->GetPosition().x - playerPos.x) / 10, (entities[i]->GetPosition().y - playerPos.y) / 9.9, 0.001); 
+			modelStack.Translate((entities[i]->GetPosition().x - playerPos.x) / 10, (entities[i]->GetPosition().y - playerPos.y) / 9.9, 0.001);
 			modelStack.Scale(0.1, 0.03, 1);
 			break;
 		}
@@ -215,7 +216,7 @@ void CMinimap::RenderUI()
 			modelStack.Translate((entities[i]->GetPosition().x - playerPos.x) / 10, (entities[i]->GetPosition().y - playerPos.y) / 10, 0.001);
 			modelStack.Scale(0.1, 0.1, 1);
 			break;
-		}				
+		}
 		case TileEntity::LADDERWITHPLATFORM:
 		{
 			m_cMinimap_Target = MeshList::GetInstance()->GetMesh("platform_ladder_block");
@@ -229,7 +230,7 @@ void CMinimap::RenderUI()
 			modelStack.Translate((entities[i]->GetPosition().x - playerPos.x) / 10, (entities[i]->GetPosition().y - playerPos.y) / 10, 0.001);
 			modelStack.Scale(0.1, 0.1, 1);
 			break;
-		}		
+		}
 		case TileEntity::BOSS_DOOR:
 		{
 			m_cMinimap_Target = MeshList::GetInstance()->GetMesh("door_block");
@@ -238,10 +239,13 @@ void CMinimap::RenderUI()
 			break;
 		}
 		default:
+		{
+			if (dynamic_cast<Hitbox*>(entities[i]))break;
 			m_cMinimap_Target = MeshList::GetInstance()->GetMesh("redquad");
 			modelStack.Translate((entities[i]->GetPosition().x - playerPos.x) / 10, (entities[i]->GetPosition().y - playerPos.y) / 10, 0.001);
 			modelStack.Scale(0.05, 0.05, 1);
 			break;
+		}
 		}
 		//modelStack.Translate((entities[i]->GetPosition().x - playerPos.x) / 10, (entities[i]->GetPosition().y - playerPos.y) / 10, 0.01);
 		//modelStack.Scale(0.1, 0.1, 1);

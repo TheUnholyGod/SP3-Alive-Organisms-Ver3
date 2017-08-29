@@ -19,6 +19,7 @@
 #include "../ShortSword.h"
 #include "../Bow.h"
 #include "../Manager/GameStateManager.h"
+#include "../FamineBoss.h"
 
 Player::Player(void)
 	: GenericEntity(MeshList::GetInstance()->GetMesh("player"))
@@ -910,6 +911,10 @@ void Player::SetIsFightingBoss(bool is_fighting)
 		m_isFightingBoss = false;
 		position.Set(last_position.x, last_position.y + 0.01, last_position.z);
 		m_isKilledBoss = true;
+		FamineBoss* pb = new FamineBoss();
+		pb->SetPosition(Vector3(111, 102, 0));
+		pb->Init();
+		EntityManager::GetInstance()->AddEntity(pb, true);
 	}
 }
 
