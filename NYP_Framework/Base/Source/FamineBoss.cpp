@@ -1,13 +1,13 @@
 #include "FamineBoss.h"
 #include "FamineMeleeStrategy.h"
 #include "FamineProjectileStrategy.h"
-
+#include "ArchProjectile.h"
 #include "Hitbox.h"
 
 FamineBoss::FamineBoss() : m_strats(new FamineStrategy*[NUM_STATES])
 {
 	this->isStatic = false;
-
+	type = ENEMY_OBJ;
 }
 
 FamineBoss::~FamineBoss()
@@ -28,6 +28,9 @@ void FamineBoss::Init()
 		GenericEntity* hb = Create::HitboxEntity("quad", Vector3(), Vector3(1, 1, 0), nullptr, true);
 		hb->type = GenericEntity::FAMINE_HITBOX_OBJ;
 		this->m_entitylist.push_back(hb);
+		GenericEntity* p = Create::CreateArchProjectile("q", Vector3(), Vector3(1, 1, 1), nullptr, true);
+		p->type = FAMINE_PROJECTILE_OBJ;
+		this->m_entitylist.push_back(p);
 	}
 	m_changestatetimer = 0;
 	m_defchangestatetimer = 5;
@@ -38,7 +41,7 @@ void FamineBoss::Init()
 	this->scale = Vector3(1, 1, 1);
 	this->isStatic = false;
 	this->m_bCollider = true;
-	this->tile_ID = 0;
+	this->tile_ID = -1;
 }
 
 void FamineBoss::Update(double _dt)
@@ -76,8 +79,7 @@ bool FamineBoss::CollisionResponse(GenericEntity *)
 
 bool FamineBoss::GetNextState()
 {
-	//m_currstate = static_cast<PLAGUESTATES>(Math::RandIntMinMax(STATE_SUMMON, STATE_CHARGE));
-	m_currstate = STATE_ATTACK;
+	m_currstate = static_cast<FAMINESTATES>(Math::RandIntMinMax(STATE_ATTACK, STATE_PROJECTILE));
 	this->m_strats[m_currstate]->Init();
 	return false;
 }

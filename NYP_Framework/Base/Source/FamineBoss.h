@@ -4,6 +4,8 @@
 #include "Enemy\EnemyBossBase.h"
 #include <vector>
 
+class ArchProjectile;
+
 class FamineStrategy;
 
 class FamineBoss : public EnemyBossBase
